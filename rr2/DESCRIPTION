@@ -1,7 +1,7 @@
 Package: rr2
 Type: Package
 Title: R2s for Regression Models
-Version: 1.1.0
+Version: 1.1.1
 Authors@R: c(
     person("Anthony", "Ives", , "arives@wisc.edu", c("aut", "cre")),
     person("Daijiang", "Li", , "daijianglee@gmail.com", role = "ctb"))
@@ -14,15 +14,15 @@ Depends: R (>= 3.0), stats
 Encoding: UTF-8
 Imports: lme4, phylolm (>= 2.6.2), ape, utils, Matrix, nlme, phyr (>=
         1.0.3)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Suggests: testthat, mvtnorm
 URL: https://github.com/arives/rr2
 BugReports: https://github.com/arives/rr2/issues
 NeedsCompilation: no
-Packaged: 2022-11-18 19:27:45 UTC; dli
+Packaged: 2023-08-21 13:34:14 UTC; arives
 Author: Anthony Ives [aut, cre],
   Daijiang Li [ctb]
 Maintainer: Anthony Ives <arives@wisc.edu>
 Repository: CRAN
-Date/Publication: 2022-11-18 19:50:02 UTC
-Built: R 4.3.0; ; 2023-07-07 04:01:56 UTC; unix
+Date/Publication: 2023-08-21 14:20:04 UTC
+Built: R 4.5.0; ; 2026-09-01 21:20:23 UTC; unix

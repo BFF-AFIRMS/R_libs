@@ -1,3 +1,7 @@
+[.Hist                  Subset an event history object
+as_tibble.prodlim       Turn prodlim objects into a 'tibble'
+as.data.frame.prodlim   Turn prodlim objects into a data.frame
+as.data.table.prodlim   Turn prodlim objects into a 'data.table'
 atRisk                  Drawing numbers of subjects at-risk of
                         experiencing an event below Kaplan-Meier and
                         Aalen-Johansen plots.
@@ -9,9 +13,17 @@ confInt                 Add point-wise confidence limits to the graphs
 crModel                 Competing risks model for simulation
 dimColor                Dim a given color to a specified density
 EventHistory.frame      Event history frame
+followup                Estimation of the median potential followup
+                        time.
+geom_prodlim            Product-limit geoms for survival and competing
+                        risks curves
 getEvent                Extract a column from an event history object.
 getStates               States of a multi-state model
-Hist                    Create an event history response variable
+ggprodlim               ggplot2 support for prodlim objects
+head.Hist               Check the head of an event history object
+Hist                    Create an event history object
+is.na.Hist              Check for missing values in event history
+                        object
 jackknife               Compute jackknife pseudo values.
 leaveOneOut             Compute jackknife pseudo values.
 List2Matrix             Reduce list to a matrix or data.frame with
@@ -23,6 +35,7 @@ meanNeighbors           Helper function to obtain running means for
 model.design            Extract a design matrix and specials from a
                         model.frame
 neighborhood            Nearest neighborhoods for kernel smoothing
+parseFormula            Parse Formula
 parseSpecialNames       Parse special terms
 PercentAxis             Percentage-labeled axis.
 plot.Hist               Box-arrow diagrams for multi-state models.
@@ -34,8 +47,7 @@ predict.prodlim         Predicting event probabilities from product
                         limit estimates
 predictSurvIndividual   Predict individual survival probabilities
 print.prodlim           Print objects in the prodlim library
-prodlim                 Functions for estimating probabilities from
-                        right censored data
+prodlim                 product limit method
 quantile.prodlim        Quantiles for Kaplan-Meier and Aalen-Johansen
                         estimates.
 redist                  Calculation of Efron's re-distribution to the
@@ -48,7 +60,10 @@ sindex                  Index for evaluation of step functions.
 SmartControl            Function to facilitate the control of arguments
                         passed to subroutines.
 stopTime                Stop the time of an event history object
+str.Hist                Check the structure of an event history object
 strip.terms             Strip special functions from terms
+subset.Hist             Subset an event history object
 summary.Hist            Summary of event histories
 summary.prodlim         Summary method for prodlim objects.
 survModel               Survival model for simulation
+tail.Hist               Check the tail of an event history object

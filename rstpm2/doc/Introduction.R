@@ -10,7 +10,7 @@ library(rstpm2)
 
 
 ###################################################
-### code chunk number 2: Introduction.Rnw:234-242
+### code chunk number 2: Introduction.Rnw:239-247
 ###################################################
 brcancer <- transform(brcancer, recyear=rectime / 365.24)
 fit <- stpm2(Surv(recyear,censrec==1)~hormon, data=brcancer, df=4)
@@ -23,7 +23,7 @@ rbind(cox=eform(fit.cox),
 
 
 ###################################################
-### code chunk number 3: Introduction.Rnw:250-255
+### code chunk number 3: Introduction.Rnw:255-260
 ###################################################
 plot(fit, newdata=data.frame(hormon=0), xlab="Time since diagnosis (years)")
 lines(fit, newdata=data.frame(hormon=1), lty=2)
@@ -33,7 +33,7 @@ legend("topright", c("PH hormon=0","PH hormon=1","KM hormon=0","KM hormon=1"),
 
 
 ###################################################
-### code chunk number 4: Introduction.Rnw:258-262
+### code chunk number 4: Introduction.Rnw:263-267
 ###################################################
 plot(fit,newdata=data.frame(hormon=1), type="hazard",
      xlab="Time since diagnosis (years)", ylim=c(0,0.3))
@@ -42,7 +42,7 @@ legend("topright", c("hormon=1","hormon=0"),lty=1:2,col=1:2,bty="n")
 
 
 ###################################################
-### code chunk number 5: Introduction.Rnw:269-273
+### code chunk number 5: Introduction.Rnw:274-278
 ###################################################
 plot(fit,newdata=data.frame(hormon=0), type="hdiff",
      exposed=function(data) transform(data, hormon=1),
@@ -51,7 +51,7 @@ plot(fit,newdata=data.frame(hormon=0), type="hdiff",
 
 
 ###################################################
-### code chunk number 6: Introduction.Rnw:275-279
+### code chunk number 6: Introduction.Rnw:280-284
 ###################################################
 plot(fit,newdata=data.frame(hormon=0), type="sdiff",
      exposed=function(data) transform(data, hormon=1),
@@ -60,7 +60,7 @@ plot(fit,newdata=data.frame(hormon=0), type="sdiff",
 
 
 ###################################################
-### code chunk number 7: Introduction.Rnw:290-299
+### code chunk number 7: Introduction.Rnw:295-304
 ###################################################
 brcancer <- transform(brcancer, recyear=rectime / 365.24)
 fit <- stpm2(Surv(recyear,censrec==1)~hormon, data=brcancer, link.type="AH")
@@ -74,7 +74,7 @@ legend("topright", c("AH hormon=0","AH hormon=1","KM hormon=0","KM hormon=1"),
 
 
 ###################################################
-### code chunk number 8: Introduction.Rnw:303-311
+### code chunk number 8: Introduction.Rnw:308-316
 ###################################################
 fit <- stpm2(Surv(recyear,censrec==1)~1, data=brcancer, link.type="AH",
              smooth.formula=~ns(sqrt(recyear),df=3)+hormon:ns(recyear,df=3))
@@ -87,7 +87,7 @@ legend("topright", c("AH hormon=0","AH hormon=1","KM hormon=0","KM hormon=1"),
 
 
 ###################################################
-### code chunk number 9: Introduction.Rnw:334-338
+### code chunk number 9: Introduction.Rnw:339-343
 ###################################################
 
 options(width=80,useFancyQuotes="UTF-8")
@@ -96,7 +96,7 @@ library(rstpm2)
 
 
 ###################################################
-### code chunk number 10: Introduction.Rnw:340-353
+### code chunk number 10: Introduction.Rnw:345-358
 ###################################################
 
 popmort2 <- transform(rstpm2::popmort,exitage=age,exityear=year,age=NULL,year=NULL)
@@ -114,7 +114,7 @@ colon2 <- merge(colon2,popmort2)
 
 
 ###################################################
-### code chunk number 11: Introduction.Rnw:357-362
+### code chunk number 11: Introduction.Rnw:362-367
 ###################################################
 
 fit0 <- stpm2(Surv(tm,status %in% 2:3)~I(year8594=="Diagnosed 85-94"),
@@ -124,7 +124,7 @@ fit0 <- stpm2(Surv(tm,status %in% 2:3)~I(year8594=="Diagnosed 85-94"),
 
 
 ###################################################
-### code chunk number 12: Introduction.Rnw:364-371
+### code chunk number 12: Introduction.Rnw:369-376
 ###################################################
 
 summary(fit <- stpm2(Surv(tm,status %in% 2:3)~I(year8594=="Diagnosed 85-94"),
@@ -136,7 +136,7 @@ predict(fit,head(colon2),se.fit=TRUE)
 
 
 ###################################################
-### code chunk number 13: Introduction.Rnw:389-396
+### code chunk number 13: Introduction.Rnw:394-401
 ###################################################
 
 newdata.eof <- data.frame(year8594 = unique(colon2$year8594),
@@ -148,7 +148,7 @@ predict(fit, newdata.eof, type="haz", se.fit=TRUE)
 
 
 ###################################################
-### code chunk number 14: Introduction.Rnw:400-415
+### code chunk number 14: Introduction.Rnw:405-420
 ###################################################
 
 tms=seq(0,10,length=301)[-1]
@@ -168,7 +168,7 @@ legend("topright",c("85-94 without cure","75-84 without cure",
 
 
 ###################################################
-### code chunk number 15: Introduction.Rnw:422-439
+### code chunk number 15: Introduction.Rnw:427-444
 ###################################################
 
 plot(fit0,newdata=data.frame(year8594 = "Diagnosed 85-94", tm=tms), 
@@ -190,7 +190,7 @@ legend("topright",c("85-94 without cure","75-84 without cure",
 
 
 ###################################################
-### code chunk number 16: Introduction.Rnw:445-458
+### code chunk number 16: Introduction.Rnw:450-463
 ###################################################
 
 newdata.eof <- data.frame(year8594 = unique(colon2$year8594),

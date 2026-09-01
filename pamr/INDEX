@@ -15,15 +15,12 @@ pamr.decorrelate        A function to decorrelate (adjust) the feature
                         predictors
 pamr.fdr                A function to estimate false discovery rates
                         for the nearest shrunken centroid classifier
-pamr.from.excel         A function to read in a text file saved from
-                        Excel
 pamr.geneplot           A function to plot the genes that surive the
                         thresholding from the nearest shrunken centroid
                         classifier
 pamr.indeterminate      A function that takes estimate class
                         probabilities and produces a class prediction
                         or indeterminate prediction
-pamr.knnimpute          A function to impute missing expression data
 pamr.listgenes          A function to list the genes that survive the
                         thresholding, from the nearest shrunken
                         centroid classifier
@@ -57,7 +54,5 @@ pamr.test.errors.surv.compute
                         A function giving a table of true versus
                         predicted values, from a nearest shrunken
                         centroid fit from survival data.
-pamr.to.excel           A function to write out a data object into a
-                        tab-delimited text file
 pamr.train              A function to train a nearest shrunken centroid
                         classifier

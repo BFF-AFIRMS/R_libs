@@ -14,6 +14,8 @@ get_levels              Extract factor levels from a data frame
 hardhat-example-data    Example data for hardhat
 hardhat-extract         Generics for object extraction
 importance_weights      Importance weights
+impute_quantiles        Impute additional quantiles from a
+                        'quantile_pred'
 is_blueprint            Is 'x' a preprocessing blueprint?
 is_case_weights         Is 'x' a case weights vector?
 is_frequency_weights    Is 'x' a frequency weights vector?
@@ -21,7 +23,7 @@ is_importance_weights   Is 'x' an importance weights vector?
 model_frame             Construct a model frame
 model_matrix            Construct a design matrix
 model_offset            Extract a model offset
-modeling-package        Create a modeling package
+modeling-usethis        Create a modeling package
 mold                    Mold data for modeling
 new_case_weights        Extend case weights
 new_default_formula_blueprint
@@ -31,10 +33,11 @@ new_frequency_weights   Construct a frequency weights vector
 new_importance_weights
                         Construct an importance weights vector
 new_model               Constructor for a base model
+quantile_pred           Create a vector containing sets of quantiles
 refresh_blueprint       Refresh a preprocessing blueprint
 run-forge               'forge()' according to a blueprint
 run-mold                'mold()' according to a blueprint
-scream                  Scream.
+scream                  Scream
 shrink                  Subset only required columns
 spruce                  Spruce up predictions
 spruce-multiple         Spruce up multi-outcome predictions

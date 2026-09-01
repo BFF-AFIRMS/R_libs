@@ -1,20 +1,69 @@
-rredlist 0.7.1
-===================
+# rredlist 1.1.1
+
+### MINOR IMPROVEMENTS
+
+- Users can now specify multiple elements to extract with `rl_assessment_extract()` (#77)
+
+### BUG FIXES
+
+- Fixed a bug when trying to extract assessment components containing NULL values
+- Fixed the vignettes directory to properly include rendered figures
+
+# rredlist 1.1.0
+
+### NEW FEATURES
+
+- Added `rl_assessment_list()` which is a wrapper for `rl_assessment()` that allows you to retrieve multiple assessments at once (#71).
+- Added `rl_assessment_extract()` which can be used to extract a given element from each of a list of assessments, such as the output of `rl_assessment_list()` (#71).
+
+### MINOR IMPROVEMENTS
+
+- Added a `scope` argument to `rl_sis_latest()` and `rl_species_latest()` to filter the results to a specific scope. The default scope is "1" (i.e., global).
+
+### BUG FIXES
+
+- Fixed `rl_sis_latest()` and `rl_species_latest()` so that, in the event that no assessment has been officially identified as the latest assessment, they will return the most recently published assessment (based on the year that the assessment was published) (@jeffreyhanson, #69).
+
+
+# rredlist 1.0.0
+
+This new major version of `rredlist` tracks the development of the IUCN Red List API. **The API has been upgraded to v4 and this R package has been updated accordingly.** Note that nearly all functionality of the package has changed:
+
+- Most functionality now revolves around retrieving individual or lists of assessments rather than species
+- Functions have been added, removed, and renamed accordingly; all existing endpoints of the new API are covered
+- The structure of the returned data for most functions has changed, reflecting the change in the structure of the API
+
+**Users will need to generate a new API key to use the new version of the API (see `rl_use_iucn()`).**
+
+**This package no longer supports v3 of the IUCN Red List API.** Older versions of the package may be installed if the old version of the API is needed.
+
+### Other major changes and additions
+
+- Switched from performing a single GET call to retrying the GET call if it is rejected or takes too long
+- Several old functions that are no longer supported by the new API have been deprecated and may be removed in a future release of rredlist
+- Improved the user friendliness of rl_use_iucn()
+- Improved type checking of arguments for all functions
+- Added a progress bar for multi-page queries
+- Improved error status code handling and reduced overall query download overhead
+- rl_citation() now returns a bibentry and prints a BibTeX entry
+- Added IUCN color palette scales for ggplot2
+- Added a new vignette demonstrating the use of rredlist within various research pipelines
+- Added a new vignette demonstrating benchmarking of rredlist
+
+# rredlist 0.7.1
 
 William Gearty is now the maintainer of rredlist
 
-rredlist 0.7.0
-===================
+# rredlist 0.7.0
 
 ### MINOR IMPROVEMENTS
 
 * vignette added, but only available on the docs site (#24)
-* when testing, if a iucm redlist key not found, set a dummy key (#41)
+* when testing, if a iucn redlist key not found, set a dummy key (#41)
 * readme improvements (#42)
 * change base url for Red List API to https from http
 
-rredlist 0.6.0
-===================
+# rredlist 0.6.0
 
 ### MINOR IMPROVEMENTS
 
@@ -22,8 +71,7 @@ rredlist 0.6.0
 * fail with useful message when NA's passed to parameters in package functions (#38)
 
 
-rredlist 0.5.0
-===================
+# rredlist 0.5.0
 
 ### NEW FEATURES 
 
@@ -38,8 +86,7 @@ rredlist 0.5.0
 
 
 
-rredlist 0.4.0
-==============
+# rredlist 0.4.0
 
 ### NEW FEATURES
 
@@ -61,8 +108,7 @@ names instead of IDs because IDs can change through time
 
 
 
-rredlist 0.3.0
-==============
+# rredlist 0.3.0
 
 ### NEW FEATURES
 
@@ -88,8 +134,7 @@ API key not required for those methods
 * More thorough test suite
 
 
-rredlist 0.2.0
-==============
+# rredlist 0.2.0
 
 ### NEW FEATURES
 
@@ -110,8 +155,7 @@ that included taxonomic names weren't being processed correctly. It
 is fixed now (#11)
 
 
-rredlist 0.1.0
-==============
+# rredlist 0.1.0
 
 ### NEW FEATURES
 

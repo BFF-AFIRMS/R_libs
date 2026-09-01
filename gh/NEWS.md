@@ -1,20 +1,99 @@
+# gh 1.6.1
+
+* The pagination progress bar now reports the real number of records an
+  endpoint holds, even when `.limit` is set to a large finite value (#239).
+
+# gh 1.6.0
+
+* `gh()` now signals a classed `gh_interrupt` interrupt when a paginated
+  call is interrupted (e.g. via `Ctrl+C` / `Escape`). The condition object
+  carries the records fetched so far on its `$gh_result` field. If the
+  interrupt is not caught, then you can also access it via
+  `rlang::last_error()`, i.e. the partial results are in
+  `rlang::last_error()$gh_result` (#98).
+
+* GitHub PAT format validation now issues a warning by default instead of
+  throwing an error, so a PAT in an unrecognized (e.g. newly introduced)
+  format is still used. Set the `gh_validate_tokens` option or the
+  `GH_VALIDATE_TOKENS` environment to `"off"`, `"warn"` or `"error"`
+  to configure this.
+
+* Token validation now recognizes newer GitHub App installation tokens
+  (`ghs_` prefix) (#231, @jharmon-gilead).
+
+* `gh()` no longer returns empty results when httr2's HTTP cache
+  revalidates a stored response with `304 Not Modified`.
+
+* `gh()` no longer errors on a `304 Not Modified` response. This makes
+  manual conditional requests (e.g. passing `If-None-Match` via
+  `.send_headers`) usable: a 304 returns an empty `gh_response` with the
+  response headers (including the `ETag`) still attached (#219).
+
+* New `fake_github_app()`, a webfakes app that implements a small subset
+  of the GitHub REST API. This app is now used in the gh test suite, and
+  it can be used by upstream package authors as well.
+
+* Token validation now recognizes newer GitHub App installation tokens
+  (`ghs_` prefix) (#231, @jharmon-gilead).
+
+* `gh()` no longer crashes when reporting a GitHub API error whose
+  `errors` field is a plain string rather than the documented array of
+  objects, as happens on some 422 responses (#229).
+
+# gh 1.5.0
+
+## BREAKING CHANGES
+
+### Posit Security Advisory(PSA) - PSA-1649
+
+* Posit acknowledges that the response header may contain sensitive
+  information. (#222) Thank you to @foysal1197 for your thorough research
+  and responsible disclosure.
+
+ `gh()`, and other functions that use it, now do not save the request
+  headers in the returned object. Consequently, if you use the `gh_next()`,
+  `gh_prev()`, `gh_first()` or `gh_last()` functions and passed `.token`
+  and/or `.send_headers` explicitly to the original `gh()` (or similar)
+  call, then you'll also need to pass the same `.token` and/or
+  `.send_headers` to `gh_next()`, `gh_prev()`, `gh_first()` or `gh_last()`.
+
+## OTHER CHANGES
+
+* New `gh_token_exists()` tells you if a valid GH token has been set.
+
+* `gh()` now uses a cache provided by httr2. This cache lives in
+  `tools::R_user_dir("gh", "cache")`, maxes out at 100 MB, and can be
+  disabled by setting `options(gh_cache = FALSE)` (#203).
+
+* `gh_token()` can now pick up on the viewer's GitHub credentials (if any)
+  when running on Posit Connect (@atheriel, #217).
+
+# gh 1.4.1
+
+* `gh_next()`, `gh_prev()`, `gh_first()` and `gh_last()`
+  now work correctly again (#181).
+
+* When the user sets `.destfile` to write the response to disk, gh now
+  writes the output to a temporary file, which is then renamed to
+  `.destfile` after performing the request, or deleted on error (#178).
+
 # gh 1.4.0
 
-* `gh()` gains a new `.max_rate` parameter that sets the maximum number of 
+* `gh()` gains a new `.max_rate` parameter that sets the maximum number of
   requests per second.
 
 * gh is now powered by httr2. This should generally have little impact on normal
-  operation but if a request fails, you can use `httr2::last_response()` and 
+  operation but if a request fails, you can use `httr2::last_response()` and
   `httr2::last_request()` to debug.
-  
-* `gh()` gains a new `.max_wait` argument which gives the maximum number of 
+
+* `gh()` gains a new `.max_wait` argument which gives the maximum number of
   minutes to wait if you are rate limited (#67).
 
-* New `gh_rate_limits()` function reports on all rate limits for the active 
+* New `gh_rate_limits()` function reports on all rate limits for the active
   user.
 
 * gh can now validate GitHub
-  [fine-grained](https://github.blog/2022-10-18-introducing-fine-grained-personal-access-tokens-for-github/)
+  [fine-grained](https://github.blog/security/application-security/introducing-fine-grained-personal-access-tokens-for-github/)
   personal access tokens (@jvstein, #171).
 
 # gh 1.3.1
@@ -62,14 +141,14 @@
 
 * The documentation for the GitHub REST API has moved to
   <https://docs.github.com/rest> and endpoints are now documented using
-  the URI template style of [RFC 6570](https://www.rfc-editor.org/rfc/rfc6570):
+  the URI template style of [RFC 6570](https://datatracker.ietf.org/doc/html/rfc6570):
   - Old: `GET /repos/:owner/:repo/issues`
   - New: `GET /repos/{owner}/{repo}/issues`
 
   gh accepts and prioritizes the new style. However, it still does parameter
   substitution for the old style.
 
-* Fixed an error that occurred when calling `gh()` with `.progress = FALSE` 
+* Fixed an error that occurred when calling `gh()` with `.progress = FALSE`
   (@gadenbuie, #115).
 
 * `gh()` accepts named `NA` parameters that are destined for the request

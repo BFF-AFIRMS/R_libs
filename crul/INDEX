@@ -5,7 +5,6 @@ auth                    Authentication
 content-types           Working with content types
 cookies                 Working with cookies
 crul-options            Set curl options, proxy, and basic auth
-crul-package            crul
 curl_verbose            curl verbose method
 curl-options            curl options
 handle                  Make a handle

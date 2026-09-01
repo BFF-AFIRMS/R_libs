@@ -1,11 +1,5 @@
 aft                     Parametric accelerated failure time model with
                         smooth time functions
-aft_integrated          Parametric accelerated failure time model with
-                        smooth time functions
-aft_integrated-class    Class "stpm2" ~~~
-aft_mixture             Parametric accelerated failure time model with
-                        smooth time functions
-aft_mixture-class       Class "stpm2" ~~~
 aft-class               Class "stpm2" ~~~
 bhazard                 Placemarker function for a baseline hazard
                         function.
@@ -48,14 +42,14 @@ predict-methods         Predicted values for an stpm2 or pstpm2 fit
 predict.nsx             Evaluate a Spline Basis
 predictnl               Estimation of standard errors using the
                         numerical delta method.
-predictnl-methods       ~~ Methods for Function predictnl ~~
+predictnl-methods       Estimation of standard errors using the
+                        numerical delta method.
 pstpm2-class            Class "pstpm2"
 residuals-methods       Residual values for an stpm2 or pstpm2 fit
-Rstpm2-package          Flexible parametric survival models.
 simulate-methods        Simulate values from an stpm2 or pstpm2 fit
 smoothpwc               Utility to use a smooth function in markov_msm
                         based on piece-wise constant values
 stpm2-class             Class "stpm2" ~~~
 tvcCoxph-class          Class '"tvcCoxph"'
-update-methods          Methods for Function update
+voptimize               Vectorised One Dimensional Optimization
 vuniroot                Vectorised One Dimensional Root (Zero) Finding

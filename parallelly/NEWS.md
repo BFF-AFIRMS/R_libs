@@ -1,3 +1,440 @@
+# Version 1.48.0 [2026-06-29]
+
+## New Features
+
+ * `availableCores()` and `availableWorkers()` gained support for R
+   options `parallelly.availableCores.methods.excludes` and
+   `parallelly.availableWorkers.methods.excludes` (with corresponding
+   environment variables) to specify lookup methods to be excluded by
+   default.
+
+ * `makeClusterPSOCK()` and `makeNodePSOCK()` gained argument
+   `rscript_call` to customize the parallel worker loop, which
+   defaults to `parallel:::.workRSOCK()`.
+
+ * Add internal worker loop `parallelly:::workRPSOCK()` that takes
+   optional argument `workCommand` to customize the default
+   `parallel:::workCommand()`.
+   
+ * Analogusly to `availableCores()`, `availableWorkers()` queries also
+   Linux CGroups v2 CPU affinity values `cpuset.cpus` and
+   `cpuset.cpus.effective`.
+   
+
+## Bug Fixes
+
+ * `availableCores(methods = "cgroups2.cpuset.cpus")` would produce
+   "Error : 'length(cpuset) <= max_cores' is not TRUE" if CGroups v2
+   'cpuset.cpus' comprised an empty string.
+ 
+ * `availableCores(methods = "cgroups2.cpuset.cpus.effective")` would
+   produce "Error in if (any(value < 0L | value >= max_cores)) { :
+   missing value where TRUE/FALSE needed" if `parallel::detectCores()`
+   returned a missing value.
+ 
+ * Now `makeClusterPSOCK(workers)` produces a more informative error
+   message if `workers` is not an integer or a character vector.
+
+
+# Version 1.47.0 [2026-04-16]
+
+## New Features
+
+ * `availableCores()` gained argument `fraction`, which allows you to
+   specify that a certain fraction of the available CPU cores should
+   be returned, e.g. `availableCores(fraction = 0.5)`.
+
+ * Now `availableCores()` queries also Linux CGroups v2 CPU affinity
+   values `cpuset.cpus` and `cpuset.cpus.effective`.
+   
+ * Give more information on invalid 'RichSOCKnode' connections.
+
+## Bug Fixes
+
+ * `availableWorkers(method = "Slurm")` expands the compressed
+   hostname representation given by environment variable
+   `SLURM_JOB_NODELIST` to a vector of hostnames. For this it uses
+   `scontrol show hostnames`. If `scontrol` is not available, it falls
+   back to an internal parsing algorithm. This internal algorithm
+   would incorrectly pad some hostnames with zero, e.g. `n[09-10]`
+   would become `c("n09", "n010")` whereas it should be `c("n09",
+   "n10")`.
+
+ * `availableWorkers(method = "Slurm")` did not, as documented, fall
+   back to legacy environment variable `SLURM_NODELIST` when
+   `SLURM_JOB_NODELIST` is not set
+
+ * `availableWorkers(method = "Slurm")` could return the wrong set of
+   hostnames if environment variables `SLURM_JOB_NODELIST`,
+   `SLURM_JOB_CPUS_PER_NODE` and `SLURM_CPUS_PER_TASK` were all set,
+   because `SLURM_CPUS_PER_TASK` was treated as a string, not an
+   integer, in comparisons.
+   
+ * `makeClusterPSOCK(..., setup_strategy = "sequential")` would not
+   respect internal R options for how to retry with another TCP port,
+   if failing to start a cluster node.
+
+
+# Version 1.46.1 [2026-01-07]
+
+## Bug Fixes
+
+ * Loading the package in the Positron Console would incorrectly set
+   environment variable `_R_CHECK_LIMIT_CORES_` to TRUE, which in turn
+   would result in `availableCores()` being limited to a maximum of
+   two (2) CPU cores. This bug was introduced in **parallelly** 1.46.0
+   (2025-12-12).
+
+ * `parallel::clusterExport()` on a `makeClusterSequential()` cluster
+   would export to the global environment rather than the local
+   environment of the cluster nodes.
+   
+ * Argument `user` of `makeClusterPSOCK()` did not recycle across
+   workers when `length(user) == 1`.
+
+ * `makeClusterPSOCK(default_packages = "*")` with an empty R option
+   `defaultPackages` gave an error.
+
+
+# Version 1.46.0 [2025-12-12]
+
+## New Features
+
+ * Now `availableCores()` returns 2 also when package vignettes are
+   built by `R CMD build` or `R CMD check`. This helps to prevent
+   package vignettes from overusing the CPU cores when building and
+   checking R packages.
+
+ * Functions `availableCores()`, `availableWorkers()`, `cpuLoad()`,
+   and `freePort()` can now be called directly from the command line,
+   e.g. `Rscript -e parallelly::availableCores --omit=1` and
+   `Rscript -e parallelly::freePort`.
+
+## Documentation
+
+ * Option `parallelly.supportsMulticore.disableOn` was documented to
+   disable forked ("multicore") processing in the RStudio Terminal,
+   but that was not the case due to a thinko. Default options and the
+   documentation have now been updated to reflect that it is only
+   disabled in the RStudio Console.
+
+## Bug Fixes
+
+ * Setting option `parallelly.supportsMulticore.disableOn` to hold
+   `"rstudio_terminal"` had no effect.
+
+
+# Version 1.45.1 [2025-07-24]
+
+## Miscellaneous
+
+ * Now `print()` for `RichSOCKcluster` outputs a more concise summary,
+   which is also grammatically correct for single-node clusters.
+
+## Deprecated and Defunct
+
+ * In the previous version, `makeClusterPSOCK()` started to collect
+   session information on each parallel worker, which included
+   `capabilities()`. However, for unknown reasons, `capabilities()`
+   caused the cluster creation to fail on GitHub Actions running
+   macOS. The problem could be reproduced neither locally, on the
+   mac-builder, nor on the CRAN macOS servers. Because this feature is
+   non-critical and was only introduced in the previous version, I decided
+   to remove the collection of `capabilities()` again.
+ 
+
+# Version 1.45.0 [2025-06-02]
+
+## New Features
+
+ * `availableCores()` gained argument `max`, which limits the maximum
+   number of cores returned after everything else is applied, i.e.
+   `availableCores(..., max = n)` is short for `min(n,
+   availableCores(...), na.rm = TRUE)`.
+
+ * `availableWorkers()` gained argument `...`, which passes any
+   additional arguments to `availableCores()`, if specified.
+
+ * If `killNode(..., signal = tools::SIGTERM)` successfully signaled
+   the cluster node, it will now close any existing socket connection
+   to the node. If the node is running on the local host, it will also
+   remove its temporary directory, because the node's R process
+   might not have exited gracefully.
+   
+ * The session information collected by `makeClusterPSOCK()` now
+   contains more details on each worker, e.g. the `tempdir()` folder,
+   `capabilities()`, and `extSoftVersion()`.
+
+ * Cluster nodes created by `makeClusterPSOCK()` gained attribute
+   `calls`, which record the `sys.calls()`. This can be useful when
+   troubleshooting from where a cluster was created. Analogously,
+   setting R option `parallelly.makeNodePSOCK.calls` to TRUE will
+   relay the call stack in the system call that launched the cluster
+   node.
+ 
+## Bug Fixes
+
+ * `availableCores()` would not respect `method = "fallback"` if
+   `constraints` specified `"connections"` or `"connections-N"`.
+
+ * `availableCores()` would produce an error on `Error in scan(file =
+   file, what = what, ...)` on systems that have a `/proc/self/mounts`
+   file with syntax errors. Such files have been reported on Windows
+   Subsystem for Linux version 2 (WSL 2), where spaces in Windows paths
+   have not been properly escaped for some entries. Now such invalid
+   entries are skipped, before parsing the mount table.
+
+
+# Version 1.44.0 [2025-05-07]
+
+## New Features
+
+ * Add support to `availableCores()` and `availableWorkers()` to
+   specify `constraints = "connections-N"`, where `N` specifies the
+   number of connections to leave free after launching a PSOCK cluster
+   with this number of cores.
+
+ * Add `all.equal()` for `connection`, which can distinguish between
+   two connections that share the same connection index, but are not
+   the same connection, e.g. when one was created, then closed, and
+   another one of the same kind is created.
+
+## Bug Fixes
+
+ * `availableCores()` would not respect `method = "fallback"`, since
+   v1.41.0 (2024-12-18), on a system with a value for `method =
+   "/proc/self/status"`.
+
+
+# Version 1.43.0 [2025-03-24]
+
+## Significant Changes
+
+ * Now `availableCores()` memoizes the values of all its components.
+   This means that as soon as it has been called, environment variables 
+   such as `NSLOTS` will no longer be queried.
+
+ * Starting with R 4.5.0, one can use `parallel::makeCluster(n, type =
+   parallelly::RPSOCK)` as an alternative to
+   `parallelly::makeClusterPSOCK(n)`.  Similarly, `type =
+   parallelly::RMPI` creates a cluster using
+   `parallelly::makeClusterMPI()`, and `type = parallelly::SEQ`
+   creates a cluster using `parallelly::makeClusterSequential()`.
+   This was first introduced in **parallelly** 1.38.0, but here we
+   rename `PSOCK` to `RPSOCK` and `MPI` to `RMPI` to minimize the risk
+   for mistaking them from the built-in types in the **parallel**
+   package. The `R` stands for "Rich".
+
+## Documentation
+
+ * Add more help on the R option `parallelly.maxWorkers.localhost`
+   limits. Improved the warning and error messages that are produced
+   when these settings are exceeded.
+
+## Miscellaneous
+
+ * R option `future.debug` is no longer used as a fallback for option
+   `parallelly.debug`.
+
+## Bug Fixes
+
+ * `isNodeAlive()` could produce warnings on `doTryCatch(return(expr),
+   name, parentenv, handler) : NAs introduced by coercion` on MS
+   Windows. Improved the internal `tasklist` parsers used to test
+   whether a process is alive.
+ 
+ * `availableCores()` could produce `Error: Error in
+   cache_controller[[field]] : subscript out of bounds` in
+   `... getCGroups1CpuQuota -> getCGroups1CpuPeriodMicroseconds`.
+
+
+# Version 1.42.0 [2025-01-30]
+
+## New Features
+
+ * Now `availableCores()` and `availableWorkers()` support also when
+   both CGroups v1 and CGroups v2 are enabled on the
+   machine. Previously, such configurations were completely ignored.
+
+## Bug Fixes
+
+ * Calling `isNodeAlive()` and `killNode()` on cluster nodes running on
+   external machines would produce `Error in match.arg(type, choices =
+   known_types, several.ok = FALSE) : 'arg' must be of length 1`. This
+   bug was introduced in version 1.38.0 (2024-07-27), when adding
+   richer support for the `rscript_sh` argument.
+
+ * Calling `isNodeAlive()` and `killNode()` on cluster nodes running on
+   external machines would produce `Error: ‘length(rsh_call) == 1L’ is
+   not TRUE` if option `rshopts` were specified during creation.
+
+ * The value of `availableCores()` was numeric rather than integer as
+   documented. This harmless bug was introduced in version 1.31.0
+   (2022-04-07).
+
+
+# Version 1.41.0 [2024-12-18]
+
+## New Features
+
+ * Now `availableCores()` queries also `/proc/self/status` for CPU
+   affinity allotments.
+ 
+ * `makeClusterPSOCK()` will now produce an error, rather than a
+   warning, when the local system command used to launch the parallel
+   worker failed with a non-zero exit code.
+   
+ * Now `serializedSize()` always returns a double. Previously, it
+   would return an integer, if the value could be represented by an
+   integer. However, it turned out that returning an integer increased
+   the risk for integer overflow later on if, say, two such values
+   were added together.
+ 
+## Bug Fixes
+
+ * `makeClusterPSOCK()` on MS Windows failed to launch remote workers,
+   with warnings on `"In system(local_cmd, wait = FALSE, input =
+   input) : 'C:\WINDOWS\System32\OpenSSH\ssh.exe' not found"`. This
+   bug was introduced in version 1.38.0 (2024-07-27), when adding
+   richer support for the `rscript_sh` argument.
+
+
+# Version 1.40.1 [2024-12-04]
+
+## Bug Fixes
+
+ * The internal vignette engine wrote files to user's home
+   directory. They were due to a brief debugging of the vignette
+   engine and then forgotten about.
+
+
+# Version 1.40.0 [2024-12-02]
+
+## New Features
+
+ * Argument `user` of `makeClusterPSOCK()` may now be a vector of
+   usernames - one for each worker specified.
+
+## Documentation
+
+ * Add vignettes on how to setup a cluster of parallel workers on the
+   local machine, on external machines, in the cloud, in HPC
+   environments, and more.
+   
+## Bug Fixes
+
+ * Querying of cgroups v1 'cpuquota' CPU limits broke in the previous
+   release (v1.39.0).
+
+ * `availableCores()` could produce error `Failed to identify mount
+   point for CGroups v1 controller 'cpuset'` on some systems.
+ 
+ * `availableWorkers()` would produce invalid warning on `Identified 8
+   workers from the ‘PE_HOSTFILE’ file (...), which is more than
+   environment variable ‘NSLOTS’ = 8` when running via a Grid Engine
+   job scheduler.
+
+
+# Version 1.39.0 [2024-11-07]
+
+## New Features
+
+ * Environment variables `R_PARALLELLY_RANDOM_PORTS` now supports
+   multiple, comma-separated port specifications, e.g.
+   `"20001:20999"` and `"1068:1099,20001:20999,40530"`.
+ 
+## Documentation
+
+ * Add example to `help("makeClusterPSOCK")` on how to use
+   `systemd-run` to limit workers' CPU quota and memory allowances.
+
+## Miscellaneous
+
+ * Improved how cgroups v1 and v2 settings are queried.
+
+## Bug Fixes
+
+ * Now `availableCores()` does a better job detecting cgroups v2
+   `cpu.max` CPU restrictions.
+
+
+# Version 1.38.0 [2024-07-27]
+
+## New Features
+
+ * Now argument `rshcmd` of `makeNodePSOCK()` can be a function. It
+   must accept at least two arguments named `rshopts` and
+   `worker`. The `rshopts` argument is a character vector of length
+   zero or more. The `worker` argument is a string hostname. The
+   function must return a single string.
+
+ * Now `makeNodePSOCK()` accepts `rscript_sh = "none"`, which skips
+   quoting the Rscript call.
+   
+ * Now `makeNodePSOCK()` accepts `rscript_sh` of length one or two.
+   If `length(rscript_sh) == 2`, then `rscript_sh[1]` is for the inner
+   and `rscript_sh[2]` is for the outer shell quoting of the Rscript
+   call.  More precisely, `rscript_sh[1]` is for Rscript arguments
+   that need shell quoting (e.g. `Rscript -e "<expr>"`), and
+   `rscript_sh[2]` is for the whole `Rscript ...` call.
+
+ * Add `makeClusterSequential()` available for R (>= 4.4.0).
+
+ * Starting with R 4.5.0 (currently R-devel), one can use
+   `parallel::makeCluster(n, type = parallelly::PSOCK)` as an
+   alternative to `parallelly::makeClusterPSOCK(n)`.  Similarly, `type
+   = parallelly::MPI` creates a cluster using
+   `parallelly::makeClusterMPI()`, and `type = parallelly::SEQ`
+   creates a cluster using `parallelly::makeClusterSequential()`.
+
+ * Add `serializedSize()` for calculating the size of an object by
+   counting the number of bytes required to serialize it.
+ 
+## Bug Fixes
+
+ * Environment variable `R_PARALLELLY_MAXWORKERS_LOCALHOST` was
+   interpreted as integers rather than doubles.
+
+
+# Version 1.37.1 [2024-02-29]
+
+## Bug Fixes
+
+ * Version 1.37.0 would not install on FreeBSD.
+
+
+# Version 1.37.0 [2024-02-14]
+
+## New Features
+
+ * `makeClusterPSOCK(nworkers)` gained protection against setting up
+   too many localhost workers relative to number of available CPU
+   cores. If `nworkers / availableCores()` is greater than 1.0 (100%),
+   then a warning is produced. If greater than 3.0 (300%), an error is
+   produced.  These limits can be configured by R option
+   `parallelly.maxWorkers.localhost`. These checks are skipped if
+   `nworkers` inherits from `AsIs`, e.g. `makeClusterPSOCK(I(16))`.
+   The current 3.0 (300%) limit is likely to be decreased in a future
+   release.  A few packages fail `R CMD check --as-cran` with this
+   validation enabled. For example, one package uses 8 parallel
+   workers in its examples, while `R CMD check --as-cran` only allows
+   for two. To give such packages time to be fixed, the CRAN-enforced
+   limits are ignored for now.
+ 
+## Miscellaneous
+
+ * `makeClusterPSOCK()` could produce a confusing error `Invalid port:
+   NA` if a non-available port was requested.  Now the error message
+   is more informative, e.g.
+   `Argument 'port' specifies non-available port(s): 80`.
+
+## Bug Fixes
+
+ * The internal method for checking if a TCP port is available has
+   been improved.  Previously, it could incorrectly conclude a port
+   was available, when it was not.
+
+
 # Version 1.36.0 [2023-05-26]
 
 ## New Features
@@ -115,11 +552,11 @@
    such as `system2("Rscript --version")`.  If not, an informative
    error message is produced.
    
- * On Unix, `availableCores()` queries also control groups v2
-   (cgroups2) field `cpu.max` for a possible CPU quota allocation. If
-   a CPU quota is set, then the number of CPUs is rounded to the
-   nearest integer, unless its less that 0.5, in case it's rounded up
-   to a single CPU. An example, where cgroups CPU quotas can be set to
+ * On Unix, `availableCores()` queries also control groups v2 (cgroups
+   v2) field `cpu.max` for a possible CPU quota allocation. If a CPU
+   quota is set, then the number of CPUs is rounded to the nearest
+   integer, unless its less that 0.5, in case it's rounded up to a
+   single CPU. An example, where cgroups CPU quotas can be set to
    limit the total CPU load, is with Linux containers, e.g. `docker
    run --cpus=3.5 ...`.
 

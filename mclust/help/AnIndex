@@ -4,6 +4,7 @@ adjustedRandIndex	adjustedRandIndex
 as.densityMclust	mclust-internal
 as.densityMclust.default	mclust-internal
 as.densityMclust.Mclust	mclust-internal
+as.hclust.hc	hc
 as.Mclust	mclust-internal
 as.Mclust.default	mclust-internal
 as.Mclust.densityMclust	mclust-internal
@@ -50,6 +51,7 @@ combiPlot	combiPlot
 combiTree	combiTree
 combMat	combMat
 coordProj	coordProj
+count	mclust-internal
 covw	covw
 crimcoords	crimcoords
 cross	cross
@@ -139,6 +141,7 @@ imputeData	imputeData
 imputePairs	imputePairs
 logLik.Mclust	logLik.Mclust
 logLik.MclustDA	logLik.MclustDA
+logsumexp	logsumexp
 majorityVote	majorityVote
 map	map
 mapClass	mapClass
@@ -287,6 +290,8 @@ simEII	simE
 simEVE	simE
 simEVI	simE
 simEVV	simE
+simulate.densityMclust	simulate
+simulate.Mclust	simulate
 simV	simE
 simVEE	simE
 simVEI	simE
@@ -295,6 +300,7 @@ simVII	simE
 simVVE	simE
 simVVI	simE
 simVVV	simE
+softmax	softmax
 summary.clustCombi	clustCombi
 summary.crimcoords	crimcoords
 summary.gmmhd	gmmhd

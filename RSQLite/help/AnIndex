@@ -25,7 +25,9 @@ dbDataType_SQLiteDriver	SQLiteDriver-class
 dbDisconnect,SQLiteConnection-method	SQLite
 dbDisconnect_SQLiteConnection	SQLite
 dbExistsTable,SQLiteConnection,character-method	SQLiteConnection-class
+dbExistsTable,SQLiteConnection,Id-method	SQLiteConnection-class
 dbExistsTable_SQLiteConnection_character	SQLiteConnection-class
+dbExistsTable_SQLiteConnection_Id	SQLiteConnection-class
 dbFetch,SQLiteResult-method	SQLiteResult-class
 dbFetch_SQLiteResult	SQLiteResult-class
 dbGetException,SQLiteConnection-method	SQLiteConnection-class
@@ -51,6 +53,8 @@ dbIsValid,SQLiteResult-method	SQLiteResult-class
 dbIsValid_SQLiteConnection	SQLiteConnection-class
 dbIsValid_SQLiteDriver	SQLiteDriver-class
 dbIsValid_SQLiteResult	SQLiteResult-class
+dbListObjects,SQLiteConnection-method	SQLiteConnection-class
+dbListObjects_SQLiteConnection	SQLiteConnection-class
 dbListResults,SQLiteConnection-method	dbListResults
 dbListResults_SQLiteConnection	dbListResults
 dbListTables,SQLiteConnection-method	SQLiteConnection-class
@@ -103,7 +107,13 @@ sqliteBuildTableDefinition	sqliteBuildTableDefinition
 SQLiteConnection-class	SQLiteConnection-class
 sqliteCopyDatabase	sqliteCopyDatabase
 SQLiteDriver-class	SQLiteDriver-class
+sqliteHasHttpVFS	sqliteHasHttpVFS
+sqliteHttpConfig	sqliteHttpConfig
+sqliteHttpStats	sqliteHttpStats
+sqliteHttpVfsCompiled	sqliteHttpVfsCompiled
+sqliteIsTransacting	sqlite-transaction
 sqliteQuickColumn	sqliteQuickColumn
+sqliteRemote	sqliteRemote
 SQLiteResult-class	SQLiteResult-class
 sqliteSetBusyHandler	sqliteSetBusyHandler
 SQLITE_RO	SQLite

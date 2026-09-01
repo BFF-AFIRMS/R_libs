@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
 // 
-// Copyright 2008-2016 Conrad Sanderson (http://conradsanderson.id.au)
+// Copyright 2008-2016 Conrad Sanderson (https://conradsanderson.id.au)
 // Copyright 2008-2016 National ICT Australia (NICTA)
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// http://www.apache.org/licenses/LICENSE-2.0
+// https://www.apache.org/licenses/LICENSE-2.0
 // 
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -36,7 +36,7 @@ inline
 void
 BaseCube<elem_type,derived>::print(const std::string extra_text) const
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   const unwrap_cube<derived> tmp( (*this).get_ref() );
   
@@ -59,7 +59,7 @@ inline
 void
 BaseCube<elem_type,derived>::print(std::ostream& user_stream, const std::string extra_text) const
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   const unwrap_cube<derived> tmp( (*this).get_ref() );
   
@@ -82,7 +82,7 @@ inline
 void
 BaseCube<elem_type,derived>::raw_print(const std::string extra_text) const
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   const unwrap_cube<derived> tmp( (*this).get_ref() );
   
@@ -105,7 +105,7 @@ inline
 void
 BaseCube<elem_type,derived>::raw_print(std::ostream& user_stream, const std::string extra_text) const
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   const unwrap_cube<derived> tmp( (*this).get_ref() );
   
@@ -128,7 +128,7 @@ inline
 void
 BaseCube<elem_type,derived>::brief_print(const std::string extra_text) const
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   const unwrap_cube<derived> tmp( (*this).get_ref() );
   
@@ -151,7 +151,7 @@ inline
 void
 BaseCube<elem_type,derived>::brief_print(std::ostream& user_stream, const std::string extra_text) const
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   const unwrap_cube<derived> tmp( (*this).get_ref() );
   
@@ -200,7 +200,7 @@ BaseCube<elem_type,derived>::index_min() const
   
   if(P.get_n_elem() == 0)
     {
-    arma_debug_check(true, "index_min(): object has no elements");
+    arma_conform_check(true, "index_min(): object has no elements");
     }
   else
     {
@@ -223,7 +223,7 @@ BaseCube<elem_type,derived>::index_max() const
   
   if(P.get_n_elem() == 0)
     {
-    arma_debug_check(true, "index_max(): object has no elements");
+    arma_conform_check(true, "index_max(): object has no elements");
     }
   else
     {
@@ -240,13 +240,13 @@ inline
 bool
 BaseCube<elem_type,derived>::is_zero(const typename get_pod_type<elem_type>::result tol) const
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   typedef typename get_pod_type<elem_type>::result T;
   
-  arma_debug_check( (tol < T(0)), "is_zero(): parameter 'tol' must be >= 0" );
+  arma_conform_check( ((tol >= T(0)) == false), "is_zero(): parameter 'tol' must be >= 0" );
   
-  if(ProxyCube<derived>::use_at || is_Cube<typename ProxyCube<derived>::stored_type>::value)
+  if(is_Cube<typename ProxyCube<derived>::stored_type>::value || ProxyCube<derived>::use_at)
     {
     const unwrap_cube<derived> U( (*this).get_ref() );
     
@@ -263,22 +263,52 @@ BaseCube<elem_type,derived>::is_zero(const typename get_pod_type<elem_type>::res
   
   if(is_cx<elem_type>::yes)
     {
-    for(uword i=0; i<n_elem; ++i)
+    if(tol == T(0))
       {
-      const elem_type val = Pea[i];
-      
-      const T val_real = access::tmp_real(val);
-      const T val_imag = access::tmp_imag(val);
-      
-      if(eop_aux::arma_abs(val_real) > tol)  { return false; }
-      if(eop_aux::arma_abs(val_imag) > tol)  { return false; }
+      for(uword i=0; i < n_elem; ++i)
+        {
+        const elem_type val = Pea[i];
+        
+        const T val_real = access::tmp_real(val);
+        const T val_imag = access::tmp_imag(val);
+        
+        if(eop_aux::arma_abs(val_real) != T(0))  { return false; }
+        if(eop_aux::arma_abs(val_imag) != T(0))  { return false; }
+        }
+      }
+    else
+      {
+      for(uword i=0; i < n_elem; ++i)
+        {
+        const elem_type val = Pea[i];
+        
+        const T val_real = access::tmp_real(val);
+        const T val_imag = access::tmp_imag(val);
+        
+        if( (eop_aux::arma_abs(val_real) <= tol) == false )  { return false; }
+        if( (eop_aux::arma_abs(val_imag) <= tol) == false )  { return false; }
+        }
       }
     }
   else  // not complex
     {
-    for(uword i=0; i < n_elem; ++i)
+    if(tol == T(0))
       {
-      if(eop_aux::arma_abs(Pea[i]) > tol)  { return false; }
+      for(uword i=0; i < n_elem; ++i)
+        {
+        const elem_type val = Pea[i];
+        
+        if(val != elem_type(0))  { return false; }
+        }
+      }
+    else
+      {
+      for(uword i=0; i < n_elem; ++i)
+        {
+        const elem_type val = Pea[i];
+        
+        if( (eop_aux::arma_abs(val) <= tol) == false )  { return false; }
+        }
       }
     }
   
@@ -292,7 +322,7 @@ inline
 bool
 BaseCube<elem_type,derived>::is_empty() const
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   const ProxyCube<derived> P( (*this).get_ref() );
   
@@ -306,9 +336,9 @@ inline
 bool
 BaseCube<elem_type,derived>::is_finite() const
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
-  if(arma_config::fast_math)  { arma_debug_warn_level(2, "is_finite(): detection of non-finite values is not reliable in fast math mode"); }
+  if(arma_config::fast_math_warn)  { arma_warn(1, "is_finite(): detection of non-finite values is not reliable in fast math mode"); }
   
   if(is_Cube<typename ProxyCube<derived>::stored_type>::value)
     {
@@ -328,7 +358,7 @@ BaseCube<elem_type,derived>::is_finite() const
     for(uword c=0; c<n_c; ++c)
     for(uword r=0; r<n_r; ++r)
       {
-      if( arma_isfinite(P.at(r,c,s)) == false )  { return false; }
+      if( arma_isnonfinite(P.at(r,c,s)) )  { return false; }
       }
     }
   
@@ -342,9 +372,9 @@ inline
 bool
 BaseCube<elem_type,derived>::has_inf() const
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
-  if(arma_config::fast_math)  { arma_debug_warn_level(2, "has_inf(): detection of non-finite values is not reliable in fast math mode"); }
+  if(arma_config::fast_math_warn)  { arma_warn(1, "has_inf(): detection of non-finite values is not reliable in fast math mode"); }
   
   if(is_Cube<typename ProxyCube<derived>::stored_type>::value)
     {
@@ -378,9 +408,9 @@ inline
 bool
 BaseCube<elem_type,derived>::has_nan() const
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
-  if(arma_config::fast_math)  { arma_debug_warn_level(2, "has_nan(): detection of non-finite values is not reliable in fast math mode"); }
+  if(arma_config::fast_math_warn)  { arma_warn(1, "has_nan(): detection of non-finite values is not reliable in fast math mode"); }
   
   if(is_Cube<typename ProxyCube<derived>::stored_type>::value)
     {
@@ -414,9 +444,9 @@ inline
 bool
 BaseCube<elem_type,derived>::has_nonfinite() const
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
-  if(arma_config::fast_math)  { arma_debug_warn_level(2, "has_nonfinite(): detection of non-finite values is not reliable in fast math mode"); }
+  if(arma_config::fast_math_warn)  { arma_warn(1, "has_nonfinite(): detection of non-finite values is not reliable in fast math mode"); }
   
   if(is_Cube<typename ProxyCube<derived>::stored_type>::value)
     {
@@ -436,7 +466,7 @@ BaseCube<elem_type,derived>::has_nonfinite() const
     for(uword c=0; c<n_c; ++c)
     for(uword r=0; r<n_r; ++r)
       {
-      if(arma_isfinite(P.at(r,c,s)) == false)  { return true; }
+      if(arma_isnonfinite(P.at(r,c,s)))  { return true; }
       }
     }
   
@@ -473,7 +503,7 @@ arma_inline
 const derived&
 BaseCube_eval_Cube<elem_type, derived>::eval() const
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   return static_cast<const derived&>(*this);
   }
@@ -488,7 +518,7 @@ inline
 Cube<elem_type>
 BaseCube_eval_expr<elem_type, derived>::eval() const
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   return Cube<elem_type>( static_cast<const derived&>(*this) );
   }

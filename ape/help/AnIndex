@@ -253,6 +253,8 @@ makeLabel.DNAbin	makeLabel
 makeLabel.multiPhylo	makeLabel
 makeLabel.phylo	makeLabel
 makeNodeLabel	makeNodeLabel
+makeNodeLabel.multiPhylo	makeNodeLabel
+makeNodeLabel.phylo	makeNodeLabel
 mantel.test	mantel.test
 mat3	mat3
 mat5M3ID	mat5M3ID
@@ -446,6 +448,7 @@ write.evonet	evonet
 write.FASTA	write.dna
 write.nexus	write.nexus
 write.nexus.data	write.nexus.data
+write.phyloXML	write.phyloXML
 write.tree	write.tree
 Xplor	apetools
 Xplorefiles	apetools

@@ -78,12 +78,12 @@ export(new.replot,
        chart_Series, add_Series,
        add_EMA,
        add_EVWMA,
-       add_VMA,
        add_WMA,
        add_SMA,
        add_DEMA,
        add_VWAP,
        add_GMMA,
+       add_ADX,
        add_Vo,add_BBands,add_RSI,add_SMI,add_TA,
        chart_theme, chart_pars,
        add_axis,
@@ -206,7 +206,7 @@ export(
        HL, has.HL, is.HL,    # HLC  extraction and test
 
        # quick delta calculation functions
-       OpCl, OpOp, ClCl, OpHi, OpLo, LoCl, HiCl, LoHi,
+       OpCl, OpOp, ClCl, ClOp, OpHi, OpLo, LoCl, HiCl, LoHi,
 
        seriesHi,seriesLo,
        seriesIncr, seriesDecr,

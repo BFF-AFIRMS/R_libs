@@ -53,13 +53,15 @@ get_uid                 Get the UID codes from NCBI for taxonomic
 get_wiki                Get the page name for a Wiki taxon
 get_wormsid             Get Worms ID for a taxon name
 getkey                  Function to get API key.
-gn_parse                Parse scientific names using Global Names
+gna_data_sources        Get metadata about GNA data sources
+gna_parse               Parse scientific names using Global Names
                         Parser
+gna_search              Search for taxonomic names using the Global
+                        Names Architecture
+gna_verifier            Verify a list of scientific names against
+                        biodiversity data-sources.
 gni_details             Search for taxonomic name details using the
                         Global Names Index
-gni_parse               Parse scientific names using EOL's name parser.
-gni_search              Search for taxonomic names using the Global
-                        Names Index
 gnr_datasources         Global Names Resolver Data Sources
 gnr_resolve             Resolve names using Global Names Resolver
 id2name                 Taxonomic IDs to taxonomic names
@@ -116,8 +118,8 @@ rank_ref_zoo            Lookup-table for IDs of taxonomic ranks (WoRMS)
 rankagg                 Aggregate data by given taxonomic rank
 resolve                 Resolve names from different data sources
 sci2comm                Get common names from scientific names.
-scrapenames             Resolve names using Global Names Recognition
-                        and Discovery.
+scrapenames             Find taxon names using Global Names Recognition
+                        and Discovery
 species_plantarum_binomials
                         Species names from Species Plantarum
 status_codes            Get HTTP status codes

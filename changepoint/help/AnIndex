@@ -35,6 +35,7 @@ cpt-method,test.stat<-	cpt-class
 cpt.mean	cpt.mean
 cpt.meanvar	cpt.meanvar
 cpt.range-class	cpt.range-class
+cpt.reg	cpt.reg
 cpt.reg-class	cpt.reg-class
 cpt.reg-method,cpts	cpt.reg-class
 cpt.reg-method,cpts<-	cpt.reg-class
@@ -107,6 +108,11 @@ distribution<-	distribution-
 distribution<-,cpt-method	distribution--methods
 distribution<-,cpt.reg-method	distribution--methods
 distribution<--methods	distribution--methods
+fitted,ANY-method	fitted-methods
+fitted,cpt-method	fitted-methods
+fitted,cpt.range-method	fitted-methods
+fitted,cpt.reg-method	fitted-methods
+fitted-methods	fitted-methods
 ftse100	ftse100
 HC1	HC1
 Lai2005fig3	Lai2005fig3
@@ -150,6 +156,7 @@ ncpts.max<-,cpt.reg-method	ncpts.max--methods
 ncpts.max<--methods	ncpts.max--methods
 nseg	nseg
 nseg,cpt-method	nseg-methods
+nseg,cpt.range-method	nseg-methods
 nseg,cpt.reg-method	nseg-methods
 nseg-methods	nseg-methods
 param	param
@@ -194,8 +201,14 @@ plot,cpt-method	plot-methods
 plot,cpt.range-method	plot-methods
 plot,cpt.reg-method	plot-methods
 plot-methods	plot-methods
+residuals,ANY-method	residuals-methods
+residuals,cpt-method	residuals-methods
+residuals,cpt.range-method	residuals-methods
+residuals,cpt.reg-method	residuals-methods
+residuals-methods	residuals-methods
 seg.len	seg.len
 seg.len,cpt-method	seg.len-methods
+seg.len,cpt.range-method	seg.len-methods
 seg.len,cpt.reg-method	seg.len-methods
 seg.len-methods	seg.len-methods
 show,ANY-method	show-methods

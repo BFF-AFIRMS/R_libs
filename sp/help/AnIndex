@@ -45,6 +45,7 @@ bbox,Lines-method	bbox
 bbox,Polygon-method	bbox
 bbox,Polygons-method	bbox
 bbox,Spatial-method	bbox
+bbox-methods	bbox
 bpy.colors	bpy.colors
 bubble	bubble
 cbind.Spatial	Spatial-class
@@ -159,7 +160,6 @@ coordnames<-,SpatialPoints,character-method	coordnames-methods
 coordnames<-,SpatialPolygons,character-method	coordnames-methods
 CRS	CRS-class
 CRS-class	CRS-class
-CRSargs	CRS-class
 dd2dms	char2dms
 degAxis	degaxis
 degreeLabelsEW	mapasp
@@ -232,7 +232,7 @@ getSpPPolygonsIDSlots	sp-deprecated
 getSpPPolygonsLabptSlots	sp-deprecated
 getSpPpolygonsSlot	sp-deprecated
 get_col_regions	spplot
-get_evolution_status	spTransform
+get_evolution_status	sp-deprecated
 get_ll_TOL	is.projected
 get_ll_warn	is.projected
 get_Polypath	SpatialPolygons-class
@@ -257,6 +257,7 @@ gridded<-,SpatialPointsDataFrame,logical-method	gridded-methods
 gridIndex2nb	gridindex2nb
 gridlines	gridlines
 gridparameters	gridded-methods
+GridsDatums	GridsDatums
 GridTopology	SpatialGrid
 GridTopology-class	GridTopology-class
 gt	Rlogo
@@ -412,7 +413,7 @@ row.names.SpatialPolygonsDataFrame	SpatialPolygonsDataFrame-class
 select.spatial	select.spatial
 setParUsrBB	Spatial-class
 set_col_regions	spplot
-set_evolution_status	spTransform
+set_evolution_status	sp-deprecated
 set_ll_TOL	is.projected
 set_ll_warn	is.projected
 set_Polypath	SpatialPolygons-class
@@ -439,6 +440,7 @@ sp.points	panel
 sp.polygons	panel
 sp.text	panel
 sp.theme	spplot
+sp2Mondrian	sp2Mondrian
 Spatial	Spatial-class
 Spatial-class	Spatial-class
 SpatialGrid	SpatialGrid

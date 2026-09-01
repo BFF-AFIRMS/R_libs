@@ -12,6 +12,9 @@ coveralls               Run covr on a package and upload the result to
                         coveralls
 covr-package            covr: Test coverage for packages
 covr.record_tests       Record Test Traces During Coverage Execution
+current_test_call_count
+                        Retrieve the number of times the test call was
+                        called
 environment_coverage    Calculate coverage of an environment
 exclusions              Exclusions
 file_coverage           Calculate test coverage for sets of files

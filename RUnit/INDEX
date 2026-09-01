@@ -2,7 +2,7 @@
 checkEquals             RUnit check functions
 inspect                 Track the executed code lines of a function or
                         method.
-printHTML.trackInfo     Write HTML pages of the tracking result.
+printHTML               Write HTML pages of the tracking result.
 printTextProtocol       Printing a plain text, HTML or JUnit-like XML
                         version of an RUnit test run protocol.
 RUnit                   RUnit - Package Description

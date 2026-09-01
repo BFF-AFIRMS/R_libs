@@ -149,6 +149,31 @@ will compute the results we have seen for `emm.src` -- back-transformed
 
 Remember again: When it comes to transformations, timing is everything.
 
+### Implied regridding with certain modes {#regrid3}
+<!-- @index Transformations|Special modes; 
+             `mode` argument!implied re-gridding; 
+             Transformations|Implied re-gridding;
+             Re-gridding!Implied  -->
+Some model classes provide special argument(s) (typically `mode`) that may cause
+transformations or links to be handled early. For example, cumulative link
+models for ordinal data allow for a `"prob"` mode that produces estimates of
+probabilities for each ordinal level. The reference grid comprises estimates on
+a probability scale, and whatever link was used (say, probit) has already been
+accounted for, so is not "remembered" for possible later back-transformation. In
+that sense, when we use `mode = "prob"`, it is sort of like an implied call to
+`regrid()` that takes place *at the time the reference grid is constructed*,
+preempting any timing choices you might otherwise have made about handling the
+transformation. If there are one or more factors that are averaged over in
+estimating marginal means will be averages of the probabilities in the reference
+grid; so they will be different than what you would have obtained by keeping
+things on the link scale and then computing the probabilities after averaging on
+the link scale.
+
+Similar things happen with certain options with multinomial models, 
+zero-inflated, or hurdle models. Those special modes are a great convenience
+for getting estimates on a scale that is desired, but they also force
+you to obtain marginal means of measurements already on that scale.
+
 
 [Back to Contents](#contents)
 
@@ -196,10 +221,13 @@ look at an interaction plot of the fitted model:
 ```{r fig.alt = "Interaction-plot display of the results of emmeans(neuralgia.glm, ~ Treatment | Sex)"}
 emmip(neuralgia.glm, Sex ~ Treatment)
 ```
-
 There is no practical difference between females and males in the patterns of
 response to `Treatment`; so I think most people would be quite comfortable with
-the marginal results that are reported earlier.
+the marginal results that are reported here.
+
+Some users prefer risk ratios (ratios of probabilities) rather than odds 
+ratios. We will revisit this example [below](#riskrats) after we have discussed 
+some more tools.
 
 [Back to Contents](#contents)
 
@@ -385,12 +413,50 @@ The [section on standardized responses](#stdize) gives an example of reverse-eng
 a standardized response transformation in this way.
 
 
+### Revisiting the neuralgia example {#riskrats}
+<!-- @index Risk ratios; Logistic regression!Risk ratios;
+            `regrid()`!to obtain risk ratios;  -->
+As was mentioned before in the [`neuralgia` example](#links), some users prefer ratios of probabilities (risk ratios) rather than odds ratios.
+The additional machinery of `regrid()` makes this possible. First, do
+```{r}
+log.emm <- regrid(neuralgia.emm, "log")
+```
+While each node of `neuralgia.emm` is an estimate of the logit of a probability, the corresponding 
+nodes of `log.emm` are estimates of the log of the same probability. Thus, pairwise comparisons
+are differences of logs, which are logs of ratios. The risk ratios are thus
+obtainable by
+```{r}
+pairs(log.emm, reverse = TRUE, type = "response")
+```
+The test statistics and P values differ somewhat from those for the odds ratios because they are computed on the log scale rather than the original logit scale.
+
+
+
+###### {#not-logit}
+<!-- @index Logistic-like regression!Non-logit links; 
+   `regrid()`!probit or other non-logit models;
+  Probit regression!Odds or risk ratios -->
+We were able to obtain both odds ratios and risk ratios for `neuralgia.glm`.
+But what if we had not used the logit link? Then the odds ratios would not
+just fall out naturally. However, we can `regrid()` to the
+`"logit"` scale if we want odds
+ratios, or to `"log"` scale if we want risk ratios. For example,
+```{r}
+neuralgia.prb <- glm(Pain ~ Treatment * Sex + Age, family = binomial(link = "probit"), 
+                     data = neuralgia)
+prb.emm <- suppressMessages(emmeans(neuralgia.prb, "Treatment"))
+pairs(regrid(prb.emm, "logit"), type = "response", reverse = TRUE)
+```
+These are vaguely comparable to the odds ratios we obtained with `neuralgia.glm`,
+Similar re-gridding for the log will give us risk ratios.
+
+
 ### Alternative scale {#altscale}
 <!-- @index Transformations!Percent difference; Percentage differences; Examples!`pigs` -->
 It is possible to create a report on an alternative scale by updating the `tran` component.
 For example, suppose we want percent differences instead of ratios in the preceding example
 with the `pigs` dataset. This is possible by modifying the reverse transformation:
-since the uusual reverse transformation is a ratio of the form $r = a/b$, we have that
+since the usual reverse transformation is a ratio of the form $r = a/b$, we have that
 the percentage difference between $a$ and $b$ is $100(a-b)/b = 100(r-1)$. Thus,
 ```{r}
 pct.diff.tran <- list(
@@ -577,7 +643,7 @@ emmeans(ismod, "spray", type = "response", bias.adj = TRUE)
 you will get exactly the same results, plus a warning message that says bias adjustment was disabled.
 Why? Because in an ordinary GLM like this, we are *already* modeling the mean counts,
 and the link function is not a response transformation as such, just a part of the relationship
-we are specifying between the linear predictor and the mean. Given the simple structure of this dataset, we can verify this by noting that the estimates we have correspond examply to the simple observed mean counts:
+we are specifying between the linear predictor and the mean. Given the simple structure of this dataset, we can verify this by noting that the estimates we have correspond exactly to the simple observed mean counts:
 ```{r}
 with(InsectSprays, tapply(count, spray, mean))
 ```

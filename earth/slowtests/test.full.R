@@ -263,10 +263,10 @@ as.func <- function( # convert expression string to func
     "}\n", sep = "")))
 a <- earth(Volume ~ ., data = trees)
 my.func <- as.func(a, use.names = FALSE)
-printh(my.func(c(10,80)))     # yields 17.76888
-printh(predict(a, c(10,80)))  # yields 17.76888, but is slower
+printh(my.func(c(10,80)))     # yields 17.60359
+printh(predict(a, c(10,80)))  # yields 17.60359, but is slower
 example(format.earth)
-a <- earth(Volume ~ ., data = trees)
+a <- earth(Volume ~ ., data = trees, degree=2)
 cat(format(a)) # basic tests of format.earth
 cat(format(a, digits=4))
 # cat(format(a, use.names=FALSE))
@@ -278,6 +278,7 @@ cat(format(a, use.names=FALSE, style="m"))
 a <- earth(Volume ~ Girth*Height, data = trees, pmethod="none")
 cat(format(a))
 cat(format(a, colon.char="*"))
+cat(format(a, colon.char="*", style="bf"))
 a <- lm(Volume ~ ., data = trees)
 cat(format(a)) # basic tests of format.lm
 cat(format(a, digits=4))
@@ -1474,9 +1475,9 @@ printh(summary(e7))
 if (PLOT)
     plot(e7, pt.col=as.numeric(etitanic$pclass)+1, nresponse=1)
 
-cat("--- earth.regress ---------------------------------\n")
+cat("--- earth_regress ---------------------------------\n")
 
-msg = "earth.regress with trees data, single response, no weights"
+msg = "earth_regress with trees data, single response, no weights"
 cat("Test:", msg, "\n")
 
 data(trees)
@@ -1488,13 +1489,13 @@ a.lm <- lm(y ~ x)
 a.lm.rss <- sum((a.lm$fitted.values - y)^2)
 if (is.null(dim(a.lm$coefficients)))
     dim(a.lm$coefficients) <- c(length(a.lm$coefficients), 1)
-a <- earth:::earth.regress(x, y)
+a <- earth:::earth_regress(x, y)
 rownames(a.lm$coefficients) <- rownames(a$coefficients)
 check.almost.equal(a.lm$coefficients, a$coefficients, msg=paste("coefficients [", msg, "]", sep=""))
 check.almost.equal(a.lm.rss, a$rss, msg=paste("rss [", msg, "]"))
 check.almost.equal(a.lm$residuals, a$residuals, msg=paste("residuals [", msg, "]"))
 
-msg = "earth.regress with ozone1 data, multiple responses, no weights"
+msg = "earth_regress with ozone1 data, multiple responses, no weights"
 cat("Test:", msg, "\n")
 
 data(ozone1)
@@ -1505,13 +1506,13 @@ colnames(x) <- c("wind", "humidity", "temp")
 
 a.lm <- lm(y ~ x)
 a.lm.rss <- sum((a.lm$fitted.values - y)^2)
-a <- earth:::earth.regress(x, y)
+a <- earth:::earth_regress(x, y)
 rownames(a.lm$coefficients) <- rownames(a$coefficients)
 check.almost.equal(a.lm$coefficients, a$coefficients, msg=paste("coefficients [", msg, "]"))
 check.almost.equal(a.lm.rss, a$rss, msg=paste("rss [", msg, "]", sep=""))
 check.almost.equal(a.lm$residuals, a$residuals, msg=paste("residuals [", msg, "]", sep=""))
 
-# msg = "earth.regress with ozone1 data, multiple responses with case weights"
+# msg = "earth_regress with ozone1 data, multiple responses with case weights"
 # cat("Test:", msg, "\n")
 #
 # # options(digits=10)
@@ -1524,13 +1525,13 @@ check.almost.equal(a.lm$residuals, a$residuals, msg=paste("residuals [", msg, "]
 # a.lm <- lm(y ~ x, weights=weights.)
 # # a.lm.rss <- sum((a.lm$fitted.values - y)^2) # line below is equivalent
 # a.lm.rss <- sum(a.lm$residuals^2)
-# a <- earth:::earth.regress(x, y, weights=weights.)
+# a <- earth:::earth_regress(x, y, weights=weights.)
 # rownames(a.lm$coefficients) <- rownames(a$coefficients)
 # check.almost.equal(a.lm$coefficients, a$coefficients, msg=paste("coefficients [", msg, "]", sep=""))
 # check.almost.equal(a.lm.rss, a$rss, msg=paste("rss [", msg, "]", sep=""))
 # check.almost.equal(a.lm$residuals, a$residuals, msg=paste("residuals [", msg, "]", sep=""))
 
-# msg = "earth.regress case weights with zero weights 1"
+# msg = "earth_regress case weights with zero weights 1"
 # cat("Test:", msg, "\n")
 #
 # weights. <- rep(1, nrow(x))
@@ -1539,14 +1540,14 @@ check.almost.equal(a.lm$residuals, a$residuals, msg=paste("residuals [", msg, "]
 # a.lm <- lm(y ~ x, weights=weights.)
 # # a.lm.rss <- sum((a.lm$fitted.values - y)^2) # line below is equivalent
 # a.lm.rss <- sum(a.lm$residuals^2)
-# a <- earth:::earth.regress(x, y, weights=weights.)
+# a <- earth:::earth_regress(x, y, weights=weights.)
 # rownames(a.lm$coefficients) <- rownames(a$coefficients)
 # # options(digits=10)
 # check.almost.equal(a.lm$coefficients, a$coefficients, msg=paste("coefficients [", msg, "]", sep=""))
 # check.almost.equal(a.lm.rss, a$rss, msg=paste("rss [", msg, "]", sep=""))
 # check.almost.equal(a.lm$residuals, a$residuals, max=1e-6, msg=paste("residuals [", msg, "]", sep=""))
 #
-# msg = "earth.regress case weights with zero weights 2"
+# msg = "earth_regress case weights with zero weights 2"
 # cat("Test:", msg, "\n")
 # weights. <- rep(1, nrow(x))
 # weights.[5] <- 0
@@ -1562,13 +1563,13 @@ check.almost.equal(a.lm$residuals, a$residuals, msg=paste("residuals [", msg, "]
 # a.lm <- lm(y ~ x, weights=weights.)
 # # a.lm.rss <- sum((a.lm$fitted.values - y)^2) # line below is equivalent
 # a.lm.rss <- sum(a.lm$residuals^2)
-# a <- earth:::earth.regress(x, y, weights=weights.)
+# a <- earth:::earth_regress(x, y, weights=weights.)
 # rownames(a.lm$coefficients) <- rownames(a$coefficients)
 # check.almost.equal(a.lm$coefficients, a$coefficients, msg=paste("coefficients [", msg, "]", sep=""))
 # check.almost.equal(a.lm.rss, a$rss, msg=paste("rss [", msg, "]", sep=""))
 # check.almost.equal(a.lm$residuals, a$residuals, max=1e-6, msg=paste("residuals [", msg, "]", sep=""))
 #
-# msg = "earth.regress case weights with zero weights and missing columns 1"
+# msg = "earth_regress case weights with zero weights and missing columns 1"
 # cat("Test:", msg, "\n")
 # x <- cbind(ozone1$wind, ozone1$humidity, ozone1$temp, ozone1$wind^2, ozone1$humidity^2, ozone1$temp^2)
 # weights. <- rep(1, nrow(x))
@@ -1588,13 +1589,13 @@ check.almost.equal(a.lm$residuals, a$residuals, msg=paste("residuals [", msg, "]
 # a.lm <- lm(y ~ x.missing, weights=weights.)
 # a.lm.rss <- sum((a.lm$fitted.values - y)^2) # line below is equivalent
 # a.lm.rss <- sum(a.lm$residuals^2)
-# a <- earth:::earth.regress(x, y, weights=weights., used.cols=used.cols)
+# a <- earth:::earth_regress(x, y, weights=weights., used.cols=used.cols)
 # rownames(a.lm$coefficients) <- rownames(a$coefficients)
 # check.almost.equal(a.lm$coefficients, a$coefficients, msg=paste("coefficients [", msg, "]", sep=""))
 # check.almost.equal(a.lm.rss, a$rss, msg=paste("rss [", msg, "]", sep=""))
 # check.almost.equal(a.lm$residuals, a$residuals, max=1e-6, msg=paste("residuals [", msg, "]", sep=""))
 #
-# msg = "earth.regress case weights with zero weights and missing columns 2"
+# msg = "earth_regress case weights with zero weights and missing columns 2"
 # cat("Test:", msg, "\n")
 # x <- cbind(ozone1$wind, ozone1$humidity, ozone1$temp, ozone1$wind^2, ozone1$humidity^2, ozone1$temp^2)
 # weights. <- rep(1, nrow(x))
@@ -1608,7 +1609,7 @@ check.almost.equal(a.lm$residuals, a$residuals, msg=paste("residuals [", msg, "]
 # a.lm <- lm(y ~ x.missing, weights=weights.)
 # a.lm.rss <- sum((a.lm$fitted.values - y)^2) # line below is equivalent
 # a.lm.rss <- sum(a.lm$residuals^2)
-# a <- earth:::earth.regress(x, y, weights=weights., used.cols=used.cols)
+# a <- earth:::earth_regress(x, y, weights=weights., used.cols=used.cols)
 # rownames(a.lm$coefficients) <- rownames(a$coefficients)
 # check.almost.equal(a.lm$coefficients, a$coefficients, msg=paste("coefficients [", msg, "]", sep=""))
 # check.almost.equal(a.lm.rss, a$rss, msg=paste("rss [", msg, "]", sep=""))
@@ -2063,7 +2064,8 @@ lm.Species <- lm(Sepal.Length~Species, data=iris)
 predict.lm <- predict(lm.Species, newdata=data.frame(Species="setosa")) # ok
 earth.Species <- earth(Sepal.Length~Species, data=iris)
 predict.earth <- predict(earth.Species, newdata=data.frame(Species="setosa")) # used to fail
-stopifnot(identical(as.vector(predict.lm), as.vector(predict.earth)))
+print(predict.earth - predict.lm)
+stopifnot(max(abs(predict.lm - predict.earth)) < 1e-15)
 
 # Check fix for bug reported by Max Kuhn (Oct 2020, fixed in earth 5.3.0):
 # Occasionally we used to put a 1 when we should have put a 2 into the dirs matrix.
@@ -2116,6 +2118,32 @@ lm.dup <- lm(Sepal.Length ~ ., data=iris.dup)
 stopifnot(identical(names(coef(lm.dup)),
                     c("(Intercept)", "Sepal.Width", "Petal.Length", "Petal.Width",
                       "Species22", "Species23", "Species22", "Species23")))
+
+cat("--- test style=\"bf\" with various predictors ---------------------\n")
+
+data(etitanic)
+mod.bf1 <- earth(sex ~ pclass, data=etitanic, degree=2, trace=0)
+printh(summary(mod.bf1))
+printh(summary(mod.bf1, style="bf"))
+
+etit.slash <- etitanic
+
+etit.slash$`pclass/slash` = etit.slash$pclass
+etit.slash$pclass <- NULL
+
+etit.slash$`survived/slash` = etit.slash$survived
+etit.slash$survived <- NULL
+
+etit.slash$`age/slash` = etit.slash$age
+etit.slash$age <- NULL
+
+mod.bf2 <- earth(sex ~ `pclass/slash`, data=etit.slash, degree=2, trace=0)
+printh(summary(mod.bf2))
+printh(summary(mod.bf2, style="bf"))
+
+mod.bf3 <- earth(sex ~ ., data=etit.slash, degree=2, trace=0)
+printh(summary(mod.bf3))
+printh(summary(mod.bf3, style="bf"))
 
 options(options.old) # no more width=1000
 

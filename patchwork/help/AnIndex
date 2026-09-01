@@ -6,6 +6,7 @@ patchwork-package	patchwork-package
 align_patches	multipage_align
 align_plots	align_plots
 area	area
+free	free
 get_dim	multipage_align
 get_max_dim	multipage_align
 guide_area	guide_area
@@ -22,4 +23,5 @@ set_dim	multipage_align
 wrap_elements	wrap_elements
 wrap_ggplot_grob	wrap_ggplot_grob
 wrap_plots	wrap_plots
+wrap_table	wrap_table
 |.ggplot	plot_arithmetic

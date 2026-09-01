@@ -7,7 +7,6 @@ cmodel.object           Developer documentation: censoring model object
 coef.msm                Extract model coefficients
 crudeinits.msm          Calculate crude initial values for transition
                         intensities
-d2phase                 Coxian phase-type distribution with two phases
 deltamethod             The delta method
 draic.msm               Criteria for comparing two multi-state models
                         with nested state spaces
@@ -25,6 +24,8 @@ hmm-dists               Hidden Markov model constructors
 hmmMV                   Multivariate hidden Markov models
 hmodel.object           Developer documentation: hidden Markov model
                         structure object
+hmodel2list             Convert a hmodel object to HMM constructor
+                        function calls
 logLik.msm              Extract model log-likelihood
 lrtest.msm              Likelihood ratio test
 MatrixExp               Matrix exponential
@@ -32,6 +33,8 @@ medists                 Measurement error distributions
 model.frame.msm         Extract original data from 'msm' objects.
 msm                     Multi-state Markov and hidden Markov models in
                         continuous time
+msm-package             Multi-State Markov and Hidden Markov Models in
+                        Continuous Time
 msm.form.qoutput        Extract msm model parameter estimates in
                         compact format
 msm.object              Fitted msm model objects
@@ -78,10 +81,18 @@ sojourn.msm             Mean sojourn times from a multi-state model
 statetable.msm          Table of transitions
 summary.msm             Summarise a fitted multi-state model
 surface.msm             Explore the likelihood surface
+tidy.msm                Tidy the parameter estimates from an msm model
+tidy.msm.est            Tidy the output of pmatrix.msm and similar
+                        functions
+tidy.msm.estbystate     Tidy the output of totlos.msm and similar
+                        functions
+tidy.msm.prevalence     Tidy the output of prevalence.msm
 tnorm                   Truncated Normal distribution
 totlos.msm              Total length of stay, or expected number of
                         visits
 transient.msm           Transient and absorbing states
-updatepars.msm          updatepars.msm
+twophase                Coxian phase-type distribution with two phases
+updatepars.msm          Update the maximum likelihood estimates in a
+                        fitted model object.
 viterbi.msm             Calculate the probabilities of underlying
                         states and the most likely path through them

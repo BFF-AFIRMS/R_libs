@@ -1,11 +1,11 @@
 ## ----eval=FALSE---------------------------------------------------------------
-#  if (!requireNamespace("BiocManager", quietly=TRUE))
-#      install.packages("BiocManager")
-#  BiocManager::install("gdsfmt")
+# if (!requireNamespace("BiocManager", quietly=TRUE))
+#     install.packages("BiocManager")
+# BiocManager::install("gdsfmt")
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  library("devtools")
-#  install_github("zhengxwen/gdsfmt")
+# library("devtools")
+# install_github("zhengxwen/gdsfmt")
 
 ## -----------------------------------------------------------------------------
 library(gdsfmt)
@@ -218,52 +218,52 @@ Epsilon <- function(i)
 closefn.gds(gfile)
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  set.seed(100)
-#  # 10,000,000 random 0,1 sequence of 32-bit integers
-#  val <- sample.int(2, 10*1000*1000, replace=TRUE) - 1L
-#  table(val)
+# set.seed(100)
+# # 10,000,000 random 0,1 sequence of 32-bit integers
+# val <- sample.int(2, 10*1000*1000, replace=TRUE) - 1L
+# table(val)
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  # cteate a GDS file
-#  f <- createfn.gds("test.gds")
-#  
-#  # compression algorithms (LZMA_ra:32K is the lower bound of LZMA_ra)
-#  compression <- c("", "ZIP.max", "ZIP_ra.max:16K", "LZ4.max", "LZ4_ra.max:16K", "LZMA", "LZMA_ra:32K")
-#  
-#  # save
-#  for (i in 1:length(compression))
-#  	print(add.gdsn(f, paste0("I", i), val=val, compress=compression[i], closezip=TRUE))
-#  
-#  # close the file
-#  closefn.gds(f)
-#  
-#  cleanup.gds("test.gds")
+# # cteate a GDS file
+# f <- createfn.gds("test.gds")
+# 
+# # compression algorithms (LZMA_ra:32K is the lower bound of LZMA_ra)
+# compression <- c("", "ZIP.max", "ZIP_ra.max:16K", "LZ4.max", "LZ4_ra.max:16K", "LZMA", "LZMA_ra:32K")
+# 
+# # save
+# for (i in 1:length(compression))
+# 	print(add.gdsn(f, paste0("I", i), val=val, compress=compression[i], closezip=TRUE))
+# 
+# # close the file
+# closefn.gds(f)
+# 
+# cleanup.gds("test.gds")
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  # open the GDS file
-#  f <- openfn.gds("test.gds")
-#  
-#  # 10,000 random positions
-#  set.seed(1000)
-#  idx <- sample.int(length(val), 10000)
-#  
-#  # enumerate each compression method
-#  dat <- vector("list", length(compression))
-#  for (i in seq_len(length(compression)))
-#  {
-#  	cat("Compression:", compression[i], "\n")
-#  	n <- index.gdsn(f, paste0("I", i))
-#  	print(system.time({
-#  		dat[[i]] <- sapply(idx, FUN=function(k) read.gdsn(n, start=k, count=1L))
-#  	}))
-#  }
-#  
-#  # check
-#  for (i in seq_len(length(compression)))
-#  	stopifnot(identical(dat[[i]], dat[[1L]]))
-#  
-#  # close the file
-#  closefn.gds(f)
+# # open the GDS file
+# f <- openfn.gds("test.gds")
+# 
+# # 10,000 random positions
+# set.seed(1000)
+# idx <- sample.int(length(val), 10000)
+# 
+# # enumerate each compression method
+# dat <- vector("list", length(compression))
+# for (i in seq_len(length(compression)))
+# {
+# 	cat("Compression:", compression[i], "\n")
+# 	n <- index.gdsn(f, paste0("I", i))
+# 	print(system.time({
+# 		dat[[i]] <- sapply(idx, FUN=function(k) read.gdsn(n, start=k, count=1L))
+# 	}))
+# }
+# 
+# # check
+# for (i in seq_len(length(compression)))
+# 	stopifnot(identical(dat[[i]], dat[[1L]]))
+# 
+# # close the file
+# closefn.gds(f)
 
 ## -----------------------------------------------------------------------------
 # create a GDS file

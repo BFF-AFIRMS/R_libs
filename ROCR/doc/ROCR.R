@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -7,7 +7,7 @@ knitr::opts_chunk$set(
 ## ----setup--------------------------------------------------------------------
 library(ROCR)
 
-## ---- echo = FALSE, results = 'asis'------------------------------------------
+## ----echo = FALSE, results = 'asis'-------------------------------------------
 table <- data.frame(group = c("Contingency ratios",
                               "Discrete covariation measures",
                               "Information retrieval measures",
@@ -32,14 +32,14 @@ labels <- ROCR.hiv$hiv.svm$labels
 pred <- prediction(predictions, labels)
 pred
 
-## ---- fig.asp=1, fig.width=5, fig.align='center'------------------------------
+## ----fig.asp=1, fig.width=5, fig.align='center'-------------------------------
 perf <- performance(pred, "tpr", "fpr")
 perf
 plot(perf,
      avg="threshold",
      spread.estimate="boxplot")
 
-## ---- echo=FALSE, results='asis', fig.asp=0.35, fig.width=7, fig.align='center',fig.cap="***Fig 1:** Visualizations of classifier performance (HIV coreceptor usage data): (a) receiver operating characteristic (ROC) curve; (b) peak accuracy across a range of cutoffs; (c) absolute difference between empirical and predicted rate of positives for windowed cutoff ranges, in order to evaluate how well the scores are calibrated as probability estimates. Owing to the probabilistic interpretation, cutoffs need to be in the interval [0,1], in contrast to other performance plots. (d) Score density estimates for the negative (solid) and positive (dotted) class.*"----
+## ----echo=FALSE, results='asis', fig.asp=0.35, fig.width=7, fig.align='center',fig.cap="***Fig 1:** Visualizations of classifier performance (HIV coreceptor usage data): (a) receiver operating characteristic (ROC) curve; (b) peak accuracy across a range of cutoffs; (c) absolute difference between empirical and predicted rate of positives for windowed cutoff ranges, in order to evaluate how well the scores are calibrated as probability estimates. Owing to the probabilistic interpretation, cutoffs need to be in the interval [0,1], in contrast to other performance plots. (d) Score density estimates for the negative (solid) and positive (dotted) class.*"----
 data(ROCR.hiv)
 pp.unnorm <- ROCR.hiv$hiv.svm$predictions
 ll <- ROCR.hiv$hiv.svm$labels
@@ -76,7 +76,7 @@ for (runi in 1:length(pred@predictions)) {
   lines(density(pred@predictions[[runi]][pred@labels[[runi]]=="1"]), col="green")
 }
 
-## ---- fig.asp=1, fig.width=5, fig.align='center'------------------------------
+## ----fig.asp=1, fig.width=5, fig.align='center'-------------------------------
 perf <- performance(pred, "tpr", "fpr")
 plot(perf,
      avg= "threshold",
@@ -88,7 +88,7 @@ plot(perf,
      col="grey78",
      add=TRUE)
 
-## ---- fig.asp=1, fig.width=5, fig.align='center'------------------------------
+## ----fig.asp=1, fig.width=5, fig.align='center'-------------------------------
 perf <- performance(pred, "prec", "rec")
 plot(perf,
      avg= "threshold",
@@ -100,7 +100,7 @@ plot(perf,
      col="grey78",
      add=TRUE)
 
-## ---- fig.asp=1, fig.width=5, fig.align='center'------------------------------
+## ----fig.asp=1, fig.width=5, fig.align='center'-------------------------------
 perf <- performance(pred, "sens", "spec")
 plot(perf,
      avg= "threshold",
@@ -112,7 +112,7 @@ plot(perf,
      col="grey78",
      add=TRUE)
 
-## ---- fig.asp=1, fig.width=5, fig.align='center'------------------------------
+## ----fig.asp=1, fig.width=5, fig.align='center'-------------------------------
 perf <- performance(pred, "lift", "rpp")
 plot(perf,
      avg= "threshold",
@@ -134,20 +134,20 @@ length(predictions)
 pred <- prediction(predictions, labels)
 perf <- performance(pred,'tpr','fpr')
 
-## ---- fig.asp=1, fig.width=5, fig.align='center'------------------------------
+## ----fig.asp=1, fig.width=5, fig.align='center'-------------------------------
 plot(perf,
      colorize=TRUE,
      lwd=2,
      main='ROC curves from 10-fold cross-validation')
 
-## ---- fig.asp=1, fig.width=5, fig.align='center'------------------------------
+## ----fig.asp=1, fig.width=5, fig.align='center'-------------------------------
 plot(perf,
      avg='vertical',
      spread.estimate='stderror',
      lwd=3,main='Vertical averaging + 1 standard error',
      col='blue')
 
-## ---- fig.asp=1, fig.width=5, fig.align='center'------------------------------
+## ----fig.asp=1, fig.width=5, fig.align='center'-------------------------------
 plot(perf,
      avg='horizontal',
      spread.estimate='boxplot',
@@ -155,7 +155,7 @@ plot(perf,
      main='Horizontal averaging + boxplots',
      col='blue')
 
-## ---- fig.asp=1, fig.width=5, fig.align='center'------------------------------
+## ----fig.asp=1, fig.width=5, fig.align='center'-------------------------------
 plot(perf,
      avg='threshold',
      spread.estimate='stddev',
@@ -163,7 +163,7 @@ plot(perf,
      main='Threshold averaging + 1 standard deviation',
      colorize=TRUE)
 
-## ---- fig.asp=1, fig.width=6, fig.align='center'------------------------------
+## ----fig.asp=1, fig.width=6, fig.align='center'-------------------------------
 plot(perf,
      print.cutoffs.at=seq(0,1,by=0.2),
      text.cex=0.8,
@@ -176,7 +176,7 @@ plot(perf,
 ## -----------------------------------------------------------------------------
 perf <- performance(pred,"pcmiss","lift")
 
-## ---- fig.asp=1, fig.width=5, fig.align='center'------------------------------
+## ----fig.asp=1, fig.width=5, fig.align='center'-------------------------------
 plot(perf,
      colorize=TRUE,
      print.cutoffs.at=seq(0,1,by=0.1),

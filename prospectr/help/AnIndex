@@ -28,6 +28,7 @@ movav	movav
 msc	msc
 naes	naes
 NIRsoil	NIRsoil
+pkg_info	pkg_info
 prospectr	prospectr-package
 puchwein	puchwein
 readASD	readASD

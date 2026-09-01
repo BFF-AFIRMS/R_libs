@@ -3,7 +3,6 @@ browse-this             Visit important project-related web pages
 create_from_github      Create a project from a GitHub repo
 create_package          Create a package or project
 edit                    Open configuration files
-git_credentials         Defunct git2r functions
 git_protocol            See or set the default Git protocol
 git_sitrep              Git/GitHub sitrep
 git_vaccinate           Vaccinate your global gitignore file
@@ -17,7 +16,9 @@ proj_utils              Utility functions for the active project
 pull-requests           Helpers for GitHub pull requests
 rename_files            Automatically rename paired R/ and test/ files
 rprofile-helper         Helpers to make useful changes to '.Rprofile'
+ui_silence              Suppress usethis's messaging
 use_addin               Add minimal RStudio Addin binding
+use_air                 Configure a project to use Air
 use_author              Add an author to the 'Authors@R' field in
                         DESCRIPTION
 use_blank_slate         Don't save/load user workspace between sessions
@@ -71,6 +72,7 @@ use_rstudio_preferences
 use_spell_check         Use spell check
 use_standalone          Use a standalone file from another repo
 use_template            Use a usethis-style template
+use_test_helper         Create or edit a test helper file
 use_testthat            Sets up overall testing infrastructure
 use_tibble              Prepare to return a tibble
 use_tidy_github_actions

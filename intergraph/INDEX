@@ -1,5 +1,3 @@
-as.matrix.igraph        Convert igraph objects to adjacency or edge
-                        list matrices
 asDF                    Convert network to data frame(s)
 asIgraph                Coerce an object to class "igraph"
 asNetwork               Convert objects to class "network"

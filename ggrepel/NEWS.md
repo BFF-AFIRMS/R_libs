@@ -1,3 +1,106 @@
+ggrepel 0.9.8
+========================
+
+## Changes
+
+- The minimum required version of R has decreased from 4.5.0 to 4.1.0 to avoid issues with reverse dependencies.
+
+
+ggrepel 0.9.7
+========================
+
+## Changes
+
+- Add `element_text_repel()`, a theme element that brings text repelling to non-geom text such as axis labels and legend text. This is useful when axis labels are crowded and overlap. Thanks to @teunbrand for this amazing contribution in [pull request 266].
+
+- Add `arrow.fill` aesthetic to customize the fill color of closed arrow heads. By default, `arrow.fill` matches the segment color. Thanks to @hertg for requesting this in [issue 273].
+
+- Document `linewidth` and `linetype` aesthetics for `geom_label_repel()` to customize the label border. Set `linewidth = 0` to hide the border entirely.
+
+- Set `verbose = getOption("verbose", default = FALSE)` by default, and use messages instead of warnings. Thanks to @jpquast for suggesting this change in [pull request 263]. This should prevent unexpected warning messages in packages that depend on ggrepel.
+
+- Thanks to @teunbrand in [pull request 272], we ggrepel now works with the [marquee] package! There is a new function `geom_marquee_repel()` that we can use to plot rich text and images.
+
+- Note that the minimum required version of R has increased from 3.0.0 to 4.5.0 to match ggplot2's own requirement.
+
+[marquee]: https://github.com/r-lib/marquee/
+[pull request 263]: https://github.com/slowkow/ggrepel/pull/263
+[pull request 266]: https://github.com/slowkow/ggrepel/pull/266
+[pull request 272]: https://github.com/slowkow/ggrepel/pull/272
+
+## Bug fixes
+
+- Fix Date and POSIXt labels not displaying. Labels of class Date, POSIXct, or POSIXlt now render correctly instead of being silently dropped. Thanks to @vhpietil for reporting this in [issue 189].
+
+- Correctly handle `NA` in the x or y position. Thanks to @kirushka for reporting this in [issue 274].
+
+- Fix compatibility with ggplot2's `position_nudge()`. Labels were incorrectly positioned at the panel corner when using `position = position_nudge()`. Note: for best results with ggrepel, use `position_nudge_repel()` which also draws segments connecting labels to their original data points.
+
+- Fix `alpha` behavior in `geom_label_repel()` to match `ggplot2::geom_label()`. Now `alpha` only affects the fill color, not the text or border. Thanks to @camille-s for reporting this in [issue 269].
+
+- Improve `point.size` calculations to properly account for viewport aspect ratio. Segments now correctly connect to point edges regardless of plot dimensions. Thanks to @teunbrand in [pull request 265].
+
+- Fix segment endpoint calculation for `hjust`/`vjust` in `geom_label_repel()`. Previously, segments would penetrate into the label box when `hjust=0` or stop short when `hjust=1`. Thanks to @DasHammett
+ for reporting this in [issue 171].
+
+[issue 171]: https://github.com/slowkow/ggrepel/issues/171
+[issue 189]: https://github.com/slowkow/ggrepel/issues/189
+[issue 269]: https://github.com/slowkow/ggrepel/issues/269
+[issue 273]: https://github.com/slowkow/ggrepel/issues/273
+[issue 274]: https://github.com/slowkow/ggrepel/issues/274
+[pull request 265]: https://github.com/slowkow/ggrepel/pull/265
+
+ggrepel 0.9.6
+========================
+
+## Changes
+
+- Remove `exclude_outside()` from `geom_text_repel()` and `geom_label_repel()` because this change introduced too many breaking changes for other users. See issues:
+  - https://github.com/slowkow/ggrepel/issues/253
+  - https://github.com/slowkow/ggrepel/issues/255
+  - https://github.com/slowkow/ggrepel/issues/257
+  - https://github.com/slowkow/ggrepel/issues/260
+  - https://github.com/slowkow/ggrepel/issues/261
+
+
+ggrepel 0.9.5
+========================
+
+## Changes
+
+- Introduce a new function `exclude_outside()` into `geom_text_repel()` and `geom_label_repel()` to discard labels outside the panel range, in order to support the [ggbreak] package. See [issue 244] for details.
+
+- Change `expect_equal()` to include a tolerance, to satisfy CRAN testing.
+
+- Delete note about old (before 2.2.1) versions of ggplot2, thanks to @olivroy for [pull request 246].
+
+- Add website link to `DESCRIPTION`, thanks to @olivroy for [pull request 241].
+
+[ggbreak]: https://github.com/YuLab-SMU/ggbreak
+
+[issue 244]: https://github.com/slowkow/ggrepel/issues/244
+
+[pull request 241]: https://github.com/slowkow/ggrepel/pull/241
+[pull request 246]: https://github.com/slowkow/ggrepel/pull/246
+
+
+ggrepel 0.9.4
+========================
+
+## Changes
+
+* Add `min.segment.length` to the options table in the examples page, thanks to
+  @jwhendy for [mentioning this][issue 213].
+
+* Add example for how to use ggrepel with sf objects, i.e.
+  `geom_text_repel(..., stat = "sf_coordinates")`, thanks to @francisbarton for [pull request 236].
+
+* Use `expect_equal(x, y)` instead of `expect_true(identical(x, y))`, see [issue 242] for details.
+
+[issue 213]: https://github.com/slowkow/ggrepel/issues/213
+[pull request 236]: https://github.com/slowkow/ggrepel/pull/236
+[issue 242]: https://github.com/slowkow/ggrepel/issues/242
+
 
 ggrepel 0.9.3
 ========================

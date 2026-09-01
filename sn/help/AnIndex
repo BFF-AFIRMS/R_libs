@@ -11,9 +11,8 @@ coef.mselm	coef.selm
 coef.selm	coef.selm
 conditionalSECdistr	conditionalSECdistr
 conditionalSUNdistr	SUNdistr-op
-confint,selm-method	selm-class
+confint,selm-method	confint.selm
 confint.selm	confint.selm
-confint.selm-method	confint.selm
 convertCSN2SUNpar	convertCSN2SUNpar
 convertSN2SUNdistr	convertSN2SUNdistr
 convolutionSUNdistr	SUNdistr-op
@@ -89,12 +88,11 @@ pmsn	dmsn
 pmst	dmst
 pprodn2	pprodt2
 pprodt2	pprodt2
-predict,selm-method	selm-class
+predict,selm-method	predict.selm
 predict.selm	predict.selm
-predict.selm-method	predict.selm
 print.fitdistr.grouped	fitdistr.grouped-class
+profile,selm-method	profile.selm
 profile.selm	profile.selm
-profile.selm-method	profile.selm
 psc	dsc
 psn	dsn
 pst	dst

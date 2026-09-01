@@ -1,3 +1,94 @@
+Changes in version 5.2-6 (2026-06-18)
+   * Changed all length= to length.out= in seq() calls to avoid warnings
+   * Improved movStats to avoid global variable for knots
+
+Changes in version 5.2-5 (2026-01-08)
+   * num.intercepts: handled case where there is an info.matrix in the fit but it had only one intercept and was not partitioned; also cleaned up logic
+
+Changes in version 5.2-4 (2025-10-02)
+   * xless: improved by using capture.output which hopefully won't leave so many hanging sink()s
+   * describe: incorporated this fix: https://github.com/harrelfe/Hmisc/pull/194, thanks Cole Beck
+   * Import viridisLite instead of viridis; thanks @oliveroy https://github.com/harrelfe/Hmisc/pull/192/
+   * pMedian: takes a random sample of 250,000 values if n > 250000; added optional bootstrap confidence intervals
+   * movStats: added parameter ordsurv, force linearity for lrm=TRUE when < 10 events
+   * movStats: passed k argument to adapt_orm as maxk argument
+   * simMarkovOrd: removed dual-use of ..., addresses https://github.com/harrelfe/Hmisc/issues/199; this is a breaking change, users should apply `cbind` to return value for similar behavior
+   * html_describe_cat: remove saveRDS('/tmp/b.rds') which was used for debugging
+   * pMedian: return NA if na.rm=FALSE but any NAs are present
+   * dualSD: new function to compute SD separately for upper and lower half of distribution
+   * km.quick: handle negative times; past calculations were wrong
+   * qcrypt: added pw argument
+   * runParallel: when user-provided `onecore` function returns a data.table, the results over all the cores are merely rbinded into a large data.table
+   * spikecomp: for method='grid' don't use 6 significant digits if this makes grid spacing of 0
+   * print.describe: don't print rounded to if zero (leave alone)
+
+Changes in version 5.2-3 (2025-03-16)
+   * rcspline.plot: fixed to use vcov instead of $var for lrm.fit and coxph
+   * km.quick: return entire curve if times and q are both missing, new arguments type and interval; when times= is specified, now uses approxExtrap instead of approx
+   * geom_stepconfint: new function, taken from the utile.visuals package by Eric Finnesgard (originally from the survminer package)
+   * rmClose: new function for removing values that are close to neighboring values; useful for removing axis breaks that will overlap when plotting
+   * prn: added argument "head"
+   * Fdebug: new function to create a debugging helper function that is a dummy function if a given option is not set
+   * Non-downward-compatible change: upData no longer automatially sets all variables with a label attribute to be of class labelled; the old behavior can be had by specifying classlab=TRUE
+   * histSpikeg: changed parsed character strings to true ggplot2 layers
+
+Changes in version 5.2-2 (2025-01-10)
+   * cutGn: new function to group a numeric variable into interals guaranteeing a minimum group size; uses new Fortran subroutine cutgn
+   * ordGroupBoot: new function to group a numeric variable minimally so that bootstrap samples will cover all the original distinct data values
+   * plsmo, xy.group.s: use cutGn instead of cut2
+   * num.intercepts: look at fit$info.matrix if fit$var is empty
+
+Changes in version 5.2-1 (2024-11-30)
+   * re-wrote rcorr Fortran subroutine using vectorization and improved numerical algorithm
+   * added function qrxcenter
+   * fixed llist so that label is not applied at the end if labels=FALSE, and labels are not applied to NULLs
+   * added type to returned value for rcorr
+
+Changes in version 5.2-0 (2024-10-19)
+   * added requireNamespace for safer in qcrypt
+   * require R 4.2.0 or later, to handle pipes
+   * new function pMedian for pseudomedian (Hodges-Lehmann one-sample estimator)
+   * added pMedian to describe function
+   * Converted all Ratfor code to Fortran 2018
+
+Changes in version 5.1-3 (2024-05-18)
+   * areg.boot: intercepted use of xlim when y is categorical; need to improve logic on xout=
+   * redun: stored scores matrix in returned object, suitable for r2describe
+   * r2describe: new function to list strongest predictors of each variable in a matrix, from all the other columns
+   * movStats: added lrm_args argument
+   * logrank (in spower.s): removed non-working non-executed code for stratified log rank, change hazard ratio estimate to Pike's estimator.  Previous hazard ratio calculation was incorrect.
+   * qcrypt: added service=NA to bypass keyring
+   * runParallel: changed progress directory explicitly to /tmp for Mac
+   * printL: new function
+   * redun: got around model.frame problem so that negated variables are omitted from analysis; also fixed printing of missing values
+
+Changes in version 5.1-2 (2024-03-09)
+   * dotchartpl: remove length(ugroup) criterion (unsure what this was doing and made lower and upper be not plotted)
+   * dotchartpl: got around new bug in plotly when numeric vectors were given to axis ticktext; changed to character via format()
+   * cut2: fixed to handle large g values (Thanks Cole Beck https://github.com/harrelfe/Hmisc/pull/170)
+   * Added dependency on R 4.1.0 or later because of use of new pipe operator in describe etc.
+   * GiniMd: got around bug in sum(empty vector) = 0 by returning NA if na.rm=FALSE and there were any NAs
+   * testCharDateTime: correctly handle case where all values are NA or '' and convert=TRUE
+   * hdquantile: allowed for scalar probs (see https://github.com/harrelfe/Hmisc/pull/180; thanks Cole Beck)
+   * movStats: added nignore argument, defaults to 10 (the previous behavior)
+   * history.data.frame, ecdf: fixed dev issue https://github.com/harrelfe/Hmisc/issues/181
+   * spikecomp: for tresult='segments' removed attributes from vectors to make data.table compliant
+   * xless: adapted for MacOS using open system command
+
+Changes in version 5.1-1 (2023-09-11)
+   * meltData: generalized to allow melting on either left or right side of formula, added ... arguments passed to label(), made variable a factor to keep original order
+   * formatCons: fixed bug where lang != 'latex' should have been lang == 'plain' which made msdsize to be ignored for html output
+   * spikecomp: made more reliable by not assuming as much about pretty() boundaries
+   * redun: added rank and qrank options
+   * added print and plot methods for princmp
+   * redun: added ability to use numeric matrix instead of formula
+   * ggplot.transcan: fixed bug when adata is empty
+   * ggplot.transace: new function
+   * transace: added trantab result, added as.matrix(x) so can run on data frames of all numeric variables; added automatic setting of binary, category, etc. if x is a data frame/table; non-downward-compatible change: made returned object of class transace with different format; remove pr and pl arguments from transace.  Changed first argument to a formula and required monotone(), categorical(), linear() to wrap variables in the formula instead of specifying with separate arguments
+   * runParallel: put in NAMESPACE
+   * qcrypt: new function for encrypting and decrypting data with a safe workflow
+   * aregImpute: added constraint argument to allow general constraints on values imputed with predictive mean matching
+
 Changes in version 5.1-0 (2023-05-04)
    * fit.mult.impute: added robust, cluster, robmethod arguments to incorporate rms::robcov to do robust sandwich covariance estimation with multiple imputation
    * testCharDateTime: new function
@@ -158,7 +249,7 @@ Changes in version 4.4-2 (2020-11-25)
    * added estSeqSim and gbayesSeqSim functions
    * ggfreqScatter: stopped varying alpha and just varied color, as alpha collided with the color scheme
    * histSpike: added minimal=TRUE and bins arguments
-	 
+
 Changes in version 4.4-1 (2020-08-07)
    * popower: added approximate S.E. of log(OR) in results
    * propsPO: new function for exploring proportional odds
@@ -181,7 +272,7 @@ Changes in version 4.4-0 (2020-03-22)
    * plotlyM: fixed bug where need to unlist if only one graph produced
    * plotlyM: added ECDF support through fitter='ecdf'
    * keepHattrib, restoreHattrib: new functions for saving Hmisc attributes that can be restored later, e.g., after data.table processes a data frame
-	 
+
 Changes in version 4.3-1 (2020-02-07)
    * Depend on survival >= 3.1-6
    * pomodm: checked that x is sorted
@@ -202,7 +293,7 @@ Changes in version 4.3-0 (2019-11-07)
    * summaryDp: new function for plotly dotcharts stratifying separately on a series of variables
    * dotchartpl: added height argument
    * html.describe: fixed but where markupSpecs$html utility function last arguments were not named in calls
-	 
+
 Changes in version 4.2-0 (2019-01-25)
    * putHcap: new function
    * inst/tests/example.Rmd: changed to html document, replaced putHfig calls with new putHcap
@@ -238,7 +329,7 @@ Changes in version 4.2-0 (2019-01-25)
    * latex.default: fixed midfules for booktabs with ctable: https://github.com/harrelfe/Hmisc/pull/100
    * formatTestStats: trapped logical length mismatch
    * latex.default: checks options(omitlatexcom) and if TRUE suppresses emitting LaTeX comments; keeps Rmarkdown/pandoc from trying to escape LaTeX comment characters, putting the comments in the final output
-	 
+
 Changes in version 4.1-1 (2018-01-03)
    * describe: quit rounding values when <= 20 distinct values no matter how far apart any two values are spaced.  https://stackoverflow.com/questions/47679551
    * summaryM: fixed to handle character variables properly, by converting them to factors.  Thanks: Matt Shotwell
@@ -277,7 +368,7 @@ Changes in version 4.1-0 (2017-12-19)
    * NAMESPACE: removed exportPattern("^([^.]|\\..+\\.)") and explicitly exported everything, stopping export of methods
    * round.POSIXt,trunc.POSIXt: changed to roundPOSIXt, truncPOSIXt to avoid conflicts with R base
    * asNumericMatrix, matrix2dataFrame: changed to respect original storage.mode.  Thanks: Andre Mikulec
-	 
+
 Changes in version 4.0-3 (2017-04-30)
    * bpplot: added plotopts argument
    * describe, histboxp: improved logic to still slighty round numeric variables with fewer than 100 distinct values, in case some values are really close, when computing frequency distribution (for spike histograms in plot.describe)
@@ -296,7 +387,7 @@ Changes in version 4.0-3 (2017-04-30)
    * plot.summaryS: separated xlim and ylim to fix bug where xlim was ignored
    * plsmo: stop on error if no. observations not large enough for m with method='intervals'
    * Fortran calls: registered all Fortran functions, removed package name and quotes in first argument in .Fortran(), added F_ to entry point name in those calls, changed useDynLib call in NAMESPACE, added \alias{} for all F_ entries
-   	 
+
 Changes in version 4.0-2 (2016-12-30)
    * pngNeedle: fixed bug in html.describe under Windows by not specifying /tmp as the temporary file directory - https://github.com/harrelfe/Hmisc/issues/63; used tempdir() instead of tempfile()
    * html.describe.single: reuse the same temporary file for intermediate png output for spike histograms

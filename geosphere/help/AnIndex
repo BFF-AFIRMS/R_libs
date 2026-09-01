@@ -5,7 +5,9 @@ antipode	antipode
 areaPolygon	area
 areaPolygon,data.frame-method	area
 areaPolygon,matrix-method	area
+areaPolygon,sf-method	area
 areaPolygon,SpatialPolygons-method	area
+areaPolygon,SpatVector-method	area
 bearing	bearing
 bearingRhumb	bearingRhumb
 centroid	centroid
@@ -46,6 +48,7 @@ merc	data
 mercator	mercator
 midPoint	midPoint
 onGreatCircle	onGreatCircle
+OSGB	OSGB
 perimeter	perimeter
 perimeter,data.frame-method	perimeter
 perimeter,matrix-method	perimeter
@@ -57,5 +60,7 @@ refEllipsoids	refEllipsoids
 regularCoordinates	randomCoordinates
 span	span
 span,matrix-method	span
+span,sf-method	span
 span,SpatialPolygons-method	span
+span,SpatVector-method	span
 wrld	data

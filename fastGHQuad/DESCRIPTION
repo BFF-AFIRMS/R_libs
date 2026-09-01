@@ -17,4 +17,4 @@ NeedsCompilation: yes
 Packaged: 2022-05-05 17:20:14 UTC; rstudio
 Repository: CRAN
 Date/Publication: 2022-05-05 23:30:04 UTC
-Built: R 4.3.0; x86_64-pc-linux-gnu; 2023-07-07 02:33:57 UTC; unix
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-01 20:36:37 UTC; unix

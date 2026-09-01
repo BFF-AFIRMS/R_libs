@@ -59,7 +59,7 @@ structure(list(gender = structure(as.integer(c(2, 2, 2, 2, 2,
 2, 2, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 2, 2, 1, 2, 1, 1, 1, 1,
 1, 2, 2, 2, 2, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 2, 1, 1, 2, 2,
 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 2, 1, 1, 2, 1, 2, 1, 1, 1, 1, 2,
-1, 2, 1, 2)), .Label = c("Male", "Female"), class = "factor"),
+1, 2, 1, 2)), levels = c("Male", "Female"), class = "factor"),
     group = structure(as.integer(c(1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -90,7 +90,7 @@ structure(list(gender = structure(as.integer(c(2, 2, 2, 2, 2,
     3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
     3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
     3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-    3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3)), .Label = c("Control",
+    3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3)), levels = c("Control",
     "Early Onset", "Late Onset"), class = "factor"), TNFA_238 = structure(as.integer(c(2,
     2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -122,7 +122,7 @@ structure(list(gender = structure(as.integer(c(2, 2, 2, 2, 2,
     1, 1, 1, 1, 1, 2, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1,
     2, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    1, 2, 1, 2, 1)), .Label = c("GG", "GA", "AA"), class = "factor"),
+    1, 2, 1, 2, 1)), levels = c("GG", "GA", "AA"), class = "factor"),
     IL1B_511 = structure(as.integer(c(2, 1, 2, 2, 1, 2, 2, 2,
     1, 3, 2, 3, 2, 2, 1, 2, 3, 1, 2, 2, 2, 2, 3, 2, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 2, 2, 2, 1, 1, 1, 1, 2,
@@ -153,8 +153,8 @@ structure(list(gender = structure(as.integer(c(2, 2, 2, 2, 2,
     1, 2, 1, 1, 2, 1, 2, 1, 1, 1, 2, 3, 1, 1, 2, 1, 1, 1, 1,
     1, 1, 1, 2, 2, 2, 3, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 3, 1,
     1, 1, 3, 1, 1, 1, 1, 1, 3, 2, 2, 1, 2, 1, 1, 1, 2, 2, 1,
-    1, 2, 2, 1, 2, 2, 2, 1, 1, 1, 1, 1, 3, 1, 2, 2, 1)), .Label = c("CC",
-    "CT", "TT"), class = "factor")), .Names = c("gender", "group",
+    1, 2, 2, 1, 2, 2, 2, 1, 1, 1, 1, 1, 3, 1, 2, 2, 1)), levels = c("CC",
+    "CT", "TT"), class = "factor")), names = c("gender", "group",
 "TNFA_238", "IL1B_511"), row.names = c("1", "2", "3", "4", "5",
 "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
 "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27",
@@ -277,7 +277,7 @@ structure(list(Study = structure(c(1L, 1L, 1L, 1L, 1L, 1L, 1L,
 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L,
 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L,
 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L, 4L,
-4L), .Label = c("S1", "S2", "S3", "S4"), class = "factor"), Group = structure(c(2L,
+4L), levels = c("S1", "S2", "S3", "S4"), class = "factor"), Group = structure(c(2L,
 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L,
 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L,
 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L,
@@ -333,7 +333,7 @@ structure(list(Study = structure(c(1L, 1L, 1L, 1L, 1L, 1L, 1L,
 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L,
 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L,
 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L,
-1L, 1L, 1L, 1L, 1L, 1L, 1L), .Label = c("Cases", "Control"), class = "factor"),
+1L, 1L, 1L, 1L, 1L, 1L, 1L), levels = c("Cases", "Control"), class = "factor"),
     Locus = structure(c(1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L,
     1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L,
     1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 2L, 2L,
@@ -393,8 +393,8 @@ structure(list(Study = structure(c(1L, 1L, 1L, 1L, 1L, 1L, 1L,
     2L, 2L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L,
     3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L,
     3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L,
-    3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L), .Label = c("AA", "AB", "BB"
-    ), class = "factor")), .Names = c("Study", "Group", "Locus"
+    3L, 3L, 3L, 3L, 3L, 3L, 3L, 3L), levels = c("AA", "AB", "BB"
+    ), class = "factor")), names = c("Study", "Group", "Locus"
 ), row.names = c(NA, 888L), class = "data.frame")
 
 
@@ -518,7 +518,21 @@ for (i in 1:nrow(out))
 
 
 ###################################################
-### code chunk number 14: Ame-tab
+### code chunk number 14: bib
+###################################################
+thisdir <- getwd()
+bibfile <- system.file("REFERENCES.bib", package = "coin")
+### bibfile may contain spaces LaTeX is unable to deal with on MacOS it seems
+if (file.copy(bibfile, to = thisdir, overwrite = TRUE)) {
+    bibfile <- "REFERENCES.bib"
+} else {
+    ### hope for the best
+    bibfile <- file.path("..", "inst", "REFERENCES.bib")
+}
+
+
+###################################################
+### code chunk number 15: Ame-tab
 ###################################################
 me <- as.table(matrix(c( 6,  8, 10,
                32, 47, 20), byrow = TRUE, nrow = 2,
@@ -529,7 +543,7 @@ me
 
 
 ###################################################
-### code chunk number 15: Ag
+### code chunk number 16: Ag
 ###################################################
 add <- c(0, 1, 2)
 dom <- c(0, 1, 1)
@@ -541,7 +555,7 @@ g <- function(x) {
 
 
 ###################################################
-### code chunk number 16: AMAX
+### code chunk number 17: AMAX
 ###################################################
 library("coin")
 it <- independence_test(me, xtrafo = g, alternative = "greater")
@@ -549,19 +563,19 @@ it
 
 
 ###################################################
-### code chunk number 17: Ap (eval = FALSE)
+### code chunk number 18: Ap (eval = FALSE)
 ###################################################
 ## pvalue(it, method = "single-step")
 
 
 ###################################################
-### code chunk number 18: Ap
+### code chunk number 19: Ap
 ###################################################
 drop(pvalue(it, method = "single-step"))
 
 
 ###################################################
-### code chunk number 19: Zheng-g
+### code chunk number 20: Zheng-g
 ###################################################
 gZheng <- function(x) {
     x <- unlist(x)
@@ -575,19 +589,19 @@ itZ
 
 
 ###################################################
-### code chunk number 20: pZheng (eval = FALSE)
+### code chunk number 21: pZheng (eval = FALSE)
 ###################################################
 ## pvalue(itZ, method = "single-step")
 
 
 ###################################################
-### code chunk number 21: pZheng
+### code chunk number 22: pZheng
 ###################################################
 drop(pvalue(itZ, method = "single-step"))
 
 
 ###################################################
-### code chunk number 22: Simulations (eval = FALSE)
+### code chunk number 23: Simulations (eval = FALSE)
 ###################################################
 ## library("coin")
 ## 
@@ -722,5 +736,3 @@ drop(pvalue(itZ, method = "single-step"))
 ## SIMG(sims=10000,R=100,S=300,p=0.5,f0=0.1,f1=0.187,  f2=0.187)
 ## SIMG(sims=10000,R=100,S=300,p=0.5,f0=0.1,f1=0.15, f2=0.2)
 ## SIMG(sims=10000,R=100,S=300,p=0.5,f0=0.1,f1=0.1,  f2=0.175)
-
-

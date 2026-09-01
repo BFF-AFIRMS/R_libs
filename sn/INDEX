@@ -41,8 +41,8 @@ plot.SECdistr           Plotting methods for classes 'SECdistrUv' and
                         'SECdistrMv'
 plot.selm               Diagnostic plots for 'selm' fits
 plot.SUNdistr           Plotting method for class 'SUNdistr'
-pprodt2                 The distribution of the product of two jointly
-                        normal or _t_ variables
+pprodt2                 The distribution function of the product of two
+                        jointly normal or Student's _t_ variables
 predict.selm            Predict method for selm-class objects
 profile.selm            Profile log-likelihood function of selm-class
                         objects

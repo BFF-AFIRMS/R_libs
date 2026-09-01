@@ -1,20 +1,25 @@
 Package: gam
 Type: Package
 Title: Generalized Additive Models
-Date: 2023-03-27
-Version: 1.22-2
-Author: Trevor Hastie
-Description: Functions for fitting and working with generalized
-		additive models, as described in chapter 7 of "Statistical Models in S" (Chambers and Hastie (eds), 1991), and "Generalized Additive Models" (Hastie and Tibshirani, 1990).
-Maintainer: Trevor Hastie <hastie@stanford.edu>
+Date: 2025-12-08
+Version: 1.22-7
+Authors@R: c(person(given = "Trevor",
+                    family = "Hastie",
+                    role = c("aut", "cre"),
+                    email = "hastie@stanford.edu"),
+	   person("Balasubramanian", "Narasimhan", role=c("ctb")))
+Description: Functions for fitting and working with generalized	additive models, as described in chapter 7 of "Statistical Models in S" (Chambers and Hastie (eds), 1991), and "Generalized Additive Models" (Hastie and Tibshirani, 1990).
 Depends: R (>= 4.0), stats, splines, foreach
 Suggests: interp, testthat
 License: GPL-2
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.3
 Encoding: UTF-8
 Imports: methods
 NeedsCompilation: yes
-Packaged: 2023-03-27 22:47:20 UTC; hastie
+Packaged: 2025-12-09 20:16:12 UTC; hastie
+Author: Trevor Hastie [aut, cre],
+  Balasubramanian Narasimhan [ctb]
+Maintainer: Trevor Hastie <hastie@stanford.edu>
 Repository: CRAN
-Date/Publication: 2023-03-28 02:50:02 UTC
-Built: R 4.3.0; x86_64-pc-linux-gnu; 2023-07-07 02:57:30 UTC; unix
+Date/Publication: 2025-12-10 09:40:02 UTC
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-01 21:10:32 UTC; unix

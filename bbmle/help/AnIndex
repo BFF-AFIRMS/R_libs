@@ -35,6 +35,7 @@ mle2	mle2
 mle2-class	mle-class
 mle2.options	mle2.options
 namedrop	namedrop
+nobs,mle2-method	BIC-methods
 parnames	parnames
 parnames<-	parnames
 plot,profile.mle2,missing-method	profile.mle-class

@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2021         Dirk Eddelbuettel
+# Copyright (C) 2021-2025  Dirk Eddelbuettel
 #
 # This file is part of RcppArmadillo.
 #
@@ -23,9 +23,14 @@ library(RcppArmadillo)
 arma <- armadillo_version(FALSE)
 expect_equal(length(arma), 3)           # major minor patch
 expect_equal(names(arma), c("major","minor","patch"))
+av <- as.package_version(paste(arma, collapse="."))
 arma <- armadillo_version(TRUE)
 expect_equal(class(arma), "integer")
 expect_equal(length(arma), 1L)
+pv <- armadillo_version_typed()
+expect_inherits(pv, "package_version")
+expect_inherits(pv, "numeric_version")
+expect_equal(pv, av)
 
 ## no tests as we have no (current) accessor as we prefer R RNGs
 expect_warning(armadillo_set_seed_random())
@@ -36,3 +41,10 @@ armadillo_set_seed(42L)                 # no test as we have no (current) access
 cxxflags <- RcppArmadillo:::RcppArmadilloCxxFlags()
 expect_true(is.character(cxxflags))
 expect_stdout(RcppArmadillo:::CxxFlags())
+
+## 'set number of threads' helper -- adding simple test
+expect_true(is.integer(armadillo_get_number_of_omp_threads()))
+expect_silent(armadillo_set_number_of_omp_threads(2))
+## startup throttle/restore helpers
+expect_silent(armadillo_throttle_cores())
+expect_silent(armadillo_reset_cores())

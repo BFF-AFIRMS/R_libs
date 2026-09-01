@@ -1,3 +1,185 @@
+# broom.helpers 1.23.0
+
+**New supported models**
+
+- support for `survival::coxphms.object` models, see the
+  experimental tidier `tidy_coxphms()` (#308)
+  
+**New features**
+
+- `model_get_coefficients_type()` for `brmsfit` models (#316)
+
+**Fixes**
+
+- `.clean_backticks()` fixed when variable names contain `$` 
+  (#311, @NourEdinDarwish)
+- fix in variable identification when `I()` is used with non standard
+  variable names (#313, @NourEdinDarwish)
+
+# broom.helpers 1.22.0
+
+**New supported models**
+
+- support for `quantreg::rq()` models, use `tidy_with_broom_or_parameters()`,
+  default tidier of `tidy_plus_plus()` (#299)
+  
+**Fixes**
+
+- bug fix for `fixest` models when using a subsetted data frame (#301)
+- bug fix for `fixest` models when computing the number of observations (#303)
+
+**Removed functions**
+
+- `.select_to_varnames()`, `.formula_list_to_named_list()`,
+  `.generic_selector()` and `.is_selector_scoped()` have now been removed
+
+# broom.helpers 1.21.0
+
+**New supported models**
+
+- basic support for `svyVGAM::svy_vglm()` models, see the
+  experimental tidier `tidy_svy_vglm()` (#293)
+
+**Minor breaking changes**
+
+- `tidy_add_term_labels()` does not relabel polynomial terms (defined with
+  `stats::poly()`) by default. The feature is style accessible using
+  `relabel_poly = TRUE` (#292)
+
+# broom.helpers 1.20.0
+
+**New supported models**
+
+- improved support for `VGAM::vglm()` and `VGAM::vgam()` models, see the
+  experimental tidier `tidy_vgam()` (#253)
+
+**New features**
+
+- new `tidy_group_by()` function to indicate how to group results (#288)
+- new arguments `group_by` and `group_labels` for `tidy_plus_plus()` (#288)
+
+**Deprecated functions**
+
+- `.select_to_varnames()`, `.formula_list_to_named_list()`,
+  `.generic_selector()` and `.is_selector_scoped()` are now hard deprecated.
+
+# broom.helpers 1.19.0
+
+**Deprecated function**
+
+- `tidy_marginal_means()` is now hard deprecated (#284)
+
+# broom.helpers 1.18.0
+
+**New supported models**
+
+- support for `glmtoolbox::glmgee()` models (#274)
+
+**New features**
+
+- support of instrumental variables for `fixest` models (#279)
+- new argument `instrumental_suffix` for `model_list_variables()`,
+  `tidy_add_variable_labels()` and `tidy_plus_plus()`
+
+**Fixes**
+
+- variable labels are now returned by `model_list_variables()` for `svycoxph`
+  models (#275)
+- compatibility with R version 4.1 minimum (#276)
+- fix for `tidy_add_n()` with models with a subset argument (#278)
+
+# broom.helpers 1.17.0
+
+**Deprecated functions and changes in selectors functions**
+
+- selectors such as `all_categorical()` are now compatible with `gtsummary`
+  version ≥ 2.0.0 (#270)
+- new function `scope_tidy()` to scope a tidy tibble allowing
+  to tidy select (#270)
+- `.select_to_varnames()`, `.formula_list_to_named_list()`,
+  `.generic_selector()` and `.is_selector_scoped()` are now deprecated and
+  will be removed in a future release: you may consider
+  `cards::process_selectors()` and `cards::process_formula_selectors()` as
+  alternatives (#270)
+
+**Fixes**
+
+- `model_get_model_frame.coxph()` has been fixed to return a correct model
+  frame a subject identifier is passed to `survival::coxph()` (#268)
+
+
+**Documentation**
+
+- Documentation has been improved, showing now clearly the type expected
+  for each argument (#272)
+
+# broom.helpers 1.16.0
+
+**New features**
+
+- new argument `model_matrix_attr` in `tidy_and_attach()` and `tidy_plus_plus()`
+  to attach model frame and model matrix to the model as attributes for saving
+  some execution time (#254)
+- `tidy_add_n()` now returns `n_ind` the number of individuals, in addition to
+  the number of observations (#251)
+- by default, `tidy_parameters()` calls now `parameters::model_parameters()`
+  with `pretty_names = FALSE` for saving execution time (#259)
+- internal code now uses the native R pipe (`|>`), requiring therefore R >= 4.2
+  (#262)
+  
+**Deprecated support**
+
+- `biglmm::bigglm()` not supported anymore as `biglmm` has been removed from
+  CRAN
+  
+**Deprecated functions**
+
+- `tidy_marginal_means()` is now deprecated, following deprecation of
+  `marginaleffects::marginal_means()`. Use instead `tidy_marginal_predictions()`
+  with the option `newdata = "balanced"`.
+- `tidy_margins()` is now indicated as superseded and may be deprecated if
+  `margins` is removed from CRAN. `tidy_avg_slopes()` could be used as an
+  alternative. (#252)
+  
+**Fixes**
+
+- `tidy_multgee()` has been fixed to properly identify the different `y.levels`
+  (#260 @jackmwolf)
+- `tidy_marginal_predictions()` has been updated to avoid the use of the
+  deprecated function `marginaleffects::datagridcf()` (#256)
+  
+
+# broom.helpers 1.15.0
+
+**New supported models**
+
+- support for `mmrm::mmrm()` models (#228)
+- support for `survival::cch()` models (#242)
+
+**New features**
+
+- new `tidy_post_fun` argument in `tidy_plus_plus()` (#235)
+
+**Fix**
+
+- fix the order of the levels of categorical variables in the results of
+  `tidy_marginal_predictions()` (#245)
+- fix in `supported_models`
+- bug fix when using `tidy_parameters()` for mixed models (#238)
+- bug fix for `survey::svyglm()` models with replicate weights (#240)
+
+# broom.helpers 1.14.0
+
+**New features**
+
+- support for `MASS::contr.sdif()` contrasts (#230)
+- support for `pscl::zeroinfl()` and `pscl::hurdle()` models (#232)
+- support for `betareg::betareg()` models (#234)
+
+**Fix**
+
+- input of `packageVersion()` should be a character string (#225)
+
 # broom.helpers 1.13.0
 
 **New features**

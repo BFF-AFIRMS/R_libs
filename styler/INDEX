@@ -22,6 +22,7 @@ style_file              Style files with R source code
 style_pkg               Prettify R source code
 style_text              Style a string
 styler_addins           Stylers for RStudio Addins
-styler-package          Non-invasive pretty printing of R code
+styler_options          Package options
+styler-package          styler: Non-Invasive Pretty Printing of R Code
 stylerignore            Turn off styling for parts of the code
 tidyverse_style         The tidyverse style

@@ -1,16 +1,21 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   error = TRUE
 )
 
+if (identical(Sys.getenv("IN_PKGDOWN"), "true") &&
+    !gert:::global_user_is_configured()) {
+  gert:::configure_global_user()
+}
+
 ## ----setup--------------------------------------------------------------------
 library(gert)
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  git_config_global_set("user.name", "Jerry Johnson")
-#  git_config_global_set("user.email", "jerry@gmail.com")
+# git_config_global_set("user.name", "Jerry Johnson")
+# git_config_global_set("user.email", "jerry@gmail.com")
 
 ## -----------------------------------------------------------------------------
 git_config_global()

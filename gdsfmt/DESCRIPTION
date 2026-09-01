@@ -1,8 +1,8 @@
 Package: gdsfmt
 Type: Package
 Title: R Interface to CoreArray Genomic Data Structure (GDS) Files
-Version: 1.36.1
-Date: 2023-07-03
+Version: 1.46.0
+Date: 2025-09-09
 Depends: R (>= 2.15.0), methods
 Suggests: parallel, digest, Matrix, crayon, RUnit, knitr, markdown,
         rmarkdown, BiocGenerics
@@ -36,10 +36,11 @@ BugReports: https://github.com/zhengxwen/gdsfmt/issues
 URL: https://github.com/zhengxwen/gdsfmt
 biocViews: Infrastructure, DataImport
 git_url: https://git.bioconductor.org/packages/gdsfmt
-git_branch: RELEASE_3_17
-git_last_commit: 02524c5
-git_last_commit_date: 2023-07-03
-Date/Publication: 2023-07-04
+git_branch: RELEASE_3_22
+git_last_commit: 36ad4a4
+git_last_commit_date: 2025-10-29
+Repository: Bioconductor 3.22
+Date/Publication: 2025-10-29
 NeedsCompilation: yes
-Packaged: 2023-07-04 20:51:48 UTC; biocbuild
-Built: R 4.3.0; x86_64-pc-linux-gnu; 2023-07-07 13:00:43 UTC; unix
+Packaged: 2025-10-30 04:07:43 UTC; biocbuild
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-01 21:42:12 UTC; unix

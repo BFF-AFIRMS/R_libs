@@ -1,3 +1,27 @@
+# viridis 0.6.5
+
+## New features
+
+* N/A. 
+
+## Minor improvements and fixes
+
+* Fix a problem with ggplot next release (thanks to @teunbrand). 
+
+---
+
+# viridis 0.6.4
+
+## New features
+
+* N/A. 
+
+## Minor improvements and fixes
+
+* Fix a problem with checking R version in R-devel. 
+
+---
+
 # viridis 0.6.3
 
 ## New features

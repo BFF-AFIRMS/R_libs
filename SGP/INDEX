@@ -18,6 +18,8 @@ createKnotsBoundaries   Function to create Knots and Boundaries from
                         supplied data in LONG format.
 getStateAbbreviation    Function for converting state/organization
                         abbreviations to long form and back.
+gofPrint                Function to produce Goodness of Fit plots from
+                        a SGP object.
 gofSGP                  Function for producing goodness of fit plots
                         using existing SGP object
 growthAchievementPlot   growthAchievementPlot for SGP

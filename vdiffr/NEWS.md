@@ -1,3 +1,24 @@
+# vdiffr 1.0.9
+
+* Fixes for CRAN checks.
+
+
+# vdiffr 1.0.8
+
+* Added support for snapshot variants (#125).
+
+
+# vdiffr 1.0.7
+
+* Revert back to C++11 to work around a GCC issue (#137).
+
+
+# vdiffr 1.0.6
+
+* The SVG device in vdiffr now has a different name
+  so it can be distinguished from the svglite device (#135).
+
+
 # vdiffr 1.0.5
 
 * Fix for CRAN checks.
@@ -82,7 +103,7 @@ a bugfix.
   Font sizes are now precomputed for the first 50000 unicode points.
   This allows deterministic computation of text box extents without
   the freetype and harfbuzz dependencies.
-  
+
   Note: The main visible change of this update is that points now look
   smaller. Points generated with the previous SVG engine were too large.
 

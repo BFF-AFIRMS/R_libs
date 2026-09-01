@@ -1,30 +1,36 @@
-rl_citation             Get the citation Red List API version
-rl_common_names         Get common names for a given taxonomic name
-rl_comp_groups          Information about comprehensive groups
-rl_countries            Get countries
-rl_growth_forms         Get plant species growth forms by taxon name,
-                        IUCN id, and region
-rl_habitats             Get species habitats by taxon name, IUCN id,
-                        and region
-rl_history              Get historical assessments by taxon name, IUCN
-                        id, and region
-rl_measures             Get species conservation measures by taxon
-                        name, IUCN id, and region
-rl_narrative            Get species narrative information by taxon
-                        name, IUCN id, and region
-rl_occ_country          Get country occurrence by species name or ID
-rl_occ_country_         Search by taxon name, IUCN id, and region
-rl_regions              Get regions
-rl_sp                   Get species
-rl_sp_category          Get species by category
-rl_sp_citation          Get citations by taxon name, IUCN id, and
-                        region
-rl_sp_count             Get total species count of taxa in the Red List
-rl_sp_country           Get species by country
-rl_synonyms             Get species synonym information by taxonomic
-                        name
-rl_threats              Get species threats by taxon name, IUCN id, and
-                        region
+rl_actions              Conservation actions needed assessment summary
+rl_api_version          Get the Red List API version
+rl_assessment           Retrieve an assessment
+rl_assessment_extract   Extract an assessment element
+rl_assessment_list      Retrieve a list of assessments
+rl_categories           Red List category assessment summary
+rl_citation             Get the citation for the Red List API
+rl_class                Class assessment summary
+rl_comp_groups          Comprehensive group assessment summary
+rl_countries            Country assessment summary
+rl_extinct              Extinct taxa assessment summary
+rl_extinct_wild         Extinct taxa in the wild assessment summary
+rl_family               Family assessment summary
+rl_faos                 FAO marine fishing region assessment summary
+rl_green                Green Status assessment summary
+rl_growth_forms         Growth form assessment summary
+rl_habitats             Habitat assessment summary
+rl_kingdom              Kingdom assessment summary
+rl_order                Order assessment summary
+rl_phylum               Phylum assessment summary
+rl_pop_trends           Population trend assessment summary
+rl_realms               Biogeographical realm assessment summary
+rl_research             Research needed assessment summary
+rl_scopes               Scope assessment summary
+rl_sis                  SIS ID assessment summary
+rl_sis_latest           SIS ID latest assessment
+rl_sp_count             Get count of species in the Red List
+rl_species              Species assessment summary
+rl_species_latest       Species latest assessment
+rl_stresses             Stress assessment summary
+rl_systems              System assessment summary
+rl_threats              Threat assessment summary
+rl_use_and_trade        Use and trade assessment summary
 rl_use_iucn             Helper to get and save IUCN API key
-rl_version              Get the Red List API version
-rredlist-package        rredlist
+rl_version              Get the Red List version
+scale_color_iucn        IUCN Red List color scales

@@ -1,3 +1,119 @@
+# Version 1.5.0 [2025-01-07]
+
+## Significant Changes
+
+ * Package now requires R (>= 3.4.0) [2017-04-21], because the next
+   release of R will have stricter C header requirements that are not
+   backward compatible with older versions of R.
+
+## Deprecated and Defunct
+
+ * The hidden R options for deescalating the error for using `useNames
+   = NA` to a warning has been removed; `useNames = NA` is now always
+   an error.
+
+ * Calling `colRanks()` and `rowRanks()` without explicitly specifying
+   argument `ties.method` is deprecated since version 1.3.0
+   [2024-04-10]. If not explicitly specified, a deprecation warning is
+   now produced every 10:th call not specifying the `ties.method`
+   argument.
+
+## Bug Fixes
+
+ * The error message of `colTabulates()` and `rowTabulates()`
+   asserting that double values are passed, reported on the class of
+   the input data, not the storage type.
+
+ 
+# Version 1.4.1 [2024-09-06]
+
+## Bug Fixes
+
+ * Fix a `runtime error: null pointer passed as argument 1, which is
+   declared to never be null` bug introduced in v1.4.0 that was
+   detected by the UndefinedBehaviorSanitizer (UBSan) running on CRAN.
+ 
+
+# Version 1.4.0 [2024-09-03]
+
+## Performance
+
+ * `rowSums2()` is now significantly faster for larger matrices.
+ 
+## Miscellaneous
+
+ * None of the error messages use a trailing period.
+ 
+ * Addressing changes in the C API of R-devel resulted in compiler
+   errors such as `error: implicit declaration of function 'Calloc';
+   did you mean 'calloc'? [-Wimplicit-function-declaration]`.
+
+ * Addressing changes in stricter compiler flags of R-devel resulted
+   in compiler warning `embedding a directive within macro arguments
+   has undefined behavior [-Wembedded-directive]`.
+
+## Deprecated and Defunct
+
+ * Calling `colRanks()` and `rowRanks()` without explicitly specifying
+   argument `ties.method` is deprecated since version 1.3.0 [2024-04-10].
+   If not explicitly specified, a deprecation warning is now produced every
+   25:th call not specifying the `ties.method` argument.
+   
+
+# Version 1.3.0 [2024-04-10]
+
+## Significant Changes
+
+ * `validateIndices()` has been removed. It had been defunct since
+   version 0.63.0 (2022-11-14).
+
+## Bug Fixes
+
+ * Fixed two PROTECT/UNPROTECT issues detected by the 'rchk' tool.
+
+## Deprecated and Defunct
+
+ * Calling `colRanks()` and `rowRanks()` without explicitly specifying
+   argument `ties.method` will be deprecated when using R (>=
+   4.4.0). The reason is that the current default is `ties.method =
+   "max"`, but we want to change that to `ties.method = "average"` to
+   align it with `base::rank()`. In order to minimize the risk for
+   sudden changes in results, we ask everyone to explicitly specify
+   their intent. The first notice will be through deprecation
+   warnings, which will only occur every 50:th call to keep the noise
+   level down.  We will make it more noisy in future releases, and
+   eventually also escalated to defunct errors.
+ 
+ * Using a scalar value for argument `center` of `colSds()`,
+   `rowSds()`, `colVars()`, `rowVars()`, `colMads()`, `rowMads()`,
+   `colWeightedMads()`, and `rowWeightedMads()` is now defunct.
+
+
+# Version 1.2.0 [2023-12-11]
+
+## Bug Fixes
+
+ * Error messages that report on large integers (> 2^31 - 1), would
+   not render those integers correctly.
+
+## Deprecated and Defunct
+
+ * `useNames = NA` is defunct.
+
+
+# Version 1.1.0 [2023-11-06]
+
+## Deprecated and Defunct
+
+ * `useNames = NA` is defunct in R (>= 4.4.0). Remains deprecated in
+   R (< 4.4.0) for now.
+
+## Miscellaneous
+
+ * The deprecation warning for using `useNames = NA`, suggested using
+   `useNames = TRUE` twice instead of also `useNames = FALSE`.
+ 
+
 # Version 1.0.0 [2023-06-01]
 
 ## Significant Changes
@@ -1051,7 +1167,7 @@
 
 ## Deprecated and Defunct
 
- * Calling `indexByRow(X)` with a matrix `X` is deprecatated.  Instead
+ * Calling `indexByRow(X)` with a matrix `X` is deprecated.  Instead
    call it with `indexByRow(dim(X))`.
 
 

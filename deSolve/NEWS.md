@@ -1,3 +1,39 @@
+Changes version 1.42
+================================
+* rk_util.c: replace non-API function findVar with R_getVarEx
+* replace error, warning with Rf_error, Rf_warning
+
+Changes version 1.41
+================================
+* source code repository moved to Github
+* added nls to Suggests
+* fixed web and file links in vignettes and help files
+
+Changes version 1.40
+================================
+* compacted vignettes
+
+Changes version 1.39
+================================
+* small documentation fix
+* printf fixes in forcings.c and rprintf.c
+
+Changes version 1.37
+================================
+* changed encoding of DESCIPTION to UTF-8
+* fixed also a NOTE about documentation, 
+* format of citations
+
+Changes version 1.37
+================================
+* remove GNU extensions and improve compatibility by 
+  replacing KIND=8 with KIND=0.0d0 in Fortran code
+
+Changes version 1.36
+================================
+* remove GNU extensions to improve Fortran compatibility
+  for complex numbers in file zvode.f 
+
 Changes version 1.35
 ================================
 * speedup of multiple `lsoda` solver calls with a pre-identified

@@ -1,3 +1,20 @@
+# cowplot 1.2.0
+
+- fix `get_legend()` for redesigned ggplot legend system (#202)
+
+- fix test for ggplot object class (#210)
+
+- fix label order when laying out plots by column rather than by row
+  (@Doubt-0KB, #203)
+
+# cowplot 1.1.3
+
+- fix issues with upcoming ggplot 3.5.0.
+
+# cowplot 1.1.2
+
+- fix warning message: deprecated `size` argument in `element_rect()` and `element_line()` (@Yunuuuu, #190)
+
 # cowplot 1.1.1
 
 - Make sure tests don't fail if vdiffr is missing.

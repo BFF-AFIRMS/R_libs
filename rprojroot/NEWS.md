@@ -1,4 +1,66 @@
-<!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
+<!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
+
+# rprojroot 2.1.1 (2025-08-26)
+
+## Features
+
+- `is_vscode_project` looks for `.vscode/settings.json` instead of just `.vscode/` (#162, #163).
+
+## Documentation
+
+- Use single quotes to avoid nested double quotes (#161).
+
+
+# rprojroot 2.1.0 (2025-07-12)
+
+## Bug fixes
+
+- Fix example for `find_root()` (@salim-b, #98).
+
+## Features
+
+- Add `is_vscode_project` criterion, true if a `.vscode/` directory exists (#155, #157, @jennybc).
+
+- New `is_targets_project` (@mitchelloharawild, #108, #146).
+
+- Avoid warnings about invalid inputs with non-native encoding (@bastistician, #80).
+
+- Align `is_pkgdown_project` with pkgdown \> 2.0.9. (#104, #106).
+
+- Avoid warnings on Windows network drives (#105).
+
+## Chore
+
+- Rename `is_root()` to `is_fs_root()` to avoid confusion (#101).
+
+## Documentation
+
+- Switch to `index.md` (#113).
+
+- Clarify `subdir` argument (#103).
+
+- Fix typo (@salim-b, #99).
+
+## Testing
+
+- Replace mockr with `testthat::local_mocked_bindings()` (@salim-b, #97).
+
+
+# rprojroot 2.0.4 (2023-11-05)
+
+## Features
+
+- Add `is_renv_project` criterion looking for an `renv.lock` file (@gadenbuie, #86).
+- Add `is_quarto_project` criterion looking for a Quarto project (@olivroy, #91, #92).
+
+## Chore
+
+- Update maintainer e-mail address.
+
+## Testing
+
+- Wrap `::` to skip if not installed in tests (#94).
+
 
 # rprojroot 2.0.3 (2022-03-25)
 

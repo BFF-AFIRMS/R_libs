@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
 // 
-// Copyright 2008-2016 Conrad Sanderson (http://conradsanderson.id.au)
+// Copyright 2008-2016 Conrad Sanderson (https://conradsanderson.id.au)
 // Copyright 2008-2016 National ICT Australia (NICTA)
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// http://www.apache.org/licenses/LICENSE-2.0
+// https://www.apache.org/licenses/LICENSE-2.0
 // 
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,10 +24,8 @@
 #if defined(ARMA_USE_FFTW3)
 
 template<typename cx_type, bool inverse>
-class fft_engine_wrapper
+struct fft_engine_wrapper
   {
-  public:
-  
   static constexpr uword threshold = 512;
   
   fft_engine_kissfft<cx_type,inverse>* worker_kissfft = nullptr;
@@ -36,7 +34,7 @@ class fft_engine_wrapper
   inline
   ~fft_engine_wrapper()
     {
-    arma_extra_debug_sigprint();
+    arma_debug_sigprint();
     
     if(worker_kissfft != nullptr)  { delete worker_kissfft; }
     if(worker_fftw3   != nullptr)  { delete worker_fftw3;   }
@@ -45,9 +43,9 @@ class fft_engine_wrapper
   inline
   fft_engine_wrapper(const uword N_samples, const uword N_exec)
     {
-    arma_extra_debug_sigprint();
+    arma_debug_sigprint();
     
-    const bool use_fftw3 = N_samples >= (threshold / N_exec);
+    const bool use_fftw3 = (is_cx_fp16<cx_type>::no) && (N_samples >= (threshold / N_exec));
     
     worker_kissfft = (use_fftw3 == false) ? new fft_engine_kissfft<cx_type,inverse>(N_samples) : nullptr;
     worker_fftw3   = (use_fftw3 == true ) ? new fft_engine_fftw3  <cx_type,inverse>(N_samples) : nullptr;
@@ -57,7 +55,7 @@ class fft_engine_wrapper
   void
   run(cx_type* Y, const cx_type* X)
     {
-    arma_extra_debug_sigprint();
+    arma_debug_sigprint();
     
          if(worker_kissfft != nullptr)  { (*worker_kissfft).run(Y,X); }
     else if(worker_fftw3   != nullptr)  {   (*worker_fftw3).run(Y,X); }
@@ -76,7 +74,7 @@ inline
 void
 op_fft_real::apply( Mat< std::complex<typename T1::pod_type> >& out, const mtOp<std::complex<typename T1::pod_type>,T1,op_fft_real>& in )
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   typedef typename T1::pod_type         in_eT;
   typedef typename std::complex<in_eT> out_eT;
@@ -123,7 +121,7 @@ op_fft_real::apply( Mat< std::complex<typename T1::pod_type> >& out, const mtOp<
     }
   else
     {
-    // process each column seperately
+    // process each column separately
     
     out.set_size(N_user, n_cols);
     
@@ -162,7 +160,7 @@ inline
 void
 op_fft_cx::apply(Mat<typename T1::elem_type>& out, const Op<T1,op_fft_cx>& in)
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   typedef typename T1::elem_type eT;
   
@@ -189,7 +187,7 @@ inline
 void
 op_fft_cx::apply_noalias(Mat<eT>& out, const Mat<eT>& X, const uword a, const uword b)
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   const uword n_rows = X.n_rows;
   const uword n_cols = X.n_cols;
@@ -234,7 +232,7 @@ op_fft_cx::apply_noalias(Mat<eT>& out, const Mat<eT>& X, const uword a, const uw
     }
   else
     {
-    // process each column seperately
+    // process each column separately
     
     out.set_size(N_user, n_cols);
     
@@ -300,7 +298,7 @@ inline
 void
 op_ifft_cx::apply(Mat<typename T1::elem_type>& out, const Op<T1,op_ifft_cx>& in)
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   typedef typename T1::elem_type eT;
   

@@ -13,8 +13,7 @@ inspect	inspect
 isValidTestSuite	runit
 plotConnection.trackInfo	RUnit-internal
 print.RUnitTestData	textProtocol
-printHTML	printHTML.trackinfo
-printHTML.trackInfo	printHTML.trackinfo
+printHTML	printHTML
 printHTMLProtocol	textProtocol
 printJUnitProtocol	textProtocol
 printTextProtocol	textProtocol

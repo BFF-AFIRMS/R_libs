@@ -1,3 +1,50 @@
+# Version 1.0.0 (2026-06-21)
+
+## Significant Changes
+
+ * Changed the package license to permissive Apache License (>= 2).
+
+
+# Version 0.10.1 [2026-03-10]
+
+## Bug Fixes
+
+ * `as.list(x[c(n, 2)])` on a list environment `x` where `n` is out of
+   range would return element values in the wrong location.
+ 
+ * `get_variable(x, c(i, j, k, ...))` would return the wrong value for
+   list environments with three or more dimensions.
+
+ * `as.listenv(x)` on a list `x` with NULL elements would store them
+   as `list(NULL)` instead of `NULL`, causing `as.list(as.listenv(x))`
+   to not be identical to `x`.
+
+ * `as.list(x, all.names = FALSE)` on an unnamed list enviroment `x`
+   would return an empty list instead of all elements.
+
+ * `x[, i] <- NULL` on a list environment matrix `x` with partial
+   dimnames (some dimensions named, others not) would produce an
+   error.
+   
+ * `parse_env_subset(x[i, j])` would produce an error when the list
+   environment `x` had named elements and a subscript was out of
+   bounds.
+
+
+# Version 0.10.0 [2025-11-01]
+
+## Deprecated and Defunct
+
+ * `map()` is formally defunct; use `mapping()` instead.
+
+
+# Version 0.9.1 [2024-01-28]
+
+## Documentation
+
+ * Fix minor syntax issues in help pages.
+
+ 
 # Version 0.9.0 [2022-12-15]
 
 ## New Features
@@ -23,7 +70,7 @@
 
 # Version 0.8.0 [2019-12-05]
 
-## Signficant Changes
+## Significant Changes
 
  * S3 method `lengths()` for `listenv` is no longer exported.
 
@@ -125,7 +172,7 @@
 ## New Features
  
  * Add support for assigning elements when creating list environment
-   similarly how to lists work, e.g. `x <- listenv(a = 1, b = 2)`.
+   similar to how lists work, e.g. `x <- listenv(a = 1, b = 2)`.
  
  * `length(x) <- n` now expand/truncate a list environment.
  
@@ -202,7 +249,7 @@
  
 # Version 0.2.0 [2015-05-19]
  
-## Signficant Changes
+## Significant Changes
  
  * Moved list environments from an in-house package to its own package.
  

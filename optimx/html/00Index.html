@@ -12,11 +12,10 @@
 <div style="text-align: center;">
 <a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
 <a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
-</div><h2>Documentation for package &lsquo;optimx&rsquo; version 2022-4.30</h2>
+</div><h2>Documentation for package &lsquo;optimx&rsquo; version 2025-4.9</h2>
 
-<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+<ul><li><a href="../DESCRIPTION" type="text/plain">DESCRIPTION file</a>.</li>
 <li><a href="../doc/index.html">User guides, package vignettes and other documentation.</a></li>
-<li><a href="../demo">Code demos</a>.  Use <a href="../../utils/help/demo">demo()</a> to run them.</li>
 <li><a href="../NEWS">Package NEWS</a>.</li>
 </ul>
 
@@ -29,11 +28,13 @@
 <tr><td style="width: 25%;"><a href="optimx.html">as.data.frame.optimx</a></td>
 <td>General-purpose optimization</td></tr>
 <tr><td style="width: 25%;"><a href="axsearch.html">axsearch</a></td>
-<td>Perform axial search around a supposed minimum and provide diagnostics</td></tr>
+<td>Perform axial search around a supposed MINIMUM and provide diagnostics</td></tr>
 <tr><td style="width: 25%;"><a href="bmchk.html">bmchk</a></td>
 <td>Check bounds and masks for parameter constraints used in nonlinear optimization</td></tr>
 <tr><td style="width: 25%;"><a href="bmstep.html">bmstep</a></td>
 <td>Compute the maximum step along a search direction.</td></tr>
+<tr><td style="width: 25%;"><a href="checksolver.html">checkallsolvers</a></td>
+<td>Test if requested solver is present</td></tr>
 <tr><td style="width: 25%;"><a href="checksolver.html">checksolver</a></td>
 <td>Test if requested solver is present</td></tr>
 <tr><td style="width: 25%;"><a href="coef.opm.html">coef.opm</a></td>
@@ -66,6 +67,8 @@
 <td>Forward difference numerical gradient approximation.</td></tr>
 <tr><td style="width: 25%;"><a href="grnd.html">grnd</a></td>
 <td>A reorganization of the call to numDeriv grad() function.</td></tr>
+<tr><td style="width: 25%;"><a href="grpracma.html">grpracma</a></td>
+<td>A reorganization of the call to the pracma grad() function.</td></tr>
 <tr><td style="width: 25%;"><a href="hesschk.html">hesschk</a></td>
 <td>Run tests, where possible, on user objective function and (optionally) gradient and hessian</td></tr>
 <tr><td style="width: 25%;"><a href="hjn.html">hjn</a></td>
@@ -74,44 +77,56 @@
 <td>Check Kuhn Karush Tucker conditions for a supposed function minimum</td></tr>
 <tr><td style="width: 25%;"><a href="multistart.html">multistart</a></td>
 <td>General-purpose optimization - multiple starts</td></tr>
+<tr><td style="width: 25%;"><a href="ncg.html">ncg</a></td>
+<td>An R implementation of a Dai / Yuan nonlinear conjugate gradient algorithm.</td></tr>
+<tr><td style="width: 25%;"><a href="nvm.html">nvm</a></td>
+<td>Variable metric nonlinear function minimization, driver.</td></tr>
 <tr><td style="width: 25%;"><a href="opm.html">opm</a></td>
 <td>General-purpose optimization</td></tr>
+<tr><td style="width: 25%;"><a href="opm2optimr.html">opm2optimr</a></td>
+<td>Extract optim() solution for one method of opm() result</td></tr>
 <tr><td style="width: 25%;"><a href="optchk.html">optchk</a></td>
 <td>General-purpose optimization</td></tr>
 <tr><td style="width: 25%;"><a href="optimr.html">optimr</a></td>
 <td>General-purpose optimization</td></tr>
+<tr><td style="width: 25%;"><a href="optimr2opm.html">optimr2opm</a></td>
+<td>Add a single optimr() solution to a opm() result set</td></tr>
 <tr><td style="width: 25%;"><a href="optimx.html">optimx</a></td>
 <td>General-purpose optimization</td></tr>
 <tr><td style="width: 25%;"><a href="grfwd.html">optsp</a></td>
 <td>Forward difference numerical gradient approximation.</td></tr>
+<tr><td style="width: 25%;"><a href="pd_check.html">pd_check</a></td>
+<td>Check Hessian matrix is positive definite by attempting a Cholesky decomposition.</td></tr>
 <tr><td style="width: 25%;"><a href="polyopt.html">polyopt</a></td>
 <td>General-purpose optimization - sequential application of methods</td></tr>
 <tr><td style="width: 25%;"><a href="proptimr.html">proptimr</a></td>
 <td>Compact display of an 'optimr()' result object</td></tr>
 <tr><td style="width: 25%;"><a href="Rcgmin.html">Rcgmin</a></td>
-<td>An R implementation of a nonlinear conjugate gradient algorithm with the Dai / Yuan update and restart. Based on Nash (1979) Algorithm 22 for its main structure.</td></tr>
-<tr><td style="width: 25%;"><a href="Rcgminb.html">Rcgminb</a></td>
-<td>An R implementation of a bounded nonlinear conjugate gradient algorithm with the Dai / Yuan update and restart. Based on Nash (1979) Algorithm 22 for its main structure. CALL THIS VIA 'Rcgmin' AND DO NOT USE DIRECTLY.</td></tr>
-<tr><td style="width: 25%;"><a href="Rcgminu.html">Rcgminu</a></td>
-<td>An R implementation of an unconstrained nonlinear conjugate gradient algorithm with the Dai / Yuan update and restart. Based on Nash (1979) Algorithm 22 for its main structure.  CALL THIS VIA 'Rcgmin' AND DO NOT USE DIRECTLY.</td></tr>
+<td>An R implementation of a Dai / Yuan nonlinear conjugate gradient algorithm.</td></tr>
+<tr><td style="width: 25%;"><a href="Rcgmin.html">Rcgminb</a></td>
+<td>An R implementation of a Dai / Yuan nonlinear conjugate gradient algorithm.</td></tr>
+<tr><td style="width: 25%;"><a href="Rcgmin.html">Rcgminu</a></td>
+<td>An R implementation of a Dai / Yuan nonlinear conjugate gradient algorithm.</td></tr>
+<tr><td style="width: 25%;"><a href="Rtnmin.html">Rtnmin</a></td>
+<td>Truncated Newton function minimization</td></tr>
 <tr><td style="width: 25%;"><a href="Rvmmin.html">Rvmmin</a></td>
 <td>Variable metric nonlinear function minimization, driver.</td></tr>
-<tr><td style="width: 25%;"><a href="Rvmminb.html">Rvmminb</a></td>
-<td>Variable metric nonlinear function minimization with bounds constraints</td></tr>
-<tr><td style="width: 25%;"><a href="Rvmminu.html">Rvmminu</a></td>
-<td>Variable metric nonlinear function minimization, unconstrained</td></tr>
+<tr><td style="width: 25%;"><a href="Rvmmin.html">Rvmminb</a></td>
+<td>Variable metric nonlinear function minimization, driver.</td></tr>
+<tr><td style="width: 25%;"><a href="Rvmmin.html">Rvmminu</a></td>
+<td>Variable metric nonlinear function minimization, driver.</td></tr>
 <tr><td style="width: 25%;"><a href="scalechk.html">scalechk</a></td>
 <td>Check the scale of the initial parameters and bounds input to an optimization code used in nonlinear optimization</td></tr>
-<tr><td style="width: 25%;"><a href="snewton.html">snewton</a></td>
+<tr><td style="width: 25%;"><a href="snewton.html">snewtm</a></td>
 <td>Safeguarded Newton methods for function minimization using R functions.</td></tr>
-<tr><td style="width: 25%;"><a href="snewton.html">snewtonm</a></td>
+<tr><td style="width: 25%;"><a href="snewton.html">snewton</a></td>
 <td>Safeguarded Newton methods for function minimization using R functions.</td></tr>
 <tr><td style="width: 25%;"><a href="summary.optimx.html">summary.optimx</a></td>
 <td>Summarize optimx object</td></tr>
-<tr><td style="width: 25%;"><a href="tn.html">tn</a></td>
-<td>Truncated Newton minimization of an unconstrained function.</td></tr>
-<tr><td style="width: 25%;"><a href="tnbc.html">tnbc</a></td>
-<td>Truncated Newton function minimization with bounds constraints</td></tr>
+<tr><td style="width: 25%;"><a href="Rtnmin.html">tn</a></td>
+<td>Truncated Newton function minimization</td></tr>
+<tr><td style="width: 25%;"><a href="Rtnmin.html">tnbc</a></td>
+<td>Truncated Newton function minimization</td></tr>
 <tr><td style="width: 25%;"><a href="optimx.html">[.optimx</a></td>
 <td>General-purpose optimization</td></tr>
 </table>

@@ -50,6 +50,8 @@ export(imputeData, imputePairs, matchCluster, majorityVote)
 
 export(mapClass, classError, adjustedRandIndex, BrierScore)
 
+export(logsumexp, softmax)
+
 export(mclust1Dplot, mclust2Dplot, mvn2plot, surfacePlot, uncerPlot)
 export(clPairs, clPairsLegend, 
        coordProj, randProj,
@@ -61,7 +63,8 @@ export(hc, print.hc, plot.hc)
 S3method("print", "hc")
 S3method("plot", "hc")
 export(hcE, hcEEE, hcEII, hcV, hcVII, hcVVV)
-export(hclass, hcRandomPairs, randomPairs, dupPartition)
+export(hclass, hcRandomPairs, randomPairs, dupPartition, as.hclust.hc)
+S3method("as.hclust", "hc")
 
 export(mclustBIC, print.mclustBIC, summary.mclustBIC, 
        print.summary.Mclust, plot.mclustBIC,
@@ -120,7 +123,7 @@ export(MclustDRsubsel,
 S3method("print", "MclustDRsubsel")
 S3method("summary", "MclustDRsubsel")
 
-export(me.weighted, covw, hdrlevels, dmvnorm)
+export(me.weighted, covw, hdrlevels, dmvnorm, count)
 
 export(icl, mclustICL, print.mclustICL, 
        summary.mclustICL, print.summary.mclustICL, 
@@ -176,6 +179,12 @@ S3method("print", "crimcoords")
 S3method("summary", "crimcoords")
 S3method("print", "summary.crimcoords")
 S3method("plot", "crimcoords")
+
+export(simulate.Mclust, 
+       simulate.densityMclust)
+S3method("simulate", "Mclust")
+S3method("simulate", "densityMclust")
+
 
 # deprecated functions
 export(cv.MclustDA, cv1EMtrain, bicEMtrain)

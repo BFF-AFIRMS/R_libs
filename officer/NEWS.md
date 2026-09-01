@@ -1,3 +1,398 @@
+# officer 0.7.6
+
+## Issues
+
+- drop deprecated special names (`.Names`, `.Dim`, `.Dimnames`) in `structure()`
+calls, flagged as a NOTE by r-devel checks (#728).
+
+# officer 0.7.5
+
+## Word
+
+- drop deprecated `seqfield` argument in `run_word_field()` and remove `run_seqfield()`
+(old duplicate of `run_word_field()`) .
+
+## RTF
+
+- RTF sections were debugged and now behave correctly: page orientation,
+columns, margins and per-section headers / footers all apply as expected,
+including multi-column layouts (#726, thanks to Nathan Kosiba).
+
+- New paragraph style API for RTF, aligned with `docx_set_paragraph_style()`
+on the Word side. `rtf_set_paragraph_style()` is now exported and takes
+`style_id`, `style_name`, `base_on`, `fp_p`, `fp_t` and `outline_level`;
+`rtf_styles_info()` returns the document's style table. `rtf_add()` accepts
+a `style` argument so paragraphs (character, factor, double, fpar,
+block_list) can reference a named style. `rtf_doc()` registers built-in
+`"heading 1"` / `"heading 2"` / `"heading 3"` styles with `\outlinelevel`
+values, so styled paragraphs feed Word's navigation pane and TOC field.
+Use `rtf_set_paragraph_style()` after `rtf_doc()` to override a built-in
+style; the row keyed by `style_id` is updated in place.
+
+- `rtf_add()` now accepts [block_toc()] objects and emits a TOC field
+in the RTF stream, in parity with `body_add_toc()` for Word. Word
+populates the table at open time using the outline levels carried by
+the built-in heading styles; LibreOffice does not render the TOC
+automatically.
+
+## Excel features
+
+- Images and ggplot drawings placed on Excel sheets with
+`sheet_add_drawing()` can now be anchored to cells. Pass
+`anchor = "B2:H20"` (a cell range) to make the drawing move and
+size with cells, Excel's default behaviour. Pass `anchor = "B2"`
+(a single cell) to make it move but keep its own size. Omit
+`anchor` for the previous fixed-position layout. The `edit_as`
+argument controls what happens when rows or columns are resized.
+The same options are available to charts inserted via 'mschart'.
+- Excel sheets can host the chartEx chart family (boxplot, funnel,
+histogram, pareto, sunburst, treemap, waterfall) in addition to the
+classic chart types. The new helper `ooxml_chart_uris()` returns the
+identifiers needed by `xlsx_drawing` to wire either family.
+- Two new building blocks for packages that emit OOXML directly
+(such as 'mschart'): `solid_fill(color)` returns a DrawingML
+solid-fill fragment with optional alpha; `to_pml()` now has an
+`sp_line` method exposing line-properties conversion that was
+previously internal.
+
+# officer 0.7.4
+
+## Features
+
+### Excel
+
+- new functions `sheet_write_data()` and `sheet_add_drawing()` for writing
+data and inserting drawings (charts, vector graphics) into xlsx workbooks.
+`sheet_write_data()` is an S3 generic: beside `data.frame`, it also accepts
+a `character` vector (one cell per element, vertical by default; 
+`direction = "horizontal"` for a row), an [`fpar()`] (richtext inline cell honouring
+bold, italic, underline, strikethrough, size, colour, font, sub/superscript)
+and a [`block_list()`] (one cell per `fpar` item, stacked).
+`sheet_add_drawing()` has an `external_img` method and a `gg` method.
+- new function `sheet_remove()` to delete a sheet from an xlsx workbook.
+`add_sheet()` is purely additive and never drops any sheet; call
+`sheet_remove()` explicitly if the template's default sheet is not wanted.
+
+### Word
+
+- `write_docx_settings()` now preserves the existing `settings.xml`
+content instead of rebuilding it from scratch. This fixes the loss of
+embedded font settings, math properties, footnote/endnote settings and 
+other XML elements during docx roundtrips (#554).
+- new function `docx_embed_font()` to embed TrueType or OpenType font
+files into Word documents. Embedded fonts ensure correct rendering on
+systems where the font is not installed (#554).
+
+### Word & PowerPoint
+
+- new functions `list_item()`, `block_list_items()` and
+`body_add_list()` to create bullet or numbered lists with rich text
+(`fpar`) and multi-level nesting. Works in both Word and PowerPoint
+documents (#314).
+
+### Formatting properties
+
+- `fp_par()` and `fp_par_lite()` gain `first_line` and `hanging`
+arguments to control paragraph first-line and hanging indents (in
+points). Honored by the Word, PowerPoint, HTML and RTF renderers.
+`hanging` wins when both are provided (flextable #704).
+
+## Issues
+
+- `sheet_select()` now deselects other sheets, fixing the issue where
+multiple tabs appeared selected when opening the workbook.
+
+# officer 0.7.3
+
+## Features
+
+- function `remove_slide()` now supports deletion of multiple slides
+thanks to Wahiduzzaman Khan (#691).
+- add `cursor_reach_index()` to set the cursor at a specific index position in
+the document (#574).
+- `set_doc_properties()` gains a new argument `hyperlink_base` to set the base
+URL for relative hyperlinks in Word documents. `doc_properties()` now returns
+the `HyperlinkBase` property when available (#630).
+
+## Issues
+
+- fix feed_from_xml for 'officedown'.
+- `remove_field` argument of function `docx_summary()` now work as expected.
+- also remove relationships in `sanitize_images()` (#708).
+- Package now supports read-only installations (e.g., when installed as root or 
+via Nix). Previously, attempting to create presentations would fail with 
+permission errors in read-only environments (#706).
+
+## Changes
+
+- Defunct function `docx_reference_img()`.
+
+# officer 0.7.2
+
+## Issues
+
+- RTF support strike text setting.
+- fix an issue with bookmark selections in `docx_summary()`.
+- fix `fp_par_lite()` management of argument `tabs`.
+- there was a regression with svg in docx, it is solved now.
+
+## Features
+
+- new internal utilities `base64_to_image()`, `as_base64()`, `from_base64()` 
+and `plot_in_png()`.
+
+
+# officer 0.7.1
+
+## Features
+
+- new function `floating_external_img()` to add a floating image in a 'Word' 
+document.
+
+## Changes
+
+- Refactoring of `docx_summary()`: the function now provide more run-level 
+information (text formatting, images, hyperlinks, bookmarks). 
+- Refactoring of `sanitize_images()`: the function now works as expected. It will
+be unexported soon since it is now automatically called before writing documents
+and is therefore no longer useful to end users.
+- Remove defunct `slip_in*` functions.
+
+## Issues
+
+- Fix RTF sections that were sometimes invisible
+- issue with image in google docs should now be fixed (#689)
+- add automatically namespaces when calling `write_elements_to_context()`
+- Fix lists styles with `body_import_docx()` thanks to Sean Anderson.
+
+# officer 0.7.0
+
+## Features
+
+- new function `docx_set_settings()` to set document settings of a Word document.
+This function can be used to specify if the document should handle odd and even headers and footers,
+to change the list separator, etc.
+- new function `body_import_docx()` to import content from an external Word document.
+- `fp_text()` now supports `strike` argument to set strikethrough text.
+- `ph_with()` now handles `Date` objects without prior conversion to character. 
+  The date format can be set locally via the `date_format` arg or globally via 
+  `options(officer.date_format = ...)` (#683)
+
+## Issues
+
+- Fix Rmd output with paragraphs `fpar()` so that no stylename is used.
+- Improve `set_doc_properties()` error and warning messages.
+- `page_size()` now manage correctly sizes if `orient = "landscape"` and not 
+`unit = "in"`.
+- `phs_with()` and `add_slide()` now have a more informative error message if 
+the ph label is unknown (#672)
+- Function `set_doc_properties()` now supports NULL and NA custom properties in 
+a Word document.
+- argument `separator` is not used anymore in `block_toc`. Now the Word field is 
+generated with no separator making it more portable over the different locales 
+Word users could have.
+
+# officer 0.6.10
+
+## Issues
+
+- Fix RTF generation so that `fp_par_lite()` works also for RTF output.
+- Fix `doc_summary(... detailed=TRUE)` when the runs has a shading (w:shd) with 
+a fill but no color attribute.
+- `plot_layout_properties()`: new `slide_idx` arg to specify which slide's layout 
+  to plot. The plot title now also contains the master's name (#666)
+
+# officer 0.6.9
+
+## Features
+
+- New functions `body_append_start_context()`, `write_elements_to_context()` and 
+  `body_append_stop_context()` to append elements at the end of a Word document
+  in a faster way. This is useful when the document is large and the user wants to
+  only append elements at the end of the document. 
+- New function `block_gg()` to add a ggplot object to a Word document. It is 
+  handy when the user wants to add a ggplot object to a Word document with 
+  new function `write_elements_to_context()`.
+- New function `fp_par_lite()` to create a paragraph formatting object with only the 
+  properties that are needed. It is useful when the user wants to create a 
+  paragraph object with only the properties that are needed and not all the 
+  properties. It can also be used to create a paragraph formatting object 
+  that reuse a style but with some modifications.
+- Function `print.rdocx()` gains new arguments `copy_header_refs` and 
+  `copy_footer_refs` to copy header and footer references from the
+  default section to other sections. This should be useful when the user
+  wants to add sections but also propagate the header and footer references.
+  
+
+## Performances
+
+- Refactored `body_add.block_list()` to speed up the process of adding a block 
+  list to a Word document, optimization of the process is made by minimizing call 
+  to `docx_current_block_xml()`.
+- `print.rdocx()` execution time improvements.
+
+## Issues
+
+- `add_slide()`: It now suffices to specify a unique `layout`. The `master` will be inferred automatically.  
+  Also, the default values for the `layout` (`"Title and Content"`) and `master` (`"Office Theme"`) arg were removed. 
+  They only applied to the default pptx template used by `read_pptx()`. To avoid breaking changes in old code, 
+  `add_slide()` now throws a deprecation warning, if no layout is specified (either via the `layout` arg or by setting 
+  a default layout). It then uses the `layout` arg's former default value (`"Title and Content"`). This makes sure, 
+  that the behavior of `add_slide()` does not change and avoids backward compatibility issues (#635)
+- `layout_default()` sets a default layout for `add_slide()` (#635).
+- `print.rpptx` now uses pluralization and marks the default layout (if set by `layout_default()`) with an asterisk (#635)
+- Fixed `docx_summary()` when a text run is associated with a text style and 
+  when paragraph or text styles are not registered in the Word document style 
+  table (thanks to Kaspar Meili).
+- `plot_layout_properties()` now takes `cex` as a vector or a list and matches by position, name or partial name. 
+  Zero values now hide the text. A single value now applies to all three cex parameters (label, type, and id) (#645)
+- `plot_layout_properties()` now shows the default layout, if one is set and there are not slides yet (#645)
+- Default page size is now set to exact A4 format for Word documents: `11906 / 1440` and `16838 / 1440` 
+instead of `21 / 2.54` and `29.7 / 2.54`.
+
+## Changes
+
+- Deprecate function `docx_reference_img()` as it is no longer useful..
+
+# officer 0.6.8
+
+## Issues
+
+- Simplified input format for `location` arg in `ph_with_*` functions (#623). Instead of a `location` object 
+  created by the `ph_location_*` function family, `ph_with_*` functions now resolves certain short form
+  input into corresponding `location` objects. For example, instead of using `ph_location_label("<label>")`
+  you can now simply pass the `"<label>"` to the `location` arg. The functionn will convert the string into
+  the corresponding location object automatically. Other examples are `"body [1]"` for 
+  `ph_location_type(type = "body", type_idx = 1)`, or the integer `1` for `ph_location_id(id = 1)`
+- Add `slide_visible()` to get and set the visibility of slides (#622).
+- debug selector for `ph_remove()` (see #625) that was not working for rvg outputs.
+- `phs_with`: filling multiple placeholders on one or more slides at once using key-value pair syntax (#639).
+- `add_slide`: new args `...` and `.dots`, both passed to `phs_with` to create slide and fill placeholders in one step (#639).
+- add support for pdf in office extensions (#613).
+
+## Internals
+
+- remove old visual tests
+
+# officer 0.6.7
+
+## Issues
+
+- store paddings as numeric values and not integer values.
+- remove_fields in `docx_summary()` now also removes "w:fldData" nodes.
+- complete the manual of `body_add_docx()` with a note about the file basename
+that can not contain ' ' and trigger an error if it contains a ' '. 
+- `plot_layout_properties()` gains a 'title' parameter, which will add the layout name as the plot title. Defaults to 
+`FALSE`, to not alter the old behavior. Also, the slide width and height are now correctly displayed in the plot. 
+Before, a box was drawn around the plot area. However, the plot area var with device size, not slide size.
+- class `dir_collection`: Files are now added to a container in the order of their trailing numeric index (#596).
+For example, `slideLayout2.xml` will now preceed `slideLayout10.xml`. Before, alphabetical sorting was used, where 
+`slideLayout10.xml` comes before `slideLayout2.xml`.
+- `layout_properties()` now returns all placeholders in case of multiple master (#597). Also, the internal `xfrmize()` 
+now sorts the resulting data by placeholder position. This yields an intuitive order, with placeholders sorted from 
+top to bottom and left to right.
+- `ph_location_type()` now throws an error if the `id` for a `type` is out of range (#602) and a more 
+informative error message if the type is not present in layout (#601).
+- `plot_layout_properties()` assignment order fixed for `labels= FALSE` (#604)
+- `layout_properties()` gains a `type_idx` column to index phs of the same type on a layout. Indexing is performed based on ph position, following a top-to-bottom, left-to-right order (#606).
+- `plot_layout_properties()` plots more information by default now: layout name, ph label, ph id, ph type + index by default (#606).
+- `ph_location_type()`: new `type_idx` arg replaces the deprecated `id` arg (#606).
+- Add `ph_location_id()` as a new member to the `ph_location_*` family. It references a placeholder via its unique id (#606).
+- `plot_layout_properties()`: Now accepts the layout index (see `layout_summary()`) as an alternative to the layout name.
+  Gains an argument `legend` to add a legend to the plot. Also prints the current slide's layout by 
+  default now, if not layout name is provided explicitly (#595).
+  
+## Features
+
+- `layout_rename_ph_labels()` to rename ph labels (#610).
+- add `layout_dedupe_ph_labels()` to handle duplicate placeholder labels (#589). 
+By default, it will only detect duplicate labels, but apply no changes. With 
+`action = "rename"`, it auto-renames duplicate labels and `action = "delete"` 
+deletes duplicates, only keeping their first occurrence.
+- new convenience functions `body_replace_gg_at_bkm()` and `body_replace_plot_at_bkm()`
+to replace text content enclosed in a bookmark with a ggplot or a base plot.
+- add `unit` (in, cm, mm) argument in function `page_size()`.
+
+# officer 0.6.6
+
+## Issues
+
+- Fix. `docx_summary` preserves non-breaking hyphens. Non-breaking hyphens are 
+replaced with a hyphen-minus (Unicode character 002D). Closes #573.
+- `docx_summary()` gains parameter 'detailed' which allows to get a detailed 
+summary including formatting properties of runs in a paragraph. Formatting 
+properties are stored in a list column `run`, where each element 
+is a dataframe with rows corresponding to a single 
+run and columns containing the information on formatting properties.
+- Fix. Add alt text to ggplot's added to a pptx with ph_with.gg. Closes #556.
+- embedded image in PPT can now be associated with an hyperlink
+- add a check to `block_pour_docx()` to avoid working with file paths 
+containing '&'.
+
+## Features
+
+- add coverage to rtf, contributions from Davide Garolini at roche.
+- `cursor_reach()` gains new argument `fixed` to enable exact matching.
+It defaults to FALSE for backward compatibility.
+- `remove_slide()` gains new argument `rm_images` to enable images deletion
+from ppt/media.
+- new function `body_comment()` adds a comment on an existing paragraph 
+at the cursor position.
+- `docx_summary()` gains parameter 'remove_field' to prevent field codes 
+from appearing in the returned data.frame. 
+
+# officer 0.6.5
+
+## Features 
+
+- new function `fp_tabs()` to enable tabulation marks settings 
+with flextable (for Word and RTF).
+
+## Issues
+
+- let the package be used with R < 4 by not using `\(x)` syntax
+
+# officer 0.6.4
+
+## Features 
+
+- `fp_border()` gains support for all line border styles listed in ECMA-376 
+  section 17.18.2 and allowed CSS border styles. Closes #165 and #443.
+
+## Changes
+
+- the dataframe returned by `docx_comments()` gains a list column `para_id` containing 
+the id(s) of the parent paragraph(s). A possible breaking change is that the `commented_text` 
+is now returned as a list column to account for comments spanning multiple runs.
+The docs gain a description of the columns of the returned dataframe.
+- `opts_current_table()` now ignore 'Quarto' setting.
+
+## Issues
+
+- Fix. Refactor `docx_comments()` to (properly) account for comments spanning 
+multiple paragraphs, multiple comments in the same paragraph and replies. Closes #541.
+- Check and stop if `fp_text_lite()` is using a *shading.color* but no *color*.
+- Check used style in `body_add_caption()`.
+- fix `ph_remove()`, `ph_slidelink()` and `ph_hyperlink()` that were not working since
+the latest refactoring.
+- Use fake attribute `stlname` if available in `docx_summary()`.
+- calls to `file.copy(from = "template/*.xml")` are now done with argument 
+`copy.mode = FALSE` for compatibility with 'nix'.
+
+# officer 0.6.3
+
+## Features
+
+- new function `run_comment()` to create a run with a comment.
+- new function `docx_comments()` to read comments in a Word document as a data.frame.
+- Add pptx support for invalid pptx files downloaded from https://slides.new.
+
+## Issues
+
+- Internal function `is_doc_open()` replaces `is_office_doc_edited()` to check if a document is open on Windows. This solves the issue where RStudio crashed while trying to write to an open Office document.
+- Add option `preserve` to preserve cell line breaks to `docx_summary()`.
+- fix `ph_hyperlink()` when several hyperlinks are inside one slide and refactored `ph_remove()`.
+
 # officer 0.6.2
 
 ## Issues
@@ -38,7 +433,7 @@ any fonts.
 - provides `image_to_base64()` and `uuid_generate()` as a tool 
 for other 'officeverse' packages.
 - styles are now injected as is and updated with `process_stylenames()`,
-this allow to depend on a reference doc.
+this allow to depend on a reference doc (now `convert_custom_styles_in_wml()`).
 
 # officer 0.5.2
 

@@ -1,3 +1,4 @@
+xml2-package	xml2-package
 as_list	as_list
 as_xml_document	as_xml_document
 download_html	download_xml
@@ -17,6 +18,7 @@ write_html	write_xml
 write_html.xml_document	write_xml
 write_xml	write_xml
 write_xml.xml_document	write_xml
+xml2	xml2-package
 xml2_example	xml2_example
 xml_add_child	xml_replace
 xml_add_parent	xml_replace
@@ -37,6 +39,7 @@ xml_find_all	xml_find_all
 xml_find_all.xml_nodeset	xml_find_all
 xml_find_chr	xml_find_all
 xml_find_first	xml_find_all
+xml_find_int	xml_find_all
 xml_find_lgl	xml_find_all
 xml_find_num	xml_find_all
 xml_find_one	xml_find_all

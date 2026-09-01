@@ -1,9 +1,9 @@
 Package: deldir
-Version: 1.0-9
-Date: 2023-05-17
+Version: 2.0-4
+Date: 2024-02-27
 Title: Delaunay Triangulation and Dirichlet (Voronoi) Tessellation
 Author: Rolf Turner
-Maintainer: Rolf Turner <r.turner@auckland.ac.nz>
+Maintainer: Rolf Turner <rolfturner@posteo.net>
 Depends: R (>= 3.5.0)
 Suggests: polyclip
 Imports: graphics, grDevices
@@ -18,7 +18,7 @@ LazyData: true
 ByteCompile: true
 License: GPL (>= 2)
 NeedsCompilation: yes
-Packaged: 2023-05-17 04:24:01 UTC; rolf
+Packaged: 2024-02-27 02:48:30 UTC; rolf
 Repository: CRAN
-Date/Publication: 2023-05-17 05:20:02 UTC
-Built: R 4.3.0; x86_64-pc-linux-gnu; 2023-07-07 02:21:01 UTC; unix
+Date/Publication: 2024-02-28 04:00:02 UTC
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-01 20:35:46 UTC; unix

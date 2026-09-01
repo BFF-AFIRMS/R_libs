@@ -1,5 +1,4 @@
 intergraph-package	intergraph-package
-as.matrix.igraph	as.matrix.igraph
 asDF	asDF
 asDF.igraph	asDF
 asDF.network	asDF
@@ -17,4 +16,5 @@ exIgraph	exNetwork
 exIgraph2	exNetwork
 exNetwork	exNetwork
 exNetwork2	exNetwork
+intergraph	intergraph-package
 netcompare	netcompare

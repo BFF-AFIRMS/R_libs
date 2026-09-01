@@ -43,11 +43,13 @@ wk_identity             Copy a geometry vector
 wk_is_geodesic          Set and get vector geodesic edge interpolation
 wk_linestring           Create lines, polygons, and collections
 wk_meta                 Extract feature-level meta
+wk_orient               Orient polygon coordinates
 wk_plot                 Plot well-known geometry vectors
 wk_problems             Validate well-known binary and well-known text
 wk_proj_crs_view        Common CRS Representations
 wk_set_z                Set coordinate values
 wk_trans_affine         Affine transformer
+wk_trans_explicit       Transform using explicit coordinate values
 wk_trans_inverse        Generic transform class
 wk_transform            Apply coordinate transformations
 wk_translate.sfc        Translate geometry vectors
@@ -55,6 +57,7 @@ wk_vertices             Extract vertices
 wk_void                 Do nothing
 wk_writer.sfc           Write geometry vectors
 wkb                     Mark lists of raw vectors as well-known binary
+wkb_to_hex              Convert well-known binary to hex
 wkb_translate_wkt       Deprecated functions
 wkt                     Mark character vectors as well-known text
 xy                      Efficient point vectors

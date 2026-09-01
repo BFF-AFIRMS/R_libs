@@ -2,11 +2,11 @@ Package: SNPRelate
 Type: Package
 Title: Parallel Computing Toolset for Relatedness and Principal
         Component Analysis of SNP Data
-Version: 1.34.1
-Date: 2023-03-19
+Version: 1.44.0
+Date: 2025-09-26
 Depends: R (>= 2.15), gdsfmt (>= 1.8.3)
 LinkingTo: gdsfmt
-Imports: methods
+Imports: methods, RhpcBLASctl
 Suggests: parallel, Matrix, RUnit, knitr, markdown, rmarkdown, MASS,
         BiocGenerics
 Enhances: SeqArray (>= 1.12.0)
@@ -40,15 +40,17 @@ BugReports: https://github.com/zhengxwen/SNPRelate/issues
 biocViews: Infrastructure, Genetics, StatisticalMethod,
         PrincipalComponent
 git_url: https://git.bioconductor.org/packages/SNPRelate
-git_branch: RELEASE_3_17
-git_last_commit: 8a20e85
-git_last_commit_date: 2023-05-01
-Date/Publication: 2023-05-02
+git_branch: RELEASE_3_22
+git_last_commit: 50237e4
+git_last_commit_date: 2025-10-29
+Repository: Bioconductor 3.22
+Date/Publication: 2025-10-29
 NeedsCompilation: yes
-Packaged: 2023-05-02 22:29:08 UTC; biocbuild
-Author: Xiuwen Zheng [aut, cre, cph] (<https://orcid.org/0000-0002-1390-0708>),
+Packaged: 2025-10-30 06:36:39 UTC; biocbuild
+Author: Xiuwen Zheng [aut, cre, cph] (ORCID:
+    <https://orcid.org/0000-0002-1390-0708>),
   Stephanie Gogarten [ctb],
   Cathy Laurie [ctb],
-  Bruce Weir [ctb, ths] (<https://orcid.org/0000-0002-4883-1247>)
+  Bruce Weir [ctb, ths] (ORCID: <https://orcid.org/0000-0002-4883-1247>)
 Maintainer: Xiuwen Zheng <zhengx@u.washington.edu>
-Built: R 4.3.0; x86_64-pc-linux-gnu; 2023-07-07 13:05:21 UTC; unix
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-01 21:44:02 UTC; unix

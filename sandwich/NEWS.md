@@ -1,3 +1,76 @@
+# sandwich 3.1-3
+
+* Code repository changed from R-Forge to Codeberg at:
+  <https://codeberg.org/zeileis/sandwich/>
+
+* The pkgdown website is now hosted at:
+  <https://zeileis.codeberg.page/sandwich/>
+
+
+# sandwich 3.1-2
+
+* Added `estfun()` method for `multinom()` objects (from `nnet`) so that `sandwich()`,
+  `vcovCL()` etc. are also supported.
+
+* Added informative error message in `meatHC()` and `meatPC()` if dimension of
+  `model.matrix` and `estfun` cannot be matched and thus working residuals cannot
+  be obtained.
+
+* Updated `structure()` calls to use `dimnames = ...` instead of `.Dimnames = ...`.
+
+* Fix BibTeX problems in vignettes (reported by Sebastian Meyer).
+
+
+# sandwich 3.1-1
+
+* In `meatPL()` the case of cross-section data (i.e., all elements of `order.by`
+  being equal) is handled consistently even if `aggregate = TRUE` (reported by
+  Christof Schoetz).
+
+* Fix `bread()` method for `survreg()` objects in case the latter already used a
+  "robust" sandwich variance. In that case `$naive.var` rather than `$var` has
+  to be used for the bread (reported by Daniel Klinenberg).
+
+* Improve warnings in `vcovHC()` for hat values numerically equal to 1. (Suggested by
+  Sanford Weisberg and John Fox.)
+
+
+# sandwich 3.1-0
+
+* Added jackknife estimator in all `vcovBS()` methods (suggested by Joe Ritter).
+  This is of particular practical interest in linear regression models where the
+  (clustered) jackknife and the (clustered) HC3 (or CV3, without cluster adjustment)
+  estimator coincide. In nonlinear models (including non-Gaussian GLMs) the jackknife and
+  the HC3 estimator do not coincide but the jackknife might still be a useful
+  alternative when the HC3 cannot be computed.
+
+* Added a new convenience interface `vcovJK()` for the jackknife covariance whose
+  default method simply calls `vcovBS(..., type = "jackknife")` (also suggested by
+  Joe Ritter, for more details see the previous item).
+
+* Added fractional-random-weight bootstrap, also known as Bayesian bootstrap, in all
+  `vcovBS()` methods (suggested by Noah Greifer and Grant McDermott). This is an
+  alternative to the classical xy bootstrap which has the computational advantage
+  that all observations are always part of the bootstrap samples with positive
+  weights drawn from a Dirichlet distribution. As weights can become close to zero
+  but no observations are excluded completely, this can stabilize the computation of
+  models that are not well-defined on all subsets.
+
+* Support weights, offsets, and different fitting methods in `lm` and `glm` objects
+  in the respective `vcovBS()` methods (reported by Noah Greifer).
+
+* More verbose error messages in `bwAndrews()` and `bwNeweyWest()` when bandwidth
+  cannot be computed, e.g., due to singular regressor variables (suggested by
+  Andrei V. Kostyrka).
+
+* Fix `bread()` method for `coxph()` objects in case the latter already used a
+  "robust" sandwich variance. In that case `$naive.var` rather than `$var` has
+  to be used for the bread (reported by Alec Todd).
+
+* Fix `plm::plm(..., index = ...)` calls which incorrectly used `indexes = ...`
+  (as in `plm.data()`, reported by Kevin Tappe).
+
+
 # sandwich 3.0-2
 
 * Added new argument `aggregate = TRUE` to `meatPL()` which is thus inherited by

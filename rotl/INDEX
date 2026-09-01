@@ -7,8 +7,7 @@ inspect.match_names     Inspect and Update alternative matches for a
                         name returned by tnrs_match_names
 is_in_tree              Check that OTT ids occur in the Synthetic Tree
 list_trees              List trees ids in objects returned by
-                        'studies_find_studies' and
-                        'studies_find_trees'.
+                        'studies_find_studies' and 'studies_find_trees'
 ott_id.match_names      'ott_id' and 'flags' for taxonomic names
                         matched by 'tnrs_match_names'
 rotl                    An Interface to the Open Tree of Life API

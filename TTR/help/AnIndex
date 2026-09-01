@@ -1,3 +1,4 @@
+TTR-package	TTR
 %D	stochastics
 %K	stochastics
 adjRatios	adjRatios
@@ -84,7 +85,6 @@ TTR	TTR
 ttrc	ttrc
 ultimateOscillator	ultimateOscillator
 VHF	VHF
-VMA	MovingAverages
 volatility	volatility
 VWAP	MovingAverages
 VWMA	MovingAverages

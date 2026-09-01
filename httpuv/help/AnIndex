@@ -1,4 +1,5 @@
 httpuv-package	httpuv-package
+as.staticPath	as.staticPath
 decodeURI	encodeURI
 decodeURIComponent	encodeURI
 encodeURI	encodeURI
@@ -14,6 +15,7 @@ PipeServer	PipeServer
 randomPort	randomPort
 rawToBase64	rawToBase64
 runServer	runServer
+runStaticServer	runStaticServer
 Server	Server
 service	service
 startDaemonizedServer	startDaemonizedServer

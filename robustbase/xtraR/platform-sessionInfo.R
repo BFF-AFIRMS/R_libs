@@ -1,6 +1,7 @@
 ## <---> sync with ~/R/Pkgs/CLA/inst/xtraR/platform-sessionInfo.R
 ##                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+if(getRversion() < "4.4.0")
 ##' return 'x' unless it is NULL where you'd use 'orElse'
 `%||%` <- function(x, orElse) if(!is.null(x)) x else orElse
 
@@ -10,20 +11,24 @@
 ##' Derive more sessionInfo() like information, notably about BLAS, LAPACK, arithmetic, etc
 moreSessionInfo <- function(print. = FALSE) {
     .M <- .Machine
+    if(printAll <- identical(print., "all")) print. <- TRUE
     if(print.) str(.M[grep("^sizeof", names(.M))]) ## differentiate long-double..
     b64 <- .M$sizeof.pointer == 8
     onWindows <- .Platform$OS.type == "windows"
     ## Do we have 64bit but no-long-double ?
     arch <- Sys.info()[["machine"]]
-    b64nLD <- (arch == "x86_64" && .M$sizeof.longdouble != 16)
+    b64nLD <- (b64 && .M$sizeof.longdouble != 16)
+    ##b64nLD <- (arch == "x86_64" && .M$sizeof.longdouble != 16)
     if(b64nLD) arch <- paste0(arch, "--no-long-double")
     if(print.)
         cat(sprintf("%d bit platform type '%s'  ==> onWindows: %s\narch: %s\n",
                     if(b64) 64 else 32, .Platform$OS.type, onWindows, arch))
     sInfo <- sessionInfo()
+    if(printAll) print(sInfo)
     if(!exists("osVersion")) osVersion <- sInfo$running
     if(print.) cat("osVersion (0):", osVersion, "\n")
-    if(is.null(osVersion)) osVersion <- "Fedora" # very last resort
+    osVnull <- "<null>"
+    if(is.null(osVersion)) osVersion <- osVnull # very last resort
     if(!length(BLAS.is.LAPACK <- sInfo$BLAS == sInfo$LAPACK))
         BLAS.is.LAPACK <- NA # R versions <= 3.3.x
     ## A cheap check (that works on KH's debian-gcc setup, 2019-05):
@@ -32,7 +37,7 @@ moreSessionInfo <- function(print. = FALSE) {
     if(!length(Lapack.is.openBLAS <- grepl("openblas", sInfo$LAPACK, ignore.case=TRUE)))
         Lapack.is.openBLAS <- NA
     if(print.)
-        cat("osVersion:", osVersion, "\n"
+        cat("osVersion:", sQuote(osVersion), "\n"
           ,'+  BLAS "is" Lapack:', BLAS.is.LAPACK
           , '| BLAS=OpenBLAS:', BLAS.is.openBLAS
           , '| Lapack=OpenBLAS:', Lapack.is.openBLAS
@@ -70,7 +75,7 @@ moreSessionInfo <- function(print. = FALSE) {
     } else { ## workaround:
         strictR <- print(Sys.info()[["user"]]) == "maechler"# actually
         ## but not when testing with /usr/bin/R [OpenBLAS on Fedora!] (as "maechler"):
-        if(strictR && substr(osVersion, 1,6) == "Fedora" && R.home() == "/usr/lib64/R")
+        if(strictR && substr(osVersion, 1,6) %in% c(osVnull, "Fedora") && R.home() == "/usr/lib64/R")
             strictR <- FALSE
     }
     if(print.) cat("strictR:", strictR, "\n")

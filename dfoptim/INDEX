@@ -1,4 +1,4 @@
-dfoptim                 Derivative-Free Optimization
+dfoptim-package         Derivative-Free Optimization
 hjk                     Hooke-Jeeves derivative-free minimization
                         algorithm
 mads                    Mesh Adaptive Direct Searches (MADS) algorithm

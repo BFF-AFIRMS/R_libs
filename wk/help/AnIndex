@@ -127,6 +127,7 @@ vec_ptype2.wk_xyz	vctrs-methods
 vec_ptype2.wk_xyzm	vctrs-methods
 wk	wk-package
 wkb	wkb
+wkb_to_hex	wkb_to_hex
 wkb_translate_wkb	deprecated
 wkb_translate_wkt	deprecated
 wkb_writer	wk_writer
@@ -149,11 +150,14 @@ wk_bbox_handler	wk_bbox
 wk_chunk_strategy_coordinates	wk_chunk_strategy_single
 wk_chunk_strategy_feature	wk_chunk_strategy_single
 wk_chunk_strategy_single	wk_chunk_strategy_single
+wk_clockwise	wk_orient
 wk_collection	wk_linestring
 wk_collection_filter	wk_linestring
 wk_coords	wk_vertices
+wk_coords<-	wk_vertices
 wk_count	wk_count
 wk_count.default	wk_count
+wk_counterclockwise	wk_orient
 wk_count_handler	wk_count
 wk_crs	wk_crs
 wk_crs.wk_rcrd	wk_crs
@@ -217,6 +221,8 @@ wk_linestring_filter	wk_linestring
 wk_meta	wk_meta
 wk_meta.default	wk_meta
 wk_meta_handler	wk_meta
+wk_orient	wk_orient
+wk_orient_filter	wk_orient
 wk_platform_endian	wkb
 wk_plot	wk_plot
 wk_plot.default	wk_plot
@@ -244,6 +250,7 @@ wk_translate.sf	wk_handle.data.frame
 wk_translate.sfc	wk_translate
 wk_translate.tbl_df	wk_handle.data.frame
 wk_trans_affine	wk_trans_affine
+wk_trans_explicit	wk_trans_explicit
 wk_trans_inverse	wk_trans_inverse
 wk_trans_set	wk_set_z
 wk_vector_meta	wk_meta

@@ -12,11 +12,11 @@
 <div style="text-align: center;">
 <a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
 <a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
-</div><h2>Documentation for package &lsquo;insight&rsquo; version 0.19.3</h2>
+</div><h2>Documentation for package &lsquo;insight&rsquo; version 1.5.3</h2>
 
-<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+<ul><li><a href="../DESCRIPTION" type="text/plain; charset=utf-8">DESCRIPTION file</a>.</li>
 <li><a href="../doc/index.html">User guides, package vignettes and other documentation.</a></li>
-<li><a href="../NEWS">Package NEWS</a>.</li>
+<li><a href="../NEWS.md">Package NEWS</a>.</li>
 </ul>
 
 <h2>Help Pages</h2>
@@ -24,6 +24,7 @@
 
 <p style="text-align: center;">
 <a href="#A">A</a>
+<a href="#B">B</a>
 <a href="#C">C</a>
 <a href="#D">D</a>
 <a href="#E">E</a>
@@ -38,6 +39,7 @@
 <a href="#P">P</a>
 <a href="#S">S</a>
 <a href="#T">T</a>
+<a href="#V">V</a>
 </p>
 
 
@@ -48,6 +50,13 @@
 <td>Checks if all objects are models of same class</td></tr>
 <tr><td style="width: 25%;"><a href="all_models_equal.html">all_models_same_class</a></td>
 <td>Checks if all objects are models of same class</td></tr>
+</table>
+
+<h2><a id="B">-- B --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="easystats_columns.html">broom_columns</a></td>
+<td>Easystats columns</td></tr>
 </table>
 
 <h2><a id="C">-- C --</a></h2>
@@ -91,6 +100,10 @@
 <h2><a id="E">-- E --</a></h2>
 
 <table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="easystats_columns.html">easystats_columns</a></td>
+<td>Easystats columns</td></tr>
+<tr><td style="width: 25%;"><a href="efc_insight.html">efc_insight</a></td>
+<td>Sample dataset from the EFC Survey</td></tr>
 <tr><td style="width: 25%;"><a href="ellipsis_info.html">ellipsis_info</a></td>
 <td>Gather information about objects in ellipsis (dot dot dot)</td></tr>
 <tr><td style="width: 25%;"><a href="ellipsis_info.html">ellipsis_info.default</a></td>
@@ -104,7 +117,15 @@
 <table style="width: 100%;">
 <tr><td style="width: 25%;"><a href="find_algorithm.html">find_algorithm</a></td>
 <td>Find sampling algorithm and optimizers</td></tr>
+<tr><td style="width: 25%;"><a href="find_auxiliary.html">find_auxiliary</a></td>
+<td>Find auxiliary (distributional) parameters from models</td></tr>
+<tr><td style="width: 25%;"><a href="find_auxiliary.html">find_auxiliary.default</a></td>
+<td>Find auxiliary (distributional) parameters from models</td></tr>
 <tr><td style="width: 25%;"><a href="find_formula.html">find_formula</a></td>
+<td>Find model formula</td></tr>
+<tr><td style="width: 25%;"><a href="find_formula.html">find_formula.default</a></td>
+<td>Find model formula</td></tr>
+<tr><td style="width: 25%;"><a href="find_formula.html">find_formula.nestedLogit</a></td>
 <td>Find model formula</td></tr>
 <tr><td style="width: 25%;"><a href="find_interactions.html">find_interactions</a></td>
 <td>Find interaction terms from models</td></tr>
@@ -114,24 +135,14 @@
 <td>Find names of model parameters</td></tr>
 <tr><td style="width: 25%;"><a href="find_parameters.averaging.html">find_parameters.averaging</a></td>
 <td>Find model parameters from models with special components</td></tr>
-<tr><td style="width: 25%;"><a href="find_parameters.BGGM.html">find_parameters.bamlss</a></td>
-<td>Find names of model parameters from Bayesian models</td></tr>
-<tr><td style="width: 25%;"><a href="find_parameters.BGGM.html">find_parameters.bayesx</a></td>
-<td>Find names of model parameters from Bayesian models</td></tr>
 <tr><td style="width: 25%;"><a href="find_parameters.betamfx.html">find_parameters.betamfx</a></td>
 <td>Find names of model parameters from marginal effects models</td></tr>
-<tr><td style="width: 25%;"><a href="find_parameters.averaging.html">find_parameters.betareg</a></td>
-<td>Find model parameters from models with special components</td></tr>
-<tr><td style="width: 25%;"><a href="find_parameters.BGGM.html">find_parameters.BFBayesFactor</a></td>
-<td>Find names of model parameters from Bayesian models</td></tr>
 <tr><td style="width: 25%;"><a href="find_parameters.BGGM.html">find_parameters.BGGM</a></td>
 <td>Find names of model parameters from Bayesian models</td></tr>
 <tr><td style="width: 25%;"><a href="find_parameters.BGGM.html">find_parameters.brmsfit</a></td>
 <td>Find names of model parameters from Bayesian models</td></tr>
 <tr><td style="width: 25%;"><a href="find_parameters.html">find_parameters.default</a></td>
 <td>Find names of model parameters</td></tr>
-<tr><td style="width: 25%;"><a href="find_parameters.averaging.html">find_parameters.DirichletRegModel</a></td>
-<td>Find model parameters from models with special components</td></tr>
 <tr><td style="width: 25%;"><a href="find_parameters.emmGrid.html">find_parameters.emmGrid</a></td>
 <td>Find model parameters from estimated marginal means objects</td></tr>
 <tr><td style="width: 25%;"><a href="find_parameters.gamlss.html">find_parameters.gam</a></td>
@@ -140,24 +151,6 @@
 <td>Find names of model parameters from generalized additive models</td></tr>
 <tr><td style="width: 25%;"><a href="find_parameters.glmmTMB.html">find_parameters.glmmTMB</a></td>
 <td>Find names of model parameters from mixed models</td></tr>
-<tr><td style="width: 25%;"><a href="find_parameters.averaging.html">find_parameters.glmx</a></td>
-<td>Find model parameters from models with special components</td></tr>
-<tr><td style="width: 25%;"><a href="find_parameters.betamfx.html">find_parameters.logitmfx</a></td>
-<td>Find names of model parameters from marginal effects models</td></tr>
-<tr><td style="width: 25%;"><a href="find_parameters.BGGM.html">find_parameters.MCMCglmm</a></td>
-<td>Find names of model parameters from Bayesian models</td></tr>
-<tr><td style="width: 25%;"><a href="find_parameters.glmmTMB.html">find_parameters.merMod</a></td>
-<td>Find names of model parameters from mixed models</td></tr>
-<tr><td style="width: 25%;"><a href="find_parameters.zeroinfl.html">find_parameters.mhurdle</a></td>
-<td>Find names of model parameters from zero-inflated models</td></tr>
-<tr><td style="width: 25%;"><a href="find_parameters.averaging.html">find_parameters.mjoint</a></td>
-<td>Find model parameters from models with special components</td></tr>
-<tr><td style="width: 25%;"><a href="find_parameters.glmmTMB.html">find_parameters.nlmerMod</a></td>
-<td>Find names of model parameters from mixed models</td></tr>
-<tr><td style="width: 25%;"><a href="find_parameters.BGGM.html">find_parameters.sim.merMod</a></td>
-<td>Find names of model parameters from Bayesian models</td></tr>
-<tr><td style="width: 25%;"><a href="find_parameters.BGGM.html">find_parameters.stanreg</a></td>
-<td>Find names of model parameters from Bayesian models</td></tr>
 <tr><td style="width: 25%;"><a href="find_parameters.zeroinfl.html">find_parameters.zeroinfl</a></td>
 <td>Find names of model parameters from zero-inflated models</td></tr>
 <tr><td style="width: 25%;"><a href="find_predictors.html">find_predictors</a></td>
@@ -170,6 +163,8 @@
 <td>Find names of random slopes</td></tr>
 <tr><td style="width: 25%;"><a href="find_response.html">find_response</a></td>
 <td>Find name of the response variable</td></tr>
+<tr><td style="width: 25%;"><a href="find_response.html">find_response.joint</a></td>
+<td>Find name of the response variable</td></tr>
 <tr><td style="width: 25%;"><a href="find_smooth.html">find_smooth</a></td>
 <td>Find smooth terms from a model object</td></tr>
 <tr><td style="width: 25%;"><a href="find_statistic.html">find_statistic</a></td>
@@ -179,13 +174,15 @@
 <tr><td style="width: 25%;"><a href="find_terms.html">find_terms.default</a></td>
 <td>Find all model terms</td></tr>
 <tr><td style="width: 25%;"><a href="find_transformation.html">find_transformation</a></td>
-<td>Find possible transformation of response variables</td></tr>
+<td>Find possible transformation of model variables</td></tr>
+<tr><td style="width: 25%;"><a href="find_transformation.html">find_transformation.default</a></td>
+<td>Find possible transformation of model variables</td></tr>
 <tr><td style="width: 25%;"><a href="find_variables.html">find_variables</a></td>
 <td>Find names of all variables</td></tr>
 <tr><td style="width: 25%;"><a href="find_weights.html">find_weights</a></td>
 <td>Find names of model weights</td></tr>
 <tr><td style="width: 25%;"><a href="fish.html">fish</a></td>
-<td>Sample data set</td></tr>
+<td>Sample data set for count models</td></tr>
 <tr><td style="width: 25%;"><a href="format_message.html">format_alert</a></td>
 <td>Format messages and warnings</td></tr>
 <tr><td style="width: 25%;"><a href="format_bf.html">format_bf</a></td>
@@ -193,6 +190,8 @@
 <tr><td style="width: 25%;"><a href="format_capitalize.html">format_capitalize</a></td>
 <td>Capitalizes the first letter in a string</td></tr>
 <tr><td style="width: 25%;"><a href="format_ci.html">format_ci</a></td>
+<td>Confidence/Credible Interval (CI) Formatting</td></tr>
+<tr><td style="width: 25%;"><a href="format_ci.html">format_ci.numeric</a></td>
 <td>Confidence/Credible Interval (CI) Formatting</td></tr>
 <tr><td style="width: 25%;"><a href="format_message.html">format_error</a></td>
 <td>Format messages and warnings</td></tr>
@@ -253,6 +252,8 @@
 <td>Create a reference grid</td></tr>
 <tr><td style="width: 25%;"><a href="get_datagrid.html">get_datagrid.default</a></td>
 <td>Create a reference grid</td></tr>
+<tr><td style="width: 25%;"><a href="get_datagrid.emmGrid.html">get_datagrid.emmGrid</a></td>
+<td>Extract a reference grid from objects created by '{emmeans}' and '{marginaleffects}'</td></tr>
 <tr><td style="width: 25%;"><a href="get_datagrid.html">get_datagrid.factor</a></td>
 <td>Create a reference grid</td></tr>
 <tr><td style="width: 25%;"><a href="get_datagrid.html">get_datagrid.numeric</a></td>
@@ -265,24 +266,32 @@
 <td>Extract degrees of freedom</td></tr>
 <tr><td style="width: 25%;"><a href="get_df.html">get_df.default</a></td>
 <td>Extract degrees of freedom</td></tr>
+<tr><td style="width: 25%;"><a href="get_auxiliary.html">get_dispersion</a></td>
+<td>Get auxiliary parameters from models</td></tr>
+<tr><td style="width: 25%;"><a href="get_auxiliary.html">get_dispersion.default</a></td>
+<td>Get auxiliary parameters from models</td></tr>
 <tr><td style="width: 25%;"><a href="get_family.html">get_family</a></td>
 <td>A robust alternative to stats::family</td></tr>
 <tr><td style="width: 25%;"><a href="get_intercept.html">get_intercept</a></td>
 <td>Get the value at the intercept</td></tr>
 <tr><td style="width: 25%;"><a href="get_loglikelihood.html">get_loglikelihood</a></td>
-<td>Log-Likelihood</td></tr>
+<td>Log-Likelihood and Log-Likelihood correction</td></tr>
 <tr><td style="width: 25%;"><a href="get_loglikelihood.html">get_loglikelihood.lm</a></td>
-<td>Log-Likelihood</td></tr>
+<td>Log-Likelihood and Log-Likelihood correction</td></tr>
+<tr><td style="width: 25%;"><a href="get_loglikelihood.html">get_loglikelihood_adjustment</a></td>
+<td>Log-Likelihood and Log-Likelihood correction</td></tr>
+<tr><td style="width: 25%;"><a href="get_mixed_info.html">get_mixed_info</a></td>
+<td>Extract various information from mixed models</td></tr>
+<tr><td style="width: 25%;"><a href="get_mixed_info.html">get_mixed_info.default</a></td>
+<td>Extract various information from mixed models</td></tr>
+<tr><td style="width: 25%;"><a href="get_mixed_info.html">get_mixed_info.glmmTMB</a></td>
+<td>Extract various information from mixed models</td></tr>
+<tr><td style="width: 25%;"><a href="get_model.html">get_model</a></td>
+<td>Get a model objects that is saved as attribute</td></tr>
 <tr><td style="width: 25%;"><a href="get_modelmatrix.html">get_modelmatrix</a></td>
 <td>Model Matrix</td></tr>
 <tr><td style="width: 25%;"><a href="get_parameters.html">get_parameters</a></td>
 <td>Get model parameters</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.betareg.html">get_parameters.averaging</a></td>
-<td>Get model parameters from models with special components</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.BGGM.html">get_parameters.bamlss</a></td>
-<td>Get model parameters from Bayesian models</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.BGGM.html">get_parameters.bayesx</a></td>
-<td>Get model parameters from Bayesian models</td></tr>
 <tr><td style="width: 25%;"><a href="get_parameters.betamfx.html">get_parameters.betamfx</a></td>
 <td>Get model parameters from marginal effects models</td></tr>
 <tr><td style="width: 25%;"><a href="get_parameters.betareg.html">get_parameters.betareg</a></td>
@@ -293,58 +302,16 @@
 <td>Get model parameters from Bayesian models</td></tr>
 <tr><td style="width: 25%;"><a href="get_parameters.BGGM.html">get_parameters.brmsfit</a></td>
 <td>Get model parameters from Bayesian models</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.betareg.html">get_parameters.clm2</a></td>
-<td>Get model parameters from models with special components</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.glmm.html">get_parameters.coxme</a></td>
-<td>Get model parameters from mixed models</td></tr>
 <tr><td style="width: 25%;"><a href="get_parameters.html">get_parameters.default</a></td>
 <td>Get model parameters</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.betareg.html">get_parameters.DirichletRegModel</a></td>
-<td>Get model parameters from models with special components</td></tr>
 <tr><td style="width: 25%;"><a href="get_parameters.emmGrid.html">get_parameters.emmGrid</a></td>
 <td>Get model parameters from estimated marginal means objects</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.emmGrid.html">get_parameters.emm_list</a></td>
-<td>Get model parameters from estimated marginal means objects</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.gamm.html">get_parameters.gam</a></td>
-<td>Get model parameters from generalized additive models</td></tr>
 <tr><td style="width: 25%;"><a href="get_parameters.gamm.html">get_parameters.gamm</a></td>
 <td>Get model parameters from generalized additive models</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.glmm.html">get_parameters.glimML</a></td>
+<tr><td style="width: 25%;"><a href="get_parameters.glmmTMB.html">get_parameters.glmmTMB</a></td>
 <td>Get model parameters from mixed models</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.glmm.html">get_parameters.glmm</a></td>
-<td>Get model parameters from mixed models</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.glmm.html">get_parameters.glmmTMB</a></td>
-<td>Get model parameters from mixed models</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.betareg.html">get_parameters.glmx</a></td>
-<td>Get model parameters from models with special components</td></tr>
 <tr><td style="width: 25%;"><a href="get_parameters.htest.html">get_parameters.htest</a></td>
 <td>Get model parameters from htest-objects</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.betamfx.html">get_parameters.logitmfx</a></td>
-<td>Get model parameters from marginal effects models</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.BGGM.html">get_parameters.MCMCglmm</a></td>
-<td>Get model parameters from Bayesian models</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.glmm.html">get_parameters.merMod</a></td>
-<td>Get model parameters from mixed models</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.zeroinfl.html">get_parameters.mhurdle</a></td>
-<td>Get model parameters from zero-inflated and hurdle models</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.betareg.html">get_parameters.mjoint</a></td>
-<td>Get model parameters from models with special components</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.betareg.html">get_parameters.mvord</a></td>
-<td>Get model parameters from models with special components</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.glmm.html">get_parameters.nlmerMod</a></td>
-<td>Get model parameters from mixed models</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.gamm.html">get_parameters.rqss</a></td>
-<td>Get model parameters from generalized additive models</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.BGGM.html">get_parameters.sim</a></td>
-<td>Get model parameters from Bayesian models</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.BGGM.html">get_parameters.sim.merMod</a></td>
-<td>Get model parameters from Bayesian models</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.BGGM.html">get_parameters.stanmvreg</a></td>
-<td>Get model parameters from Bayesian models</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.BGGM.html">get_parameters.stanreg</a></td>
-<td>Get model parameters from Bayesian models</td></tr>
-<tr><td style="width: 25%;"><a href="get_parameters.zeroinfl.html">get_parameters.zcpglm</a></td>
-<td>Get model parameters from zero-inflated and hurdle models</td></tr>
 <tr><td style="width: 25%;"><a href="get_parameters.zeroinfl.html">get_parameters.zeroinfl</a></td>
 <td>Get model parameters from zero-inflated and hurdle models</td></tr>
 <tr><td style="width: 25%;"><a href="get_predicted.html">get_predicted</a></td>
@@ -356,6 +323,8 @@
 <tr><td style="width: 25%;"><a href="get_predicted.html">get_predicted.lm</a></td>
 <td>Model predictions (robust) and their confidence intervals</td></tr>
 <tr><td style="width: 25%;"><a href="get_predicted.html">get_predicted.lmerMod</a></td>
+<td>Model predictions (robust) and their confidence intervals</td></tr>
+<tr><td style="width: 25%;"><a href="get_predicted.html">get_predicted.nestedLogit</a></td>
 <td>Model predictions (robust) and their confidence intervals</td></tr>
 <tr><td style="width: 25%;"><a href="get_predicted.html">get_predicted.principal</a></td>
 <td>Model predictions (robust) and their confidence intervals</td></tr>
@@ -379,29 +348,35 @@
 <td>Extract model residuals</td></tr>
 <tr><td style="width: 25%;"><a href="get_response.html">get_response</a></td>
 <td>Get the values from the response variable</td></tr>
+<tr><td style="width: 25%;"><a href="get_response.html">get_response.default</a></td>
+<td>Get the values from the response variable</td></tr>
+<tr><td style="width: 25%;"><a href="get_response.html">get_response.nestedLogit</a></td>
+<td>Get the values from the response variable</td></tr>
 <tr><td style="width: 25%;"><a href="get_sigma.html">get_sigma</a></td>
 <td>Get residual standard deviation from models</td></tr>
+<tr><td style="width: 25%;"><a href="get_simulated.html">get_simulated</a></td>
+<td>Simulate values from fitted models</td></tr>
+<tr><td style="width: 25%;"><a href="get_simulated.html">get_simulated.data.frame</a></td>
+<td>Simulate values from fitted models</td></tr>
+<tr><td style="width: 25%;"><a href="get_simulated.html">get_simulated.default</a></td>
+<td>Simulate values from fitted models</td></tr>
+<tr><td style="width: 25%;"><a href="get_simulated.html">get_simulated.glmmTMB</a></td>
+<td>Simulate values from fitted models</td></tr>
+<tr><td style="width: 25%;"><a href="get_simulated.html">get_simulated.lm</a></td>
+<td>Simulate values from fitted models</td></tr>
+<tr><td style="width: 25%;"><a href="get_simulated.html">get_simulated.merMod</a></td>
+<td>Simulate values from fitted models</td></tr>
 <tr><td style="width: 25%;"><a href="get_statistic.html">get_statistic</a></td>
-<td>Get statistic associated with estimates</td></tr>
-<tr><td style="width: 25%;"><a href="get_statistic.html">get_statistic.betamfx</a></td>
-<td>Get statistic associated with estimates</td></tr>
-<tr><td style="width: 25%;"><a href="get_statistic.html">get_statistic.betareg</a></td>
-<td>Get statistic associated with estimates</td></tr>
-<tr><td style="width: 25%;"><a href="get_statistic.html">get_statistic.clm2</a></td>
 <td>Get statistic associated with estimates</td></tr>
 <tr><td style="width: 25%;"><a href="get_statistic.html">get_statistic.default</a></td>
 <td>Get statistic associated with estimates</td></tr>
-<tr><td style="width: 25%;"><a href="get_statistic.html">get_statistic.DirichletRegModel</a></td>
-<td>Get statistic associated with estimates</td></tr>
 <tr><td style="width: 25%;"><a href="get_statistic.html">get_statistic.emmGrid</a></td>
+<td>Get statistic associated with estimates</td></tr>
+<tr><td style="width: 25%;"><a href="get_statistic.html">get_statistic.gam</a></td>
 <td>Get statistic associated with estimates</td></tr>
 <tr><td style="width: 25%;"><a href="get_statistic.html">get_statistic.gee</a></td>
 <td>Get statistic associated with estimates</td></tr>
 <tr><td style="width: 25%;"><a href="get_statistic.html">get_statistic.glmmTMB</a></td>
-<td>Get statistic associated with estimates</td></tr>
-<tr><td style="width: 25%;"><a href="get_statistic.html">get_statistic.logitmfx</a></td>
-<td>Get statistic associated with estimates</td></tr>
-<tr><td style="width: 25%;"><a href="get_statistic.html">get_statistic.mjoint</a></td>
 <td>Get statistic associated with estimates</td></tr>
 <tr><td style="width: 25%;"><a href="get_transformation.html">get_transformation</a></td>
 <td>Return function of transformed response variables</td></tr>
@@ -409,29 +384,19 @@
 <td>Get variance-covariance matrix from models</td></tr>
 <tr><td style="width: 25%;"><a href="get_varcov.html">get_varcov.aov</a></td>
 <td>Get variance-covariance matrix from models</td></tr>
-<tr><td style="width: 25%;"><a href="get_varcov.html">get_varcov.betamfx</a></td>
-<td>Get variance-covariance matrix from models</td></tr>
-<tr><td style="width: 25%;"><a href="get_varcov.html">get_varcov.betareg</a></td>
-<td>Get variance-covariance matrix from models</td></tr>
-<tr><td style="width: 25%;"><a href="get_varcov.html">get_varcov.brmsfit</a></td>
-<td>Get variance-covariance matrix from models</td></tr>
-<tr><td style="width: 25%;"><a href="get_varcov.html">get_varcov.clm2</a></td>
-<td>Get variance-covariance matrix from models</td></tr>
 <tr><td style="width: 25%;"><a href="get_varcov.html">get_varcov.default</a></td>
 <td>Get variance-covariance matrix from models</td></tr>
-<tr><td style="width: 25%;"><a href="get_varcov.html">get_varcov.glmmTMB</a></td>
+<tr><td style="width: 25%;"><a href="get_varcov.html">get_varcov.glmgee</a></td>
 <td>Get variance-covariance matrix from models</td></tr>
 <tr><td style="width: 25%;"><a href="get_varcov.html">get_varcov.hurdle</a></td>
 <td>Get variance-covariance matrix from models</td></tr>
-<tr><td style="width: 25%;"><a href="get_varcov.html">get_varcov.MixMod</a></td>
-<td>Get variance-covariance matrix from models</td></tr>
 <tr><td style="width: 25%;"><a href="get_varcov.html">get_varcov.mixor</a></td>
 <td>Get variance-covariance matrix from models</td></tr>
-<tr><td style="width: 25%;"><a href="get_varcov.html">get_varcov.nestedLogit</a></td>
-<td>Get variance-covariance matrix from models</td></tr>
-<tr><td style="width: 25%;"><a href="get_varcov.html">get_varcov.truncreg</a></td>
-<td>Get variance-covariance matrix from models</td></tr>
 <tr><td style="width: 25%;"><a href="get_variance.html">get_variance</a></td>
+<td>Get variance components from random effects models</td></tr>
+<tr><td style="width: 25%;"><a href="get_variance.html">get_variance.glmmTMB</a></td>
+<td>Get variance components from random effects models</td></tr>
+<tr><td style="width: 25%;"><a href="get_variance.html">get_variance.merMod</a></td>
 <td>Get variance components from random effects models</td></tr>
 <tr><td style="width: 25%;"><a href="get_variance.html">get_variance_dispersion</a></td>
 <td>Get variance components from random effects models</td></tr>
@@ -465,7 +430,13 @@
 <h2><a id="I">-- I --</a></h2>
 
 <table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="insight-options.html">insight-options</a></td>
+<td>Global options from the insight package</td></tr>
+<tr><td style="width: 25%;"><a href="is_bayesian_model.html">is_bayesian_model</a></td>
+<td>Checks if a model is a Bayesian model</td></tr>
 <tr><td style="width: 25%;"><a href="is_converged.html">is_converged</a></td>
+<td>Convergence test for mixed effects models</td></tr>
+<tr><td style="width: 25%;"><a href="is_converged.html">is_converged.merMod</a></td>
 <td>Convergence test for mixed effects models</td></tr>
 <tr><td style="width: 25%;"><a href="is_empty_object.html">is_empty_object</a></td>
 <td>Check if object is empty</td></tr>
@@ -476,7 +447,7 @@
 <tr><td style="width: 25%;"><a href="is_model.html">is_model</a></td>
 <td>Checks if an object is a regression model or statistical test object</td></tr>
 <tr><td style="width: 25%;"><a href="is_model_supported.html">is_model_supported</a></td>
-<td>Checks if a regression model object is supported in 'insight' package</td></tr>
+<td>Checks if a regression model object is supported by the insight package</td></tr>
 <tr><td style="width: 25%;"><a href="is_multivariate.html">is_multivariate</a></td>
 <td>Checks if an object stems from a multivariate response model</td></tr>
 <tr><td style="width: 25%;"><a href="is_nested_models.html">is_nested_models</a></td>
@@ -511,13 +482,15 @@
 <tr><td style="width: 25%;"><a href="link_inverse.html">link_inverse.gamlss</a></td>
 <td>Get link-inverse function from model object</td></tr>
 <tr><td style="width: 25%;"><a href="get_loglikelihood.html">loglikelihood</a></td>
-<td>Log-Likelihood</td></tr>
+<td>Log-Likelihood and Log-Likelihood correction</td></tr>
 </table>
 
 <h2><a id="M">-- M --</a></h2>
 
 <table style="width: 100%;">
 <tr><td style="width: 25%;"><a href="model_info.html">model_info</a></td>
+<td>Access information from model objects</td></tr>
+<tr><td style="width: 25%;"><a href="model_info.html">model_info.brmsfit</a></td>
 <td>Access information from model objects</td></tr>
 <tr><td style="width: 25%;"><a href="model_info.html">model_info.default</a></td>
 <td>Access information from model objects</td></tr>
@@ -531,6 +504,8 @@
 
 <table style="width: 100%;">
 <tr><td style="width: 25%;"><a href="null_model.html">null_model</a></td>
+<td>Compute intercept-only model for regression models</td></tr>
+<tr><td style="width: 25%;"><a href="null_model.html">null_model.default</a></td>
 <td>Compute intercept-only model for regression models</td></tr>
 <tr><td style="width: 25%;"><a href="n_grouplevels.html">n_grouplevels</a></td>
 <td>Count number of random effect levels in a mixed model</td></tr>
@@ -546,17 +521,11 @@
 <td>Get number of observations from a model</td></tr>
 <tr><td style="width: 25%;"><a href="n_parameters.html">n_parameters</a></td>
 <td>Count number of parameters in a model</td></tr>
-<tr><td style="width: 25%;"><a href="n_parameters.html">n_parameters.brmsfit</a></td>
-<td>Count number of parameters in a model</td></tr>
 <tr><td style="width: 25%;"><a href="n_parameters.html">n_parameters.default</a></td>
-<td>Count number of parameters in a model</td></tr>
-<tr><td style="width: 25%;"><a href="n_parameters.html">n_parameters.gam</a></td>
 <td>Count number of parameters in a model</td></tr>
 <tr><td style="width: 25%;"><a href="n_parameters.html">n_parameters.glmmTMB</a></td>
 <td>Count number of parameters in a model</td></tr>
 <tr><td style="width: 25%;"><a href="n_parameters.html">n_parameters.merMod</a></td>
-<td>Count number of parameters in a model</td></tr>
-<tr><td style="width: 25%;"><a href="n_parameters.html">n_parameters.zeroinfl</a></td>
 <td>Count number of parameters in a model</td></tr>
 <tr><td style="width: 25%;"><a href="trim_ws.html">n_unique</a></td>
 <td>Small helper functions</td></tr>
@@ -608,7 +577,7 @@
 <tr><td style="width: 25%;"><a href="standardize_names.html">standardize_names.parameters_model</a></td>
 <td>Standardize column names</td></tr>
 <tr><td style="width: 25%;"><a href="is_model_supported.html">supported_models</a></td>
-<td>Checks if a regression model object is supported in 'insight' package</td></tr>
+<td>Checks if a regression model object is supported by the insight package</td></tr>
 </table>
 
 <h2><a id="T">-- T --</a></h2>
@@ -622,5 +591,16 @@
 <td>Small helper functions</td></tr>
 <tr><td style="width: 25%;"><a href="trim_ws.html">trim_ws.data.frame</a></td>
 <td>Small helper functions</td></tr>
+</table>
+
+<h2><a id="V">-- V --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="validate_argument.html">validate_argument</a></td>
+<td>Validate arguments against a given set of options</td></tr>
+<tr><td style="width: 25%;"><a href="vcovFPC.html">vcovFPC</a></td>
+<td>Obtain finite-population-adjusted variance-covariance matrix</td></tr>
+<tr><td style="width: 25%;"><a href="vcovFPC.html">vcovFPC.merMod</a></td>
+<td>Obtain finite-population-adjusted variance-covariance matrix</td></tr>
 </table>
 </div></body></html>

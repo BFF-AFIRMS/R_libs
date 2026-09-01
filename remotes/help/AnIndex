@@ -1,3 +1,4 @@
+remotes-package	remotes-package
 add_metadata	install_remote
 available_packages	available_packages
 available_packages_reset	available_packages
@@ -31,6 +32,7 @@ parse-git-repo	parse-git-repo
 parse_github_repo_spec	parse-git-repo
 parse_github_url	parse-git-repo
 parse_repo_spec	parse-git-repo
+remotes	remotes-package
 remote_download	install_remote
 remote_metadata	install_remote
 remote_package_name	install_remote

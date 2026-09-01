@@ -1,11 +1,17 @@
 WikipediR-package	WikipediR
 categories_in_page	categories_in_page
+create_page	create_page
+create_pages	create_pages
+get_action_token	get_action_token
+get_prelogin_token	get_prelogin_token
+login	login
 pages_in_category	pages_in_category
 page_backlinks	page_backlinks
 page_content	page_content
 page_external_links	page_external_links
 page_info	page_info
 page_links	page_links
+parse_response	parse_response
 query	query
 random_page	random_page
 recent_changes	recent_changes

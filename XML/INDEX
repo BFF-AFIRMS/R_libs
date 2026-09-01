@@ -17,14 +17,6 @@ compareXMLDocs          Indicate differences between two XML documents
 docName                 Accessors for name of XML document
 Doctype                 Constructor for DTD reference
 Doctype-class           Class to describe a reference to an XML DTD
-dtdElement              Gets the definition of an element or entity
-                        from a DTD.
-dtdElementValidEntry    Determines whether an XML element allows a
-                        particular type of sub-element.
-dtdIsAttribute          Query if a name is a valid attribute of a DTD
-                        element.
-dtdValidElement         Determines whether an XML tag is valid within
-                        another.
 ensureNamespace         Ensure that the node has a definition for
                         particular XML namespaces
 ExternalReference-class
@@ -56,7 +48,6 @@ makeClassTemplate       Create S4 class definition based on XML node(s)
 names.XMLNode           Get the names of an XML nodes children.
 newXMLDoc               Create internal XML node or document object
 newXMLNamespace         Add a namespace definition to an XML node
-parseDTD                Read a Document Type Definition (DTD)
 parseURI                Parse a URI string into its elements
 parseXMLAndAdd          Parse XML content and add it to a node
 print.XMLAttributeDef   Methods for displaying XML objects
@@ -92,7 +83,6 @@ xmlClone                Create a copy of an internal XML document or
                         node
 XMLCodeFile-class       Simple classes for identifying an XML document
                         containing R code
-xmlContainsEntity       Checks if an entity is defined within a DTD.
 xmlDOMApply             Apply function to nodes in an XML tree/DOM.
 xmlElementsByTagName    Retrieve the children of an XML node with a
                         specific tag name

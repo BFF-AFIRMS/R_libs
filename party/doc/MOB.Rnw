@@ -57,7 +57,6 @@ options(useFancyQuotes = FALSE)
   Universit\"atsstr.~15\\
   6020 Innsbruck, Austria\\
   E-mail: \email{Achim.Zeileis@R-project.org}\\
-  URL: \url{http://eeecon.uibk.ac.at/~zeileis/}\\
 
   Torsten Hothorn\\
   Institut f\"ur Statistik\\
@@ -65,7 +64,6 @@ options(useFancyQuotes = FALSE)
   Ludwigstra{\ss}e 33\\
   80539 M\"unchen, Germany\\
   E-mail: \email{Torsten.Hothorn@R-project.org}\\
-  URL: \url{http://www.stat.uni-muenchen.de/~hothorn/}\\
   
   Kurt Hornik\\
   Institute for Statistics and Mathematics\\
@@ -73,7 +71,6 @@ options(useFancyQuotes = FALSE)
   Augasse 2--6\\
   1090 Wien, Austria\\
   E-mail: \email{Kurt.Hornik@R-project.org}\\
-  URL: \url{http://statmath.wu.ac.at/~hornik/}\\
 
 }
 
@@ -388,20 +385,20 @@ variance estimate. However, for the fitting process, the variance was treated as
 parameter as we employed OLS estimation (rather than fully-specified ML estimation). 
 
 
-\subsection{Pima Indians diabetes data}
+\subsection{Synthetic diabetes data}
 
-Another popular benchmark data set for binary classifications is the Pima Indians
-diabetes database which is also available from \pkg{mlbench}:
+Another benchmark data set available from \pkg{mlbench} which can be used for binary classifications
+is the following synthetic diabetes database:
 
 <<>>=
-data("PimaIndiansDiabetes2", package = "mlbench")
-PimaIndiansDiabetes <- na.omit(PimaIndiansDiabetes2[,-c(4, 5)])
+data("SynthDiabetes2", package = "mlbench")
+SynthDiabetes <- na.omit(SynthDiabetes2[,-c(4, 5)])
 @
 
 After omitting missing values (and the variables \verb:triceps: and \verb:insulin: which
 are missing for most women), the data set provides diabetes test results for
-$n = \Sexpr{NROW(PimaIndiansDiabetes)}$ women
-along with $\Sexpr{NCOL(PimaIndiansDiabetes)}$ covariates including in particular
+$n = \Sexpr{NROW(SynthDiabetes)}$ women
+along with $\Sexpr{NCOL(SynthDiabetes)}$ covariates including in particular
 the plasma glucose concentration \code{glucose} as an important predictor for diabetes.
 Fitting a logistic regression model \verb:diabetes ~ glucose: seems to be straightforward,
 whereas the influence of the remaining variables should again be learned by recursive
@@ -410,29 +407,30 @@ node, partitioned with respect to the remaining $\ell = 5$ remaining variables.
 
 The model is estimated by ML employing the \code{glinearModel}, 
 the instability is assessed using a Bonferroni-corrected
-significance level of $\alpha = 0.05$ and the nodes are split with a required minimal
-segment size of $20$ observations. Hence, all control parameters correspond to the
-default values in \verb:mob_control(): and do not have to be set explicitely in 
+significance level of $\alpha = 0.01$ and the nodes are split with a required minimal
+segment size of $20$ observations. The latter corresponds to the
+default value in \verb:mob_control(): and does not have to be set explicitely in 
 the \code{mob()} call:
 
 <<>>=
-fmPID <- mob(diabetes ~ glucose | pregnant + pressure + mass + pedigree + age,
-  data = PimaIndiansDiabetes, model = glinearModel, family = binomial())
+fmSD <- mob(diabetes ~ glucose | pregnant + pressure + mass + pedigree + age,
+  data = SynthDiabetes, model = glinearModel, family = binomial(),
+  control = mob_control(alpha = 0.01))
 @
 
 To visualize this, we simply call again:
 
 <<eval=FALSE>>=
-plot(fmPID)
+plot(fmSD)
 @
 
 \setkeys{Gin}{width=\textwidth}
 \begin{figure}[bth]
 \begin{center}
-<<PimaIndiansDiabetes-plot,echo=FALSE,results=hide,fig=TRUE,height=6,width=9>>=
-plot(fmPID)
+<<SynthDiabetes-plot,echo=FALSE,results=hide,fig=TRUE,height=6,width=9>>=
+plot(fmSD)
 @
-\caption{\label{fig:PimaIndiansDiabetes} Logistic-regression-based tree for the Pima Indians
+\caption{\label{fig:SynthDiabetes} Logistic-regression-based tree for the synthetic
 diabetes data. The plots in the leaves give spinograms for \code{diabetes} versus 
 \code{glucose}.}
 \end{center}
@@ -448,9 +446,9 @@ The model tree distinguishes three different groups:
 \begin{itemize}
   \item[\#2] Women with low body mass index that have on average a low risk of
     diabetes, however this increases clearly with glucose level.
-  \item[\#4] Women with average and high body mass index, younger than 30 years,
+  \item[\#4] Women with average and high body mass index, younger up to 36 years,
     that have a higher avarage risk that also increases with glucose level.
-  \item[\#5] Women with average and high body mass index, older than 30 years,
+  \item[\#5] Women with average and high body mass index, older than 36 years,
     that have a high avarage risk that increases only slowly with glucose level.
 \end{itemize}
 
@@ -458,12 +456,12 @@ The same interpretation can also be drawn from the coefficient estimates
 and the corresponding odds ratios (with respect to glucose):
 
 <<>>=
-coef(fmPID)
-exp(coef(fmPID)[,2])
+coef(fmSD)
+exp(coef(fmSD)[,2])
 @  
 
 <<echo=FALSE>>=
-risk <- round(100 * (exp(coef(fmPID)[,2])-1), digits = 1)
+risk <- round(100 * (exp(coef(fmSD)[,2])-1), digits = 1)
 @
 
 i.e., the odds increase by \Sexpr{risk[1]}\%, \Sexpr{risk[2]}\% and \Sexpr{risk[3]}\%
@@ -483,6 +481,17 @@ The resulting ``\code{mob}'' tree can be flexibly summarized, both numerically a
 and used for predictions on new data.
 
 
-\bibliography{partyrefs}
+<<bib, echo = FALSE>>=
+thisdir <- getwd()
+bibfile <- system.file("REFERENCES.bib", package = "party")
+### bibfile may contain spaces LaTeX is unable to deal with on MacOS it seems
+if (file.copy(bibfile, to = thisdir, overwrite = TRUE)) {
+    bibfile <- "REFERENCES.bib"
+} else {
+    ### hope for the best
+    bibfile <- file.path("..", "inst", "REFERENCES.bib")
+}
+@
+\bibliography{\Sexpr{bibfile}}
 
 \end{document}

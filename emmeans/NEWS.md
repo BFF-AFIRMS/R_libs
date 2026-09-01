@@ -2,6 +2,291 @@
 title: "NEWS for the emmeans package"
 ---
 
+## emmeans 2.0.4
+  * Updated logo (now hexagonal)
+  * bug-fix for labelling in pairwise contrasts
+  * `head()` and `tail()` for `emmGrid` objects now follow base-R semantics
+    for a negative `n` (previously the two were effectively swapped)
+  * Fixed an error in the `atanh` response transformation: a typo in its
+    `mu.eta` derivative (`tanh^2(eta)`) made `type = "response"` fail
+  * `cross.adjust` is now correctly ignored (as documented) when the `by`
+    groups are not all the same size, rather than silently producing
+    mis-shaped (recycled) adjusted P values
+  * `emmip(..., engine = "lattice")` now uses the axis/trace labels again (a typo referenced the wrong object, so the labels were silently dropped)
+  * Bug fix regarding cls class assignment
+
+
+## emmeans 2.0.3
+  * Repaired `contrast` so that it recognizes multivariate transformations 
+    `alr`, `clr`, and `ilr` as being log-based. Thus contrasts thereof are
+    log odds ratios (#575)
+  * Re-vamped `mvregrid()` with a 'transform` argument for more flexibility,
+    and different defaults. Pre-existing code that uses this function may fail.
+  * `summary()` now tries to invert a multivariate transformation, if present,
+    when called with `type = "response"`
+
+## emmeans 2.0.2
+
+  * Improved dispatching for S4 classes. Previously caused problems with
+    counterfactuals were used.
+  * fixed problem observed near end of "messy data" vignette where lines and points 
+    didn't coincide
+  * Added an `abbr.len` argument to `emmip()` for abbreviating factor levels
+
+## emmeans 2.0.1
+
+  * Fix to `.parse_nest()` to handle nested factors with spaces in their name (#562)
+  * `col` was not handled properly in `emmip()` (#565)
+  * In `emmip()`, changed default for `facetlab` to `"label_both"`. This just
+    seems like a better choice.
+  * Added a `facetlab` argument to `plot.emmGrid()` -- badly needed when we have
+    several `by` groups
+  * Added the `pval.digits` option to specify the desired P-value precision (#567).
+    It defaults to 4, which was the only precision available in past versions.
+  * Note that the above change corrects a slight bug in past versions:
+    a P value smaller than 0.0001 that rounded *up* to 0.0001 was printed as `0.0001` 
+    rather than `<.0001`.
+
+
+## emmeans 2.0.0
+We have a new major version number, with a new graphics look and a new maintainer,
+Julia Piaskowski (however, Russ is still very much involved).
+
+  * Added a new `post.ci.method` option to set the default for `ci.method`
+    in `hpd.summary()` (#538)
+  * Extended `qdrg()` so that it is a generic that can dispatch S3 methods
+    based on the class of `object`. This allows a "budget" option for
+    package developers who want to provide rudimentary **emmeans** support.
+  * Fixed code for `emmip_ggplot()`, so that we no longer call `aes_()` (#547)
+  * **ggplot2**-based graphics have a new look. If you liked the old one
+    better, use `emm_options(gg.theme = 1)` to get an approximation of the old look.
+  * May also use `gg.theme` option to set any theme you want for future plots.
+  * Scaling changes so `emmip()` so that plots better fill the plotting area.
+  * Intervals in `plot.emmGrid()` are now solid colors, rather than transparent ones,
+    to prevent grid lines from partially masking them.
+  * Weights were not present in `ordinal` objects created with `mode = "mean.class"`
+    (#553)
+  * Cautionary note added on bias correction (in documentation of `summary.emmGrid`)
+    when `sigma` is large (#540)
+
+
+## emmeans 1.11.2-8
+  * Correction in `summary.emmGrid` to calculation of adjustment factors when
+    'by` variables are nested (#536)
+  * More detailed annotations for cross-group adjustments (#536)
+  * Added `ci.method` argument to `hpd.summary()` to allow option of
+    producing quantile-based intervals (#538)
+  * Efficiency improvements in method dispatching
+  * Fix to `.make.scale()` to play nice with new R requirements
+  
+
+## emmeans 1.11.2
+  * In ordinal-model support, changed all estimator names to match mode names
+    (this was true for `"prob"` and `"exc.prob"`, but not `"cum.prob"`)
+    (postponed from CRAN version 1.11.1 to allow time for other package(s) to adapt)
+  * Fix to coding errors that prevented more than one counterfactual factor
+    from being used.
+
+## emmeans 1.11.1
+  * Modified `as.data.frame.summary_emm` so it can't loop infinitely (#525)
+  * Added documentation to `ref_grid` and `FAQs` vignette to clarify how we
+    use `all.vars()` to identify predictors, e.g. if a model formula contains 
+    `log(dose)`, the covariate is `dose`, not `log(dose)` (#523)
+  * **UPCOMING:** In ordinal-model support, changed all estimator names to match mode names
+    (this was true for `"prob"` and `"exc.prob"`, but not `"cum.prob"`).
+    [This change is on hold as it breaks another package.]
+  * Added a contrast function `opoly.emmc()` that does not rescale the coefficients
+    to integers, and allows unequally-spaced levels to be specified as `scores` 
+    (#527). In addition, unlike `poly.emmc`, `opoly.emmc` supports the
+    `exclude` and `include` arguments.
+  * Also added contrast functions `helmert.emmc` and `nrmlz.emmc`. The latter is
+    a wrapper that can be used to normalize the contrast coefficients from any
+    other `.emmc` function.
+  * Fixed a scoping issue in `contrast.emmGrid` to make a custom `.emmc` function
+    easier to find. This bug prevented some examples from being rendered correctly
+    in all contexts.
+  * Restored the `joint_tests()` code that was omitted in 1.11.0 because apparently
+    it was right the first time. (#528)
+  * Added an argument `npts` to `make.meanint()` and `make.symmint()` to facilitate
+    generating an interval with more than two points. 
+  * Fix to `test()` for situations with non-estimability and infinite df (#528)
+  * Added `linfct.emm_list())` method
+  * Made `emmobj()` less rigid (so that `as.emmGrid(as.list(obj))` more faithfully
+    reproduces `obj`)
+  * Added an optional `drop` argument (`TRUE` by default) to the `emm_list` methods.
+  * Added optional arguments `se.bhat` and `se.diff` to `emmobj()` (#529)
+  
+## emmeans 1.11.0
+  * Added a `linfct()` generic and default method that returns `object@linfct`
+  * Removed some code in `joint_tests()` that prevented some terms from
+    being tested in nested models. Alas, this is still not perfect.
+  * Added the possibility of specifying `.` in the `specs` argument of
+    `emmeans()` -- e.g., `emmeans(mod, ".")`, `emmeans(mod, pairwise ~ . | drug)`.
+    (#522).
+    This creates a list of all sets of means (and contrasts), thus creating 
+    an `emm_list` object. This also works in `emtrends()`.
+  * In certain `emm_list` methods, we changed the default for `which` from
+    `1` to to `NULL`
+
+## emmeans 1.10.7
+  * Spelling changes in several vignettes
+  * We have completely revamped the design of reference grids involving
+    counterfactuals. Now, if we specify counterfactuals `A` and `B`, the
+    reference grid comprises combinations of `A`, `B`, `actual_A`, and `actual_B`
+    the latter two used to track the original settings of `A` and `B` in the dataset.
+    We always average over combinations of these factors. The previous code was
+    a memory hog, and we have made it much more efficient for large datasets.
+  * `emmeans()` has also been revised to do special handling of counterfactual
+    reference grids. Whenever we average over a counterfactual `B`, we only
+    use the cases where `B == actual_B`, thus obtaining the same results as 
+    would be obtained when `B` is not regarded as a counterfactual.
+  * Tweaks to `regrid()` to create `@post.beta` slot correctly when there are 
+    non-estimable cases.
+  * Bug fix for scoping in `subset.emmGrid()` (#518)
+  * Changed `print.emmGrid()` so that it calls `show()` unless `export = TRUE`.
+    This change was made because I noticed that **pkgdown** uses `print()` rather 
+    than `show()` to display example results.
+  
+
+## emmeans 1.10.6
+  * Added new `add_submodels()` function that allows for comparison od estimates
+    from different submodels (when supported)
+  * Additional notes for `eff_size()`. Also, a questionable example was deleted.
+    It is so easy to misuse this function, and I don't even buy into the idea
+    of standardized effect sizes except in the simplest of cases. So I am
+    considering deprecating `eff_size()` and letting some other package
+    be to blame for unsuitable or misleading results.
+    
+ 
+## emmeans 1.10.5
+  * Fix for long-standing `weights` bug in `lme()` (#356)
+  * Fix for inconsistent contrasts in case of missing levels (#508, #509)
+  * Fix for using nuisance variables with proportional weights (#510)
+  * New function `with_emm_options()` to run code with options temporarily set
+  * Tweak to optimal-digits output that shows `SE` to 3 significant digits
+  
+  
+
+## emmeans 1.10.4
+  * Refinements in tracking static offsets
+  * Made d.f. consistent for `geeglm` and `glmgee` (#496)
+  * Fixed suggestion for installing from GitHub (#497)
+  * Change that allows factors to have `NA` levels (#500). This
+    was previously not allowed, and we added an `"allow.na.levs"` option
+    (defaults to `TRUE`) just in case we broke anything that used to work.
+  * Better default contrasts in `qdrg()` (#501)
+  * Bug fix for nuisance factors when we have a multivariate response (#503)
+  * Improved auto-detection of response transformation (#504)
+  * Bug fix for detecting cases where we can't use `nuisance` (#503)
+  * New `mvregrid()` function for multivariate response transformations
+    such as a compositional response.
+
+
+## emmeans 1.10.3
+  * Updated `mice::mira` support to use Barnard-Rubin adjusted d.f. (#494)
+  * Fix to MuMIn support so a response transformation is auto-detected
+  * Bug fix in `gls` support code (#495)
+  * I am trying to be clearer that some model-support
+    modes cause implied re-gridding, making the link function no longer operable. 
+    A new subsection discussing this was added to the "Transformations" vignette, 
+    and I also added indications of this to the "models" vignette.
+  * Don't think too hard about which recent updates (since 1.8.9) are more 
+    major than others. I'll try to be more rational about this going forward.
+ 
+
+## emmeans 1.10.2
+This update is focused mostly on trying to clear up confusion with some users
+on the distinction between `emmGrid` objects and their summaries, since they
+display identically; and on encouraging users not to bypass important
+annotations.
+
+  * Added a startup message and `help(untidy)`
+  * Added `rbind` method for `summary_emm` objects (#480). 
+    Note that `summary_emm` objects already have estimates, P-values, etc.
+    computed, so `rbind`ing them preserves those results. On the other hand,
+    `rbind`ing `emmGrid` or `emm_list` objects produce new `emmGrid` objects
+    which have *not* yet been summarized and any `adjust` methods are applied 
+    to the whole result.
+  * Created [**pkgdown** site](https://rvlenth.github.io/emmeans/)
+  
+
+## emmeans 1.10.1
+  * With `gls` or `lme` models, `mode = "satterthwaite"`
+    and `mode =  "appx-satterthwaite"` failed when model was fitted with no
+    explicit `data` argument (#465)
+  * We decided to export the `.emmc` functions, just to make it easier to
+    see and use them
+  * Added a new contrast function `wtcon.emmc(levs, wts, cmtype, ...)` which
+    generates contrasts via `multcomp::contrMat(wts, type = cmtype, ...)`
+  * `contrast()` gains a new argument `wts` which can be passed to some
+    `.emmc` functions including `eff.emmc`, `del.eff.emmc`, and `wtcon.emmc`.
+    If `wts` is left missing, we pass equal weights of `. If we specify
+    `wts = NA`, we retrieve weights from the object (potentially different in
+    each `by` group). Otherwise, the same fixed `wts` are used in each group.
+  * Added a `weights()` method for `emmGrid` objects
+  * Modification to `pwpp()` to play along if `contrast()` changes the
+    `by` variable via `options` (#472)
+  * After some wiggling around, we now allow `strata()` factors to be included in
+    the reference grid for **survival** models. It is up to the user to decide
+    what is sensible. (#429, #473)
+
+
+## emmeans 1.10.0
+  * Restored `tau` argument (now optional) for rq models (#458)
+  * Fixed issue where a multivariate factor having numeric levels may
+    mismatch a level in `at` even when apparently valid (#458)
+  * Added `cross.adjust` to legal arguments that can be passed via `misc` slot
+  * Robustified code for `cross.adjust`
+  * Fixed masking of `vcov.` in `glmgee` support (#460)
+  * Fixed an error in `xtable()` method for `summary_emm` objects
+  * Added `inner` argument to `make.tran()` to allow for compound transform;
+    e.g., `make.tran("inverse", inner = "sqrt")` is reciprocal sqrt (#462)
+  
+
+## emmeans 1.9.0
+  * Warning message about prior weights was sometimes unnecessary.
+    We now suppress it when all the prior weights are equal.
+  * Fix to `MuMIn` support with `subset` argument (#455)
+  * Repair to coding error for nested models (#457)
+  * Added `glmtoolbox::glmgee` support (#454)
+  * `qdrg()` modified such that we often don't need to specify `data` when
+    `object` is specified.
+  * Support for for `rq`, `rqs` now incorporates all `tau` values in the model 
+    as a pseudofactor (#458). The `tau` argument itself is deprecated and ignored
+    if specified.
+    
+
+## emmeans 1.8.9
+  * Added functions `make.meanint()` and `make.symmint()` that return functions
+    that compute symmetric intervals. The old `meanint()` and `symmint()` functions
+    that return symmetric intervals of width `2` are retained for back-compatibility
+  * Small repairs to `multinom` support so it works with a model where the
+    response is a matrix of counts (#439)
+  * Enhancements/fixes for `MuMIn` support (#442)
+  * `qdrg()` has replaced its `ordinal.dim` argument with `ordinal`, a list with
+    elements `dim` and `mode` -- which now fully supports all the modes available
+    for ordinal models (#444). (`ordinal.dim` still works for backward compatibility.)
+  * Fix to bookkeeping bug in `emtrends` (#448)
+  * Fix to `averaging` support with certain predictor function calls (#449)
+  
+
+## emmeans 1.8.8
+  * Bug correction in `contrast` when `tran` is a `list` (#428)
+  * Bug correction to suppress a nuisance warning when the number of
+    prior weights is 0 or 1 (which indeed doesn't match the number of rows of data, but
+    also isn't really an issue) (Commit d921152 for **easystats**)
+  * Bug correction for `strata()` terms in **survival** models (#429)
+  * Added a risk-ratio and a probit example to the Transformations vignette.
+  * Multivariate levels were mishandled when specified  out of order in `at` (#430)
+  * Fix to flow error in `qdrg()` where we didn't always get `V` right
+  * Change to adjustment methods when there are non-estimable cases.
+    Now we always adapt the family size to include only the estimable ones. This may
+    change some adjusted P values or confidence limits obtained in past versions,
+    when the model is rank-deficient.
+  * `vcov.emmGrid()` now only returns elements where `object@misc$display == TRUE`.
+    We also label the dimensions and provide a `sep` argument for creating labels.
+  
+
 ## emmeans 1.8.7
   * Correction to a bug introduced in version 1.8.4, where we tried to provide for
     an `offset` *argument* in the same way as an `offset()` *term* in the model formula.

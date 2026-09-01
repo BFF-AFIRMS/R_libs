@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -17,21 +17,23 @@ df1 <- data_frame(x = 1, y = 2)
 #> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
 df2 <- data_frame(a = "apple", b = "banana")
 
-## ---- eval = FALSE------------------------------------------------------------
-#  lifecycle::last_lifecycle_warnings()
-#  #> [[1]]
-#  #> <deprecated>
-#  #> message: `data_frame()` was deprecated in tibble 1.1.0.
-#  #> Please use `tibble()` instead.
-#  #> Backtrace:
-#  #>  1. global::data_frame(x = 1)
+## ----eval = FALSE-------------------------------------------------------------
+# lifecycle::last_lifecycle_warnings()
+# #> [[1]]
+# #> <deprecated>
+# #> message: `data_frame()` was deprecated in tibble 1.1.0.
+# #> Please use `tibble()` instead.
+# #> Backtrace:
+# #>  1. global::data_frame(x = 1)
 
 ## -----------------------------------------------------------------------------
 options(lifecycle_verbosity = "warning")
 df1 <- data_frame(x = 1, y = 2)
 df2 <- data_frame(a = "apple", b = "banana")
 
-## ---- error = TRUE------------------------------------------------------------
+## ----error = TRUE-------------------------------------------------------------
+try({
 options("lifecycle_verbosity" = "error")
 df1 <- data_frame(x = 1, y = 2)
+})
 

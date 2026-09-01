@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -49,9 +49,9 @@ newfit <- glmnet(x, biny, family = binomial(link = "probit"))
 ## -----------------------------------------------------------------------------
 newfit <- glmnet(x, cnty, family = quasipoisson())
 
-## ---- eval=FALSE--------------------------------------------------------------
-#  library(MASS)
-#  newfit <- glmnet(x, cnty, family = negative.binomial(theta = 5))
+## ----eval=FALSE---------------------------------------------------------------
+# library(MASS)
+# newfit <- glmnet(x, cnty, family = negative.binomial(theta = 5))
 
 ## -----------------------------------------------------------------------------
 class(newfit)

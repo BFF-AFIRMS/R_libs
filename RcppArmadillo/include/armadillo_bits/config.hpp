@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
 // 
-// Copyright 2008-2016 Conrad Sanderson (http://conradsanderson.id.au)
+// Copyright 2008-2016 Conrad Sanderson (https://conradsanderson.id.au)
 // Copyright 2008-2016 National ICT Australia (NICTA)
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// http://www.apache.org/licenses/LICENSE-2.0
+// https://www.apache.org/licenses/LICENSE-2.0
 // 
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -102,11 +102,8 @@
 //// Uncomment the above line if your BLAS and LAPACK libraries have function names with a trailing underscore.
 //// Conversely, comment it out if the function names don't have a trailing underscore.
 
-// #define ARMA_BLAS_LONG
-//// Uncomment the above line if your BLAS and LAPACK libraries use "long" instead of "int"
-
 // #define ARMA_BLAS_LONG_LONG
-//// Uncomment the above line if your BLAS and LAPACK libraries use "long long" instead of "int"
+//// Uncomment the above line if your BLAS and LAPACK libraries use 64 bit integers, ie. "long long" instead of "int"
 
 // #define ARMA_BLAS_NOEXCEPT
 //// Uncomment the above line if you require BLAS functions to have the 'noexcept' specification
@@ -131,7 +128,7 @@
 //// Uncomment the above line to use Intel MKL types for complex numbers.
 //// You will need to include appropriate MKL headers before the Armadillo header.
 //// You may also need to enable or disable the following options:
-//// ARMA_BLAS_LONG, ARMA_BLAS_LONG_LONG, ARMA_USE_FORTRAN_HIDDEN_ARGS
+//// ARMA_BLAS_LONG_LONG, ARMA_USE_FORTRAN_HIDDEN_ARGS
 
 #if !defined(ARMA_USE_OPENMP)
 // #define ARMA_USE_OPENMP
@@ -139,10 +136,21 @@
 //// Note that ARMA_USE_OPENMP is automatically enabled when a compiler supporting OpenMP 3.1 is detected.
 #endif
 
+#if !defined(ARMA_USE_STD_MUTEX)
+  #define ARMA_USE_STD_MUTEX
+//// Comment out the above line to disable use of std::mutex
+#endif
+
 #if !defined(ARMA_64BIT_WORD)
 // #define ARMA_64BIT_WORD
 //// Uncomment the above line if you require matrices/vectors capable of holding more than 4 billion elements.
 //// Note that ARMA_64BIT_WORD is automatically enabled when std::size_t has 64 bits and ARMA_32BIT_WORD is not defined.
+#endif
+
+#if !defined(ARMA_FORCE_USE_FP16)
+// #define ARMA_FORCE_USE_FP16
+//// Uncomment the above line to force the use of fp16 and cx_fp16 element types even if hardware support is not detected.
+//// NOTE: C++23 is also required for fp16 and cx_fp16.
 #endif
 
 #if !defined(ARMA_OPTIMISE_BAND)
@@ -155,13 +163,26 @@
   #define ARMA_OPTIMISE_SYM
   //// Comment out the above line to disable optimised handling
   //// of symmetric/hermitian matrices by various functions:
-  //// solve(), inv(), pinv(), expmat(), logmat(), sqrtmat(), rcond(), rank()
+  //// solve(), inv(), pinv(), expmat(), logmat(), sqrtmat(), powmat(), rank(), cond(), rcond() 
 #endif
 
 #if !defined(ARMA_OPTIMISE_INVEXPR)
   #define ARMA_OPTIMISE_INVEXPR
   //// Comment out the above line to disable optimised handling
   //// of inv() and inv_sympd() within compound expressions
+#endif
+
+#if !defined(ARMA_OPTIMISE_POWEXPR)
+  #define ARMA_OPTIMISE_POWEXPR
+  //// Comment out the above line to disable optimised handling of pow()
+#endif
+
+#if !defined(ARMA_CHECK_CONFORMANCE)
+  #define ARMA_CHECK_CONFORMANCE
+  //// Comment out the above line to disable conformance checks for bounds and size.
+  //// This is NOT RECOMMENDED.
+  //// It is strongly recommended that conformance checks are enabled during development,
+  //// as this greatly aids in finding mistakes in your code.
 #endif
 
 #if !defined(ARMA_CHECK_NONFINITE)
@@ -189,47 +210,23 @@
 //// The maximum number of threads to use for OpenMP based parallelisation;
 //// it must be an integer that is at least 1.
 
-// #define ARMA_NO_DEBUG
-//// Uncomment the above line to disable all run-time checks. NOT RECOMMENDED.
-//// It is strongly recommended that run-time checks are enabled during development,
-//// as this greatly aids in finding mistakes in your code.
-
-// #define ARMA_EXTRA_DEBUG
+// #define ARMA_DEBUG
 //// Uncomment the above line to see the function traces of how Armadillo evaluates expressions.
 //// This is mainly useful for debugging of the library.
 
-
 #if defined(ARMA_EXTRA_DEBUG)
-  #undef  ARMA_NO_DEBUG
-  #undef  ARMA_WARN_LEVEL
-  #define ARMA_WARN_LEVEL 3
+  // for compatibility with earlier versions of Armadillo
+  #undef  ARMA_DEBUG
+  #define ARMA_DEBUG
 #endif
-
-
-#if defined(ARMA_DEFAULT_OSTREAM)
-  #pragma message ("WARNING: support for ARMA_DEFAULT_OSTREAM is deprecated and will be removed;")
-  #pragma message ("WARNING: use ARMA_COUT_STREAM and ARMA_CERR_STREAM instead")
-#endif
-
 
 #if !defined(ARMA_COUT_STREAM)
-  #if defined(ARMA_DEFAULT_OSTREAM)
-    // for compatibility with earlier versions of Armadillo
-    #define ARMA_COUT_STREAM ARMA_DEFAULT_OSTREAM
-  #else
-    #define ARMA_COUT_STREAM std::cout
-  #endif
+  #define ARMA_COUT_STREAM std::cout
 #endif
 
 #if !defined(ARMA_CERR_STREAM)
-  #if defined(ARMA_DEFAULT_OSTREAM)
-    // for compatibility with earlier versions of Armadillo
-    #define ARMA_CERR_STREAM ARMA_DEFAULT_OSTREAM
-  #else
-    #define ARMA_CERR_STREAM std::cerr
-  #endif
+  #define ARMA_CERR_STREAM std::cerr
 #endif
-
 
 #if !defined(ARMA_PRINT_EXCEPTIONS)
   // #define ARMA_PRINT_EXCEPTIONS
@@ -280,42 +277,41 @@
   #undef ARMA_USE_FORTRAN_HIDDEN_ARGS
 #endif
 
-#if !defined(ARMA_DONT_USE_STD_MUTEX)
-  // #define ARMA_DONT_USE_STD_MUTEX
-  //// Uncomment the above line to disable use of std::mutex
-#endif
-
-// for compatibility with earlier versions of Armadillo
-#if defined(ARMA_DONT_USE_CXX11_MUTEX)
-  #pragma message ("WARNING: support for ARMA_DONT_USE_CXX11_MUTEX is deprecated and will be removed;")
-  #pragma message ("WARNING: use ARMA_DONT_USE_STD_MUTEX instead")
-  #undef  ARMA_DONT_USE_STD_MUTEX
-  #define ARMA_DONT_USE_STD_MUTEX
+#if defined(ARMA_DONT_USE_STD_MUTEX)
+  #undef ARMA_USE_STD_MUTEX
 #endif
 
 #if defined(ARMA_DONT_USE_OPENMP)
   #undef ARMA_USE_OPENMP
 #endif
 
-#if defined(ARMA_USE_WRAPPER)
-  #if !defined(ARMA_USE_EXTERN_RNG)
-    // #define ARMA_USE_EXTERN_RNG
-  #endif
+#if defined(ARMA_32BIT_WORD)
+  #undef ARMA_64BIT_WORD
 #endif
 
-#if defined(ARMA_DONT_USE_EXTERN_RNG)
-  #undef ARMA_USE_EXTERN_RNG
+#if defined(ARMA_DONT_USE_FP16)
+  #undef ARMA_FORCE_USE_FP16
+#endif
+
+#if (defined(ARMA_BLAS_LONG_LONG) && defined(ARMA_USE_WRAPPER))
+  #pragma message ("WARNING: use of ARMA_BLAS_LONG_LONG in conjunction with ARMA_USE_WRAPPER is not supported")
+#endif
+
+#if (defined(ARMA_BLAS_64BIT_INT) && defined(ARMA_USE_WRAPPER))
+  #pragma message ("WARNING: use of ARMA_BLAS_64BIT_INT in conjunction with ARMA_USE_WRAPPER is not supported")
+#endif
+
+#if (defined(ARMA_SUPERLU_64BIT_INT) && defined(ARMA_USE_WRAPPER))
+  #pragma message ("WARNING: use of ARMA_SUPERLU_64BIT_INT in conjunction with ARMA_USE_WRAPPER is not supported")
 #endif
 
 // for compatibility with earlier versions of Armadillo
-#if defined(ARMA_DONT_USE_EXTERN_CXX11_RNG)
-  #pragma message ("WARNING: support for ARMA_DONT_USE_EXTERN_CXX11_RNG is deprecated and will be removed;")
-  #pragma message ("WARNING: use ARMA_DONT_USE_EXTERN_RNG instead")
-  #undef ARMA_USE_EXTERN_RNG
-#endif
-
-#if defined(ARMA_32BIT_WORD)
-  #undef ARMA_64BIT_WORD
+#if defined(ARMA_BLAS_LONG) || defined(ARMA_BLAS_LONG_LONG)
+  #undef  ARMA_BLAS_64BIT_INT
+  #define ARMA_BLAS_64BIT_INT
+  
+  // #pragma message ("options ARMA_BLAS_LONG and ARMA_BLAS_LONG_LONG are deprecated;")
+  // #pragma message ("use ARMA_BLAS_64BIT_INT instead")
 #endif
 
 #if defined(ARMA_DONT_OPTIMISE_BAND) || defined(ARMA_DONT_OPTIMISE_SOLVE_BAND)
@@ -330,33 +326,51 @@
   #undef ARMA_OPTIMISE_INVEXPR
 #endif
 
-#if defined(ARMA_DONT_CHECK_NONFINITE)
-  #undef ARMA_CHECK_NONFINITE
+#if defined(ARMA_DONT_OPTIMISE_POWEXPR)
+  #undef ARMA_OPTIMISE_POWEXPR
 #endif
 
-#if defined(ARMA_DONT_PRINT_ERRORS)
-  #pragma message ("INFO: support for ARMA_DONT_PRINT_ERRORS option has been removed")
+#if defined(ARMA_NO_DEBUG)
+  #undef ARMA_DEBUG
+  #undef ARMA_EXTRA_DEBUG
+#endif
+
+#if defined(ARMA_DEBUG)
+  #undef  ARMA_DONT_CHECK_CONFORMANCE
+  #undef  ARMA_DONT_CHECK_NONFINITE
   
-  #if defined(ARMA_PRINT_EXCEPTIONS)
-    #pragma message ("INFO: suggest to use ARMA_WARN_LEVEL and ARMA_DONT_PRINT_EXCEPTIONS options instead")
-  #else
-    #pragma message ("INFO: suggest to use ARMA_WARN_LEVEL option instead")
+  #undef  ARMA_CHECK_CONFORMANCE
+  #define ARMA_CHECK_CONFORMANCE
+  
+  #undef  ARMA_CHECK_NONFINITE
+  #define ARMA_CHECK_NONFINITE
+  
+  #undef  ARMA_WARN_LEVEL
+  #define ARMA_WARN_LEVEL 3
+#endif
+
+#if defined(ARMA_DONT_CHECK_CONFORMANCE)
+  #if defined(ARMA_CHECK_CONFORMANCE) && (ARMA_WARN_LEVEL >= 2)
+    #pragma message ("WARNING: conformance checks disabled")
   #endif
   
-  #pragma message ("INFO: see the documentation for details")
+  #undef ARMA_CHECK_CONFORMANCE
+#endif
+
+#if defined(ARMA_DONT_CHECK_NONFINITE)
+  #undef ARMA_CHECK_NONFINITE
 #endif
 
 #if defined(ARMA_DONT_PRINT_EXCEPTIONS)
   #undef ARMA_PRINT_EXCEPTIONS
 #endif
 
-#if !defined(ARMA_DONT_ZERO_INIT)
-  // #define ARMA_DONT_ZERO_INIT
-  //// Uncomment the above line to disable initialising elements to zero during construction of dense matrices and cubes
+#if defined(ARMA_IGNORE_DEPRECATED_MARKER)
+  #pragma message ("NOTE: option ARMA_IGNORE_DEPRECATED_MARKER is not supported")
 #endif
 
-#if defined(ARMA_NO_CRIPPLED_LAPACK)
-  #undef ARMA_CRIPPLED_LAPACK
+#if defined(ARMA_CRIPPLED_LAPACK)
+  #pragma message ("NOTE: option ARMA_CRIPPLED_LAPACK is not supported")
 #endif
 
 

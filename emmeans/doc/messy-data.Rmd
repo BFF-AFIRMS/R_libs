@@ -63,7 +63,7 @@ those two factors, along with their counts:
 emmeans(nutr.lm, ~ group * race, calc = c(n = ".wgt."))
 ```
 
-####### {#nonestex}
+####### {#nonest}
 <!-- @index Non-estimability; Estimability -->
 Hmmmm. The EMMs
 when `race` is "Hispanic" are not given; instead they are flagged as 
@@ -229,9 +229,9 @@ identical in that case.
      Memory usage; Large models; Models!Large -->
 Consider a situation where we have a model with 15 factors, each at 5 levels.
 Regardless of how simple or complex the model is, the reference grid consists of
-all combinations of these factors -- and there are $%^15$ of these, or over 30
+all combinations of these factors -- and there are $5^{15}$ of these, or over 30
 billion. If there are, say, 100 regression coefficients in the model, then just
-the `linfct` slot in the reference grid requires $100\times5^15\times8$ bytes of
+the `linfct` slot in the reference grid requires $100\times5^{15}\times8$ bytes of
 storage, or almost 23,000 gigabytes. Suppose in addition the model has a
 multivariate response with 5 levels. That multiplies *both* the rows and columns
 in `linfct`, increasing the storage requirements by a factor of 25. Either way,
@@ -274,10 +274,10 @@ And let's construct two different reference grids:
 ```{r}
 rg.usual <- ref_grid(mtcars.lm)
 rg.usual
-nrow(rg.usual@linfct)
+nrow(linfct(rg.usual))
 rg.nuis = ref_grid(mtcars.lm, non.nuisance = "cyl")
 rg.nuis
-nrow(rg.nuis@linfct)
+nrow(linfct(rg.nuis))
 ```
 Notice that we left `am` out of `non.nuisance` and hence included it in `nuisance`.
 However, it interacts with `cyl`, so it was not allowed as a nuisance factor.
@@ -493,7 +493,7 @@ returned `emmGrid` object. That would not be the case if there had been no `by`
 variable.
 
 #### Graphs with nesting
-<!-- @index `emmip()`!nested factors; `plot()`!nested factors; **ggplot2** package -->
+<!-- @index `emmip()`!nested factors; `plot()`!nested factors; `emmip()`!abbreviated labels; **ggplot2** package -->
 It can be very helpful to take advantage of special features of **ggplot2** when
 graphing results with nested factors. For example, the default plot for the `cows` example
 is not ideal:
@@ -502,16 +502,19 @@ emmip(cows.rg, ~ drug | route)
 ```
 
 We can instead remove `route` from the call and instead handle it with **ggplot2**
-code to use separate *x* scales:
+code to use separate *x* scales; and also abbreviate the drug levels so there is less clutter:
 ```{r, fig.width = 5.5, fig.alt = "This plot shows the same means as the previous one, but each panel shows only the drugs that are nested in each route"}
 require(ggplot2)
-emmip(cows.rg, ~ drug) + facet_wrap(~ route, scales = "free_x")
+emmip(cows.rg, ~ drug, abbr.len = 6) + 
+  facet_wrap(~ route, scales = "free_x", space = "free_x")
 ```
+
+The `space` argument causes the panels to be sized according to the number of means plotted.
 
 Similarly with `plot.emmGrid()`:
 ```{r, fig.height = 2.5, fig.width = 5.5, fig.alt = "side-by-side CIs and PIs for drugs in each route. Again, with free_y scaling, each panel contains only the drugs involved"}
-plot(drug.emm, PIs = TRUE) + 
-    facet_wrap(~ route, nrow = 2, scales = "free_y")
+plot(drug.emm, by = "route", PIs = TRUE) + 
+    facet_wrap(~ route, scales = "free_y", space = "free_y")
 ```
 
 

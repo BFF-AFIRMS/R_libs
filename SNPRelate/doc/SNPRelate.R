@@ -1,13 +1,13 @@
 ## ----eval=FALSE---------------------------------------------------------------
-#  if (!requireNamespace("BiocManager", quietly=TRUE))
-#      install.packages("BiocManager")
-#  BiocManager::install("gdsfmt")
-#  BiocManager::install("SNPRelate")
+# if (!requireNamespace("BiocManager", quietly=TRUE))
+#     install.packages("BiocManager")
+# BiocManager::install("gdsfmt")
+# BiocManager::install("SNPRelate")
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  library("devtools")
-#  install_github("zhengxwen/gdsfmt")
-#  install_github("zhengxwen/SNPRelate")
+# library("devtools")
+# install_github("zhengxwen/gdsfmt")
+# install_github("zhengxwen/SNPRelate")
 
 ## -----------------------------------------------------------------------------
 # Load the R packages: gdsfmt and SNPRelate
@@ -30,7 +30,7 @@ get.attr.gdsn(index.gdsn(genofile, "snp.chromosome"))
 (g <- read.gdsn(index.gdsn(genofile, "genotype"), start=c(1,1), count=c(5,3)))
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  g <- snpgdsGetGeno(genofile, sample.id=..., snp.id=...)
+# g <- snpgdsGetGeno(genofile, sample.id=..., snp.id=...)
 
 ## -----------------------------------------------------------------------------
 # Get the attribute of genotype
@@ -68,76 +68,76 @@ snpgdsCreateGeno("test.gds", genmat = hapmap_geno$genotype,
 snpgdsClose(genofile)
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  # Create a new GDS file
-#  newfile <- createfn.gds("your_gds_file.gds")
-#  
-#  # add a flag
-#  put.attr.gdsn(newfile$root, "FileFormat", "SNP_ARRAY")
-#  
-#  # Add variables
-#  add.gdsn(newfile, "sample.id", sample.id)
-#  add.gdsn(newfile, "snp.id", snp.id)
-#  add.gdsn(newfile, "snp.chromosome", snp.chromosome)
-#  add.gdsn(newfile, "snp.position", snp.position)
-#  add.gdsn(newfile, "snp.allele", c("A/G", "T/C", ...))
-#  
-#  #####################################################################
-#  # Create a snp-by-sample genotype matrix
-#  
-#  # Add genotypes
-#  var.geno <- add.gdsn(newfile, "genotype",
-#      valdim=c(length(snp.id), length(sample.id)), storage="bit2")
-#  
-#  # Indicate the SNP matrix is snp-by-sample
-#  put.attr.gdsn(var.geno, "snp.order")
-#  
-#  # Write SNPs into the file sample by sample
-#  for (i in 1:length(sample.id))
-#  {
-#      g <- ...
-#      write.gdsn(var.geno, g, start=c(1,i), count=c(-1,1))
-#  }
-#  
-#  #####################################################################
-#  # OR, create a sample-by-snp genotype matrix
-#  
-#  # Add genotypes
-#  var.geno <- add.gdsn(newfile, "genotype",
-#      valdim=c(length(sample.id), length(snp.id)), storage="bit2")
-#  
-#  # Indicate the SNP matrix is sample-by-snp
-#  put.attr.gdsn(var.geno, "sample.order")
-#  
-#  # Write SNPs into the file sample by sample
-#  for (i in 1:length(snp.id))
-#  {
-#      g <- ...
-#      write.gdsn(var.geno, g, start=c(1,i), count=c(-1,1))
-#  }
-#  
-#  # Get a description of chromosome codes
-#  #   allowing to define a new chromosome code, e.g., snpgdsOption(Z=27)
-#  option <- snpgdsOption()
-#  var.chr <- index.gdsn(newfile, "snp.chromosome")
-#  put.attr.gdsn(var.chr, "autosome.start", option$autosome.start)
-#  put.attr.gdsn(var.chr, "autosome.end", option$autosome.end)
-#  for (i in 1:length(option$chromosome.code))
-#  {
-#      put.attr.gdsn(var.chr, names(option$chromosome.code)[i],
-#          option$chromosome.code[[i]])
-#  }
-#  
-#  # Add your sample annotation
-#  samp.annot <- data.frame(sex = c("male", "male", "female", ...),
-#      pop.group = c("CEU", "CEU", "JPT", ...), ...)
-#  add.gdsn(newfile, "sample.annot", samp.annot)
-#  
-#  # Add your SNP annotation
-#  snp.annot <- data.frame(pass=c(TRUE, TRUE, FALSE, FALSE, TRUE, ...), ...)
-#  add.gdsn(newfile, "snp.annot", snp.annot)
-#  
-#  # Close the GDS file
-#  closefn.gds(newfile)
+# # Create a new GDS file
+# newfile <- createfn.gds("your_gds_file.gds")
+# 
+# # add a flag
+# put.attr.gdsn(newfile$root, "FileFormat", "SNP_ARRAY")
+# 
+# # Add variables
+# add.gdsn(newfile, "sample.id", sample.id)
+# add.gdsn(newfile, "snp.id", snp.id)
+# add.gdsn(newfile, "snp.chromosome", snp.chromosome)
+# add.gdsn(newfile, "snp.position", snp.position)
+# add.gdsn(newfile, "snp.allele", c("A/G", "T/C", ...))
+# 
+# #####################################################################
+# # Create a snp-by-sample genotype matrix
+# 
+# # Add genotypes
+# var.geno <- add.gdsn(newfile, "genotype",
+#     valdim=c(length(snp.id), length(sample.id)), storage="bit2")
+# 
+# # Indicate the SNP matrix is snp-by-sample
+# put.attr.gdsn(var.geno, "snp.order")
+# 
+# # Write SNPs into the file sample by sample
+# for (i in 1:length(sample.id))
+# {
+#     g <- ...
+#     write.gdsn(var.geno, g, start=c(1,i), count=c(-1,1))
+# }
+# 
+# #####################################################################
+# # OR, create a sample-by-snp genotype matrix
+# 
+# # Add genotypes
+# var.geno <- add.gdsn(newfile, "genotype",
+#     valdim=c(length(sample.id), length(snp.id)), storage="bit2")
+# 
+# # Indicate the SNP matrix is sample-by-snp
+# put.attr.gdsn(var.geno, "sample.order")
+# 
+# # Write SNPs into the file sample by sample
+# for (i in 1:length(snp.id))
+# {
+#     g <- ...
+#     write.gdsn(var.geno, g, start=c(1,i), count=c(-1,1))
+# }
+# 
+# # Get a description of chromosome codes
+# #   allowing to define a new chromosome code, e.g., snpgdsOption(Z=27)
+# option <- snpgdsOption()
+# var.chr <- index.gdsn(newfile, "snp.chromosome")
+# put.attr.gdsn(var.chr, "autosome.start", option$autosome.start)
+# put.attr.gdsn(var.chr, "autosome.end", option$autosome.end)
+# for (i in 1:length(option$chromosome.code))
+# {
+#     put.attr.gdsn(var.chr, names(option$chromosome.code)[i],
+#         option$chromosome.code[[i]])
+# }
+# 
+# # Add your sample annotation
+# samp.annot <- data.frame(sex = c("male", "male", "female", ...),
+#     pop.group = c("CEU", "CEU", "JPT", ...), ...)
+# add.gdsn(newfile, "sample.annot", samp.annot)
+# 
+# # Add your SNP annotation
+# snp.annot <- data.frame(pass=c(TRUE, TRUE, FALSE, FALSE, TRUE, ...), ...)
+# add.gdsn(newfile, "snp.annot", snp.annot)
+# 
+# # Close the GDS file
+# closefn.gds(newfile)
 
 ## -----------------------------------------------------------------------------
 # The PLINK BED file, using the example in the SNPRelate package
@@ -146,9 +146,9 @@ fam.fn <- system.file("extdata", "plinkhapmap.fam.gz", package="SNPRelate")
 bim.fn <- system.file("extdata", "plinkhapmap.bim.gz", package="SNPRelate")
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  bed.fn <- "C:/your_folder/your_plink_file.bed"
-#  fam.fn <- "C:/your_folder/your_plink_file.fam"
-#  bim.fn <- "C:/your_folder/your_plink_file.bim"
+# bed.fn <- "C:/your_folder/your_plink_file.bed"
+# fam.fn <- "C:/your_folder/your_plink_file.fam"
+# bim.fn <- "C:/your_folder/your_plink_file.bim"
 
 ## -----------------------------------------------------------------------------
 # Convert
@@ -162,7 +162,7 @@ snpgdsSummary("test.gds")
 vcf.fn <- system.file("extdata", "sequence.vcf", package="SNPRelate")
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  vcf.fn <- "C:/your_folder/your_vcf_file.vcf"
+# vcf.fn <- "C:/your_folder/your_vcf_file.vcf"
 
 ## -----------------------------------------------------------------------------
 # Reformat

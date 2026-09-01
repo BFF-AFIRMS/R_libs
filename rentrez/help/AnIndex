@@ -1,4 +1,4 @@
-rentrez-package	rentrez
+rentrez-package	rentrez-package
 entrez_citmatch	entrez_citmatch
 entrez_dbs	entrez_dbs
 entrez_db_links	entrez_db_links
@@ -14,5 +14,5 @@ entrez_summary	entrez_summary
 extract_from_esummary	extract_from_esummary
 linkout_urls	linkout_urls
 parse_pubmed_xml	parse_pubmed_xml
-rentrez	rentrez
+rentrez	rentrez-package
 set_entrez_key	set_entrez_key

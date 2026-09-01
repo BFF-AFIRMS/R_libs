@@ -1,3 +1,4 @@
+.map.range	internal2
 apply.polygon	polygon
 area.map	area.map
 area.polygon	polygon
@@ -53,6 +54,7 @@ num.polygons	polygon
 nz	nz
 nzMapEnv	nz
 ozone	ozone
+sf2map	Spatial2map
 smooth.map	smooth.map
 sov.expand	iso.expand
 Spatial2map	Spatial2map

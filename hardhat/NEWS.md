@@ -1,3 +1,32 @@
+# hardhat 1.4.3
+
+* `mold()` no longer throws warnings about `strings_as_factors` argument when used on recipe objects (#284).
+
+* Improved handling of missings in quantile predictions (#301, @brookslogan).
+
+# hardhat 1.4.2
+
+* Added `extract_tailor()` generic (#292).
+
+# hardhat 1.4.1
+
+* Added a new vector class called `quantile_pred()` to house predictions made from a quantile regression model (tidymodels/parsnip#1191, @dajmcdon). 
+
+* Several functions gained a `call` argument for passing the call used in errors and warnings (#275).
+
+* Errors and warnings are now generated with the cli package (#272).
+
+# hardhat 1.4.0
+
+* Added `extract_postprocessor()` generic (#247).
+
+* Added `extract_fit_time()` generic (#218).
+
+# hardhat 1.3.1
+
+* Changed an Rd name from `modeling-package` -> `modeling-usethis` at the
+  request of CRAN.
+
 # hardhat 1.3.0
 
 * New family of `spruce_*_multiple()` functions to support standardizing

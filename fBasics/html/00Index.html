@@ -12,10 +12,10 @@
 <div style="text-align: center;">
 <a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
 <a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
-</div><h2>Documentation for package &lsquo;fBasics&rsquo; version 4022.94</h2>
+</div><h2>Documentation for package &lsquo;fBasics&rsquo; version 4052.98</h2>
 
-<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
-<li><a href="../NEWS">Package NEWS</a>.</li>
+<ul><li><a href="../DESCRIPTION" type="text/plain; charset=utf-8">DESCRIPTION file</a>.</li>
+<li><a href="../NEWS.md">Package NEWS</a>.</li>
 </ul>
 
 <h2>Help Pages</h2>
@@ -99,9 +99,9 @@
 <tr><td style="width: 25%;"><a href="utils-colIds.html">colIds&lt;-</a></td>
 <td>Set and retrieve column/row names</td></tr>
 <tr><td style="width: 25%;"><a href="utils-colorLocator.html">colorLocator</a></td>
-<td>Color selection</td></tr>
+<td>Named colors in R</td></tr>
 <tr><td style="width: 25%;"><a href="utils-colorLocator.html">colorMatrix</a></td>
-<td>Color selection</td></tr>
+<td>Named colors in R</td></tr>
 <tr><td style="width: 25%;"><a href="utils-colorPalette.html">colorPalette</a></td>
 <td>Color palettes</td></tr>
 <tr><td style="width: 25%;"><a href="utils-colorTable.html">colorTable</a></td>
@@ -134,7 +134,7 @@
 <tr><td style="width: 25%;"><a href="dist-gh.html">dgh</a></td>
 <td>Generalized Hyperbolic Distribution</td></tr>
 <tr><td style="width: 25%;"><a href="dist-ght.html">dght</a></td>
-<td>Generalized Hyperbolic Student-t</td></tr>
+<td>Generalized Hyperbolic Student-t distribution</td></tr>
 <tr><td style="width: 25%;"><a href="dist-gld.html">dgld</a></td>
 <td>Generalized Lambda Distribution</td></tr>
 <tr><td style="width: 25%;"><a href="dist-hyp.html">dhyp</a></td>
@@ -142,7 +142,7 @@
 <tr><td style="width: 25%;"><a href="dist-distCheck.html">distCheck</a></td>
 <td>Distribution check</td></tr>
 <tr><td style="width: 25%;"><a href="dist-DistributionFits.html">DistributionFits</a></td>
-<td>Parametric fit of a distribution</td></tr>
+<td>Fit normal, Student-t and stable distributions</td></tr>
 <tr><td style="width: 25%;"><a href="utils-colorPalette.html">divPalette</a></td>
 <td>Color palettes</td></tr>
 <tr><td style="width: 25%;"><a href="stats-maxdd.html">dmaxdd</a></td>
@@ -294,12 +294,14 @@
 <td>Functions for decorating plots</td></tr>
 <tr><td style="width: 25%;"><a href="matrix-hilbert.html">hilbert</a></td>
 <td>Hilbert matrix</td></tr>
+<tr><td style="width: 25%;"><a href="plot-histPlot.html">HistogramPlot</a></td>
+<td>Histogram and density plots</td></tr>
 <tr><td style="width: 25%;"><a href="plot-histPlot.html">histPlot</a></td>
 <td>Histogram and density plots</td></tr>
 <tr><td style="width: 25%;"><a href="dist-hyp.html">hyp</a></td>
 <td>Hyperbolic distribution</td></tr>
 <tr><td style="width: 25%;"><a href="dist-hypFit.html">hypFit</a></td>
-<td>Fit a Hyperbolic distribution</td></tr>
+<td>Fit a hyperbolic distribution</td></tr>
 <tr><td style="width: 25%;"><a href="dist-hypRobMoments.html">hypIQR</a></td>
 <td>Robust moments for the HYP</td></tr>
 <tr><td style="width: 25%;"><a href="dist-hypRobMoments.html">hypKURT</a></td>
@@ -376,8 +378,6 @@
 <td>Bivariate Linear Interpolation</td></tr>
 <tr><td style="width: 25%;"><a href="stats-interpLinear.html">linearInterpp</a></td>
 <td>Bivariate Linear Interpolation</td></tr>
-<tr><td style="width: 25%;"><a href="fBasics-deprecated.html">listDescription</a></td>
-<td>Deprecated functions in package fBasics</td></tr>
 <tr><td style="width: 25%;"><a href="utils-listFunctions.html">listFunctions</a></td>
 <td>List exported functions in a package</td></tr>
 <tr><td style="width: 25%;"><a href="utils-listFunctions.html">listIndex</a></td>
@@ -407,7 +407,7 @@
 
 <table style="width: 100%;">
 <tr><td style="width: 25%;"><a href="dist-DistributionFits.html">nFit</a></td>
-<td>Parametric fit of a distribution</td></tr>
+<td>Fit normal, Student-t and stable distributions</td></tr>
 <tr><td style="width: 25%;"><a href="dist-nig.html">nig</a></td>
 <td>Normal Inverse Gaussian Distribution</td></tr>
 <tr><td style="width: 25%;"><a href="dist-nigFit.html">nigFit</a></td>
@@ -476,7 +476,7 @@
 <tr><td style="width: 25%;"><a href="dist-gh.html">pgh</a></td>
 <td>Generalized Hyperbolic Distribution</td></tr>
 <tr><td style="width: 25%;"><a href="dist-ght.html">pght</a></td>
-<td>Generalized Hyperbolic Student-t</td></tr>
+<td>Generalized Hyperbolic Student-t distribution</td></tr>
 <tr><td style="width: 25%;"><a href="dist-gld.html">pgld</a></td>
 <td>Generalized Lambda Distribution</td></tr>
 <tr><td style="width: 25%;"><a href="dist-hyp.html">phyp</a></td>
@@ -505,7 +505,7 @@
 <tr><td style="width: 25%;"><a href="dist-gh.html">qgh</a></td>
 <td>Generalized Hyperbolic Distribution</td></tr>
 <tr><td style="width: 25%;"><a href="dist-ght.html">qght</a></td>
-<td>Generalized Hyperbolic Student-t</td></tr>
+<td>Generalized Hyperbolic Student-t distribution</td></tr>
 <tr><td style="width: 25%;"><a href="dist-gld.html">qgld</a></td>
 <td>Generalized Lambda Distribution</td></tr>
 <tr><td style="width: 25%;"><a href="dist-hyp.html">qhyp</a></td>
@@ -513,13 +513,13 @@
 <tr><td style="width: 25%;"><a href="dist-nig.html">qnig</a></td>
 <td>Normal Inverse Gaussian Distribution</td></tr>
 <tr><td style="width: 25%;"><a href="plot-qqPlot.html">qqghtPlot</a></td>
-<td>Quantile-Quantile plots</td></tr>
+<td>Quantile-quantile plots</td></tr>
 <tr><td style="width: 25%;"><a href="plot-qqPlot.html">qqgldPlot</a></td>
-<td>Quantile-Quantile plots</td></tr>
+<td>Quantile-quantile plots</td></tr>
 <tr><td style="width: 25%;"><a href="plot-qqPlot.html">qqnigPlot</a></td>
-<td>Quantile-Quantile plots</td></tr>
+<td>Quantile-quantile plots</td></tr>
 <tr><td style="width: 25%;"><a href="plot-qqPlot.html">qqnormPlot</a></td>
-<td>Quantile-Quantile plots</td></tr>
+<td>Quantile-quantile plots</td></tr>
 <tr><td style="width: 25%;"><a href="dist-sgh.html">qsgh</a></td>
 <td>Standardized Generalized Hyperbolic Distribution</td></tr>
 <tr><td style="width: 25%;"><a href="dist-sght.html">qsght</a></td>
@@ -548,7 +548,7 @@
 <tr><td style="width: 25%;"><a href="dist-gh.html">rgh</a></td>
 <td>Generalized Hyperbolic Distribution</td></tr>
 <tr><td style="width: 25%;"><a href="dist-ght.html">rght</a></td>
-<td>Generalized Hyperbolic Student-t</td></tr>
+<td>Generalized Hyperbolic Student-t distribution</td></tr>
 <tr><td style="width: 25%;"><a href="dist-gld.html">rgld</a></td>
 <td>Generalized Lambda Distribution</td></tr>
 <tr><td style="width: 25%;"><a href="dist-hyp.html">rhyp</a></td>
@@ -657,7 +657,7 @@
 <tr><td style="width: 25%;"><a href="dist-ssdFit.html">ssdFit</a></td>
 <td>Fit density using smoothing splines</td></tr>
 <tr><td style="width: 25%;"><a href="dist-DistributionFits.html">stableFit</a></td>
-<td>Parametric fit of a distribution</td></tr>
+<td>Fit normal, Student-t and stable distributions</td></tr>
 <tr><td style="width: 25%;"><a href="stableSlider.html">stableSlider</a></td>
 <td>Slider GUI for Stable Distribution</td></tr>
 <tr><td style="width: 25%;"><a href="baseMethods.html">stdev</a></td>
@@ -684,7 +684,7 @@
 <tr><td style="width: 25%;"><a href="utils-colorPalette.html">terrainPalette</a></td>
 <td>Color palettes</td></tr>
 <tr><td style="width: 25%;"><a href="dist-DistributionFits.html">tFit</a></td>
-<td>Parametric fit of a distribution</td></tr>
+<td>Fit normal, Student-t and stable distributions</td></tr>
 <tr><td style="width: 25%;"><a href="utils-colorPalette.html">timPalette</a></td>
 <td>Color palettes</td></tr>
 <tr><td style="width: 25%;"><a href="utils-colorPalette.html">topoPalette</a></td>
@@ -719,10 +719,10 @@
 <td>Stacking vectors and matrices</td></tr>
 <tr><td style="width: 25%;"><a href="utils-decor.html">vgrid</a></td>
 <td>Functions for decorating plots</td></tr>
-<tr><td style="width: 25%;"><a href="baseMethods.html">volatility</a></td>
-<td>Generic functions extensions</td></tr>
-<tr><td style="width: 25%;"><a href="baseMethods.html">volatility.default</a></td>
-<td>Generic functions extensions</td></tr>
+<tr><td style="width: 25%;"><a href="volatility.html">volatility</a></td>
+<td>Compute volatility</td></tr>
+<tr><td style="width: 25%;"><a href="volatility.html">volatility.default</a></td>
+<td>Compute volatility</td></tr>
 </table>
 
 <h2><a id="misc">-- misc --</a></h2>

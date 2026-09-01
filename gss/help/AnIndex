@@ -14,6 +14,9 @@ cfit.poisson	family
 cfit.polr	family
 cfit.weibull	family
 clim	clim
+clone	clone
+clone.gssanova	clone
+clone.ssanova	clone
 ColoCan	ColoCan
 cpsscden	cdsscden
 cpsscopu	cdsscopu
@@ -147,6 +150,7 @@ predict1	predict.ssanova
 predict1.ssanova	predict.ssanova
 predict9	predict9.gssanova
 predict9.gssanova	predict9.gssanova
+print.clone	print
 print.gssanova	print
 print.ssanova	print
 print.ssanova0	print
@@ -179,6 +183,9 @@ project.ssden1	project
 project.sshzd	project
 project.sshzd1	project
 project.ssllrm	project
+project1	project1
+project1.gssanova	project1
+project1.ssanova	project1
 psscden	dsscden
 pssden	dssden
 qsscden	dsscden
@@ -186,6 +193,7 @@ qssden	dssden
 regaux	rkpk
 residuals.gssanova	fitted.ssanova
 residuals.ssanova	fitted.ssanova
+retroCI	retroCI
 Sachs	Sachs
 smolyak.quad	smolyak
 smolyak.size	smolyak

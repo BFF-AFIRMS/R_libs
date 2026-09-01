@@ -5,6 +5,8 @@ addFilter               Add column filters
 addStyle                Add a style to a set of cells
 addWorksheet            Add a worksheet to a workbook
 all.equal               Check equality of workbooks
+as.character.formula    'as.character.formula()'
+auto_heights            Compute optimal row heights
 buildWorkbook           Build Workbook
 cloneWorksheet          Clone a worksheet to a workbook
 col2int                 Convert Excel column to integer
@@ -21,12 +23,14 @@ createStyle             Create a cell style
 createWorkbook          Create a new Workbook object
 dataValidation          Add data validation to cells
 deleteData              Delete cell data
+deleteDataColumn        Deletes a whole column from a workbook
 freezePane              Freeze a worksheet pane
+get_worksheet_entries   Get entries from workbook worksheet
 getBaseFont             Return the workbook default font
 getCellRefs             Return excel cell coordinates from (x,y)
                         coordinates
-getCreators             Add another author to the meta data of the
-                        file.
+getCreators             Get the names of the authors from the meta data
+                        of the file.
 getDateOrigin           Get the date origin an xlsx file is using
 getNamedRegions         Get named regions
 getSheetNames           Get names of worksheets
@@ -69,9 +73,9 @@ setColWidths            Set worksheet column widths
 setFooter               Set footer for all worksheets
 setHeader               Set header for all worksheets
 setHeaderFooter         Set document headers and footers
-setLastModifiedBy       Add another author to the meta data of the
-                        file.
+setLastModifiedBy       Set the author who modified the file last.
 setRowHeights           Set worksheet row heights
+setWindowSize           Set and Get Window Size for xlsx file
 sheets                  Returns names of worksheets.
 sheetVisibility         Get/set worksheet visible state
 sheetVisible            Get worksheet visible state.

@@ -1,20 +1,40 @@
 Package: zip
 Title: Cross-Platform 'zip' Compression
-Version: 2.3.0
-Author: Gábor Csárdi, Kuba Podgórski, Rich Geldreich
-Maintainer: Gábor Csárdi <csardi.gabor@gmail.com>
-Description: Cross-Platform 'zip' Compression Library. A replacement
-    for the 'zip' function, that does not require any additional
-    external tools on any platform.
+Version: 3.0.2
+Authors@R: c(
+    person("Gábor", "Csárdi", , "csardi.gabor@gmail.com", role = c("aut", "cre")),
+    person("Kuba", "Podgórski", role = "ctb"),
+    person("Rich", "Geldreich", role = "ctb"),
+    person("Arm Limited", role = c("ctb", "cph"),
+           comment = "bundled Mbed TLS crypto subset in src/mbedtls/ (Apache-2.0)"),
+    person("Posit Software, PBC", role = c("cph", "fnd"),
+           comment = c(ROR = "03wc8by49"))
+  )
+Description: Cross-Platform 'zip' Compression Library. A replacement for
+    the 'zip' function, that does not require any additional external
+    tools on any platform.
 License: MIT + file LICENSE
-URL: https://github.com/r-lib/zip#readme
+URL: https://github.com/r-lib/zip, https://r-lib.github.io/zip/
 BugReports: https://github.com/r-lib/zip/issues
-RoxygenNote: 7.2.1.9000
+LinkingTo: cli
+Suggests: callr, cli, curl, pillar, processx, R6, testthat, webfakes,
+        withr
+Config/Needs/website: tidyverse/tidytemplate
 Config/testthat/edition: 3
-Suggests: covr, processx, R6, testthat, withr
+Config/testthat/parallel: true
+Config/testthat/start-first: large-files, http
+Config/usethis/last-upkeep: 2025-05-07
 Encoding: UTF-8
+Config/roxygen2/version: 8.0.0
 NeedsCompilation: yes
-Packaged: 2023-04-17 13:48:47 UTC; gaborcsardi
+Packaged: 2026-07-31 21:25:10 UTC; gaborcsardi
+Author: Gábor Csárdi [aut, cre],
+  Kuba Podgórski [ctb],
+  Rich Geldreich [ctb],
+  Arm Limited [ctb, cph] (bundled Mbed TLS crypto subset in src/mbedtls/
+    (Apache-2.0)),
+  Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>)
+Maintainer: Gábor Csárdi <csardi.gabor@gmail.com>
 Repository: CRAN
-Date/Publication: 2023-04-17 15:30:02 UTC
-Built: R 4.3.0; x86_64-pc-linux-gnu; 2023-07-07 02:32:26 UTC; unix
+Date/Publication: 2026-08-04 18:00:02 UTC
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-01 21:36:06 UTC; unix

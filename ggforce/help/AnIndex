@@ -92,6 +92,7 @@ scale_depth_continuous	scale_depth
 scale_depth_discrete	scale_depth
 scale_x_unit	scale_unit
 scale_y_unit	scale_unit
+shapeGrob	shapeGrob
 shear	linear_trans
 StatArc	ggforce-extensions
 StatArc0	ggforce-extensions

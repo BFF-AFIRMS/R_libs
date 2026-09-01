@@ -240,5 +240,6 @@ untangle_labels	untangle
 untangle_random_search	untangle_random_search
 untangle_step_rotate_1side	untangle_step_rotate_1side
 untangle_step_rotate_2side	untangle_step_rotate_2side
+untangle_step_rotate_both_side	untangle_step_rotate_both_side
 which_leaf	which_leaf
 which_node	which_node

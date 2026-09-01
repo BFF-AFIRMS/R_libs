@@ -77,7 +77,7 @@ dbd                     Probability Density Under Birth-Death Models
 def                     Definition of Vectors for Plotting or
                         Annotating
 degree                  Vertex Degrees in Trees and Networks
-del.gaps                Delete Alignment Gaps in DNA Sequences
+del.gaps                Delete Alignment Gaps in DNA or AA Sequences
 delta.plot              Delta Plots
 dist.dna                Pairwise Distances from DNA Sequences
 dist.gene               Pairwise Distances from Genetic Data
@@ -209,6 +209,7 @@ woodmouse               Cytochrome b Gene Sequences of Woodmice
 write.dna               Write DNA Sequences in a File
 write.nexus             Write Tree File in Nexus Format
 write.nexus.data        Write Character Data in NEXUS Format
+write.phyloXML          Write Tree File in phyloXML Format
 write.tree              Write Tree File in Parenthetic Format
 yule                    Fits the Yule Model to a Phylogenetic Tree
 yule.cov                Fits the Yule Model With Covariates

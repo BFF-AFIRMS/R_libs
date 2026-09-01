@@ -3,14 +3,20 @@ library(reshape2)
 
 data(tips, package = "reshape2")
 
-
 tipsUI <- function(id) {
   ns <- NS(id)
 
   layout_sidebar(
-    fillable = TRUE,
     sidebar = sidebar(
-      title = "Restaurant tipping",
+      title = tooltip(
+        span(
+          "Restaurant tipping",
+          bsicons::bs_icon("info-circle-fill"),
+          class = "sidebar-title"
+        ),
+        "One waiter recorded information about each tip he received",
+        "over a period of a few months working in one restaurant."
+      ),
       sliderInput(
         ns("total_bill"),
         "Bill amount",
@@ -19,11 +25,17 @@ tipsUI <- function(id) {
         value = range(tips$total_bill),
         pre = "$"
       ),
-      checkboxGroupInput(ns("time"), "Food service", c("Lunch", "Dinner"), c("Lunch", "Dinner")),
+      checkboxGroupInput(
+        ns("time"),
+        "Food service",
+        c("Lunch", "Dinner"),
+        c("Lunch", "Dinner"),
+        inline = TRUE
+      ),
       actionButton(ns("reset"), "Reset filter"),
     ),
     layout_column_wrap(
-      width = 1/3,
+      width = 1 / 3,
       fill = FALSE,
       value_box(
         "Total tippers",
@@ -33,35 +45,39 @@ tipsUI <- function(id) {
       value_box(
         "Average tip",
         uiOutput(ns("average_tip"), container = h2),
-        showcase = bsicons::bs_icon("wallet2"),
-        theme_color = "secondary"
+        showcase = bsicons::bs_icon("wallet2")
       ),
       value_box(
         "Average bill",
         uiOutput(ns("average_bill"), container = h2),
-        showcase = bsicons::bs_icon("currency-dollar"),
-        theme_color = "success"
+        showcase = bsicons::bs_icon("currency-dollar")
       )
     ),
     layout_column_wrap(
-      width = 1/2,
+      width = 1 / 2,
       class = "mt-3",
       card(
         full_screen = TRUE,
-        card_header("Total bill vs tip"),
-        layout_sidebar(
-          fillable = TRUE,
-          sidebar = sidebar(
-            position = "right",
-            open = FALSE,
-            width = 150,
-            selectInput(ns("scatter_color"), "Color by:", c("none", "sex", "smoker", "day", "time")),
+        card_header(
+          "Total bill vs tip",
+          popover(
+            bsicons::bs_icon("gear"),
+            radioButtons(
+              ns("scatter_color"),
+              NULL,
+              inline = TRUE,
+              c("none", "sex", "smoker", "day", "time")
+            ),
+            title = "Add a color variable",
+            placement = "top"
           ),
-          plotOutput(ns("scatterplot"))
-        )
+          class = "d-flex justify-content-between align-items-center"
+        ),
+        plotOutput(ns("scatterplot"))
       ),
       card(
         full_screen = TRUE,
+        class = "bslib-card-table-sm",
         card_header("Tips data"),
         DT::dataTableOutput(ns("table"))
       ),
@@ -69,28 +85,41 @@ tipsUI <- function(id) {
     card(
       full_screen = TRUE,
       class = "mt-3",
-      card_header("Tip percentages"),
-      layout_sidebar(
-        fillable = TRUE,
-        sidebar = sidebar(
-          position = "right",
-          selectInput(ns("tip_perc_y"), "Split by:", c("sex", "smoker", "day", "time"), "day"),
-          selectInput(ns("tip_perc_facet"), "Facet by:", c("none", "sex", "smoker", "day", "time"), "none"),
+      card_header(
+        "Tip percentages",
+        popover(
+          bsicons::bs_icon("gear"),
+          radioButtons(
+            ns("tip_perc_y"),
+            "Split by:",
+            inline = TRUE,
+            c("sex", "smoker", "day", "time"),
+            "day"
+          ),
+          radioButtons(
+            ns("tip_perc_facet"),
+            "Facet by:",
+            inline = TRUE,
+            c("none", "sex", "smoker", "day", "time"),
+            "none"
+          ),
+          title = "Add a color variable"
         ),
-        plotOutput(ns("tip_perc"))
-      )
+        class = "d-flex justify-content-between align-items-center"
+      ),
+      plotOutput(ns("tip_perc"))
     )
   )
 }
 
-
-
 tipsServer <- function(id) {
   moduleServer(id, function(input, output, session) {
-
     tips_data <- reactive({
       d <- tips
-      d <- d[d$total_bill >= input$total_bill[1] & d$total_bill <= input$total_bill[2], ]
+      d <- d[
+        d$total_bill >= input$total_bill[1] &
+          d$total_bill <= input$total_bill[2],
+      ]
       d <- d[d$time %in% input$time, ]
       d
     })
@@ -102,11 +131,13 @@ tipsServer <- function(id) {
     })
 
     output$scatterplot <- renderPlot({
-      validate(need(
-        nrow(tips_data()) > 0,
-        "No tips match the current filter. Try adjusting your filter settings."
-      ))
-      color <-  if (input$scatter_color != "none") sym(input$scatter_color)
+      validate(
+        need(
+          nrow(tips_data()) > 0,
+          "No tips match the current filter. Try adjusting your filter settings."
+        )
+      )
+      color <- if (input$scatter_color != "none") sym(input$scatter_color)
       ggplot(tips_data(), aes(x = total_bill, y = tip, color = !!color)) +
         geom_point() +
         geom_smooth() +
@@ -114,15 +145,22 @@ tipsServer <- function(id) {
     })
 
     output$tip_perc <- renderPlot({
-      validate(need(
-        requireNamespace("ggridges", quietly = TRUE),
-        "Please install the ggridges package to see this plot."
-      ))
-      validate(need(
-        requireNamespace("ggridges", quietly = TRUE),
-        "Please install the ggridges package to see this plot."
-      ))
-      p <- ggplot(tips_data(), aes(x = tip / total_bill, y = !!sym(input$tip_perc_y))) +
+      validate(
+        need(
+          requireNamespace("ggridges", quietly = TRUE),
+          "Please install the ggridges package to see this plot."
+        )
+      )
+      validate(
+        need(
+          requireNamespace("ggridges", quietly = TRUE),
+          "Please install the ggridges package to see this plot."
+        )
+      )
+      p <- ggplot(
+        tips_data(),
+        aes(x = tip / total_bill, y = !!sym(input$tip_perc_y))
+      ) +
         ggridges::geom_density_ridges(scale = 0.9) +
         coord_cartesian(clip = "off") +
         labs(x = NULL, y = NULL)
@@ -139,12 +177,16 @@ tipsServer <- function(id) {
     })
 
     output$average_bill <- renderUI({
-      if (nrow(tips_data()) == 0) return(HTML("&ndash;"))
+      if (nrow(tips_data()) == 0) {
+        return(HTML("&ndash;"))
+      }
       scales::dollar(mean(tips_data()$total_bill))
     })
 
     output$average_tip <- renderUI({
-      if (nrow(tips_data()) == 0) return(HTML("&ndash;"))
+      if (nrow(tips_data()) == 0) {
+        return(HTML("&ndash;"))
+      }
       d <- tips_data()
       scales::percent(mean(d$tip / d$total_bill))
     })

@@ -1,3 +1,78 @@
+# pkgload 1.5.3
+
+* When reloading a package, `load_all()` now runs the unload hooks of the
+  previously loaded package (`.onUnload()` and user hooks registered with
+  `setHook()`), whether it was loaded with pkgload or regularly. The old
+  namespace and its DLL are still kept loaded so that dangling references
+  continue to work, and errors thrown from `.onUnload()` are demoted to
+  warnings so that they can't prevent reloading (#253).
+
+# pkgload 1.5.2
+
+* Better handling of S7 topics (#332).
+
+
+# pkgload 1.5.1
+
+* Fixes for CRAN checks.
+
+
+# pkgload 1.5.0
+
+* Added support for injecting breakpoints in Positron (posit-dev/positron#1766).
+
+
+# pkgload 1.4.1
+
+* `load_all()` now supports explicit `debug` option to control using debug compiler flags (#224, @assaron).
+
+* The generator of `compile_commands.json` now works with packages that compile extra libraries such as ragg.
+
+* The generator of `compile_commands.json` now works with sources in subdirectories (#308, @krlmlr).
+
+* The generator of `compile_commands.json` now checks for existing `R_SHARE_DIR`
+  and `R_INCLUDE_DIR` environment variables (#287, #296, @TimTaylor and
+  @shikokuchuo).
+
+* The generator of `compile_commands.json` is now more reliable in the presence
+  of extra whitespace in `make`'s output (#288, @TimTaylor).
+
+* The generator of `compile_commands.json` now uses escaped double quotes for LinkingTo packages to ensure valid argument strings when parsed on Windows (#305, @tylermorganwall).
+
+
+# pkgload 1.4.0
+
+* The `reset` argument of `load_all()` is no longer supported because preserving
+  the namespace requires unlocking its environment, which is no longer possible
+  in recent versions of R. It should no longer be necessary as the performance
+  issues caused by resetting the namespace were resolved a while ago.
+
+* New experimental feature for generating a `compile_commands.json` file after
+  each `load_all()`. This file is used by LSP servers such as clangd to provide
+  intellisense features in your native files. To enable it, add this directive
+  to your `DESCRIPTION` file:
+
+  ```
+  Config/build/compilation-database: true
+  ```
+
+  You'll also want to add `compile_commands.json` and `.cache` to your gitignore
+  and Rbuildignore files.
+
+  To accomplish all these steps, feel free to use the unexported function
+  `pkgload:::use_compilation_db()`. It will eventually be exported from the
+  usethis package.
+
+* `load_all()` now includes a link to the exact location when loading failed (@olivroy, #282).
+
+* User onload hooks are now passed a library path.
+
+* Fixed an error when updating packages on load (@olivroy, #261).
+
+* Fixed a bug in `shim_help()` where a complex `package = ` argument
+  evaluating to `NULL` would cause an error (#266).
+
+
 # pkgload 1.3.4
 
 * On load, pkgload now sets `PKGLOAD_PARENT_TEMPDIR` to the temporary
@@ -224,7 +299,7 @@
 * `load_all()` now updates imports of dependent packages when a package is
   reloaded (#59).
 
-* `load_all()` now assigns `DESCRIPTION/Depends` to `.Depends` object of 
+* `load_all()` now assigns `DESCRIPTION/Depends` to `.Depends` object of
   package environment. (@yiufung pkgload#61)
 
 * `load_all()` now attaches `testthat` if the `attach_testthat` option is

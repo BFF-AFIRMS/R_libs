@@ -1,4 +1,5 @@
 gh-package	gh-package
+fake_github_app	fake_github_app
 gh	gh
 gh_first	gh_next
 gh_gql	gh_gql
@@ -8,7 +9,7 @@ gh_prev	gh_next
 gh_rate_limit	gh_rate_limit
 gh_rate_limits	gh_rate_limit
 gh_token	gh_token
+gh_token_exists	gh_token
 gh_tree_remote	gh_tree_remote
 gh_whoami	gh_whoami
 print.gh_response	print.gh_response
-_PACKAGE	gh-package

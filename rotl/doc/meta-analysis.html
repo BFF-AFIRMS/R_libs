@@ -12,7 +12,7 @@
 
 <meta name="author" content="David Winter" />
 
-<meta name="date" content="2023-06-13" />
+<meta name="date" content="2026-01-15" />
 
 <title>Using the Open Tree synthesis in a comparative analysis</title>
 
@@ -31,25 +31,26 @@ document.addEventListener('DOMContentLoaded', function(e) {
 </script>
 
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
 
 
 <style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -65,55 +66,54 @@ pre > code.sourceCode { white-space: pre-wrap; }
 pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-  { counter-reset: source-line 0; }
+{ counter-reset: source-line 0; }
 pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
+{ position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {   }
+{ }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -345,7 +345,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <h1 class="title toc-ignore">Using the Open Tree synthesis in a
 comparative analysis</h1>
 <h4 class="author">David Winter</h4>
-<h4 class="date">2023-06-13</h4>
+<h4 class="date">2026-01-15</h4>
 
 
 
@@ -382,34 +382,20 @@ the shared evolutionary history among some of the studied-species.</p>
 gather the data. Thankfully, the data is available as supplementary
 material from the publisher’s website. We provide a copy of this data
 with the package:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rotl)</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## This dataset is available from the publisher&#39;s study website:</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>egg_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;egg.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;rotl&quot;</span>),</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="do">## }</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(egg_data)</span></code></pre></div>
-<pre><code>##                   animal                   Spp       Lndim Measure Neggs
-## 1 Zonotrichia_leucophrys White-crowned sparrow 0.000000000  volume   294
-## 2      Passer_domesticus         House sparrow 0.009407469  volume   149
-## 3        Serinus_canaria                Canary 0.000000000  volume    52
-## 4          Turdus_merula    European blackbird 0.021189299  volume    82
-## 5    Agelaius_phoeniceus  Red-winged blackbird 0.218316086  volume   394
-## 6    Quiscalus_mexicanus  Great-tailed grackle 0.281894985    mass   822
-##   Nclutches        ESr Type         StudyID Year        D        EN         Zr
-## 1        73 0.14004594 stat        Mead1987 1987 3.421918  85.91673 0.14097244
-## 2        31 0.11175203 stat     Cordero2000 2000 4.045161  36.83413 0.11222075
-## 3        21 0.49679140 stat     Leitner2006 2006 2.180952  23.84279 0.54503712
-## 4        54 0.38598540 stat     Martyka2010 2010 1.414815  57.95812 0.40707397
-## 5       106 0.07410136  raw Weatherhead1985 1985 3.173585 124.14982 0.07423744
-## 6       205 0.05178834  raw     Teather1989 1989 3.407805 241.21099 0.05183471
-##           VZr
-## 1 0.012060292
-## 2 0.029555954
-## 3 0.047978211
-## 4 0.018195675
-## 5 0.008254242
-## 6 0.004197959</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(rotl)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="do">## This dataset is available from the publisher&#39;s study website:</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>egg_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;egg.csv&quot;</span>, <span class="at">package =</span> <span class="st">&quot;rotl&quot;</span>),</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>)</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="do">## }</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="fu">head</span>(egg_data)</span></code></pre></div>
+<pre><code>##                   animal                   Spp       Lndim Measure Neggs Nclutches        ESr Type         StudyID Year        D        EN         Zr         VZr
+## 1 Zonotrichia_leucophrys White-crowned sparrow 0.000000000  volume   294        73 0.14004594 stat        Mead1987 1987 3.421918  85.91673 0.14097244 0.012060292
+## 2      Passer_domesticus         House sparrow 0.009407469  volume   149        31 0.11175203 stat     Cordero2000 2000 4.045161  36.83413 0.11222075 0.029555954
+## 3        Serinus_canaria                Canary 0.000000000  volume    52        21 0.49679140 stat     Leitner2006 2006 2.180952  23.84279 0.54503712 0.047978211
+## 4          Turdus_merula    European blackbird 0.021189299  volume    82        54 0.38598540 stat     Martyka2010 2010 1.414815  57.95812 0.40707397 0.018195675
+## 5    Agelaius_phoeniceus  Red-winged blackbird 0.218316086  volume   394       106 0.07410136  raw Weatherhead1985 1985 3.173585 124.14982 0.07423744 0.008254242
+## 6    Quiscalus_mexicanus  Great-tailed grackle 0.281894985    mass   822       205 0.05178834  raw     Teather1989 1989 3.407805 241.21099 0.05183471 0.004197959</code></pre>
 <p>The most important variable in this dataset is <code>Zr</code>, which
 is a <a href="https://en.wikipedia.org/wiki/Fisher_transformation">normalized
 effect size</a> for difference ,in size between eggs that contain males
@@ -421,26 +407,26 @@ meta-analysis we should produce the classic <a href="https://en.wikipedia.org/wi
 effects-size on the y-axis and precision (the inverse of the sample
 standard error) on the x-axis. Here we calculate precision from the
 sample variance (<code>Vzr</code>):</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span> <span class="sc">/</span> <span class="fu">sqrt</span>(egg_data<span class="sc">$</span>VZr), egg_data<span class="sc">$</span>Zr,</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">16</span>,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Effect size (Zr)&quot;</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;Precision (1/SE)&quot;</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">&quot;Effect sizes for sex bias in egg size among 51 brid species&quot;</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<div class="figure">
-<img src="data:image/png;base64,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" alt />
-<p class="caption">plot of chunk eggs_in_a_funnel</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span> <span class="sc">/</span> <span class="fu">sqrt</span>(egg_data<span class="sc">$</span>VZr), egg_data<span class="sc">$</span>Zr,</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Effect size (Zr)&quot;</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;Precision (1/SE)&quot;</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">&quot;Effect sizes for sex bias in egg size among 51 brid species&quot;</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>)</span></code></pre></div>
+<div class="float">
+<img role="img" aria-label="plot of chunk eggs_in_a_funnel" src="data:image/png;base64,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99xzz7kVVljBbbjhhol+yefrr7/uOnbs6Lp165bop9yORfmmgjLSEkssEQioib9dd901zNk222wT+undu7e6J7mFARpx8+233wZHH310cNlllzUi9H+C7LvvvprP2267rdFxNDbg7Nmzg9atW4c4XXnllY2NquzhrrvuOi3H0KFDM+al2FgXO/6MBSvBi0UXXVTxlcFjCVKr7iSEaYTflO+rRo8enVKoqVOnBjLoVX8pL2IP2223nfr5xz/+EXvT8ON9992n4fbYY4+MHi+55BL1c+yxx2b0U+4XxfimyiqB+RHBiSeemDaiWW211fT1b7/95qSBuObNm7u3337bLb300i7JzcfV2OuZZ57pLrroIv01Ng5GtO3atXNdu3ZtbBSNDvf88887YcKuT58+bvz48W7xxRdvdFzVELDYWBc7/nJiPHz4cPfrr7+qpF7OfFR62kg+n376qUMbtPHGG4fZ7dSpU3g/YcIEd/jhh6tEGzoW+AZNyqhRo1T7VOCoSxpdMb6pimBgBx54oKqL4mh+9dVX7tJLL1WGJdKao7EgfssIJsVthx12cEsttZSbOXOmdt5ffvmlqvGE47sFF1wwjPaLL75wN9xwg0Pc3mCDDZxIcarqe+GFF1RExyNxwyT322+/MJy/Qd0p0pXD/0ILLeR69uzpRCJU//hZbLHFXMuWLZXZfv311+6aa67xQVOuf/vb31RN2VB+s6UVjfDpp5/WcuOGuuP66693Ik2ql++//9498sgjDj+tWrVyYOVVs7/88osy7BVXXNExYLjzzjudjBL1F42fe8p81113KZNcd911VUW5+uqrh95IVyQn99Zbb7kOHTq4ffbZxxEv5aAOf/75Z/fnP//Zrb/++o76wS906KGHat2FEcVuqA8ZgeoA56CDDtI48RLF2gchj0888YR77733HJ3MTjvtFKpR88EzKX7yQNn2339/9/jjj7unnnpKBysiJWqd+zzErw3VMX6J85ZbblGc+vfv7z7++GP35ptvusGDB2vHiR9wR0W1yiqruIMPPthde+21ju+BtJMoW10tueSS+v0Q9plnnnFPPvlkWjR0mjLiV3dU/aimW7Ro4bbffnu32Wabpfn3Dj/88IPiQ5wwyTXWWMMNHDhQ64u2eMUVV6iaC9XwzTffrPngOyU92i1qsB49erhBgwb5KPVKndKO33jjDa1b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9913X7DiiisGsrVYiE2138h2WcGyyy6r9f3HH38El1xySUD5Idp9y5Ytw2+ffuC7776r9iLnnX+TwKp0qPLqq6+6LbbYQo9UX2CBBdyqq67qFlxwwSotTfZsT5482TEav+6661I8I4F06dJFpbLFFlvMHXfccY5Ray3RL7/84saNG+cmTJjgWrdunVK0Wm8HSF5jxoxxSyyxhP7WW28999RTTykGDz74oDvmmGNc8+bN3U477eRkcOOefPLJFHyq+UGYlrvzzjtdx44d9TvfbLPN3NNPP61Fot67d+/u2rRp44S5qxQqDK2ai9uovBsDaxRs5Q80ffp0d/HFF7tevXqpGmHUqFHlz1QRc7DXXnu5888/37Vo0SIllQ8//NDJyDt0Q43IZqd0+rVCCy+8sJsyZYoy6niZar0dbLjhhg71GSQSths/frwTiUzr+Oeff9YO3GMCA/v888/9Y9Vfadd8355E8nTbbbedPlLvM2fOdOuuu67bYIMNXM+ePZ1IYN5r3VyNgVVpVYs6yV1++eXu/fffd9OmTXMXXXSR++qrr6q0NI3PtqhS3OKLLx5GgBQG1eo8WFjQ/97USztA+h40aJDOgzGYidc7cNAOarXeb7zxRjdx4kQ3evRorfmll17aDRkyRJkYgzikUCT0eiNjYFVa44zG+vTpo7nv0aOHqtAwcKg3WmaZZVSF4stNB7bIIovUzREr9dAOYF79+/dXqcurh+P1Tv3PnTu3Jo+XgXkde+yx7tFHH1VtC2Xdf//9HQYtzZo1c23btlUDj9tvv51XdUXGwKqwujkH68ILL0xRk/3++++uVatWVViapmV5pZVWcoxAPXGPVRofdq1TPbQD5oHorL/44gsnhhrhuXecAYdqlXPBPFH37dq18481cUWqgnk9/PDDKn36Qk2aNMm99tpr/tHV6/dvDCxsAtVzw+GVNGDmA6A333zTvfDCC04slKqnEAXKKVIocwGoURmpX3bZZW7XXXctUOyVHU09tIOxY8dqR33vvfcq86KjhqlBLJkQyzx9RjrBvL5r166VXWl55A6GfNBBB7l77rlH57ooOz/oo48+cscff7yuCcSI49Zbb3W77LJLHrHXiNe87RYtQEUgINZIwaabbhrI+pdALNMCsVKriHwVOxOPPfZYihk96cnHGyy55JJBhw4dgt69eweiSip2NsoWvzer9hmo9XbQvn37QLralB9m9dCsWbOCNdZYI8CPWOoFU6dO9bDUxHXYsGEp5fY4zJ8/X5cUsIxAGHYg6tRg3333raklBLlWoJ3IXOUDka+//lpNqzGlr2dC+mIkimqpHqme2wHqRWHs9VjtaplJwePWufUChjGweqlpK6chYAgYAjWGQH0P22usMq04hoAhYAjUEwLGwOqptq2shoAhYAjUEALGwGqoMq0ohoAhYAjUEwLGwOqptq2shoAhYAjUEALGwGqoMq0ohoAhYAjUEwLGwOqptq2shoAhYAjUEALGwGqoMq0ohoAhYAjUEwLGwOqptq2shoAhYAjUEALGwGqoMq0ohoAhYAjUEwLGwOqptq2shoAhYAjUEALGwGqoMq0ohoAhYAjUEwLGwOqptq2shoAhYAjUEALGwGqoMq0ohoAhYAjUEwLGwOqptq2shoAhYAjUEALGwGqoMq0ohoAhYAjUEwLGwOqptq2shoAhYAjUEALGwGqoMq0ohoAhYAjUEwLGwOqptq2sNYvA119/7X755ZeU8v32228uCIIUN/x88cUXKW48//HHHylu2R6S0ssWxt4bAoVGwBhYoRG1+CoWATrdZs2ahb+FF17YdejQwV144YUFy/Pw4cPdCSec0GB8q622mnv11Vcb9JPPy59//tntu+++Wi4fbs6cOY503nvvPe+k10mTJrkrrrhC78855xzXunVr17VrV9eyZUt38MEHu59++knfXX/99SFOUczWWmstff/666+70047Te/tzxAoFwLGwMqFvKVbNgS+/PJLh3Qyd+5cd9ttt2lH/NhjjxUkP0ceeaQ7/PDDG4zr/vvvd507d27QTz4vL7jgAmU+Cy20kAa75ZZbXJ8+fdxnn32WFs3kyZPd1ltv7R555BF39dVXKyNFAoPRzZw5051++ulhmC222EJxAiv/84y3V69e6j/OIMPAdmMIlAABY2AlANmSqCwEmjdv7hZccEG36KKLuh49erjVV19dO3A65wMOOMDtuOOOrkuXLm7+/PnuiSeecOuuu65KKnvuuaf76quvwsKce+65rmPHjvp+3Lhx6j5+/Hh3xx136P3NN9/sVlllFbf00ku7fv36uW+//VbdYXIffvih3j/55JOOePGz++67u88//1zdYUpIhltuuaWmPXDgQPfjjz/qu+gfzGfs2LFup512UmdUhORlwoQJGi7ql/vnn39ey/zdd985cFh22WXVS9u2bR2Mb6+99gqDIHmBU/S3wAL/6zL69u3rRo4cGfq3G0Og1Aj8rzWWOmVLzxAoMwKo3u677z738ssvu5133lkZBExnvfXWc6jXYBi4H3XUUe6NN95wLVq0UHeyjeR23XXXOfzzQ3X4wQcfKAOCqaCKO+ywwxwqu3fffdfBMK688kot8axZs/Q9/mE822+/vXvllVccEtTgwYPVD4zsrLPOcscdd5x76aWXlPHceeed+i76xzsYrJe+UItOmTJFGXDUH/dIWKgVYVw77LCDW2qppVz79u3dIYcc4u666y5lZsTl6d///rfmmXz734svvuhfu6222koZfOhgN4ZAiRFoXuL0LDlDoOwIIDUhSXz//fdq+DBq1CiHBII6bJFFFlE1GtIHKrZu3bo5pB/o7LPPdttuu607//zzlTHts88+buONN9Z3d999d8hEcCD877//7p577jmV0nhP3FGCaTD/xNwTdMYZZ6g0CAOEdtttt1CyIt3Zs2ere/RvxowZbqWVVoo6Zbz36kM8LLHEEu7xxx93EydOdEiNlLFNmzbuwQeMdAaPAAAD/0lEQVQfdH6eC1XrPffckxLfkksu6TbYYAN1w/8333yjqljm0IwMgVIjYAys1IhbemVHAOmJDhyJComEe08wA5gPhISEhENHHaVPPvnEwTgOPPDA0HmTTTYJ77mBWd10001uxIgR7uijj1Ypa8yYMa69SDyeYEjRcMyLLbPMMo74oeWXX957dYsvvrj79ddfw2d/8/7777vlllvOPzZ4hYEhWUJYJyKtDRo0SH/z5s3TfO6///5aZvysvfba7uGHH+Y2I8H4ycM666yT0Y+9MASKhYCpEIuFrMVbsQhsuOGGrmfPntpBR5kXGUa95gkVG8YQGHv4H2o1mFyrVq0cqkBP06ZNU6bmn7lus8027p133nHMc8F8hg4dGn2tzApG6Am1IZaSq666qjp5RurfJ13btWuXaKwR94s0iCqTuT2of//+DobqCRyOP/5499Zbb6WZ3ns/8Sum90iL5MHIECgHAsbAyoG6pVkVCMC8pk6dqkyIDKPy22ijjdQir3fv3jp/xlwXFnpILlEjCywAMdFHDYehCAzDm6j7whM/RiJeNchcWqdOnXRuyvvJdkXyYW4rG2G8AeP2xBzY6NGjdW4NN8qAeT0SoWecSGkwvvjPx/HRRx+pdIoBipEhUA4E/jfcLEfqlqYhUMEIYMyBIcX666+v81hY411zzTUqpWFcMWDAAGVSSGpY5GEAwXwShPqPuTUYAvNGzBVh5Rcl3qFiXHPNNd0KK6ygVpH33ntv1EvWexjY22+/rVKTZzxJgaLzX7zHWASJb5dddlHGCgOD0cJEPcFcoxKpd8f4BfXjm2++aapDD4pdy4JAMxllBWVJ2RI1BKoEASQQTOCZn4oT1oWLLbaYdujxd/4ZNZs3V/du0SvqRVSUSfFH/WW6x/ye+TgsJjMREiGMNm5Ign+kRObYKEc+tMcee6jkCRM0MgTKgYAxsHKgbmkaAgVEgLm4IUOGqPl8AaNtMCrm9o444ghdEN2gR3tpCBQRAZsDKyK4FrUhUAoEWBaABIYUVyr6+OOPU4xASpWupWMIRBEwCSyKht0bAoaAIWAIVA0CJoFVTVVZRg0BQ8AQMASiCBgDi6Jh94aAIWAIGAJVg4AxsKqpKsuoIWAIGAKGQBQBY2BRNOzeEDAEDAFDoGoQMAZWNVVlGTUEDAFDwBCIImAMLIqG3RsChoAhYAhUDQLGwKqmqiyjhoAhYAgYAlEEjIFF0bB7Q8AQMAQMgapBwBhY1VSVZdQQMAQMAUMgioAxsCgadm8IGAKGgCFQNQgYA6uaqrKMGgKGgCFgCEQRMAYWRcPuDQFDwBAwBKoGAWNgVVNVllFDwBAwBAyBKALGwKJo2L0hYAgYAoZA1SDw/0ioJc5xs2OBAAAAAElFTkSuQmCC" alt="plot of chunk eggs_in_a_funnel" />
+<div class="figcaption">plot of chunk eggs_in_a_funnel</div>
 </div>
 <p>In order to use this data later on we need to first convert it to a
 standard <code>data.frame</code>. We can also convert the
 <code>animal</code> column (the species names) to lower case, and remove
 the underscores in their names, which will make it easier to match names
 later on:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>egg_data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(egg_data)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Convert taxon names to lower case</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>egg_data<span class="sc">$</span>animal <span class="ot">&lt;-</span> <span class="fu">tolower</span>(egg_data<span class="sc">$</span>animal)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Let&#39;s remove the underscores (_) from the taxon names</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>egg_data<span class="sc">$</span>animal <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;_&quot;</span>, <span class="st">&quot; &quot;</span>, egg_data<span class="sc">$</span>animal)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>egg_data <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(egg_data)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="do">## Convert taxon names to lower case</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>egg_data<span class="sc">$</span>animal <span class="ot">&lt;-</span> <span class="fu">tolower</span>(egg_data<span class="sc">$</span>animal)</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="do">## Let&#39;s remove the underscores (_) from the taxon names</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>egg_data<span class="sc">$</span>animal <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;_&quot;</span>, <span class="st">&quot; &quot;</span>, egg_data<span class="sc">$</span>animal)</span></code></pre></div>
 </div>
 <div id="find-the-species-in-ott" class="section level3">
 <h3>Find the species in OTT</h3>
@@ -448,33 +434,24 @@ later on:</p>
 we first need to find Open Tree Taxonomy (OTT) IDs for each species. We
 can do that with the Taxonomic Name Resolution Service function
 <code>tnrs_match_names</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>taxa <span class="ot">&lt;-</span> <span class="fu">tnrs_match_names</span>(<span class="fu">unique</span>(egg_data<span class="sc">$</span>animal), <span class="at">context =</span> <span class="st">&quot;Animals&quot;</span>)</span></code></pre></div>
-<pre><code>## Warning in tnrs_match_names(unique(egg_data$animal), context = &quot;Animals&quot;):
-## partial argument match of &#39;context&#39; to &#39;context_name&#39;</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(taxa)</span></code></pre></div>
-<pre><code>##            search_string            unique_name approximate_match ott_id
-## 1 zonotrichia leucophrys Zonotrichia leucophrys             FALSE 265553
-## 2      passer domesticus      Passer domesticus             FALSE 745175
-## 3        serinus canaria        Serinus canaria             FALSE 464865
-## 4          turdus merula          Turdus merula             FALSE 568572
-## 5    agelaius phoeniceus    Agelaius phoeniceus             FALSE 226605
-## 6    quiscalus mexicanus    Quiscalus mexicanus             FALSE 743411
-##   is_synonym          flags number_matches
-## 1      FALSE                             1
-## 2      FALSE                             1
-## 3      FALSE sibling_higher              1
-## 4      FALSE                             1
-## 5      FALSE                             1
-## 6      FALSE                             1</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>taxa <span class="ot">&lt;-</span> <span class="fu">tnrs_match_names</span>(<span class="fu">unique</span>(egg_data<span class="sc">$</span>animal), <span class="at">context_name =</span> <span class="st">&quot;Animals&quot;</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">head</span>(taxa)</span></code></pre></div>
+<pre><code>##            search_string            unique_name approximate_match score ott_id is_synonym          flags number_matches
+## 1 zonotrichia leucophrys Zonotrichia leucophrys             FALSE     1 265553      FALSE                             1
+## 2      passer domesticus      Passer domesticus             FALSE     1 745175      FALSE                             1
+## 3        serinus canaria        Serinus canaria             FALSE     1 464865      FALSE sibling_higher              1
+## 4          turdus merula          Turdus merula             FALSE     1 568572      FALSE                             1
+## 5    agelaius phoeniceus    Agelaius phoeniceus             FALSE     1 226605      FALSE                             1
+## 6    quiscalus mexicanus    Quiscalus mexicanus             FALSE     1 743411      FALSE                             1</code></pre>
 <p>All of these species are in OTT, but a few of them go by different
 names in the Open Tree than we have in our data set. Because the tree
 <code>rotl</code> fetches will have Open Tree names, we need to create a
 named vector that maps the names we have for each species to the names
 Open Tree uses for them:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>taxon_map <span class="ot">&lt;-</span> <span class="fu">structure</span>(taxa<span class="sc">$</span>search_string, <span class="at">names =</span> taxa<span class="sc">$</span>unique_name)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>taxon_map <span class="ot">&lt;-</span> <span class="fu">structure</span>(taxa<span class="sc">$</span>search_string, <span class="at">names =</span> taxa<span class="sc">$</span>unique_name)</span></code></pre></div>
 <p>Now we can use this map to retrieve “data set names” from “OTT
 names”:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>taxon_map[<span class="st">&quot;Anser caerulescens&quot;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>taxon_map[<span class="st">&quot;Anser caerulescens&quot;</span>]</span></code></pre></div>
 <pre><code>##  Anser caerulescens 
 ## &quot;chen caerulescens&quot;</code></pre>
 </div>
@@ -482,128 +459,47 @@ names”:</p>
 <h3>Get a tree</h3>
 <p>Now we can get the tree. There are really too many tips here to show
 nicely, so we will leave them out of this plot</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">&lt;-</span> <span class="fu">tol_induced_subtree</span>(<span class="fu">ott_id</span>(taxa)[<span class="fu">is_in_tree</span>(<span class="fu">ott_id</span>(taxa))])</span></code></pre></div>
-<pre><code>## Warning in collapse_singles(tr, show_progress): Dropping singleton nodes
-## with labels: mrcaott246ott5481, mrcaott246ott7145, mrcaott246ott928360,
-## mrcaott246ott1858, mrcaott246ott2907, mrcaott246ott3600042, mrcaott246ott7113,
-## Passeriformes ott1041547, mrcaott246ott3212, mrcaott246ott428578,
-## mrcaott246ott44866, mrcaott246ott5929, mrcaott246ott32658,
-## mrcaott246ott310390, mrcaott246ott176461, mrcaott246ott22325,
-## mrcaott246ott10351, mrcaott246ott193904, mrcaott246ott5934, mrcaott246ott1566,
-## mrcaott1566ott3598440, mrcaott1566ott496009, mrcaott1566ott59716,
-## mrcaott1566ott32651, mrcaott1566ott24297, mrcaott1566ott45312,
-## mrcaott1566ott22300, mrcaott22300ott35350, mrcaott22300ott547548,
-## mrcaott22300ott909199, mrcaott22300ott67150, mrcaott22300ott130294,
-## mrcaott22300ott3598245, mrcaott22300ott416087, mrcaott22300ott629342,
-## mrcaott22300ott416089, mrcaott22300ott107840, mrcaott364210ott451069,
-## mrcaott364210ott3598839, mrcaott3598839ott5341363, mrcaott19467ott431648,
-## mrcaott19467ott252687, mrcaott19467ott401023, mrcaott19467ott233446,
-## mrcaott19467ott168078, mrcaott19467ott1046624, mrcaott19467ott161293,
-## mrcaott19467ott46396, mrcaott46396ott46398, mrcaott46398ott168083,
-## mrcaott168083ott431676, mrcaott2175ott35326, mrcaott2175ott968664,
-## mrcaott2175ott259082, mrcaott2175ott59905, mrcaott2175ott2224,
-## mrcaott2224ott366470, mrcaott3364ott310375, mrcaott3364ott3370,
-## mrcaott4083ott35042, mrcaott4083ott370807, mrcaott4083ott469177,
-## mrcaott4083ott18592, mrcaott4083ott139823, mrcaott4083ott11712,
-## mrcaott4083ott95949, Erythrura ott465905, mrcaott24017ott389884,
-## mrcaott24017ott24025, mrcaott24025ott596763, mrcaott24025ott453058,
-## mrcaott24025ott141501, mrcaott141501ott966119, mrcaott141501ott865472,
-## mrcaott141501ott389883, mrcaott105913ott311555, mrcaott311555ott1082386,
-## mrcaott311555ott708327, mrcaott708327ott966122, mrcaott4088ott8371,
-## mrcaott4088ott5616, mrcaott5616ott28339, mrcaott5616ott6023,
-## mrcaott6023ott243614, mrcaott6023ott101225, mrcaott6023ott125079,
-## mrcaott125079ott463026, mrcaott125079ott765405, Zonotrichia (genus in
-## domain Eukaryota) ott789032, mrcaott125079ott265547, mrcaott125079ott265554,
-## mrcaott5620ott254662, mrcaott5620ott29804, mrcaott29804ott449580,
-## mrcaott29804ott449562, mrcaott29804ott86894, mrcaott29804ott93045,
-## mrcaott93045ott264496, mrcaott264496ott264500, mrcaott264500ott3597163,
-## mrcaott264500ott283668, Quiscalus ott743410, mrcaott283673ott673386,
-## mrcaott283673ott741944, mrcaott283673ott735243, mrcaott213448ott213452,
-## mrcaott213448ott1009279, mrcaott213448ott213451, mrcaott213454ott430627,
-## mrcaott430627ott498751, mrcaott430627ott617797, mrcaott430627ott3597159,
-## mrcaott99175ott364331, Xanthocephalus ott364336, mrcaott6366ott28332,
-## mrcaott6366ott88283, mrcaott6366ott341465, mrcaott6366ott157599,
-## mrcaott6366ott178457, mrcaott6366ott405215, mrcaott6366ott238142,
-## mrcaott6366ott6375, mrcaott6375ott119724, mrcaott6375ott238137,
-## mrcaott238137ott328909, mrcaott238137ott464865, Haemorhous ott3601758,
-## mrcaott9416ott840030, mrcaott9416ott96148, mrcaott9416ott7068473, Passer
-## ott515158, mrcaott9416ott407769, mrcaott9416ott25628, mrcaott9416ott407764,
-## mrcaott9416ott68955, mrcaott9416ott73636, mrcaott1488ott72472,
-## mrcaott1488ott63797, mrcaott1488ott284404, mrcaott1488ott107463,
-## mrcaott1488ott17016, mrcaott1488ott44217, mrcaott1488ott16185,
-## mrcaott16185ott274931, Hirundinidae ott897681, mrcaott16185ott67916,
-## mrcaott67916ott67921, mrcaott67916ott368059, mrcaott67916ott67920,
-## Delichon ott922719, mrcaott107476ott177058, mrcaott107476ott271376,
-## mrcaott107476ott337752, mrcaott337752ott7661935, mrcaott337752ott337762,
-## mrcaott337752ott7068616, mrcaott2375ott73144, mrcaott2375ott124085,
-## mrcaott2375ott71358, mrcaott2375ott814750, mrcaott2375ott61147,
-## mrcaott84656ott123763, mrcaott123763ott728471, mrcaott123763ott258794,
-## mrcaott4820ott409116, mrcaott4820ott17162, mrcaott4820ott20998,
-## mrcaott4820ott20989, mrcaott4820ott58860, mrcaott4820ott23690,
-## mrcaott4820ott20996, mrcaott4820ott11462, mrcaott4820ott140440,
-## mrcaott4820ott197505, mrcaott4820ott75978, mrcaott4820ott11315,
-## mrcaott4820ott5933, mrcaott5933ott60465, mrcaott5933ott25637,
-## mrcaott25637ott199843, mrcaott25637ott473431, mrcaott25637ott686166,
-## mrcaott25637ott111993, mrcaott25637ott183621, mrcaott183621ott501241,
-## mrcaott501241ott3598010, mrcaott501241ott597018, mrcaott686165ott686168,
-## mrcaott60456ott662804, mrcaott60456ott75990, Pica ott776480, Falconiformes
-## ott212187, Falconidae ott212186, mrcaott47588ott225286, mrcaott47588ott748842,
-## mrcaott47588ott201377, mrcaott201377ott773020, Cerchneis ott3596159,
-## mrcaott179290ott352521, mrcaott179290ott624976, mrcaott179290ott624973,
-## mrcaott179290ott624974, mrcaott179290ott432111, mrcaott5272ott92263,
-## mrcaott5272ott24121, Scolopacidae ott887699, mrcaott24121ott217797,
-## mrcaott24121ott45306, mrcaott24121ott654830, mrcaott24121ott214779,
-## mrcaott24121ott651066, mrcaott651066ott1090732, mrcaott7639ott306220,
-## mrcaott7639ott57833, mrcaott7639ott383929, mrcaott7639ott279504,
-## mrcaott7639ott47401, mrcaott7639ott341047, mrcaott7639ott234666,
-## mrcaott7639ott341034, mrcaott7639ott285543, Sterna ott16767,
-## mrcaott285543ott341030, mrcaott285543ott738509, mrcaott285543ott966606,
-## mrcaott285543ott966604, mrcaott22965ott738512, mrcaott22965ott80679,
-## mrcaott22965ott558955, mrcaott22965ott154126, mrcaott22965ott241571,
-## mrcaott22965ott282132, mrcaott22965ott414141, mrcaott22965ott704174,
-## mrcaott22965ott704175, mrcaott22965ott324050, mrcaott22965ott353849,
-## mrcaott22965ott75913, mrcaott75913ott335736, mrcaott306645ott450107,
-## mrcaott425206ott887691, mrcaott425206ott515355, mrcaott119599ott993041,
-## mrcaott119599ott509055, mrcaott698969ott4947414, mrcaott147723ott219032,
-## Stercorariidae ott168297, Stercorarius ott742632, mrcaott742640ott742641,
-## mrcaott57823ott57827, mrcaott57823ott242771, mrcaott57823ott112937,
-## mrcaott112937ott129402, mrcaott112937ott454019, mrcaott112937ott242776,
-## mrcaott242776ott313115, mrcaott242776ott704464, mrcaott242776ott331994,
-## mrcaott331994ott413796, mrcaott9830ott86672, mrcaott9830ott90560,
-## mrcaott9830ott324158, mrcaott9830ott55044, mrcaott9830ott285638,
-## mrcaott9830ott117726, Sulidae ott452462, mrcaott170197ott403772, Sula ott160486,
-## mrcaott170197ott5859716, mrcaott170197ott429615, mrcaott429615ott1030312,
-## Procellariiformes ott452461, mrcaott18206ott31011, mrcaott31011ott71459,
-## Diomedeidae ott85277, mrcaott71459ott320282, Phoebastria ott941509,
-## mrcaott320282ott320284, Sphenisciformes ott494366, Spheniscidae ott494367,
-## mrcaott60413ott3600120, mrcaott60413ott4130813, mrcaott60413ott4130835,
-## mrcaott60413ott4130830, mrcaott60413ott3600127, mrcaott60413ott4130831,
-## mrcaott60413ott3600124, mrcaott60413ott3600128, mrcaott60413ott3600129,
-## mrcaott60413ott4130819, mrcaott60413ott4130817, mrcaott60413ott60417,
-## mrcaott60413ott3600131, mrcaott60413ott917663, Eudyptes ott494364,
-## mrcaott82219ott116946, mrcaott116946ott219197, mrcaott134466ott494361,
-## Pygoscelis ott494365, mrcaott134466ott783352, mrcaott5021ott198671,
-## mrcaott5021ott75792, Cuculiformes ott212171, mrcaott75792ott212172,
-## mrcaott75792ott3601282, mrcaott75792ott119216, mrcaott119216ott212175,
-## mrcaott119216ott169265, mrcaott169265ott550039, mrcaott169265ott462546,
-## mrcaott462546ott3596355, mrcaott462546ott1050027, Cuculus ott1041429,
-## mrcaott549514ott7068132, mrcaott549514ott3596308, mrcaott549514ott3596307,
-## mrcaott549514ott3596306, mrcaott549514ott792626, mrcaott17146ott57819,
-## Columbiformes ott363030, mrcaott17146ott45505, mrcaott45505ott50388,
-## mrcaott45505ott506098, mrcaott45505ott51607, mrcaott51607ott277822,
-## mrcaott51607ott67614, mrcaott51607ott244134, Columba ott938415,
-## mrcaott51607ott277817, mrcaott277817ott320359, mrcaott320359ott493986,
-## mrcaott320359ott767317, mrcaott320359ott921832, mrcaott320359ott938416,
-## Galliformes ott837585, mrcaott4765ott6520194, mrcaott4765ott109888,
-## mrcaott4765ott75785, mrcaott4765ott104461, mrcaott4765ott151684,
-## mrcaott4765ott54193, mrcaott4765ott49319, mrcaott4765ott3596087,
-## mrcaott4765ott415487, mrcaott4765ott51354, mrcaott4765ott446490, Tetraoninae
-## ott999677, mrcaott4765ott55929, mrcaott4765ott539045, mrcaott4765ott234824,
-## Centrocercus ott728081, mrcaott53700ott572162, mrcaott53700ott466627,
-## mrcaott53700ott309383, mrcaott53700ott102722, mrcaott102722ott137547, Phasianus
-## ott102718, mrcaott49310ott102705, mrcaott49310ott153554, mrcaott153554o</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tr, <span class="at">show.tip.label =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="data:image/png;base64,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" title="plot of chunk birds_in_a_tree" alt="plot of chunk birds_in_a_tree" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>tr <span class="ot">&lt;-</span> <span class="fu">tol_induced_subtree</span>(<span class="fu">ott_id</span>(taxa)[<span class="fu">is_in_tree</span>(<span class="fu">ott_id</span>(taxa))])</span></code></pre></div>
+<pre><code>## Warning in collapse_singles(tr, show_progress): Dropping singleton nodes with labels: mrcaott246ott92263, mrcaott246ott1858, mrcaott246ott3600042, mrcaott246ott7113, Passeriformes ott1041547, mrcaott246ott3212, mrcaott246ott428578, mrcaott246ott44866,
+## mrcaott246ott5929, mrcaott246ott96288, mrcaott246ott310390, mrcaott246ott176461, mrcaott246ott22325, mrcaott246ott10351, mrcaott246ott72472, mrcaott246ott5934, mrcaott246ott3599436, mrcaott246ott1566, mrcaott1566ott3598440, mrcaott1566ott496009,
+## mrcaott1566ott35326, mrcaott1566ott92668, mrcaott1566ott24297, mrcaott1566ott22300, mrcaott22300ott35350, mrcaott22300ott32651, mrcaott22300ott547548, mrcaott22300ott67150, mrcaott22300ott130294, mrcaott22300ott7660860, mrcaott22300ott416087,
+## mrcaott22300ott416089, mrcaott22300ott107840, mrcaott113980ott364210, mrcaott113980ott3598839, mrcaott3598839ott5341363, mrcaott19467ott431648, mrcaott19467ott401023, mrcaott19467ott252687, mrcaott19467ott233446, mrcaott19467ott378061, mrcaott19467ott1046624,
+## mrcaott19467ott161293, mrcaott19467ott46396, mrcaott46396ott46399, mrcaott46399ott168083, mrcaott168083ott691103, mrcaott2175ott600902, mrcaott2175ott259082, mrcaott2175ott59905, mrcaott2175ott2224, mrcaott2224ott366470, mrcaott3364ott310375, mrcaott3364ott4083,
+## mrcaott4083ott35042, mrcaott4083ott35053, mrcaott4083ott370807, mrcaott4083ott469177, mrcaott4083ott11712, mrcaott4083ott52094, mrcaott4083ott95949, Erythrura ott465905, mrcaott24017ott24025, mrcaott24025ott596763, mrcaott24025ott389884, mrcaott24025ott453058,
+## mrcaott24025ott865473, mrcaott24025ott141501, mrcaott141501ott389883, mrcaott141501ott3597689, mrcaott141501ott865472, mrcaott141501ott3597698, mrcaott105913ott596770, mrcaott105913ott3599583, mrcaott105913ott543841, mrcaott105913ott124463,
+## mrcaott124463ott445491, mrcaott445491ott7068429, mrcaott445491ott708327, mrcaott4088ott95302, mrcaott4088ott8371, mrcaott4088ott138768, mrcaott4088ott28339, mrcaott4088ott5616, mrcaott5616ott6023, mrcaott6023ott243614, mrcaott6023ott101225, mrcaott6023ott125079,
+## mrcaott125079ott463026, mrcaott125079ott765405, Zonotrichia (genus in domain Eukaryota) ott789032, mrcaott125079ott265547, mrcaott125079ott265554, mrcaott5620ott254662, mrcaott5620ott29804, mrcaott29804ott998133, mrcaott29804ott449562, mrcaott29804ott86894,
+## mrcaott29804ott93045, mrcaott93045ott264496, mrcaott264496ott264500, mrcaott264500ott3597163, mrcaott264500ott283668, Quiscalus ott743410, mrcaott283673ott673386, mrcaott283673ott741944, mrcaott283673ott735243, mrcaott213448ott213452, mrcaott213448ott1009279,
+## mrcaott213448ott213451, mrcaott213454ott430627, Agelaius ott617799, mrcaott430627ott617797, mrcaott430627ott3597159, mrcaott99175ott364331, Xanthocephalus ott364336, mrcaott6366ott28332, mrcaott6366ott88283, mrcaott6366ott341465, mrcaott6366ott157599,
+## mrcaott6366ott178457, mrcaott6366ott405215, mrcaott6366ott238137, mrcaott6366ott6375, mrcaott6375ott119724, mrcaott6375ott328909, mrcaott328909ott464865, mrcaott464865ott1083724, Haemorhous ott3601758, mrcaott9416ott580155, mrcaott9416ott840030,
+## mrcaott9416ott96147, mrcaott9416ott749634, Passer ott515158, mrcaott9416ott7661508, mrcaott9416ott25628, mrcaott9416ott407763, mrcaott9416ott407764, mrcaott9416ott68955, mrcaott9416ott73636, mrcaott73636ott5859927, mrcaott73636ott995847, mrcaott1488ott63797,
+## mrcaott1488ott284404, mrcaott1488ott107463, mrcaott1488ott17016, mrcaott1488ott16185, Hirundinidae ott897681, mrcaott16185ott67921, mrcaott16185ott67916, mrcaott67916ott368059, mrcaott67916ott67920, mrcaott67920ott3597799, Delichon ott922719,
+## mrcaott44217ott107476, mrcaott107476ott177058, mrcaott107476ott446183, mrcaott107476ott337755, mrcaott107476ott337752, mrcaott337752ott374222, mrcaott337752ott337762, mrcaott337752ott3598087, mrcaott337752ott496789, mrcaott2375ott73144, mrcaott2375ott124085,
+## mrcaott2375ott71358, mrcaott2375ott814750, mrcaott2375ott61147, mrcaott61147ott84656, mrcaott61147ott123763, mrcaott123763ott258794, mrcaott4820ott294599, mrcaott4820ott75981, mrcaott4820ott379708, mrcaott4820ott17162, mrcaott4820ott20998, mrcaott4820ott20989,
+## mrcaott4820ott58860, mrcaott4820ott23690, mrcaott4820ott20996, mrcaott4820ott749725, mrcaott4820ott11462, mrcaott4820ott140440, mrcaott4820ott197505, mrcaott4820ott75978, mrcaott4820ott11315, mrcaott4820ott5933, mrcaott5933ott662804, mrcaott5933ott60465,
+## mrcaott5933ott25637, mrcaott25637ott473431, mrcaott25637ott199843, mrcaott25637ott111993, mrcaott25637ott183621, mrcaott183621ott282315, mrcaott282315ott501241, mrcaott501241ott597018, mrcaott686165ott686168, mrcaott60456ott75990, mrcaott60456ott894604, Pica
+## ott776480, Falconiformes ott212187, Falconidae ott212186, mrcaott47588ott225286, mrcaott47588ott748842, mrcaott47588ott3596147, Falco ott786441, mrcaott179290ott624976, mrcaott179290ott624973, mrcaott179290ott3596145, mrcaott179290ott624974,
+## mrcaott179290ott432111, mrcaott179290ott285806, Cerchneis ott3596159, mrcaott5272ott928360, mrcaott5272ott7145, mrcaott5272ott24121, Scolopacidae ott887699, mrcaott24121ott217797, mrcaott24121ott45306, mrcaott24121ott55408, mrcaott24121ott420370,
+## mrcaott24121ott654830, mrcaott24121ott214779, mrcaott24121ott1090732, mrcaott7639ott306220, mrcaott7639ott57833, mrcaott7639ott738512, mrcaott7639ott279504, mrcaott7639ott47401, mrcaott47401ott234666, mrcaott234666ott341044, mrcaott234666ott651058,
+## mrcaott234666ott341047, mrcaott234666ott285543, mrcaott285543ott341030, mrcaott285543ott341032, mrcaott285543ott738509, mrcaott285543ott966606, mrcaott285543ott966604, mrcaott22965ott80679, mrcaott22965ott154126, mrcaott22965ott373759, mrcaott22965ott282132,
+## mrcaott22965ott414141, mrcaott22965ott335737, mrcaott22965ott509055, mrcaott22965ott324050, mrcaott22965ott910287, mrcaott22965ott353849, mrcaott22965ott335736, mrcaott22965ott526679, mrcaott22965ott75913, mrcaott75913ott515357, mrcaott75913ott119602,
+## mrcaott75913ott993041, mrcaott425206ott887691, mrcaott425206ott515355, mrcaott241571ott993045, mrcaott241571ott1026258, mrcaott241571ott254356, mrcaott241571ott704181, mrcaott704181ott4947414, mrcaott147723ott219032, Stercorariidae ott168297, Stercorarius
+## ott742632, mrcaott742640ott742641, mrcaott57823ott57827, mrcaott57823ott242771, mrcaott57823ott80080, mrcaott57823ott112937, mrcaott112937ott673638, mrcaott112937ott129402, mrcaott112937ott242776, mrcaott242776ott3596974, mrcaott242776ott3596977,
+## mrcaott242776ott313115, mrcaott242776ott413796, mrcaott5481ott9830, mrcaott9830ott86672, mrcaott9830ott90560, mrcaott9830ott324158, mrcaott9830ott55044, mrcaott9830ott285638, mrcaott9830ott117726, Sulidae ott452462, mrcaott170197ott403772, Sula ott160486,
+## mrcaott170197ott5859716, mrcaott170197ott429615, mrcaott429615ott1030312, Procellariiformes ott452461, Diomedeidae ott85277, mrcaott71459ott320282, Phoebastria ott941509, mrcaott320282ott320284, Sphenisciformes ott494366, Spheniscidae ott494367,
+## mrcaott60413ott3600120, mrcaott60413ott4130813, mrcaott60413ott4130835, mrcaott60413ott4130832, mrcaott60413ott3600127, mrcaott60413ott4130831, mrcaott60413ott3600124, mrcaott60413ott3600128, mrcaott60413ott3600129, mrcaott60413ott4130848, mrcaott60413ott4130817,
+## mrcaott60413ott494361, mrcaott60413ott60417, mrcaott60413ott3600131, mrcaott60413ott7068884, Eudyptes ott494364, mrcaott60413ott88590, mrcaott88590ott7068880, mrcaott88590ott116946, Pygoscelis ott494365, mrcaott134466ott783352, mrcaott5021ott198671,
+## mrcaott5021ott75792, Cuculiformes ott212171, mrcaott75792ott212172, mrcaott75792ott3601282, mrcaott75792ott119216, mrcaott119216ott526771, mrcaott119216ott169265, mrcaott169265ott550039, mrcaott169265ott462546, mrcaott462546ott3596360, mrcaott462546ott3596355,
+## mrcaott462546ott1050027, Cuculus ott1041429, mrcaott549514ott7068132, mrcaott549514ott3596308, mrcaott549514ott3596307, mrcaott549514ott3596306, mrcaott549514ott792626, mrcaott17146ott57819, Columbiformes ott363030, mrcaott28925ott45505, mrcaott45505ott604973,
+## mrcaott45505ott50388, mrcaott45505ott277822, mrcaott45505ott51607, mrcaott51607ott67614, mrcaott51607ott331474, mrcaott51607ott277817, mrcaott51607ott320359, mrcaott320359ott493986, mrcaott320359ott767317, mrcaott320359ott921832, mrcaott320359ott938416,
+## mrcaott4765ott4131031, Galliformes ott837585, mrcaott4765ott6520194, mrcaott4765ott109888, mrcaott4765ott75785, m</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">plot</span>(tr, <span class="at">show.tip.label =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img role="img" aria-label="plot of chunk birds_in_a_tree" src="data:image/png;base64,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" alt="plot of chunk birds_in_a_tree" />
+<p class="caption">
+plot of chunk birds_in_a_tree
+</p>
+</div>
 <p>There are a few things to note here. First, the tree has no branch
 lengths. At present this is true for the whole of the Open Tree
 synthetic tree. Some comparative methods require either branch lengths
@@ -621,9 +517,8 @@ steps.</p>
 <p>Second, the tip labels contain OTT IDs, which means they will not
 perfectly match the species names in our dataset or the taxon map that
 we created earlier:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>tr<span class="sc">$</span>tip.label[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code></pre></div>
-<pre><code>## [1] &quot;Ficedula_albicollis_ott107840&quot; &quot;Luscinia_svecica_ott274225&quot;   
-## [3] &quot;Turdus_merula_ott568572&quot;       &quot;Sturnus_unicolor_ott366470&quot;</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>tr<span class="sc">$</span>tip.label[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;Ficedula_albicollis_ott107840&quot; &quot;Luscinia_svecica_ott274225&quot;    &quot;Turdus_merula_ott568572&quot;       &quot;Sturnus_unicolor_ott366470&quot;</code></pre>
 <p>Finally, the tree contains node labels for those nodes that match a
 higher taxonomic group, and empty character vectors (<code>&quot;&quot;</code>)
 for all other nodes. Some comparative methods either do no expect node
@@ -634,12 +529,12 @@ the convenience function <code>strip_ott_ids</code> to remove the extra
 information from the tip labels. With the IDs removed, we can use our
 taxon map to replace the tip labels in the tree with the species names
 from dataset.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>otl_tips <span class="ot">&lt;-</span> <span class="fu">strip_ott_ids</span>(tr<span class="sc">$</span>tip.label, <span class="at">remove_underscores =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>tr<span class="sc">$</span>tip.label <span class="ot">&lt;-</span> taxon_map[ otl_tips ]</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>otl_tips <span class="ot">&lt;-</span> <span class="fu">strip_ott_ids</span>(tr<span class="sc">$</span>tip.label, <span class="at">remove_underscores =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>tr<span class="sc">$</span>tip.label <span class="ot">&lt;-</span> taxon_map[ otl_tips ]</span></code></pre></div>
 <p>Finally, we can remove the node labels by setting the
 <code>node.label</code> attribute of the tree to <code>NULL</code>.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>tr<span class="sc">$</span>node.label <span class="ot">&lt;-</span> <span class="cn">NULL</span></span></code></pre></div>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>egg_data <span class="ot">&lt;-</span> egg_data[egg_data<span class="sc">$</span>animal <span class="sc">%in%</span> tr<span class="sc">$</span>tip.label, ]</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>tr<span class="sc">$</span>node.label <span class="ot">&lt;-</span> <span class="cn">NULL</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>egg_data <span class="ot">&lt;-</span> egg_data[egg_data<span class="sc">$</span>animal <span class="sc">%in%</span> tr<span class="sc">$</span>tip.label, ]</span></code></pre></div>
 </div>
 <div id="perform-the-meta-analysis" class="section level3">
 <h3>Perform the meta-analysis</h3>
@@ -658,48 +553,34 @@ among species. We also provide <code>Zvr</code> as the measurement error
 variance, effectively adding extra weight to the results of more
 powerful studies. Here’s how we specify and fit that model with
 <code>MCMCglmm</code>:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">require</span>(MCMCglmm, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  pr <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">R =</span> <span class="fu">list</span>(<span class="at">V =</span> <span class="dv">1</span>, <span class="at">nu =</span> <span class="fl">0.002</span>),</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">G =</span> <span class="fu">list</span>(<span class="at">G1 =</span> <span class="fu">list</span>(<span class="at">V =</span> <span class="dv">1</span>, <span class="at">nu =</span> <span class="fl">0.002</span>))</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">MCMCglmm</span>(Zr <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">random =</span> <span class="sc">~</span>animal,</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">pedigree =</span> tr,</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">mev =</span> egg_data<span class="sc">$</span>VZr,</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">prior =</span> pr,</span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> egg_data,</span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="at">file =</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;mcmcglmm_model.rds&quot;</span>, <span class="at">package =</span> <span class="st">&quot;rotl&quot;</span>))</span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## Warning in inverseA(pedigree = pedigree, scale = scale, nodes = nodes): no
-## branch lengths: compute.brlen from ape has been used</code></pre>
-<pre><code>## Warning in sing.rm$coef: partial match of &#39;coef&#39; to &#39;coefficients&#39;</code></pre>
-<pre><code>## Warning in x$n: partial match of &#39;n&#39; to &#39;nu&#39;
-
-## Warning in x$n: partial match of &#39;n&#39; to &#39;nu&#39;
-
-## Warning in x$n: partial match of &#39;n&#39; to &#39;nu&#39;
-
-## Warning in x$n: partial match of &#39;n&#39; to &#39;nu&#39;
-
-## Warning in x$n: partial match of &#39;n&#39; to &#39;nu&#39;
-
-## Warning in x$n: partial match of &#39;n&#39; to &#39;nu&#39;</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">require</span>(MCMCglmm, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>  pr <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>    <span class="at">R =</span> <span class="fu">list</span>(<span class="at">V =</span> <span class="dv">1</span>, <span class="at">nu =</span> <span class="fl">0.002</span>),</span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>    <span class="at">G =</span> <span class="fu">list</span>(<span class="at">G1 =</span> <span class="fu">list</span>(<span class="at">V =</span> <span class="dv">1</span>, <span class="at">nu =</span> <span class="fl">0.002</span>))</span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a>  )</span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">MCMCglmm</span>(Zr <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a>    <span class="at">random =</span> <span class="sc">~</span>animal,</span>
+<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a>    <span class="at">pedigree =</span> tr,</span>
+<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a>    <span class="at">mev =</span> egg_data<span class="sc">$</span>VZr,</span>
+<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a>    <span class="at">prior =</span> pr,</span>
+<span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a>    <span class="at">data =</span> egg_data,</span>
+<span id="cb19-14"><a href="#cb19-14" tabindex="-1"></a>    <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
+<span id="cb19-15"><a href="#cb19-15" tabindex="-1"></a>  )</span>
+<span id="cb19-16"><a href="#cb19-16" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb19-17"><a href="#cb19-17" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="at">file =</span> <span class="fu">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;mcmcglmm_model.rds&quot;</span>, <span class="at">package =</span> <span class="st">&quot;rotl&quot;</span>))</span>
+<span id="cb19-18"><a href="#cb19-18" tabindex="-1"></a>}</span></code></pre></div>
 <p>Now that we have a result we can find out how much phylogenetic
 signal exists for sex-biased differences in egg-size. In a multi-level
 model we can use variance components to look at this, specifically the
 proportion of the total variance that can be explained by phylogeny is
 called the phylogenetic reliability, <em>H</em>. Let’s calculate the
 <em>H</em> for this model:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>var_comps <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(model<span class="sc">$</span>VCV)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>var_comps[<span class="st">&quot;animal&quot;</span>] <span class="sc">/</span> <span class="fu">sum</span>(var_comps)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>var_comps <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(model<span class="sc">$</span>VCV)</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>var_comps[<span class="st">&quot;animal&quot;</span>] <span class="sc">/</span> <span class="fu">sum</span>(var_comps)</span></code></pre></div>
 <pre><code>##     animal 
-## 0.00283581</code></pre>
+## 0.00313885</code></pre>
 <p>It appears there is almost no phylogenetic signal to the data. The
 relationships among species explain much less that one percent of the
 total variance in the data. If you were wondering, Rutkowska <em>et

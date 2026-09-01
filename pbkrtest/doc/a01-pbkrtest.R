@@ -1,4 +1,4 @@
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 require( pbkrtest )
 prettyVersion <- packageDescription("pbkrtest")$Version
 prettyDate <- format(Sys.Date())
@@ -6,6 +6,9 @@ prettyDate <- format(Sys.Date())
 ## ----setup, include=FALSE-----------------------------------------------------
 knitr::opts_chunk$set(echo = TRUE)
 options("warn"=-1)  ## FIXME Fragile; issue with rankMatrix(, method="qr.R")
+
+## -----------------------------------------------------------------------------
+library(broom)
 
 ## -----------------------------------------------------------------------------
 data(shoes, package="MASS")

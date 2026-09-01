@@ -10,7 +10,7 @@ initialize              Methods for Function initialize in Package
 initVariableFrame-methods
                         Set-up VariableFrame objects
 LearningSample-class    Class "LearningSample"
-mob                     Model-based Recursive Partitioning
+mob                     Model-Based Recursive Partitioning
 mob_control             Control Parameters for Model-based Partitioning
 node_inner              Panel-Generators for Visualization of Party
                         Trees

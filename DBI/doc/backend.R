@@ -1,4 +1,4 @@
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 library(DBI)
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 
@@ -107,7 +107,5 @@ setMethod("dbDataType", "KazamConnection", function(dbObj, obj, ...) {
 
 ## -----------------------------------------------------------------------------
 #' @export
-setMethod("dbHasCompleted", "KazamResult", function(res, ...) {
-
-})
+setMethod("dbHasCompleted", "KazamResult", function(res, ...) {})
 

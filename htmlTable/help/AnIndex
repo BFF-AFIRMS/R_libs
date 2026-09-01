@@ -4,6 +4,8 @@ concatHtmlTables	concatHtmlTables
 getHtmlTableStyle	getHtmlTableStyle
 getHtmlTableTheme	getHtmlTableTheme
 hasHtmlTableStyle	hasHtmlTableStyle
+highlightRow	highlightRow
+highlight_row	highlightRow
 htmlTable	htmlTable
 htmlTable.default	htmlTable
 htmlTableWidget	htmlTableWidget

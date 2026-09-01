@@ -1,3 +1,7 @@
+prodlim-package	prodlim-package
+as.data.frame.prodlim	as.data.frame.prodlim
+as.data.table.prodlim	as.data.table.prodlim
+as_tibble.prodlim	as_tibble.prodlim
 atRisk	atRisk
 backGround	backGround
 checkCauses	checkCauses
@@ -5,9 +9,14 @@ confInt	confInt
 crModel	crModel
 dimColor	dimColor
 EventHistory.frame	EventHistory.frame
+followup	followup
+geom_prodlim	geom_prodlim
 getEvent	getEvent
 getStates	getStates
+ggprodlim	ggprodlim
+head.Hist	head.Hist
 Hist	Hist
+is.na.Hist	is.na.Hist
 jackknife	jackknife
 jackknife.competing.risks	jackknife
 jackknife.survival	jackknife
@@ -20,6 +29,7 @@ markTime	markTime
 meanNeighbors	meanNeighbors
 model.design	model.design
 neighborhood	neighborhood
+parseFormula	parseFormula
 parseSpecialNames	parseSpecialNames
 PercentAxis	PercentAxis
 plot.Hist	plot.Hist
@@ -43,7 +53,11 @@ SimSurv	SimSurv
 sindex	sindex
 SmartControl	SmartControl
 stopTime	stopTime
+str.Hist	str.Hist
 strip.terms	strip.terms
+subset.Hist	subset.Hist
 summary.Hist	summary.Hist
 summary.prodlim	summary.prodlim
 survModel	survModel
+tail.Hist	tail.Hist
+[.Hist	sub-.Hist

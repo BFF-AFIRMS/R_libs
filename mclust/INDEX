@@ -69,13 +69,14 @@ hcE                     Model-based Hierarchical Clustering
 hclass                  Classifications from Hierarchical Agglomeration
 hcRandomPairs           Random hierarchical structure
 hdrlevels               Highest Density Region (HDR) Levels
-hypvol                  Aproximate Hypervolume for Multivariate Data
+hypvol                  Approximate Hypervolume for Multivariate Data
 icl                     ICL for an estimated Gaussian Mixture Model
 imputeData              Missing data imputation via the 'mix' package
 imputePairs             Pairwise Scatter Plots showing Missing Data
                         Imputations
 logLik.Mclust           Log-Likelihood of a 'Mclust' object
 logLik.MclustDA         Log-Likelihood of a 'MclustDA' object
+logsumexp               Log sum of exponentials
 majorityVote            Majority vote
 map                     Classification given Probabilities
 mapClass                Correspondence between classifications
@@ -111,7 +112,7 @@ mclustVariance          Template for variance specification for
 me                      EM algorithm starting with M-step for
                         parameterized MVN mixture models
 me.weighted             EM algorithm with weights starting with M-step
-                        for parameterized MVN mixture models
+                        for parameterized Gaussian mixture models
 meE                     EM algorithm starting with M-step for a
                         parameterized Gaussian mixture model
 mstep                   M-step for parameterized Gaussian mixture
@@ -163,6 +164,8 @@ sigma2decomp            Convert mixture component covariances to
                         decomposition form.
 sim                     Simulate from Parameterized MVN Mixture Models
 simE                    Simulate from a Parameterized MVN Mixture Model
+simulate.Mclust         Simulate from Gaussian mixture models
+softmax                 Softmax function
 summary.Mclust          Summarizing Gaussian Finite Mixture Model Fits
 summary.mclustBIC       Summary function for model-based clustering via
                         BIC

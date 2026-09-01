@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
 // 
-// Copyright 2008-2016 Conrad Sanderson (http://conradsanderson.id.au)
+// Copyright 2008-2016 Conrad Sanderson (https://conradsanderson.id.au)
 // Copyright 2008-2016 National ICT Australia (NICTA)
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// http://www.apache.org/licenses/LICENSE-2.0
+// https://www.apache.org/licenses/LICENSE-2.0
 // 
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -62,6 +62,20 @@ struct arma_config
     static constexpr bool optimise_invexpr = true;
   #else
     static constexpr bool optimise_invexpr = false;
+  #endif
+  
+  
+  #if defined(ARMA_OPTIMISE_POWEXPR)
+    static constexpr bool optimise_powexpr = true;
+  #else
+    static constexpr bool optimise_powexpr = false;
+  #endif
+  
+  
+  #if defined(ARMA_CHECK_CONFORMANCE)
+    static constexpr bool check_conform = true;
+  #else
+    static constexpr bool check_conform = false;
   #endif
   
   
@@ -121,20 +135,6 @@ struct arma_config
   #endif
   
   
-  #if defined(ARMA_NO_DEBUG)
-    static constexpr bool debug = false;
-  #else
-    static constexpr bool debug = true;
-  #endif
-  
-  
-  #if defined(ARMA_EXTRA_DEBUG)
-    static constexpr bool extra_debug = true;
-  #else
-    static constexpr bool extra_debug = false;
-  #endif
-  
-  
   #if defined(ARMA_GOOD_COMPILER)
     static constexpr bool good_comp = true;
   #else
@@ -160,13 +160,6 @@ struct arma_config
   #endif
   
   
-  #if defined(ARMA_HAVE_CXX14)
-    static constexpr bool cxx14 = true;
-  #else
-    static constexpr bool cxx14 = false;
-  #endif
-  
-  
   #if defined(ARMA_HAVE_CXX17)
     static constexpr bool cxx17 = true;
   #else
@@ -181,7 +174,14 @@ struct arma_config
   #endif
   
   
-  #if (!defined(ARMA_DONT_USE_STD_MUTEX))
+  #if defined(ARMA_HAVE_CXX23)
+    static constexpr bool cxx23 = true;
+  #else
+    static constexpr bool cxx23 = false;
+  #endif
+  
+  
+  #if defined(ARMA_USE_STD_MUTEX)
     static constexpr bool std_mutex = true;
   #else
     static constexpr bool std_mutex = false;
@@ -216,17 +216,38 @@ struct arma_config
   #endif
   
   
-  #if defined(ARMA_DONT_ZERO_INIT)
-    static constexpr bool zero_init = false;
-  #else
-    static constexpr bool zero_init = true;
-  #endif
-  
-  
-  #if (defined(__FAST_MATH__) || (defined(__FINITE_MATH_ONLY__) && (__FINITE_MATH_ONLY__ > 0)) || defined(_M_FP_FAST))
+  #if defined(ARMA_FAST_MATH)
     static constexpr bool fast_math = true;
   #else
     static constexpr bool fast_math = false;
+  #endif
+  
+  
+  #if defined(ARMA_FAST_MATH) && !defined(ARMA_DONT_PRINT_FAST_MATH_WARNING)
+    static constexpr bool fast_math_warn = true;
+  #else
+    static constexpr bool fast_math_warn = false;
+  #endif
+  
+  
+  #if (!defined(ARMA_DONT_TREAT_TEXT_AS_BINARY))
+    static constexpr bool text_as_binary = true;
+  #else
+    static constexpr bool text_as_binary = false;
+  #endif
+  
+  
+  #if defined(ARMA_HAVE_FP16)
+    static constexpr bool have_fp16 = true;
+  #else
+    static constexpr bool have_fp16 = false;
+  #endif
+  
+  
+  #if defined(ARMA_GOOD_FP16)
+    static constexpr bool good_fp16 = true;
+  #else
+    static constexpr bool good_fp16 = false;
   #endif
   
   

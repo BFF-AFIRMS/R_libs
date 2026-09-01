@@ -1,7 +1,6 @@
 choose_font             Choose an installed font from a list
 embed_fonts             Embeds fonts that are listed in the local
                         Fontmap
-extrafont               extrafont package
 font_addpackage         Add font from an installed package to fonts
                         database
 font_import             Import system fonts

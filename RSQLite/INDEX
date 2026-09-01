@@ -10,5 +10,12 @@ initExtension           Add useful extension functions
 rsqliteVersion          RSQLite version
 SQLite                  Connect to an SQLite database
 sqliteCopyDatabase      Copy a SQLite database
+sqliteHasHttpVFS        Check for HTTP VFS support
+sqliteHttpConfig        Configure experimental HTTP VFS behavior
+                        (optional)
+sqliteHttpStats         Experimental HTTP VFS statistics
+sqliteHttpVfsCompiled   Was HTTP VFS compiled into this build?
+sqliteRemote            Convenience helper for opening remote SQLite
+                        databases over HTTP/HTTPS
 sqliteSetBusyHandler    Configure what SQLite should do when the
                         database is locked

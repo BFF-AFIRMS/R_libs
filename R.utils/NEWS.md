@@ -1,3 +1,50 @@
+# Version 2.13.0 [2025-02-24]
+
+## New Features
+
+ * MS Windows: It is now possible to control whether `Sys.readlink2()`
+   attempts to infer whether a path is a symbolic on Windows by
+   setting R option `R.utils::Sys.readlink2.Windows`.  If `TRUE`
+   (default), it tries to follow links by inspecting the output of
+   `shell("dir", ...)`, which can be very slow for large folders.  It
+   might also not work in all locales.  The default for this option is
+   set via environment variable `R_R_UTILS_SYS_READLINKS2_WINDOWS`
+   when the package is loaded.
+   
+ * Now `downloadFile()` forwards the `timeout` option to corresponding
+   command-line arguments for `curl` and `wget`.
+
+## Miscellaneous
+
+  * Suppress `grep(pattern, bfr, value = TRUE)` warnings that might
+    occur in R (>= 4.3.0) on MS Windows for some strings.
+
+## Bug Fixes
+
+  * `popTemporaryFile()` and `popBackupFile()` would produce `Error in
+    regexpr(as.character(pattern), text, ignore.case, perl, fixed,: NA
+    in coercion to Rboolean` in recent versions of R-devel (to become
+    R 4.5.0).
+    
+
+# Version 2.12.3 [2023-11-16]
+
+## Documentation
+
+ * Fix various Rd issues.
+ 
+## Miscellaneous
+
+ * The unit tests on absolute and relative paths would fail on MS Windows
+   where the `HOME` folder was a subfolder directly under the drive, e.g.
+   `HOME=C:\msys64`.
+
+## Bug Fixes
+
+ * Package would fail to install in R-devel when it introduces the new
+   **base** package function `use()`.
+
+
 # Version 2.12.2 [2022-11-11]
 
 ## Documentation
@@ -20,7 +67,7 @@
    
  * Updated moved and broken URLs in help pages.
 
-## Bug Fixes()
+## Bug Fixes
 
  * `filePath()` could produce `Error in if (components[pos] == ".." &&
    components[pos - 1L] != "..") { : missing value where TRUE/FALSE

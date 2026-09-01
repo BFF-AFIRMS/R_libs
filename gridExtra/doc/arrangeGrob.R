@@ -1,8 +1,8 @@
-## ----setup, echo=FALSE, results='hide'-----------------------------------
+## ----setup, echo=FALSE, results='hide'----------------------------------------
 library(knitr)
 opts_chunk$set(message=FALSE, fig.width=4, fig.height=3)
 
-## ----basic---------------------------------------------------------------
+## ----basic--------------------------------------------------------------------
 library(gridExtra)
 library(grid)
 library(ggplot2)
@@ -13,7 +13,7 @@ r <- rectGrob(gp=gpar(fill="grey90"))
 t <- textGrob("text")
 grid.arrange(t, p, p2, r, ncol=2)
 
-## ----annotations---------------------------------------------------------
+## ----annotations--------------------------------------------------------------
 gs <- lapply(1:9, function(ii) 
   grobTree(rectGrob(gp=gpar(fill=ii, alpha=0.5)), textGrob(ii)))
 grid.arrange(grobs=gs, ncol=4, 
@@ -21,13 +21,13 @@ grid.arrange(grobs=gs, ncol=4,
                left="left label", right="right label")
 grid.rect(gp=gpar(fill=NA))
 
-## ----layout--------------------------------------------------------------
+## ----layout-------------------------------------------------------------------
 lay <- rbind(c(1,1,1,2,3),
              c(1,1,1,4,5),
              c(6,7,8,9,9))
 grid.arrange(grobs = gs, layout_matrix = lay)
 
-## ----holes---------------------------------------------------------------
+## ----holes--------------------------------------------------------------------
 hlay <- rbind(c(1,1,NA,2,3),
               c(1,1,NA,4,NA),
               c(NA,7,8,9,NA))
@@ -37,16 +37,16 @@ select_grobs <- function(lay) {
 } 
 grid.arrange(grobs=gs[select_grobs(hlay)], layout_matrix=hlay)
 
-## ----sizes, fig.height=2-------------------------------------------------
+## ----sizes, fig.height=2------------------------------------------------------
 grid.arrange(grobs=gs[1:3], ncol=2, widths = 1:2, 
              heights=unit(c(1,10), c("in", "mm")))
 
-## ----grob----------------------------------------------------------------
+## ----grob---------------------------------------------------------------------
 g1 <- arrangeGrob(grobs = gs, layout_matrix = t(lay))
 g2 <- arrangeGrob(grobs = gs, layout_matrix = lay)
 grid.arrange(g1, g2, ncol=2)
 
-## ----marrange------------------------------------------------------------
+## ----marrange-----------------------------------------------------------------
 set.seed(123)
 pl <- lapply(1:11, function(.x) 
              qplot(1:10, rnorm(10), main=paste("plot", .x)))

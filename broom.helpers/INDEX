@@ -1,10 +1,6 @@
 .clean_backticks        Remove backticks around variable names
 .escape_regex           Escapes any characters that would have special
                         meaning in a regular expression
-.formula_list_to_named_list
-                        Convert formula selector to a named list
-.generic_selector       Generate a custom selector function
-.select_to_varnames     Variable selector
 assert_package          Check a package installation status or minimum
                         required version
 model_compute_terms_contributions
@@ -40,6 +36,7 @@ model_list_higher_order_variables
 model_list_terms_levels
                         List levels of categorical terms
 model_list_variables    List all the variables used in a model
+scope_tidy              Scoping a tidy tibble allowing to tidy select
 select_helpers          Select helper functions
 seq_range               Sequence generation between min and max
 supported_models        Listing of Supported Models
@@ -69,17 +66,19 @@ tidy_avg_slopes         Marginal Slopes / Effects with
                         'marginaleffects::avg_slopes()'
 tidy_broom              Tidy with 'broom::tidy()' and checks that all
                         arguments are used
+tidy_coxphms            Tidy a multi-state survival model
 tidy_disambiguate_terms
                         Disambiguate terms
 tidy_ggpredict          Marginal Predictions with
                         'ggeffects::ggpredict()'
+tidy_group_by           Group results by selected columns
 tidy_identify_variables
                         Identify the variable corresponding to each
                         model coefficient
 tidy_marginal_contrasts
                         Marginal Contrasts with
                         'marginaleffects::avg_comparisons()'
-tidy_marginal_means     Marginal Means with
+tidy_marginal_means     Marginal Means with deprecated
                         'marginaleffects::marginal_means()'
 tidy_marginal_predictions
                         Marginal Predictions with
@@ -92,5 +91,8 @@ tidy_plus_plus          Tidy a model and compute additional
                         informations
 tidy_remove_intercept   Remove intercept(s)
 tidy_select_variables   Select variables to keep/drop
+tidy_svy_vglm           Tidy a 'svy_vglm' model
+tidy_vgam               Tidy a 'vglm' or a 'vgam' model
 tidy_with_broom_or_parameters
                         Tidy a model with broom or parameters
+tidy_zeroinfl           Tidy a 'zeroinfl' or a 'hurdle' model

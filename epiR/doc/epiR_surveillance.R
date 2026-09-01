@@ -1,21 +1,18 @@
-## ---- echo = FALSE, message = FALSE-------------------------------------------
+## ----echo = FALSE, message = FALSE--------------------------------------------
 
-# If you want to create a PDF document paste the following after line 9 above:
-#   pdf_document:
-#     toc: true
-#     highlight: tango
-#     number_sections: no
-#     latex_engine: xelatex    
-# header-includes: 
-#    - \usepackage{fontspec}
+# Use tinytex (instead of MiKTex) to generate PDFs. See -Tools -Global options -Sweave. Use tinytex.
+# tinytex::install_tinytex()
 
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
-options(tibble.print_min = 4L, tibble.print_max = 4L)
+# Use this code to update packages:
+# tinytex::tlmgr_update(self = TRUE, all = TRUE)
 
-## ----ssrs.tab, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'------
 library(dplyr); library(flextable); library(knitr); library(officer); library(tidyr)
 
-tab1.df <- data.frame(
+knitr::opts_chunk$set(collapse = T, comment = "#>")
+options(tibble.print_min = 4L, tibble.print_max = 4L)
+
+## ----echo = FALSE, results = 'asis'-------------------------------------------
+tab.df01 <- data.frame(
    sampling = c("Representative","Representative","Two stage representative","Representative","Pooled representative"),
    outcome = c("Pr DF","SSe","SSe","SSe","SSe"),
    detail = c("Imperf Se, perf Sp","Imperf Se, perf Sp","Imperf Se, perf Sp", 
@@ -27,25 +24,25 @@ hkey.df <- data.frame(col_keys = c("sampling","outcome","detail","fun"),
   h1 = c("Sampling","Outcome","Detail","Function"), stringsAsFactors = FALSE)
 
 # Create table:
-border_h = fp_border(color = "black", width = 2)
+caption.t <- "Table 1: Functions in epiR to estimate sample size using representative population sampling data."
+border_h = fp_border(color = "black", width = 1)
 
-flextable(tab1.df) %>%
-  width(j = 1, width = 2.50) %>%
-  width(j = 2, width = 2.00) %>%
-  width(j = 3, width = 4.00) %>%
-  width(j = 4, width = 2.00) %>%
-  
-  font(i = 1:5, j = 4, part = "body", fontname = "courier") %>%
-
+ft <- flextable(tab.df01) %>%
+  width(j = 1, width = 1.50) %>%
+  width(j = 2, width = 1.00) %>%
+  width(j = 3, width = 2.00) %>%
+  width(j = 4, width = 1.50) %>%
   set_header_df(mapping = hkey.df, key = "col_keys") %>%
-  
+  font(j = 4, fontname = "Courier New", part = "body") %>%
+  fontsize(size = 9, part = "all") %>%
   bg(bg = "grey80", part = "header") %>%
-  hline_top(border = border_h, part = "all" ) %>%
+  hline_top(border = border_h, part = "header") %>%
+  hline_bottom(border = border_h, part = "header") %>%
   align(align = "left", part = "all") %>%
-  
+  set_caption(caption = caption.t) %>%
   footnote(i = 1, j = 2, value = as_paragraph(" Pr DF: Probability of disease freedom."), ref_symbols = " a", part = "body", inline = FALSE, sep = "; ") %>%
-
-  set_caption("Table 1: Functions to estimate sample size using representative population sampling data.")
+  fontsize(size = 9, part = "footer")
+ft
 
 ## ----message = FALSE----------------------------------------------------------
 library(epiR)
@@ -76,10 +73,10 @@ rsu.sssep.rs(N = NA, pstar = 0.05, se.p = 0.95, se.u = 0.90)
 ## ----message = FALSE----------------------------------------------------------
 rsu.sssep.rs2st(H = 20000, N = NA, pstar.c = 0.005, pstar.u = 0.05, se.p = 0.95, se.c = 0.95, se.u = 0.90)
 
-## ----seprs.tab, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'-----
-tab2.df <- data.frame(
+## ----echo = FALSE, results = 'asis'-------------------------------------------
+tab.df02 <- data.frame(
    sampling = c("Representative","Two stage representative","Representative","Representative","Pooled  representative","Representative","Representative"),
-   outcome = c("SSe","SSe","SSe","SSe","SSe","SSe","SSp"),
+   outcome = c("SSSe","SSSe","SSSe","SSSe","SSSe","SSSe","SSSp"),
    detail = c("Imperf Se, perf Sp","Imperf Se, perf Sp","Imperf Se, perf Sp, mult comp", "Imperf Se, imperf Sp","Imperf Se, perf Sp","Imperf Se, perf Sp","Imperf Sp"),
    fun = c("rsu.sep.rs","rsu.sep.rs2st","rsu.sep.rsmult","rsu.sep.rsfreecalc","rsu.sep.rspool","rsu.sep.rsvarse","rsu.spp.rs"))
 
@@ -88,25 +85,23 @@ hkey.df <- data.frame(col_keys = c("sampling","outcome","detail","fun"),
   h1 = c("Sampling","Outcome","Detail","Function"), stringsAsFactors = FALSE)
 
 # Create table:
-border_h = fp_border(color = "black", width = 2)
+caption.t <- "Table 2: Functions in epiR to estimate surveillance system sensitivity (SSSe) using representative population sampling data."
+border_h = fp_border(color = "black", width = 1)
 
-flextable(tab2.df) %>%
-  width(j = 1, width = 2.50) %>%
-  width(j = 2, width = 2.00) %>%
-  width(j = 3, width = 4.00) %>%
-  width(j = 4, width = 2.00) %>%
-  
-  font(i = 1:7, j = 4, part = "body", fontname = "courier") %>%
-
+ft <- flextable(tab.df02) %>%
+  width(j = 1, width = 1.50) %>%
+  width(j = 2, width = 1.00) %>%
+  width(j = 3, width = 2.00) %>%
+  width(j = 4, width = 1.50) %>%
   set_header_df(mapping = hkey.df, key = "col_keys") %>%
-  
+  font(j = 4, fontname = "Courier New", part = "body") %>%
+  fontsize(size = 9, part = "all") %>%
   bg(bg = "grey80", part = "header") %>%
-  hline_top(border = border_h, part = "all" ) %>%
+  hline_top(border = border_h, part = "header") %>%
+  hline_bottom(border = border_h, part = "header") %>%
   align(align = "left", part = "all") %>%
-  
-  footnote(i = 3, j = 3, value = as_paragraph(" mult comp: Multiple components."), ref_symbols = " a", part = "body", inline = FALSE, sep = "; ") %>%
-
-  set_caption("Table 2: Functions to estimate surveillance system sensitivity (SSe) using representative population sampling data.")
+  set_caption(caption = caption.t)
+ft
 
 ## ----message = FALSE----------------------------------------------------------
 rsu.sep.rs(N = NA, n = 300, pstar = 0.01, se.u = 0.95)
@@ -127,10 +122,10 @@ n.lab1 <- 50; n.lab2 <- 23
 se.all <- c(rep(se.t1, times = n.lab1), rep(se.t2, times = n.lab2))
 rsu.sep.rsvarse(N = n.lab1 + n.lab2, pstar = 0.05, se.u = se.all)
 
-## ----pfreers.tab, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'----
-tab3.df <- data.frame(
+## ----echo = FALSE, results = 'asis'-------------------------------------------
+tab.df03 <- data.frame(
    sampling = c("Representative","Representative"),
-   outcome = c("Pr DF","Equilibrium pr DF"),
+   outcome = c("Pr DF","Equ Pr DF"),
    detail = c("Imperf Se, perf Sp","Imperf Se, perf Sp"),
    fun = c("rsu.pfree.rs","rsu.pfree.equ"))
 
@@ -139,29 +134,27 @@ hkey.df <- data.frame(col_keys = c("sampling","outcome","detail","fun"),
   h1 = c("Sampling","Outcome","Detail","Function"), stringsAsFactors = FALSE)
 
 # Create table:
-border_h = fp_border(color = "black", width = 2)
+caption.t <- "Table 3: Functions in epiR to estimate the probability of disease freedom using representative population sampling data."
+border_h = fp_border(color = "black", width = 1)
 
-flextable(tab3.df) %>%
-  width(j = 1, width = 2.50) %>%
-  width(j = 2, width = 2.00) %>%
-  width(j = 3, width = 4.00) %>%
-  width(j = 4, width = 2.00) %>%
-  
-  font(i = 1:2, j = 4, part = "body", fontname = "courier") %>%
-
+ft <- flextable(tab.df03) %>%
+  width(j = 1, width = 1.50) %>%
+  width(j = 2, width = 1.00) %>%
+  width(j = 3, width = 2.00) %>%
+  width(j = 4, width = 1.50) %>%
   set_header_df(mapping = hkey.df, key = "col_keys") %>%
-  
+  font(j = 4, fontname = "Courier New", part = "body") %>%
+  fontsize(size = 9, part = "all") %>%
   bg(bg = "grey80", part = "header") %>%
-  hline_top(border = border_h, part = "all" ) %>%
+  hline_top(border = border_h, part = "header") %>%
+  hline_bottom(border = border_h, part = "header") %>%
   align(align = "left", part = "all") %>%
-  
+  set_caption(caption = caption.t) %>%
   footnote(i = 1, j = 2, value = as_paragraph(" Pr DF: Probability of disease freedom."), ref_symbols = " a", part = "body", inline = FALSE, sep = "; ") %>%
-  
-  footnote(i = 2, j = 2, value = as_paragraph(" Equilibrium pr DF: Equilibrium probability of disease freedom."), ref_symbols = " a", part = "body", inline = FALSE, sep = "; ") %>%
+  fontsize(size = 9, part = "footer")
+ft
 
-  set_caption("Table 3: Functions to estimate the probability of disease freedom using representative population sampling data.")
-
-## ----message = FALSE----------------------------------------------------------
+## ----surv01, warning = FALSE, echo = TRUE, fig.cap = "\\label{fig:surv01}Figure 1: Line plot showing the probability of disease freedom (red) and the probability of disease introduction (blue) as a function of calendar date.", out.width = "80%", fig.align = "center"----
 library(ggplot2); library(lubridate); library(scales)
 
 # Define a vector disease incursion probabilities (January to December):
@@ -187,12 +180,12 @@ ggplot(data = gdat.df, aes(x = mchar, y = prob, group = class, col = class)) +
   scale_y_continuous(limits = c(0,1), name = "Probability") +
   geom_hline(aes(yintercept = 0.95), linetype = "dashed", col = "blue") +
   guides(col = guide_legend(title = "")) +
-  theme(legend.position = c(0.8, 0.5))
+  theme(legend.position = "inside", legend.position.inside = c(0.8,0.5))
 
-## ----ssrb.tab, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'------
-tab4.df <- data.frame(
+## ----echo = FALSE, results = 'asis'-------------------------------------------
+tab.df04 <- data.frame(
    sampling = c("Risk-based","Risk-based","Risk-based","Risk-based"),
-   outcome = c("SSe","SSe","SSe","SSe"),
+   outcome = c("SSSe","SSSe","SSSe","SSSe"),
    detail = c("Single Se for RGs, perf Sp","Multiple Se within RGs, perf Sp","Two stage sampling, 1 risk factor","Two stage sampling, 2 risk factors"),
    fun = c("rsu.sssep.rbsrg","rsu.sssep.rbmrg","rsu.sssep.rb2st1rf","rsu.sssep.rb2st2rf"))
 
@@ -201,56 +194,59 @@ hkey.df <- data.frame(col_keys = c("sampling","outcome","detail","fun"),
   h1 = c("Sampling","Outcome","Detail","Function"), stringsAsFactors = FALSE)
 
 # Create table:
-border_h = fp_border(color = "black", width = 2)
+caption.t <- "Table 4: Functions in epiR to estimate sample size using risk based sampling data."
+border_h = fp_border(color = "black", width = 1)
 
-flextable(tab4.df) %>%
-  width(j = 1, width = 2.50) %>%
-  width(j = 2, width = 2.00) %>%
-  width(j = 3, width = 4.00) %>%
-  width(j = 4, width = 2.00) %>%
-  
-  font(i = 1:4, j = 4, part = "body", fontname = "courier") %>%
-
+ft <- flextable(tab.df04) %>%
+  width(j = 1, width = 1.50) %>%
+  width(j = 2, width = 1.00) %>%
+  width(j = 3, width = 2.00) %>%
+  width(j = 4, width = 1.50) %>%
   set_header_df(mapping = hkey.df, key = "col_keys") %>%
-  
+  font(j = 4, fontname = "Courier New", part = "body") %>%
+  fontsize(size = 9, part = "all") %>%
   bg(bg = "grey80", part = "header") %>%
-  hline_top(border = border_h, part = "all" ) %>%
+  hline_top(border = border_h, part = "header") %>%
+  hline_bottom(border = border_h, part = "header") %>%
   align(align = "left", part = "all") %>%
-  
-  footnote(i = 1, j = 3, value = as_paragraph(" RGs: Risk groups."), ref_symbols = " a", part = "body", inline = FALSE, sep = "; ") %>%
-
-  set_caption("Table 4: Functions to estimate sample size using risk based sampling data.")
+  set_caption(caption = caption.t) %>%
+  footnote(i = 1, j = 3, value = as_paragraph("  RGs: Risk groups."), ref_symbols = " a", part = "body", inline = FALSE, sep = "; ") %>%
+  fontsize(size = 9, part = "footer")
+ft
 
 ## ----message = FALSE----------------------------------------------------------
-# Matrix listing the proportions of samples for each test in each risk group (the number of rows equal the number of risk groups, the number of columns equal the number of tests):
-m <- rbind(1,1,1)
+# Generate a matrix listing the proportions of samples for each test in each risk group (the number of rows equal the number of risk groups, the number of columns equal the number of tests):
+m <- rbind(1,1,1); m
 
 rsu.sssep.rbmrg(pstar = 0.01, rr = c(5,3,1), ppr = c(0.1,0.1,0.8),
    spr = c(0.4,0.4,0.2), spr.rg = m, se.p = 0.95, se.u = 0.95)
 
+# The design prevalence (pstar) is 0.01. The relative risks of disease (rr) for dairy, mixed and beef herds are 5, 3, and 1, respectively. The proportions of dairy, mixed and beef herds in the population (ppr) are 0.1, 0.1 and 0.8, respectively. You intend to allocate 0.4, 0.4 and 0.2 of your sampling effort (spr) to dairy, mixed and beef herds, respectively. All herds in each of the three risk groups receive the same test so object m is a one column, three row matrix comprised of 1s.
+
 ## ----message = FALSE----------------------------------------------------------
-# Matrix listing the proportions of samples for each test in each risk group (the number of rows equal the number of risk groups, the number of columns equal the number of tests):
-m <- rbind(c(0.8,0.2), c(0.5,0.5), c(0.7,0.3))
+# Generate a matrix listing the proportions of samples for each test in each risk group (the number of rows equal the number of risk groups, the number of columns equal the number of tests):
+m <- rbind(c(0.8,0.2), c(0.5,0.5), c(0.7,0.3)); m
 
 rsu.sssep.rbmrg(pstar = 0.01, rr = c(5,3,1), ppr = c(0.1,0.1,0.8),
    spr = c(0.4,0.4,0.2), spr.rg = m, se.p = 0.95, se.u = c(0.92,0.80))
+
+# The design prevalence (pstar) is 0.01. The relative risks of disease (rr) for dairy, mixed and beef herds are 5, 3, and 1, respectively. The proportions of dairy, mixed and beef herds in the population (ppr) are 0.1, 0.1 and 0.8, respectively. You intend to allocate 0.4, 0.4 and 0.2 of your sampling effort (spr) to dairy, mixed and beef herds, respectively. The proportion of dairy, mixed and beef herds receiving the first test is 0.80, 0.50 and 0.70. The proportion of dairy, mixed and beef herds receiving the second test is (1 - 0.80), (1 - 0.50) and (1 - 0.70) i.e., 0.20, 0.50 and 0.30, respectively. Object m is a three row, two column matrix listing these probabilities. The rows of object m must sum to one.
 
 ## ----message = FALSE----------------------------------------------------------
 rsu.sssep.rbsrg(pstar = 0.01, rr = c(5,3,1), ppr = c(0.10,0.10,0.80), 
    spr = c(0.50,0.30,0.20), se.p = 0.95, se.u = 0.90)
 
 ## ----message = FALSE----------------------------------------------------------
-rsu.sssep.rb2st2rf(
-   rr.c = c(5,3,1), ppr.c = c(0.10,0.20,0.70), spr.c = c(0.40,0.40,0.20),
+rsu.sssep.rb2st2rf(rr.c = c(5,3,1), ppr.c = c(0.10,0.20,0.70), spr.c = c(0.40,0.40,0.20),
    pstar.c = 0.02,
    rr.u = c(4,1), ppr.u = c(0.1, 0.9), spr.u = c(1,0),
    pstar.u = 0.10, 
    se.p = 0.95, se.c = 0.95, se.u = 0.95)
 
-## ----seprb.tab, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'-----
-tab5.df <- data.frame(
+## ----echo = FALSE, results = 'asis'-------------------------------------------
+tab.df05 <- data.frame(
    sampling = c("Risk-based","Risk-based","Risk-based"),
-   outcome = c("SSe","SSe","SSe"),
+   outcome = c("SSSe","SSSe","SSSe"),
    detail = c("Varying Se, perf Sp","Varying Se, perf Sp, 1 risk factor","Varying Se, perf Sp, 2 risk factors"),
    fun = c("rsu.sep.rb","rsu.sep.rb1rf","rsu.sep.rb2rf"))
 
@@ -259,27 +255,23 @@ hkey.df <- data.frame(col_keys = c("sampling","outcome","detail","fun"),
   h1 = c("Sampling","Outcome","Detail","Function"), stringsAsFactors = FALSE)
 
 # Create table:
-border_h = fp_border(color = "black", width = 2)
+caption.t <- "Table 5: Functions in epiR to estimate surveillance system sensitivity using risk based sampling data."
+border_h = fp_border(color = "black", width = 1)
 
-flextable(tab4.df) %>%
-  width(j = 1, width = 2.50) %>%
-  width(j = 2, width = 2.00) %>%
-  width(j = 3, width = 4.00) %>%
-  width(j = 4, width = 2.00) %>%
-  
-  font(i = 1:4, j = 4, part = "body", fontname = "courier") %>%
-
+ft <- flextable(tab.df05) %>%
+  width(j = 1, width = 1.50) %>%
+  width(j = 2, width = 1.00) %>%
+  width(j = 3, width = 2.00) %>%
+  width(j = 4, width = 1.50) %>%
   set_header_df(mapping = hkey.df, key = "col_keys") %>%
-  
+  font(j = 4, fontname = "Courier New", part = "body") %>%
+  fontsize(size = 9, part = "all") %>%
   bg(bg = "grey80", part = "header") %>%
-  hline_top(border = border_h, part = "all" ) %>%
+  hline_top(border = border_h, part = "header") %>%
+  hline_bottom(border = border_h, part = "header") %>%
   align(align = "left", part = "all") %>%
-  
-  fontsize(i = 1, size = 8, part = "footer") %>%
-  
-  footnote(i = 1, j = 3, value = as_paragraph(" RGs: Risk groups."), ref_symbols = " a", part = "body", inline = FALSE, sep = "; ") %>%
-
-  set_caption("Table 5: Functions to estimate surveillance system sensitivity using risk based sampling data.")
+  set_caption(caption = caption.t)
+ft
 
 ## ----message = FALSE----------------------------------------------------------
 # There are 1784 herds in the study area:

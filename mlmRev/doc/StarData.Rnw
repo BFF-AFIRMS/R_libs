@@ -17,8 +17,8 @@
   A substantial portion of the data from Tennessee's Student Teacher
   Achievement Ratio (STAR) project, a large-scale, four-year study of
   reduced class size, has been made available to the public at
-  \url{http://www.heros-inc.org/data.htm}.  We describe the creation
-  of an \RR (\url{http:www.r-project.org}) data set from these data.
+  \url{https://www.heros-inc.org/data.htm}.  We describe the creation
+  of an \RR (\url{https:www.r-project.org}) data set from these data.
 \end{abstract}
 <<preliminaries,echo=FALSE,results=hide>>=
 options(show.signif.stars = FALSE,width=68)
@@ -30,10 +30,10 @@ library(lme4)
 \label{sec:intro}
 
 The data from the STAR project are available in several different
-forms from the web site \url{http://www.heros-inc.org/data.htm}.  The
+forms from the web site \url{https://www.heros-inc.org/data.htm}.  The
 most convenient form for creation of an \RR data set is the
 tab-delimited text file.  Download the archive file
-\url{http://www.heros-inc.org/text-star.zip} containing two files:
+\url{https://www.heros-inc.org/text-star.zip} containing two files:
 \texttt{readme.txt}, a description of the data, and
 \texttt{webstar.txt}, the data themselves.
 

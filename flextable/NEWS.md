@@ -1,3 +1,348 @@
+# flextable 0.10.0
+
+## new features
+
+- flextable now supports Typst output: tables are printed automatically in
+Quarto documents with `format: typst` and `save_as_typst()` exports one or more
+flextables to a standalone `.typ` file.
+- new function `indentation()` to set first-line (`first_line`) and hanging
+(`hanging`) paragraph indents in cells. The properties can also be set with
+`style(pr_p = fp_par(...))` (requires officer >= 0.7.5). Supported in Word,
+HTML, PowerPoint, RTF, PDF, Typst and grid outputs (#704).
+- new function `repair_docx()` to repair Word files produced by Quarto
+(`format: docx`) or `rmarkdown::word_document()` when tables contain images
+or hyperlinks; pandoc writes these files without resolving the image and
+hyperlink references and Word can not open them. The officer rewrite also
+processes sections, footnotes, custom styles, list markers and poured
+documents. flextable now also emits a warning in that situation (#711).
+
+## issues
+
+- the `ulem` LaTeX package is now loaded with the `normalem` option, so that
+`\emph` (italic) text outside the table is no longer rendered as underlined in
+PDF output (#726).
+
+# flextable 0.9.12
+
+## issues
+
+- PDF/LaTeX cell fonts are now selected with `\fontspec` instead of
+`\global\setmainfont`. The latter re-ran the math font machinery on every
+cell, which could exhaust LaTeX math alphabets and break compilation when a
+document contained many equations before the table (#636).
+- `dim_pretty()` height estimates now account for line spacing and
+border widths.
+- `padding.left` and `padding.right` are now supported in PDF/LaTeX output.
+- `delete_rows()` and `delete_columns()` no longer reset all spans
+unconditionally. `span_free()` is now only triggered when the
+deletion actually breaks a merged cell, preserving existing
+merge structures in all other cases.
+- fix Shadow DOM handling for paged.js contexts, again
+- Image chunks (`as_image()`, `colformat_image()`, `plot_chunk()`, `gg_chunk()`,
+`grid_chunk()`) gain an `alt` parameter for alternative text. Alt text is 
+rendered in DOCX (`descr` attribute) and HTML (`alt` attribute) output.
+
+## new features
+
+- new function `fit_columns()` constrains total table width by shrinking
+  columns proportionally. Text wraps inside narrower cells; font sizes are
+  unchanged. Columns that cannot shrink below their longest word are clamped
+  at that floor and remaining space is iteratively redistributed among
+  unclamped columns. A `no_wrap` argument lets specific columns keep their
+  optimal width.
+- function `paginate()` gains a new option `"starts"` for argument `group_def`.
+  When used, `group` is an integer vector of body row indices where new groups
+  begin; page breaks are allowed before these rows.
+- New functions `split_columns()` and `split_rows()` to split a flextable
+  into a list of flextables that fit within a given width or height.
+  `split_columns()` accepts column names, indices, or formulas for `rep_cols`,
+  allowing users to choose which columns to repeat and in what order.
+  `split_rows()` supports a `group` argument to keep row groups together
+  across pages; header and footer are repeated on every page.
+- new function `split_to_pages()` combines `split_rows()` and `split_columns()`
+  in a single call for convenient two-dimensional pagination.
+- new method `as_flextable()` for 'rtables' `TableTree` and `ElementaryTable`
+  objects. The conversion maps formatted content, column spans, alignments,
+  indentation and footnotes to flextable features. Use `split_to_pages()` on
+  the result for pagination.
+
+# flextable 0.9.11
+
+## new features
+
+- new function `wrap_flextable()` enables integration with 'patchwork' layouts.
+Flextable objects can be combined with 'ggplot2' plots using `+`, `|`, and `/`
+operators. Table headers and footers are aligned with plot panel areas. The
+`panel` argument controls alignment (`"body"`, `"full"`, `"rows"`, `"cols"`)
+and the `space` argument controls sizing (`"free"`, `"fixed"`, `"free_x"`,
+`"free_y"`). `flex_body` stretches body rows to match a neighbouring plot's
+panel height; `flex_cols` stretches data columns to match the panel width.
+`just` controls horizontal alignment (`"left"`, `"right"`, `"center"`)
+when the table is narrower than the panel. S3 methods `ggplot_add.flextable`
+and `as_patch.flextable` are registered so that `plot + flextable` works
+transparently.
+- new function `theme_borderless()` applies a minimal theme with no borders,
+bold header, and standard column alignment.
+- support strikethrough formatting with `fp_text_default()`.
+- new function `as_strike()` to apply strikethrough formatting to text chunks.
+- new function `compact_summary()` to create a compact summary of a data.frame
+that can be transformed as a flextable with `as_flextable()`.
+- `summarizor()`: when using `overall_label` with multiple `by` columns,
+an overall level is now added for each grouping column (not only the last one).
+This produces margins at every nesting level, including a grand total.
+- `footnote()` gains a `symbol_sep` argument to insert a separator
+between multiple footnote symbols in the same cell (#699).
+- new function `as_qmd()` to embed Quarto markdown (cross-references,
+bold/italic, links, math, inline code) inside flextable cells.
+Works with HTML, PDF and Word outputs. New function `use_flextable_qmd()`
+installs the companion `flextable-qmd` Lua filter extension in
+the Quarto project.
+
+## Known limitations
+
+- PDF/LaTeX: a table row whose content is taller than a page cannot be
+split across pages (#548). This is a fundamental constraint of LaTeX's
+`longtable` environment, which only supports page breaks between rows,
+not within a single row. HTML and Word outputs are not affected.
+
+## Internals
+
+- Strings metrics are now computed with `gdtools::strings_sizes()` instead of
+`m_str_extents()` and `str_metrics()`, goal is to let 'gdtools' use only 'systemfonts'
+and be simplified.
+
+## Issues
+
+- fix Shadow DOM handling for paged.js contexts (e.g. pagedown):
+tables marked with `no-shadow-dom` are no longer moved into a
+Shadow DOM, restoring visibility when the document contains
+LaTeX equations (pagedown#332).
+- line breaks (`\n`) in captions now render correctly in PDF/LaTeX
+output (#663).
+- images in google docs should now be sized as expected
+- specifying a `word_style` for a paragraph style works now.
+The `word_style` values will be ignored if flextable is process by 'rmarkdown'
+or 'quarto'.
+- `as_flextable.tabulator()`: the N= counts in column headers are now
+displayed when there are multiple grouping columns (previously limited
+to a single grouping column).
+- `footnote()` no longer errors when the row selector `i` matches
+zero rows (#712).
+- footnote symbols no longer clash with rotated cells in HTML
+output (#713).
+- PDF/Quarto: the `fontspec` LaTeX package is no longer included when
+the PDF engine is `pdflatex`, fixing compilation errors in Quarto
+documents using `pdf-engine: pdflatex` (#701, #707). Engine detection
+now also reads `QUARTO_EXECUTE_INFO` (Quarto >= 1.8) and nested YAML
+(`format > pdf > pdf-engine`).
+- inner borders of vertically merged cells no longer show in PDF
+output when background color is set (#673).
+- PDF/Quarto: footer repetition and longtable part ordering now work
+correctly with the default container (`none`) in Quarto output.
+- `merge_v()`: vertically merged cell labels now appear at the top of
+the merged range in PDF/LaTeX output instead of the bottom (#654).
+- vertical alignment (`valign`) in merged cells now works correctly in
+PDF/LaTeX output when rows have different heights (#639). Content is
+placed in the first (top), middle (center), or last (bottom) row of the
+merged range; `\multirow` is no longer used as it miscalculates offsets
+with unequal row heights.
+- using `by` of `summarizor()` referring to two columns, one of which has
+only one unique value no longer causes and error when passed on to 
+`as_flextable()`.
+
+# flextable 0.9.10
+
+## new features
+
+- It is now possible to not repeat headers'rows along Word pages
+by using `set_table_properties(opts_word = list(repeat_headers = FALSE))`.
+
+## Issues
+
+- fix `format_fun.default` so that it works with logical columns.
+
+## Change
+
+- `print.flextable(preview = "log")` use `str()` to show first values of data
+instead of `print()` so that when there are ggplot2 v4 objects in the table, the 
+print is not failing.
+
+# flextable 0.9.9
+
+## new features
+
+- `proc_freq` gains new argument `count_format_fun` to let control the function 
+that format the count values.
+
+## Issues
+
+- fix compatibility issue with rmarkdown::word_document and quarto introduced with
+version `0.9.8`.
+
+## Changes
+
+- Defunct previously deprecated functions `as_raster()`, `lollipop()` 
+  and `set_formatter_type()`.
+- Definitively forbid usage of empty symbol `''` with footnotes. Users should 
+  use `add_footer_lines()` instead.
+
+# flextable 0.9.8
+
+## Issues
+
+- `tab_settings()` is now using j argument as expected (#635)
+- doc inconsistency for `set_table_properties()` with layout that defaults to 
+"fixed".
+- add_header_row produced an error after using `delete_column()` (#676)
+- `fmt_signif_after_zeros()` fixed issue with 0 rounding
+- `proc_freq` supports now non syntactically names
+
+# flextable 0.9.7
+
+## new features
+
+- Added support for labelled datasets.
+
+## Changes
+
+- The `fix_border_issues` function is now useless for users, as it is now 
+called automatically before printing.
+
+## Issues
+
+- fix caption issue that came with no version of bookdown (issue #645),
+'bookdown' management of caption has been simplified.
+- fix vertical overlapping lines with grid output (issue #644)
+- fix broken internal links in PDF file, probably due to a change in knitr or 
+rmarkdown (issue #632)
+- fix right outer border issue in grid format (issue #650)
+- fix `flextable_to_rmd()` issue with images in pdf (issue #651)
+- fix `flextable_to_rmd()` issue with local chunk `eval` option (issue #631)
+- `proc_freq` can now display only the table percentages without the count 
+using `include.table_count = FALSE`.
+- bring back support for 'pagedown' with `pagedown >= 0.20.2`
+- flextable now applies defined text-format to empty cells for Word and
+Powerpoint outputs.
+
+# flextable 0.9.6
+
+## Changes
+
+- `headers_flextable_at_bkm()` and `footers_flextable_at_bkm()` are defunct.
+- `flextable_to_rmd()` is now using `knit_child()` for safer usage from `for`
+  loops or `if` statements.
+- Add explanation about caption limitations in the manual of functions
+  `save_as_image()` and `ph_with.flextable()`.
+- Deprecate `as_raster()` since `gen_grob()` is easier to use and render
+  nicer.
+- BREAKING CHANGE: in `align()`, the default argument value for `align` is now
+  `"left"`, rather than `c("left", "center", "right", "justify")`. This
+  returns the default value to how it was in older versions of {flextable}.
+    - in `align()`, use of the old default `align` argument could cause an
+      error if the number of columns being adjusted was not a multiple of 4.
+    - The documentation specified that `align` had to be a single value, when
+      it could actually accept multiple values. This is why a default value of
+      `c("left", "center", "right", "justify")`, was problematic. This
+      documentation has now been updated and new examples included in the
+      documentation.
+    - The default `align` argument will now apply left alignment to all
+      columns in the body.
+    - If the user specifies an alignment that is invalid, a error will be
+      displayed.
+    - The `path` argument now has a signature of `part = c("body", "header",
+      "footer", "all")`, but because only a single value can be selected, it
+      will pick `"body"` by default, as before.
+- Deprecate `lollipop()` since it produces (ugly) results that can be replaced
+by nice results with `gg_chunk()` or `grid_chunk()`.
+
+## Issues
+
+- fix issue with `as_image()` when the table contains no text.
+- fix font instruction issue with PDF and quarto
+- fix issue with Quarto detection and R > 4.4
+- fix `align()` issue with recycling and update documentation
+that was wrong about argument `align` that is vectorized over 
+columns.
+
+# flextable 0.9.5
+
+## new features
+
+- new functions `tab_settings()` to set tabulation marks configuration
+for Word and RTF. It works with `officer::fp_tabs()`.
+- new function `fmt_signif_after_zero()` to round significant figures after zeros.
+
+## Issues
+
+- `summarizor()` don't stop anymore if table only contain discrete columns.
+- `as_flextable.data.frame()` supports 'data.table'
+- `footnote()` handle undefined `ref_symbols` argument
+- `delete_rows()` does not delete rows if the row selection is empty
+- improve `gen_grob()` alignments when wrapping text
+- fix horizontal border issue with `gen_grob()` when cells are vertically merged
+- Word captions set with `set_caption()` can have no bookmark and have
+autonumber used together.
+
+## Changes
+
+- default `tabcolsep` is now set to 2.
+- Deprecate `set_formatter_type()`.
+- renovate `fmt_2stats()` so that it uses global flextable settings, 
+i.e. digits, etc.
+- refactoring of data structure for content
+- footer along pages in PDF are now deactivated by default. It can be 
+activated with command `set_table_properties(opts_pdf = list(footer_repeat = TRUE))`.
+- more argument checkings in `as_chunk()`
+
+# flextable 0.9.4
+
+## Issues
+
+- `ph_with.flextable()` formats widths and heights correctly.
+- move image shown in add_footer to footnote where it should be.
+- update the documentation and automatically change alignment
+'justify' to 'left' for latex output.
+- borders'width for grid output are fixed
+
+## new features
+
+- new functions `delete_columns()` and `delete_rows()` 
+to let users delete rows or columns.
+- `save_as_image()` now supports svg export with 'svglite'.
+
+# flextable 0.9.3
+
+## new features
+
+- The `summarizor()` function has been enhanced to offer three new options: 
+  - an empty `by` argument meaning 'no grouping,' 
+  - the ability for users to select numeric statistics to display ("mean_sd," "median_iqr," "range"), 
+  - and the option to specify whether or not to show all NA counts.
+
+## Changes
+
+- `as_flextable.data.frame()` always shows the number of rows even if less than 10 
+(because I need it!).
+
+## Issues
+
+- Make sure 'gfm' format is rendered as an image.
+- As adviced by Ben Bolker, functions `as_flextable.lm()`, `as_flextable.gam()`,
+`as_flextable.glm()`, `as_flextable.merMod()` and `as_flextable.htest()`
+now respect the global value of `getOption("show.signif.stars")`.
+- new argument `add.random` in `as_flextable.merMod()` to let add or not
+random effects in the final table.
+- drop superfluous semicolons when include.row_percent = FALSE
+- Super and subscripts are now correctly
+rendered in PDF (thanks to Philippe Grosjean).
+- argument `max_iter` of function `fit_to_width` is not
+ignored anymore.
+
+## Internals
+
+- rename technical column `part` to `.part` so that
+column named `part` can be used.
+
 # flextable 0.9.2
 
 ## Issues
@@ -227,7 +572,7 @@ with the argument `align_with_table=FALSE`.
 - new theme 'APA', `theme_apa` (@rempsyc #426)
 - method `as_flextable.tabulator()` gains an argument `spread_first_col` to enable 
 spreading of the first column of the table as a line separator.
-
+- fix doc links to functions from other packages for future releases
 
 ## Issues
 

@@ -1,3 +1,4 @@
+openxlsx-package	openxlsx
 %||%	if_null_then
 activeSheet	activeSheet
 activeSheet<-	activeSheet
@@ -7,6 +8,9 @@ addStyle	addStyle
 addWorksheet	addWorksheet
 all.equal	all.equal
 all.equal.Workbook	all.equal
+as.character.formula	as.character.formula
+as_POSIXct_utc	as_POSIXct_utc
+auto_heights	auto_heights
 buildWorkbook	buildWorkbook
 cloneWorksheet	cloneWorksheet
 col2int	col2int
@@ -23,6 +27,7 @@ createWorkbook	createWorkbook
 databar	conditionalFormatting
 dataValidation	dataValidation
 deleteData	deleteData
+deleteDataColumn	deleteDataColumn
 deleteNamedRegion	NamedRegion
 freezePane	freezePane
 getBaseFont	getBaseFont
@@ -33,6 +38,8 @@ getNamedRegions	getNamedRegions
 getSheetNames	getSheetNames
 getStyles	getStyles
 getTables	getTables
+getWindowSize	setWindowSize
+get_worksheet_entries	get_worksheet_entries
 groupColumns	groupColumns
 groupRows	groupRows
 if_null_then	if_null_then
@@ -76,6 +83,7 @@ setHeader	setHeader
 setHeaderFooter	setHeaderFooter
 setLastModifiedBy	setLastModifiedBy
 setRowHeights	setRowHeights
+setWindowSize	setWindowSize
 sheets	sheets
 sheetVisibility	sheetVisibility
 sheetVisibility<-	sheetVisibility

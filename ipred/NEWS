@@ -1,4 +1,17 @@
-# $Id: CHANGES,v 1.48 2009/09/09 15:40:28 hothorn Exp $
+
+	0.9-15 (20.08.2026)
+
+        Illustrations using the PimaIndiansDiabetes data from
+        mlbench have been adapted to use the SynthDiabetes data instead
+        because the former data are not shared in mlbench and the UCI Machine
+        Learning Repository anymore.
+
+        weights were never implemented nor documented, issue an error when
+        used nevertheless
+
+	0.9-15 (18.07.2024)
+
+        Rd link problem
 
 	0.9-14 (09.03.2023)
 

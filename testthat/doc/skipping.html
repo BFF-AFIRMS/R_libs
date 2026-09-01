@@ -48,6 +48,7 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -340,25 +341,25 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<p>Some times you have tests that you don’t want to run in certain
-circumstances. This vignette describes how to <strong>skip</strong>
-tests to avoid execution in undesired environments. Skipping is a
-relatively advanced topic because in most cases you want all your tests
-to run everywhere. The most common exceptions are:</p>
+<p>Sometimes you have tests that you can’t or don’t want to run in
+certain circumstances. This vignette describes how to
+<strong>skip</strong> tests to avoid execution in undesired
+environments. The most common scenarios are:</p>
 <ul>
 <li><p>You’re testing a web service that occasionally fails, and you
-don’t want to run the tests on CRAN. Or maybe the API requires
-authentication, and you can only run the tests when you’ve <a href="https://gargle.r-lib.org/articles/articles/managing-tokens-securely.html">securely
-distributed</a> some secrets.</p></li>
+don’t want to run the tests on CRAN. Or the API requires authentication,
+and you can only run the tests when you’ve <a href="https://gargle.r-lib.org/articles/articles/managing-tokens-securely.html">securely
+distributed</a> secrets.</p></li>
 <li><p>You’re relying on features that not all operating systems
-possess, and want to make sure your code doesn’t run on a platform where
-it doesn’t work. This platform tends to be Windows, since amongst other
-things, it lacks full utf8 support.</p></li>
-<li><p>You’re writing your tests for multiple versions of R or multiple
-versions of a dependency and you want to skip when a feature isn’t
+possess, and want to make sure your code doesn’t run on platforms where
+it doesn’t work. The most common platform with limitations is Windows,
+which among other things lacks full UTF-8 support.</p></li>
+<li><p>You’re writing tests for multiple versions of R or multiple
+versions of a dependency, and you want to skip when a feature isn’t
 available. You generally don’t need to skip tests if a suggested package
 is not installed. This is only needed in exceptional circumstances,
-e.g. when a package is not available on some operating system.</p></li>
+e.g., when a package is not available on some operating
+systems.</p></li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(testthat)</span></code></pre></div>
 <div id="basics" class="section level2">
@@ -366,83 +367,97 @@ e.g. when a package is not available on some operating system.</p></li>
 <p>testthat comes with a variety of helpers for the most common
 situations:</p>
 <ul>
-<li><p><code>skip_on_cran()</code> skips tests on CRAN. This is useful
+<li><p><code>skip_if_not_installed()</code> skips if a required package
+is not installed. You can optionally supply a minimal version
+too.</p></li>
+<li><p><code>skip_on_cran()</code> skips tests on CRAN.
+<code>skip_on_bioc()</code> skips tests on Bioconductor. This is useful
 for slow tests and tests that occasionally fail for reasons outside of
 your control.</p></li>
 <li><p><code>skip_on_os()</code> allows you to skip tests on a specific
 operating system. Generally, you should strive to avoid this as much as
 possible (so your code works the same on all platforms), but sometimes
 it’s just not possible.</p></li>
-<li><p><code>skip_on_ci()</code> skips tests on most continuous
-integration platforms (e.g. GitHub Actions, Travis, Appveyor).</p></li>
+<li><p><code>skip_on_ci()</code> skips tests on most CI platforms (e.g.,
+GitHub Actions).</p></li>
+<li><p><code>skip_on_covr()</code> skips tests during code
+coverage.</p></li>
+<li><p><code>skip_unless_r(&quot;&gt;= 4.2&quot;)</code> only runs tests for newer
+R versions. <code>skip_unless_r(&quot;&lt; 4.2&quot;)</code> only runs tests for
+older R versions.</p></li>
 </ul>
-<p>You can also easily implement your own using either
-<code>skip_if()</code> or <code>skip_if_not()</code>, which both take an
-expression that should yield a single <code>TRUE</code> or
-<code>FALSE</code>.</p>
-<p>All reporters show which tests as skipped. As of testthat 3.0.0,
-ProgressReporter (used interactively) and CheckReporter (used inside of
+<p>You can implement your own using skips <code>skip_if()</code> or
+<code>skip_if_not()</code>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Only run test if a token file is available</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">skip_if_not</span>(<span class="fu">file.exists</span>(<span class="st">&quot;secure-token.json&quot;</span>))</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co"># Only run test if R has memory profiling capabilities</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="fu">skip_if_not</span>(<span class="fu">capabilities</span>(<span class="st">&quot;profmem&quot;</span>))</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co"># Only run if we&#39;ve opted-in to slow tests with an env var</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="fu">skip_if</span>(<span class="fu">Sys.getenv</span>(<span class="st">&quot;RUN_SLOW_TESTS&quot;</span>) <span class="sc">==</span> <span class="st">&quot;true&quot;</span>)</span></code></pre></div>
+<p>All reporters show which tests are skipped. As of testthat 3.0.0,
+ProgressReporter (used interactively) and CheckReporter (used inside
 <code>R CMD check</code>) also display a summary of skips across all
 tests. It looks something like this:</p>
 <pre><code>── Skipped tests  ───────────────────────────────────────────────────────
 ● No token (3)
 ● On CRAN (1)</code></pre>
-<p>You should keep an on eye this when developing interactively to make
-sure that you’re not accidentally skipping the wrong things.</p>
+<p>This display is really important, and you should keep an eye on it
+when working on your test suite. If you accidentally skip too many
+tests, you can trick yourself into believing your code is working
+correctly, when actually you’re just not testing it.</p>
 </div>
 <div id="helpers" class="section level2">
 <h2>Helpers</h2>
-<p>If you find yourself using the same
-<code>skip_if()</code>/<code>skip_if_not()</code> expression across
-multiple tests, it’s a good idea to create a helper function. This
-function should start with <code>skip_</code> and live in a
-<code>test/helper-{something}.R</code> file:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>skip_if_dangerous <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">identical</span>(<span class="fu">Sys.getenv</span>(<span class="st">&quot;DANGER&quot;</span>), <span class="st">&quot;&quot;</span>)) {</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>    <span class="fu">skip</span>(<span class="st">&quot;Not run in dangerous environments.&quot;</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>    <span class="fu">invisible</span>()</span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  }</span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>}</span></code></pre></div>
+<p>If you find yourself using the same <code>skip_if()</code> or
+<code>skip_if_not()</code> expression across multiple tests, it’s a good
+idea to create a helper function. This function should start with
+<code>skip_</code> and live in a
+<code>tests/testthat/helper-{something}.R</code> file:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>skip_if_dangerous <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">identical</span>(<span class="fu">Sys.getenv</span>(<span class="st">&quot;DANGER&quot;</span>), <span class="st">&quot;&quot;</span>)) {</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>    <span class="fu">skip</span>(<span class="st">&quot;Not run in dangerous environments.&quot;</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>    <span class="fu">invisible</span>()</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  }</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="embedding-skip-in-package-functions" class="section level2">
 <h2>Embedding <code>skip()</code> in package functions</h2>
-<p>Another useful technique that can sometimes be useful is to build a
-<code>skip()</code> directly into a package function. For example take a
-look at <a href="https://github.com/r-lib/pkgdown/blob/v2.0.7/R/markdown.R#L95-L106"><code>pkgdown:::convert_markdown_to_html()</code></a>,
-which absolutely, positively cannot work if the Pandoc tool is
-unavailable:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>convert_markdown_to_html <span class="ot">&lt;-</span> <span class="cf">function</span>(in_path, out_path, ...) {</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="cf">if</span> (rmarkdown<span class="sc">::</span><span class="fu">pandoc_available</span>(<span class="st">&quot;2.0&quot;</span>)) {</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>    from <span class="ot">&lt;-</span> <span class="st">&quot;markdown+gfm_auto_identifiers-citations+emoji+autolink_bare_uris&quot;</span></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (rmarkdown<span class="sc">::</span><span class="fu">pandoc_available</span>(<span class="st">&quot;1.12.3&quot;</span>)) {</span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>    from <span class="ot">&lt;-</span> <span class="st">&quot;markdown_github-hard_line_breaks+tex_math_dollars+tex_math_single_backslash+header_attributes&quot;</span></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">is_testing</span>()) {</span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>      testthat<span class="sc">::</span><span class="fu">skip</span>(<span class="st">&quot;Pandoc not available&quot;</span>)</span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>      <span class="fu">abort</span>(<span class="st">&quot;Pandoc not available&quot;</span>)</span>
-<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>    }</span>
-<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>  }</span>
-<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>  </span>
-<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>  ...</span>
-<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>}</span></code></pre></div>
+<p>Another useful technique is to embed a <code>skip()</code> directly
+into a package function. For example, take a look at <a href="https://github.com/r-lib/pkgdown/blob/v2.0.7/R/markdown.R#L95-L106"><code>pkgdown:::convert_markdown_to_html()</code></a>,
+which absolutely cannot work if the Pandoc tool is unavailable:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>convert_markdown_to_html <span class="ot">&lt;-</span> <span class="cf">function</span>(in_path, out_path, ...) {</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="cf">if</span> (rmarkdown<span class="sc">::</span><span class="fu">pandoc_available</span>(<span class="st">&quot;2.0&quot;</span>)) {</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>    from <span class="ot">&lt;-</span> <span class="st">&quot;markdown+gfm_auto_identifiers-citations+emoji+autolink_bare_uris&quot;</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (rmarkdown<span class="sc">::</span><span class="fu">pandoc_available</span>(<span class="st">&quot;1.12.3&quot;</span>)) {</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>    from <span class="ot">&lt;-</span> <span class="st">&quot;markdown_github-hard_line_breaks+tex_math_dollars+tex_math_single_backslash+header_attributes&quot;</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">is_testing</span>()) {</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>      testthat<span class="sc">::</span><span class="fu">skip</span>(<span class="st">&quot;Pandoc not available&quot;</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>      <span class="fu">abort</span>(<span class="st">&quot;Pandoc not available&quot;</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>    }</span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>  }</span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>  </span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>  ...</span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>}</span></code></pre></div>
 <p>If Pandoc is not available when
 <code>convert_markdown_to_html()</code> executes, it throws an error
 <em>unless</em> it appears to be part of a test run, in which case the
 test is skipped. This is an alternative to implementing a custom
-skipper, e.g. <code>skip_if_no_pandoc()</code>, and inserting it into
+skipper, e.g., <code>skip_if_no_pandoc()</code>, and inserting it into
 many of pkgdown’s tests.</p>
 <p>We don’t want pkgdown to have a runtime dependency on testthat, so
 pkgdown includes a copy of <code>testthat::is_testing()</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>is_testing <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">identical</span>(<span class="fu">Sys.getenv</span>(<span class="st">&quot;TESTTHAT&quot;</span>), <span class="st">&quot;true&quot;</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>}</span></code></pre></div>
-<p>It might look like the code appears to still have a runtime
-dependency on testthat, because of the call to
-<code>testthat::skip()</code>. But <code>testthat::skip()</code> is only
-executed during a test run, which implies that testthat is
-installed.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>is_testing <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">identical</span>(<span class="fu">Sys.getenv</span>(<span class="st">&quot;TESTTHAT&quot;</span>), <span class="st">&quot;true&quot;</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>}</span></code></pre></div>
+<p>It might look like the code still has a runtime dependency on
+testthat, because of the call to <code>testthat::skip()</code>. But
+<code>testthat::skip()</code> is only executed during a test run, which
+means that testthat is installed.</p>
 <p>We have mixed feelings about this approach. On the one hand, it feels
 elegant and concise, and it absolutely guarantees that you’ll never miss
 a needed skip in one of your tests. On the other hand, it mixes code and

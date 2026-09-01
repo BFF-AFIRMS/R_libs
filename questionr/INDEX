@@ -5,8 +5,8 @@ chisq.residuals         Return the chi-squared residuals of a two-way
                         frequency table.
 clipcopy                Transform an object into HTML and copy it for
                         export
-cprop                   Column percentages of a two-way frequency
-                        table.
+cprop                   Column percentages of a cross-tabulation table
+                        (2 dimensions or more).
 cramer.v                Compute Cramer's V of a two-way frequency table
 cross.multi.table       Two-way frequency table between a multiple
                         choices question and a factor
@@ -22,6 +22,7 @@ first_non_null          Return first non-null of two values
 format.proptab          S3 format method for proptab objects.
 freq                    Generate frequency tables.
 freq.na                 Generate frequency table of missing values.
+freqtable               Frequency table of variables
 ggsurvey                Easy ggplot2 with survey objects
 happy                   Data related to happiness from the General
                         Social Survey, 1972-2006.
@@ -39,8 +40,8 @@ multi.table             One-way frequency table for multiple choices
 na.rm                   Remove observations with missing values
 odds.ratio              Odds Ratio
 print.proptab           S3 print method for proptab objects.
-prop                    Global percentages of a two-way frequency
-                        table.
+prop                    Global percentages of a cross-tabulation table
+                        (2 dimensions or more).
 qload                   Load one or more packages, installing them
                         first if necessary
 qscan                   Scan R scripts and load/install all detected
@@ -55,7 +56,8 @@ rp2012                  2012 French Census - French cities of more than
                         2000 inhabitants
 rp2018                  2018 French Census - French cities of more than
                         2000 inhabitants
-rprop                   Row percentages of a two-way frequency table.
+rprop                   Row percentages of a cross-tabulation table (2
+                        dimensions or more).
 tabs                    Weighted Crossresult
 women                   A fertility survey - "women" table
 wtd.mean                Weighted mean and variance of a vector

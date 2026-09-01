@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
 // 
-// Copyright 2008-2016 Conrad Sanderson (http://conradsanderson.id.au)
+// Copyright 2008-2016 Conrad Sanderson (https://conradsanderson.id.au)
 // Copyright 2008-2016 National ICT Australia (NICTA)
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// http://www.apache.org/licenses/LICENSE-2.0
+// https://www.apache.org/licenses/LICENSE-2.0
 // 
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,11 +20,9 @@
 //! @{
 
 
-//! wrapper for accesing external functions in ARPACK and SuperLU
-class sp_auxlib
+//! wrapper for accessing external functions in ARPACK and SuperLU
+struct sp_auxlib
   {
-  public:
-  
   enum form_type
     {
     form_none, form_lm, form_sm, form_lr, form_la, form_sr, form_li, form_si, form_sa, form_sigma
@@ -118,8 +116,6 @@ class sp_auxlib
   
   
   
-  private:
-  
   // calls arpack saupd()/naupd() because the code is so similar for each
   // all of the extra variables are later used by seupd()/neupd(), but those
   // functions are very different and we can't combine their code
@@ -128,7 +124,7 @@ class sp_auxlib
   inline static void run_aupd_plain
     (
     const uword n_eigvals, char* which,
-    const SpMat<T>& X, const bool sym,
+    const SpMat<T>& X, const SpMat<T>& Xst, const bool sym,
     blas_int& n, eT& tol, blas_int& maxiter,
     podarray<T>& resid, blas_int& ncv, podarray<T>& v, blas_int& ldv,
     podarray<blas_int>& iparam, podarray<blas_int>& ipntr,
@@ -158,17 +154,38 @@ class sp_auxlib
 
 
 
+template<typename eT>
+struct eigs_randu_filler
+  {
+  std::mt19937_64                    local_engine;
+  std::uniform_real_distribution<eT> local_u_distr;
+  
+  inline eigs_randu_filler();
+  
+  inline void fill(podarray<eT>& X, const uword N);
+  };
+
+
+template<typename T>
+struct eigs_randu_filler< std::complex<T> >
+  {
+  std::mt19937_64                   local_engine;
+  std::uniform_real_distribution<T> local_u_distr;
+  
+  inline eigs_randu_filler();
+  
+  inline void fill(podarray< std::complex<T> >& X, const uword N);
+  };
+
+
+
 #if defined(ARMA_USE_SUPERLU)
 
-class superlu_supermatrix_wrangler
+struct superlu_supermatrix_wrangler
   {
-  private:
-  
   bool used = false;
   
   arma_aligned superlu::SuperMatrix m;
-  
-  public:
   
   inline ~superlu_supermatrix_wrangler();
   inline  superlu_supermatrix_wrangler();
@@ -181,13 +198,9 @@ class superlu_supermatrix_wrangler
   };
 
 
-class superlu_stat_wrangler
+struct superlu_stat_wrangler
   {
-  private:
-  
   arma_aligned superlu::SuperLUStat_t stat;
-  
-  public:
   
   inline ~superlu_stat_wrangler();
   inline  superlu_stat_wrangler();
@@ -200,13 +213,9 @@ class superlu_stat_wrangler
 
 
 template<typename eT>
-class superlu_array_wrangler
+struct superlu_array_wrangler
   {
-  private:
-  
   arma_aligned eT* mem = nullptr;
-  
-  public:
   
   inline ~superlu_array_wrangler();
   inline  superlu_array_wrangler();
@@ -223,10 +232,8 @@ class superlu_array_wrangler
 
 
 template<typename eT>
-class superlu_worker
+struct superlu_worker
   {
-  private:
-  
   bool factorisation_valid = false;
   
   superlu_supermatrix_wrangler* l = nullptr;
@@ -236,8 +243,6 @@ class superlu_worker
   superlu_array_wrangler<int> perm_r;
   
   superlu_stat_wrangler stat;
-  
-  public:
   
   inline ~superlu_worker();
   inline  superlu_worker();

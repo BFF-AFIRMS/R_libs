@@ -1,12 +1,13 @@
 Package: lava
 Type: Package
 Title: Latent Variable Models
-Version: 1.7.2.1
-Date: 2023-02-25
+Version: 1.9.3
 Authors@R: c(person("Klaus K.", "Holst", email="klaus@holst.it", role=c("aut", "cre")),
+       person("Benedikt", "Sommer", role = "ctb"),
 		   person("Brice", "Ozenne", role = "ctb"),
 		   person("Thomas", "Gerds", role = "ctb"))
 Author: Klaus K. Holst [aut, cre],
+  Benedikt Sommer [ctb],
   Brice Ozenne [ctb],
   Thomas Gerds [ctb]
 Maintainer: Klaus K. Holst <klaus@holst.it>
@@ -20,24 +21,26 @@ Description: A general implementation of Structural Equation Models
 	back-door criterion), simulation of general non-linear latent variable
 	models, and estimation of influence functions for a broad range of
 	statistical models.
-URL: https://kkholst.github.io/lava/
+URL: https://kkholst.github.io/lava/, https://github.com/kkholst/lava
 BugReports: https://github.com/kkholst/lava/issues
-License: GPL-3
+License: Apache License (== 2.0)
 LazyLoad: yes
-Depends: R (>= 3.0)
-Imports: future.apply, grDevices, graphics, methods, numDeriv,
+Depends: R (>= 3.5.0)
+Imports: cli, future.apply, graphics, grDevices, methods, numDeriv,
         progressr, stats, survival, SQUAREM, utils
-Suggests: KernSmooth, Matrix, Rgraphviz, data.table, ellipse, fields,
-        geepack, graph, knitr, bookdown, rmarkdown, igraph (>= 0.6),
-        lavaSearch2, lme4, mets (>= 1.1), nlme, optimx, polycor,
-        quantreg, rgl, R.rsp (>= 0.40), targeted (>= 0.2), testthat (>=
-        0.11), visNetwork, zoo
-VignetteBuilder: knitr
+Suggests: KernSmooth, Rgraphviz, data.table, ellipse, fields, future,
+        geepack, graph, knitr, rmarkdown, igraph (>= 0.6), lavaSearch2,
+        lme4 (>= 1.1.35.1), MASS, Matrix (>= 1.6.3), mets (>= 1.1),
+        nlme, optimx, polycor, quantreg, quarto, rgl, svglite, targeted
+        (>= 0.4), testthat (>= 0.11), vdiffr, visNetwork
+VignetteBuilder: quarto
+SystemRequirements: Quarto command line tools
+        (https://github.com/quarto-dev/quarto-cli).
 ByteCompile: yes
 Encoding: UTF-8
-RoxygenNote: 7.2.3
+Config/roxygen2/version: 8.1.0
 NeedsCompilation: no
-Packaged: 2023-02-25 19:47:09 UTC; Klaus.Holst
+Packaged: 2026-08-19 20:15:19 UTC; kkzh
 Repository: CRAN
-Date/Publication: 2023-02-27 08:12:30 UTC
-Built: R 4.3.0; ; 2023-07-07 03:33:10 UTC; unix
+Date/Publication: 2026-08-20 09:20:18 UTC
+Built: R 4.5.0; ; 2026-09-01 21:46:47 UTC; unix

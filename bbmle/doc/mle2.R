@@ -27,7 +27,7 @@ suppressWarnings(
 ## ----sum1---------------------------------------------------------------------
 summary(m0)
 
-## ----prof1,cache=TRUE,warning=FALSE-------------------------------------------
+## ----prof1,warning=FALSE------------------------------------------------------
 suppressWarnings(
     p0 <- profile(m0)
 )
@@ -56,6 +56,7 @@ load(system.file("vignetteData","orob1.rda",package="bbmle"))
 summary(orob1)
 
 ## ----aodlikfun----------------------------------------------------------------
+X <- model.matrix(~dilution, data = orob1)
 ML1 <- function(prob1,prob2,prob3,theta,x) {
   prob <- c(prob1,prob2,prob3)[as.numeric(x$dilution)]
   size <- x$n
@@ -71,26 +72,27 @@ crowder.results <- matrix(c(0.132,0.871,0.839,78.424,0.027,0.028,0.032,-34.991,
                           byrow=TRUE,nrow=3)
 latex(crowder.results,file="",table.env=FALSE,title="model")
 
-## ----aodfit1,cache=TRUE,warning=FALSE-----------------------------------------
-(m1 <- mle2(ML1,start=list(prob1=0.5,prob2=0.5,prob3=0.5,theta=1),
+## ----aodfit1,warning=FALSE,depends.on="aodlikfun"-----------------------------
+(m1 <- mle2(ML1,
+            start=list(prob1=0.5,prob2=0.5,prob3=0.5,theta=1),
             data=list(x=orob1)))
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  ## would prefer ~dilution-1, but problems with starting values ...
-#  (m1B <- mle2(m~dbetabinom(prob,size=n,theta),
-#               param=list(prob~dilution),
-#               start=list(prob=0.5,theta=1),
-#      data=orob1))
+# ## would prefer ~dilution-1, but problems with starting values ...
+# (m1B <- mle2(m~dbetabinom(prob,size=n,theta),
+#              param=list(prob~dilution),
+#              start=list(prob=0.5,theta=1),
+#     data=orob1))
 
 ## ----suppWarn,echo=FALSE------------------------------------------------------
 opts_chunk$set(warning=FALSE)
 
-## ----aodfit2,cache=TRUE-------------------------------------------------------
+## ----aodfit2------------------------------------------------------------------
 (m2 <- mle2(ML1,start=as.list(coef(m1)),
           control=list(parscale=coef(m1)),
           data=list(x=orob1)))
 
-## ----aodprof2,cache=TRUE------------------------------------------------------
+## ----aodprof2-----------------------------------------------------------------
 p2 <- profile(m2,prof.upper=c(Inf,Inf,Inf,theta=2000))
 
 ## ----aodstderr----------------------------------------------------------------
@@ -119,11 +121,13 @@ rownames(r1) <- c("spline","quad")
 r1
 
 ## ----profplottheta------------------------------------------------------------
-plot(p2,which="theta",plot.confstr=TRUE)
+plot(p2, which="theta",plot.confstr=TRUE, show.points = TRUE)
 
 ## ----profplotsigma------------------------------------------------------------
-plot(p2b,which="sigma",plot.confstr=TRUE,
-     show.points=TRUE)
+## not working?
+## plot(p2b,which="sigma",plot.confstr=TRUE, show.points=TRUE)
+par(las = 1, bty = "l")
+with(p2b@profile$sigma, plot(par.vals[,"sigma"], abs(z), type = "b"))
 
 ## ----homogmodel---------------------------------------------------------------
 ml0 <- function(prob,theta,x) {
@@ -216,16 +220,16 @@ ggplot(ss,
       facet_grid(.~param,scale="free_x")
 
 ## ----oldargs,eval=FALSE-------------------------------------------------------
-#  function (x, levels, conf = c(99, 95, 90, 80, 50)/100, nseg = 50,
-#            absVal = TRUE, ...) {}
+# function (x, levels, conf = c(99, 95, 90, 80, 50)/100, nseg = 50,
+#           absVal = TRUE, ...) {}
 
 ## ----newargs,eval=FALSE-------------------------------------------------------
-#  function (x, levels, which=1:p, conf = c(99, 95, 90, 80, 50)/100, nseg = 50,
-#            plot.confstr = FALSE, confstr = NULL, absVal = TRUE, add = FALSE,
-#            col.minval="green", lty.minval=2,
-#            col.conf="magenta", lty.conf=2,
-#            col.prof="blue", lty.prof=1,
-#            xlabs=nm, ylab="score",
-#            show.points=FALSE,
-#            main, xlim, ylim, ...) {}
+# function (x, levels, which=1:p, conf = c(99, 95, 90, 80, 50)/100, nseg = 50,
+#           plot.confstr = FALSE, confstr = NULL, absVal = TRUE, add = FALSE,
+#           col.minval="green", lty.minval=2,
+#           col.conf="magenta", lty.conf=2,
+#           col.prof="blue", lty.prof=1,
+#           xlabs=nm, ylab="score",
+#           show.points=FALSE,
+#           main, xlim, ylim, ...) {}
 

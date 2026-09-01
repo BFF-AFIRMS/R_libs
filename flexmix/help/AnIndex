@@ -41,13 +41,13 @@ flexmix,formula,ANY,ANY,ANY,FLXM-method	flexmix
 flexmix,formula,ANY,ANY,ANY,list-method	flexmix
 flexmix,formula,ANY,ANY,ANY,missing-method	flexmix
 flexmix-class	flexmix-class
-FLXbclust	FLXbclust
+FLXbclust	compatibility-aliases
 FLXboot-class	boot
 FLXcheckComponent	flexmix-internal
 FLXcheckComponent,FLXM-method	flexmix-internal
 FLXcheckComponent,FLXMRfix-method	flexmix-internal
 FLXcomponent-class	FLXcomponent-class
-FLXconstant	FLXconcomitant
+FLXconstant	compatibility-aliases
 FLXcontrol-class	FLXcontrol-class
 FLXdeterminePostunscaled	flexmix-internal
 FLXdeterminePostunscaled,FLXM-method	flexmix-internal
@@ -94,8 +94,11 @@ FLXgetParameters,FLXMC-method	flexmix-internal
 FLXgetParameters,FLXMRglm-method	flexmix-internal
 FLXgetParameters,FLXP-method	flexmix-internal
 FLXgetParameters,FLXPmultinom-method	flexmix-internal
-FLXglm	FLXglm
-FLXglmFix	FLXglmFix
+flxglht	flxglht
+flxglht,flexmix,character-method	flxglht
+flxglht,FLXRoptim,character-method	flxglht
+FLXglm	compatibility-aliases
+FLXglmFix	compatibility-aliases
 FLXgradlogLikfun	flexmix-internal
 FLXgradlogLikfun,flexmix-method	flexmix-internal
 FLXgradlogLikfun,FLXM-method	flexmix-internal
@@ -108,7 +111,7 @@ FLXM-class	FLXmodel-class
 FLXMC-class	FLXmodel-class
 FLXMCdist1	FLXMCdist1
 FLXMCfactanal	FLXMCfactanal
-FLXmclust	FLXmclust
+FLXmclust	compatibility-aliases
 FLXMCmvbinary	FLXbclust
 FLXMCmvcombi	FLXMCmvcombi
 FLXMCmvnorm	FLXmclust
@@ -156,7 +159,7 @@ FLXmstep,FLXMRlmmfix-method	FLXMRlmer
 FLXmstep,FLXMRmgcv-method	flexmix-internal
 FLXmstep,FLXMRrobglm-method	flexmix-internal
 FLXmstep,FLXMRziglm-method	flexmix-internal
-FLXmultinom	FLXconcomitant
+FLXmultinom	compatibility-aliases
 FLXnested-class	FLXnested-class
 FLXP-class	FLXP-class
 FLXPconstant	FLXconcomitant

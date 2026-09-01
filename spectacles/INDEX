@@ -2,8 +2,7 @@ aggregate_spectra       Aggregates spectral and data information
 apply_spectra           Apply a function on the spectra of a Spectra*
                         object
 australia               Australia spectra library data set
-base_line               Baseline correction using the baseline
-                        package#'
+base_line               Baseline correction using the baseline package
 big.head                Return the First or Last Part of an Object
 continuum_removal       Continuum removal
 cut                     Manipulating the wavelength range of a

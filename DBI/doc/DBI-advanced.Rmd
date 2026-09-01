@@ -4,15 +4,17 @@ author: "James Wondrasek, Kirill Müller"
 date: "17/03/2020"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{"Advanced DBI Usage"}
+  %\VignetteIndexEntry{Advanced DBI Usage}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
 library(knitr)
-opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(error = Sys.getenv("IN_PKGDOWN") != "true" || (getRversion() < "3.5"))
+opts_chunk$set(
+  echo = TRUE,
+  error = Sys.getenv("IN_PKGDOWN") != "true" || (getRversion() < "3.5")
+)
 
 knit_print.data.frame <- function(x, ...) {
   print(head(x, 3))
@@ -51,10 +53,10 @@ library(DBI)
 
 con <- dbConnect(
   RMariaDB::MariaDB(),
-  host = "relational.fit.cvut.cz",
+  host = "relational.fel.cvut.cz",
   port = 3306,
   username = "guest",
-  password = "relational",
+  password = "ctu-relational",
   dbname = "sakila"
 )
 
@@ -101,7 +103,7 @@ As there may be DBMS-specific rules for escaping these identifiers, DBI provides
 safe_id <- dbQuoteIdentifier(con, "rating")
 safe_param <- dbQuoteLiteral(con, "G")
 
-query <- paste0("SELECT title, ", safe_id, " FROM film WHERE ", safe_id, " = ", safe_param )
+query <- paste0("SELECT title, ", safe_id, " FROM film WHERE ", safe_id, " = ", safe_param)
 query
 
 res <- dbSendQuery(con, query)
@@ -130,7 +132,7 @@ Different DBMS use different placeholder schemes, DBI passes through the SQL exp
 MariaDB uses a question mark (?) as placeholder and expects an unnamed list of parameter values.
 Other DBMS may use named parameters.
 We recommend consulting the documentation for the DBMS you are using.
-As an example, a web search for "mariadb parameterized queries" leads to the documentation for the [`PREPARE` statement](https://mariadb.com/kb/en/prepare-statement/) which mentions:
+As an example, a web search for "mariadb parameterized queries" leads to the documentation for the [`PREPARE` statement](https://mariadb.com/docs/server/reference/sql-statements/prepared-statements/prepare-statement) which mentions:
 
 > Within the statement, "?" characters can be used as parameter markers to indicate where data values are to be bound to the query later when you execute it.
 
@@ -240,9 +242,14 @@ dbGetRowsAffected(rs)
 dbClearResult(rs)
 
 dbReadTable(con, "cars")
+```
 
+Do not forget to disconnect from the database at the end.
+
+```{r}
 dbDisconnect(con)
 ```
+
 
 ## SQL transactions with DBI
 

@@ -31,6 +31,10 @@ epi.empbayes            Empirical Bayes estimates of observed event
                         counts
 epi.epidural            Rates of use of epidural anaesthesia in trials
                         of caregiver support
+epi.evalue              Compute E-value for risk, rate, odds and hazard
+                        ratio estimates
+epi.fpos                Calculate the expected number of false positive
+                        and false negative test results
 epi.herdtest            Estimate the characteristics of diagnostic
                         tests applied at the herd (group) level
 epi.incin               Laryngeal and lung cancer cases in Lancashire
@@ -45,10 +49,12 @@ epi.iv                  Fixed-effects meta-analysis of binary outcomes
 epi.kappa               Kappa statistic
 epi.ltd                 Lactation to date and standard lactation milk
                         yields
+epi.mbf                 Minimum Bayes Factor using the Goodman or
+                        Sellke et al. method.
 epi.mh                  Fixed-effects meta-analysis of binary outcomes
                         using the Mantel-Haenszel method
-epi.nomogram            Post-test probability of disease given
-                        sensitivity and specificity of a test
+epi.nomogram            Post-test probability of an outcome given
+                        diagnostic test sensitivity and specificity
 epi.occc                Overall concordance correlation coefficient
                         (OCCC)
 epi.offset              Create offset vector
@@ -57,8 +63,9 @@ epi.pooled              Estimate herd test characteristics when pooled
 epi.popsize             Estimate population size on the basis of
                         capture-recapture sampling
 epi.prcc                Partial rank correlation coefficients
-epi.prev                Estimate true prevalence and the expected
-                        number of false positives
+epi.prev                Estimate true prevalence based on test data and
+                        the expected number of false positive and false
+                        negative test results
 epi.psi                 Proportional similarity index
 epi.realrisk            An R version of the Winton Centre's RealRisk
                         calculator
@@ -67,8 +74,9 @@ epi.SClip               Lip cancer in Scotland 1975 - 1980
 epi.smd                 Fixed-effects meta-analysis of continuous
                         outcomes using the standardised mean difference
                         method
-epi.smr                 Confidence intervals and tests of significance
-                        of the standardised mortality [morbidity] ratio
+epi.smr                 Confidence intervals and tests of statistical
+                        significance of the standardised mortality
+                        [morbidity] ratio
 epi.sscc                Sample size, power or minimum detectable odds
                         ratio for an unmatched or matched case-control
                         study
@@ -87,21 +95,21 @@ epi.sscohortc           Sample size, power or minimum detectable
 epi.sscohortt           Sample size, power or minimum detectable
                         incidence rate ratio for a cohort study using
                         person or animal time data
-epi.sscompb             Sample size, power and minimum detectable risk
-                        ratio when comparing binary outcomes
-epi.sscompc             Sample size, power and minimum detectable
-                        difference when comparing continuous outcomes
-epi.sscomps             Sample size, power and minimum detectable
-                        hazard when comparing time to event
+epi.sscompb             Sample size and power when comparing binary
+                        outcomes
+epi.sscompc             Sample size and power when comparing continuous
+                        outcomes
+epi.sscomps             Sample size and power when comparing time to
+                        event
 epi.ssdetect            Sample size to detect an event
 epi.ssdxsesp            Sample size to estimate the sensitivity or
                         specificity of a diagnostic test
 epi.ssdxtest            Sample size to validate a diagnostic test in
                         the absence of a gold standard
-epi.ssequb              Sample size for a parallel equivalence trial,
-                        binary outcome
-epi.ssequc              Sample size for a parallel equivalence trial,
-                        continuous outcome
+epi.ssequb              Sample size for a parallel equivalence or
+                        equality trial, binary outcome
+epi.ssequc              Sample size for a parallel equivalence or
+                        equality trial, continuous outcome
 epi.ssninfb             Sample size for a non-inferiority trial, binary
                         outcome
 epi.ssninfc             Sample size for a non-inferiority trial,

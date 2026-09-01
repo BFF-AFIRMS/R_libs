@@ -1,3 +1,55 @@
+2.4.2
+ - Added rsa_sign() to bypass FIPS when using legacy hashes
+
+2.4.1
+ - Fix build on msys2 with dynamic openssl
+
+2.4.0
+ - Small fixes for OpenSSL 4
+
+2.3.5
+ - Windows: add workaround for 'bcrypt' name conflict
+
+2.3.4
+ - Fix build on legacy openssl 1.0.2
+
+2.3.3
+ - Fix a unit test for CRAN Fedora builds
+
+2.3.2
+ - Remove R_unload_openssl() as it may interfere with other packages
+ - Windows: update to openssl 3.4.0 and fix build on compilers without zlib
+
+2.3.1
+ - Fix case base64_decode(NA) for libssl 3.4.0 (#130)
+ - Refactor to build with R_NO_REMAP
+
+2.3.0
+ - Windows: use OpenSSL from Rtools if found
+
+2.2.2
+ - Reduce test verbosity per CRAN request
+ - Update maintainer email address
+
+2.2.1
+ - Skip some legacy sha1 tests on Redhat systems to fix #125
+
+2.2.0
+ - Use new EVP_MD_fetch() api on libssl 3 to find non-default algorithms.
+ - Add keccak() hash function
+ - MacOS/Windows: update to OpenSSL 3.3.0
+
+2.1.2
+ - MacOS: avoid linking against legacy versions of openssl
+
+2.1.1
+ - Windows: update to openssl 3.1.2 + arm support
+
+2.1.0
+ - Windows and autobrew binaries have been bumped to libssl 3.1.1. (MacOS CRAN
+   binaries use libssl from CRAN 'recipes' which is currently libssl 1.1.1)
+ - Added sha3() function
+
 2.0.6
  - Add new functions pkcs7_encrypt and pkcs7_decrypt
  - Fix snprintf bug in hash functions

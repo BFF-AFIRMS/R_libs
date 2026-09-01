@@ -12,6 +12,8 @@ tween                   Create simple tweens
 tween_along             Interpolate data along a given dimension
 tween_appear            Tween a data.frame of appearances
 tween_at                Get a specific position between two states
+tween_at_t              Get several specific position between two
+                        states
 tween_components        Interpolate individual component
 tween_elements          Create frames based on individual element
                         states

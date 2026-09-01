@@ -1,0 +1,7 @@
+exceedance	test_functions
+ghalton	qrng
+korobov	qrng
+sobol	qrng
+sobol_g	test_functions
+sum_of_squares	test_functions
+to_array	to_array

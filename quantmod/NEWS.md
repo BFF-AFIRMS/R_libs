@@ -1,3 +1,113 @@
+### Changes in 0.4.29 (2026-06-14)
+
+1. Add `api.key` argument to `getSymbols.FRED()` and nudge users to register
+    for one if they do not provide an `api.key`. Thanks to Rob Schumaker
+    (@robschumaker) for the report.
+    [#453](https://github.com/joshuaulrich/quantmod/issues/453)
+
+1. Improve `chartSeries()` error message when 'x' has no observations. Thanks
+    to Doug Edmunds (@dougedmunds) for the suggestion.
+    [#442](https://github.com/joshuaulrich/quantmod/issues/442#event-19043440242)
+
+### Changes in 0.4.28 (2025-06-18)
+
+1. Fix FRED URL. Thanks to Nicole Mirea (@nimirea) for the report!
+    [#439](https://github.com/joshuaulrich/quantmod/issues/439)
+
+1. Thanks to Michael Chirico for a couple PRs to handle some minor edge cases.
+    [#436](https://github.com/joshuaulrich/quantmod/pull/436)
+    [#437](https://github.com/joshuaulrich/quantmod/pull/437)
+
+1. Replace "YHOO" with "AAPL" where it is used in documentation, especially
+    in examples. Thanks to @dougedmunds for the report!
+    [#435](https://github.com/joshuaulrich/quantmod/issues/435)
+
+1. Update `getSymbols.csv()` documentation to note that you have to set the
+    `format` argument if the date in the CSV is not in a standard format.
+    Thanks to @reddogg24 for the report that led to this change.
+    [#428](https://github.com/joshuaulrich/quantmod/issues/428)
+
+### Changes in 0.4.27 (2025-04-06)
+
+1. Reduce `getQuote()` batch size from 199 to 99. Yahoo started to throw an
+    error for requests of 100 or more symbols at a time. Thanks to @zlfang00
+    for the report and Ethan B. Smith for the patch!
+    [#432](https://github.com/joshuaulrich/quantmod/issues/432)
+    [#433](https://github.com/joshuaulrich/quantmod/pull/433)
+
+1. Follow best practices by removing the encosing '{}' in
+    `setGeneric("fittedModel<-", ...)`. Thanks to Michael Chirico for the PR!
+    [#431](https://github.com/joshuaulrich/quantmod/pull/431)
+
+1. Improve detection of ambiguous 'OHLCVA' colnames in all extractor functions
+    (e.g. `Cl()`, `OHLC()`). This is especially important for `Lo()` because
+    `quantmod::getSymbols("LOW")` returns an object where every column name
+    contains the pattern "LOW.". Another example is `TTR::stoch()`, which
+    returns a column named "slowD". Thanks to Ethan B. Smith for the patch!
+    [#24](https://github.com/joshuaulrich/quantmod/issues/24)
+    [#305](https://github.com/joshuaulrich/quantmod/pull/305)
+    [#306](https://github.com/joshuaulrich/quantmod/pull/306)
+    [#426](https://github.com/joshuaulrich/quantmod/pull/426)
+
+1. Continue steps to remove `quantmod:::as.zoo.data.frame()` by throwing a
+    warning every time `quantmod::as.zoo.data.frame()` is called. Previously
+    a message was printed the first time the function was called.
+    [#414](https://github.com/joshuaulrich/quantmod/pull/414)
+
+1. Add `ClOp()` function to calculate the return between Close[t-1] and Open[t].
+    Thanks to Gabriel Kaiser (@GabrielKaiserQFin) for the contribution!
+    [#412](https://github.com/joshuaulrich/quantmod/pull/412)
+
+### Changes in 0.4.26 (2024-02-14)
+
+1. Fix `chart_Series()` when 'TA' is a vector. Thanks to @comintel for the
+    report.
+    [#403](https://github.com/joshuaulrich/quantmod/issues/403)
+
+1. Fix `getOptionChain.yahoo()` by using the Yahoo Finance 'crumb' like we
+    do in `getSymbols()` and `getQuote()`. Thanks to @cotyreh for the report.
+    [#407](https://github.com/joshuaulrich/quantmod/issues/407)
+
+### Changes in 0.4.25 (2023-08-21)
+
+1. Fix `getQuote.yahoo()` for API changes. Thanks to Ethan B. Smith for the
+    report and patch! Also add error message for users in GDPR countries, since
+    we cannot automatically consent to GDPR and the request fails without
+    consent.
+    [#392](https://github.com/joshuaulrich/quantmod/issues/392)
+    [#393](https://github.com/joshuaulrich/quantmod/issues/393)
+    [#395](https://github.com/joshuaulrich/quantmod/issues/395)
+
+1. Fix `getQuote.yahoo()` when the user only requested metrics that do not have
+    have a value for 'regularMarketTime'. Set the value to NA in these cases
+    so the output remains the same regardless of whether the endpoint returns
+    a 'regularMarketTime' or not. Thanks to @mehdiMBH for the report!
+    [#255](https://github.com/joshuaulrich/quantmod/issues/255)
+
+1. Add fields to `getQuote.yahoo()` that are returned when no fields are
+    explicitly requested. Thanks to @Courvoisier13 for the report!
+    [#335](https://github.com/joshuaulrich/quantmod/issues/335)
+
+1. Add intraday endpoint to `getSymbols.yahoo()`. Thanks to @kapsner for the
+    report and patch! Also allow suppressing the warning if more than 7 days
+    of data are requested (@eddelbuettel).
+    [#351](https://github.com/joshuaulrich/quantmod/issues/351)
+    [#381](https://github.com/joshuaulrich/quantmod/issues/381)
+    [#399](https://github.com/joshuaulrich/quantmod/issues/399)
+
+1. Add warning if `getSymbols()` is called with tickers that are reserved words
+    because accessing them requires back-quotes (e.g. ``NA``).
+    [#401](https://github.com/joshuaulrich/quantmod/issues/401)
+
+1. Fix `allReturns()` when 'subset' is specified. Thanks to @Panagis1980 for
+    the report!
+    [#402](https://github.com/joshuaulrich/quantmod/issues/402)
+
+### Changes in 0.4.24 (2023-07-17)
+
+1. Fix `getSymbols.oanda()` URL. Thanks to @macray76 for the report.
+    [#387](https://github.com/joshuaulrich/quantmod/issues/387)
+
 ### Changes in 0.4.23 (2023-06-14)
 
 1. Fix `getQuote.yahoo()` error. Thanks to Ethan B. Smith for the report and
@@ -39,7 +149,9 @@
     The example below will create an object named `IXIC` but the value of
     `sym` will be "^IXIC".
 
-        sym <- getSymbols("^IXIC")
+    ```r
+    sym <- getSymbols("^IXIC")
+    ```
 
     That means `x <- get(sym)` will not work because an object named `^IXIC`
     doesn't exist.

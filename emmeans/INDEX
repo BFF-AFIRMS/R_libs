@@ -5,8 +5,8 @@ cld.emmGrid             Compact letter displays
 comb_facs               Manipulate factors in a reference grid
 contrast                Contrasts and linear functions of EMMs
 contrast-methods        Contrast families
-eff_size                Calculate effect sizes and confidence bounds
-                        thereof
+eff_size                Calculate Cohen effect sizes and confidence
+                        bounds thereof
 emm                     Support for 'multcomp::glht'
 emm_example             Run or list additional examples
 emm_list                The 'emm_list' class
@@ -29,6 +29,7 @@ make.tran               Response-transformation extensions
 MOats                   Oats data in multivariate form
 models                  Models supported in 'emmeans'
 mvcontrast              Multivariate contrasts
+mvregrid                Multivariate regridding
 neuralgia               Neuralgia data
 nutrition               Nutrition data
 oranges                 Sales of oranges
@@ -46,5 +47,6 @@ str.emmGrid             Miscellaneous methods for 'emmGrid' objects
 summary.emmGrid         Summaries, predictions, intervals, and tests
                         for 'emmGrid' objects
 ubds                    Unbalanced dataset
+untidy                  Dare to be un-"tidy"!
 update.emmGrid          Update an 'emmGrid' object
 xtable.emmGrid          Using 'xtable' for EMMs

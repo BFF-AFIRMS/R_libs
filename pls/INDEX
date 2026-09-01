@@ -6,6 +6,7 @@ coefplot                Plot Regression Coefficients of PLSR and PCR
 cppls.fit               CPPLS (Indahl et al.)
 crossval                Cross-validation of PLSR and PCR models
 cvsegments              Generate segments for cross-validation
+fac2seg                 Factor to Segments
 gasoline                Octane numbers and NIR spectra of gasoline
 jack.test               Jackknife approximate t tests of regression
                         coefficients
@@ -16,11 +17,11 @@ mvr                     Partial Least Squares and Principal Component
                         Regression
 mvrCv                   Cross-validation
 mvrVal                  MSEP, RMSEP and R2 of PLSR and PCR models
+nipals.fit              NIPALS PLS with missing values
+nipalspc.fit            NIPALS PCR with missing values
 oliveoil                Sensory and physico-chemical data of olive oils
 oscorespls.fit          Orthogonal scores PLSR
 plot.mvr                Plot Method for MVR objects
-pls                     Partial Least Squares and Principal Component
-                        Regression
 pls.options             Set or return options for the pls package
 predict.mvr             Predict Method for PLSR and PCR
 predplot                Prediction Plots

@@ -1,3 +1,19 @@
+## rncl 0.8.10
+
+* fix `-Wstringop-overflow` warning reported by CRAN's gcc-SAN checks, by
+  constructing the `std::string` base of `NxsString` directly rather than
+  assigning to it after default construction.
+* initialize the scratch members of `NxsCharacterPattern` to fix a
+  `-Wmaybe-uninitialized` warning seen with GCC 14 on Windows.
+  
+## rncl 0.8.9
+
+* bring latest changes from NCL so it compiles with c++20 standard (PR #23, changes from mtholder/ncl#33)
+
+## rncl 0.8.8
+
+* Maintenance release that removes unneeded call to deprecated function in Rcpp (PR [#21](https://github.com/fmichonneau/rncl/pull/21) by @eddelbuettel), and formatting issue in documentation (#22 by @eddelbuettel).
+
 ## rncl 0.8.7
 
 * Maintenance release that fixes warnings on CRAN checks related to

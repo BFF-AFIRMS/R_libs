@@ -1,11 +1,78 @@
+# purrr 1.2.2
+
+* Fixes for CRAN checks (@ErdaradunGaztea, #1256).
+
+# purrr 1.2.1
+
+* Tweaks for compatibility with upcoming vctrs 0.7.0.
+
+# purrr 1.2.0
+
+## Breaking changes
+
+* All functions and arguments deprecated in purrr 0.3.0 have now been removed. This includes `%@%`, `accumulate_right()`, `at_depth()`, `cross_d()`, `cross_n()`, `reduce2_right()`, and `reduce_right()`.
+
+* All functions that were soft-deprecated in purrr 1.0.0 are now fully deprecated. They will be removed in a future release. This includes: `invoke_*()`, `lift_*()`, `cross*()`, `prepend()`, `splice()`, `rbernoulli()`, `rdunif()`, `when()`, `update_list()`, `*_raw()`, `vec_depth()`.
+
+* `map_chr()` no longer  from logical, integer, or double to strings.
+
+* `every()`, `some()`, and `none()` now require that `.p` return logical scalar `TRUE`, `FALSE`, or `NA`. Previously, `NA` was allowed to be a non-logical `NA`, and would be coerced to a logical `NA`.
+
+## Minor improvements and bug fixes
+
+* New "getting started" vignette, `vignette("purrr")` (#915, @ogolovkina).
+
+* `every()`, `some()`, and `none()` are now more performant. They are now as fast as or faster than their equivalent `any(map_lgl())` or `all(map_lgl())` calls (#1036, @ErdaradunGaztea).
+
+* `as_mapper.default()` optimized by removing special named argument handling for primitive functions (@mtcarsalot, #1088).
+
+* `list_flatten()` gains an `is_node` parameter taking a predicate function that determines whether an input element is a node or a leaf (@salim-b, #1179).
+
+* `in_parallel()` now accepts objects, including helper functions, supplied to `...` for all locally-defined functions (#1208).
+
+* `in_parallel()` now works in conjunction with string and list values supplied to the `.progress` argument of map functions (#1203).
+
+* `map()`, `map2()`, and `pmap()` now automatically set the correct environment so that `format` strings to access to local variables (@jcolt45, #1078).
+
+* `map_vec()` no longer fails on empty named lists (#1206).
+
+# purrr 1.1.0
+
+* purrr now requires R >= 4.1, so we can rely on the base pipe and lambda
+  syntax (#1177).
+
+* purrr gains `in_parallel()` to support parallel and distributed maps, powered
+  by {mirai}. See `?in_parallel` for more details (@shikokuchuo, #1163, #1185).
+
+# purrr 1.0.4
+
+# purrr 1.0.3
+
+* Varies fixed to bring purrr back into compliance with R CMD check (@shikokuchuo, @jayhesselberth).
+
+* Added missing `imap_vec()` (#1084)
+
+* `list_transpose()` now asserts that it does not work on data frames
+  (@KimLopezGuell, #1141, #1149), and inspects all elements to determine
+  the correct template if not provided by the user  (#1128, @krlmlr).
+
+# purrr 1.0.2
+
+* Fixed valgrind issue.
+
+* Deprecation infrastructure in `map_chr()` now has much less overhead
+  leading to improved performance (#1089).
+
+* purrr now requires R 3.5.0.
+
 # purrr 1.0.1
 
 * As of purrr 1.0.0, the `map()` family of functions wraps all errors generated
-  by `.f` inside an wrapper error that tracks the iteration index. As of purrr 
-  1.0.1, this error now has a custom class (`purrr_error_indexed`), 
+  by `.f` inside an wrapper error that tracks the iteration index. As of purrr
+  1.0.1, this error now has a custom class (`purrr_error_indexed`),
   `location` and `name` fields, and is documented in `?purrr_error_indexed`
   (#1027).
-  
+
 * `map()` errors with named inputs also report the name of the element that
   errored.
 
@@ -28,19 +95,19 @@
   See #768 for more information.
 
 * `update_list()` (#858) and `rerun()` (#877), and the use of tidyselect
-  with `map_at()` and friends (#874) have been deprecated. These functions 
-  use some form of non-standard evaluation which we now believe is a poor 
+  with `map_at()` and friends (#874) have been deprecated. These functions
+  use some form of non-standard evaluation which we now believe is a poor
   fit for purrr.
 
 * The `lift_*` family of functions has been deprecated. We no longer believe
-  these to be a good fit for purrr because they rely on a style of function 
+  these to be a good fit for purrr because they rely on a style of function
   manipulation that is very uncommon in R code (#871).
 
-* `prepend()`, `rdunif()`, `rbernoulli()`, `when()`, and `list_along()` have 
+* `prepend()`, `rdunif()`, `rbernoulli()`, `when()`, and `list_along()` have
   all been deprecated (#925). It's now clear that they don't align with the
   core purpose of purrr.
 
-* `splice()` is deprecated because we no longer believe that automatic 
+* `splice()` is deprecated because we no longer believe that automatic
   splicing makes for good UI. Instead use `list2()` + `!!!` or
   `list_flatten()` (#869).
 
@@ -49,33 +116,33 @@
 * Use of map functions with expressions, calls, and pairlists has been
   deprecated (#961).
 
-* All map `_raw()` variants have been deprecated because they are of limited 
+* All map `_raw()` variants have been deprecated because they are of limited
   use and you can now use `map_vec()` instead (#903).
 
 * In `map_chr()`, automatic conversion from logical, integer, and double to
-  character is now deprecated. Use an explicit `as.character()` if needed 
+  character is now deprecated. Use an explicit `as.character()` if needed
   (#904).
 
-* Errors from `.f` are now wrapped in an additional class that gives 
+* Errors from `.f` are now wrapped in an additional class that gives
   information about where the error occurred (#945).
 
 ### Deprecation next steps
 
-* `as_function()` and the `...f` argument to `partial()` are no longer 
+* `as_function()` and the `...f` argument to `partial()` are no longer
   supported. They have been defunct for quite some time.
 
 * Soft deprecated functions: `%@%`, `reduce_right()`, `reduce2_right()`,
-  `accumulate_right()` are now fully deprecated. Similarly, the 
+  `accumulate_right()` are now fully deprecated. Similarly, the
   `.lazy`, `.env`, and `.first` arguments to `partial()`,
-  and the `.right` argument to `detect()` and `detect_index()` 
+  and the `.right` argument to `detect()` and `detect_index()`
   are fully deprecated. Removing elements with `NULL` in `list_modify()` and
   `list_merge()` is now fully deprecated.
 
 * `is_numeric()` and `is_scalar_numeric()` have been removed. They have
   been deprecated since purrr 0.2.3 (Sep 2017).
 
-* `invoke_*()` is now deprecated. It was superseded in 0.3.0 (Jan 2019) and 
-  3.5 years later, we have decided to deprecate it as part of the API 
+* `invoke_*()` is now deprecated. It was superseded in 0.3.0 (Jan 2019) and
+  3.5 years later, we have decided to deprecate it as part of the API
   refinement in the 1.0.0 release.
 
 * `map_call()` has been removed. It was made defunct in 0.3.0 (Jan 2019).
@@ -103,8 +170,8 @@
   (#894).
 
 * purrr now uses the base pipe (`|>`) and anonymous function short hand (`\(x)`),
-  in all examples. This means that examples will no longer work in R 4.0 and 
-  earlier so in those versions of R, the examples are automatically converted 
+  in all examples. This means that examples will no longer work in R 4.0 and
+  earlier so in those versions of R, the examples are automatically converted
   to a regular section with a note that they might not work (#936).
 
 * When map functions fail, they now report the element they failed at (#945).
@@ -122,17 +189,17 @@
 * New `list_transpose()` which automatically simplifies if possible (#875).
 
 * `accumulate()` and `accumulate2()` now both simplify the output if possible
-  using vctrs. New arguments `simplify` and `ptype` allow you to control the 
+  using vctrs. New arguments `simplify` and `ptype` allow you to control the
   details of simplification (#774, #809).
 
-* `flatten()` and friends are superseded in favour of `list_flatten()`, 
+* `flatten()` and friends are superseded in favour of `list_flatten()`,
   `list_c()`, `list_cbind()`, and `list_rbind()`.
 
-* `*_dfc()` and `*_dfr()` have been superseded in favour of using the 
+* `*_dfc()` and `*_dfr()` have been superseded in favour of using the
   appropriate map function along with `list_rbind()` or `list_cbind()` (#912).
 
 * `simplify()`, `simplify_all()`, and `as_vector()` have been superseded in
-  favour of `list_simplify()`. It provides a more consistent definition of 
+  favour of `list_simplify()`. It provides a more consistent definition of
   simplification (#900).
 
 * `transpose()` has been superseded in favour of `list_transpose()` (#875).
@@ -142,16 +209,16 @@
 
 * `_lgl()`, `_int()`, `_int()`, and `_dbl()` now use the same (strict) coercion
   methods as vctrs (#904). This means that:
-  
-    * `map_chr(TRUE, identity)`, `map_chr(0L, identity)`, and 
-      `map_chr(1L, identity)` are deprecated because we now believe that 
-      converting a logical/integer/double to a character vector should require 
+
+    * `map_chr(TRUE, identity)`, `map_chr(0L, identity)`, and
+      `map_chr(1L, identity)` are deprecated because we now believe that
+      converting a logical/integer/double to a character vector should require
       an explicit coercion.
-      
-    * `map_int(1.5, identity)` now fails because we believe that silently 
-      truncating doubles to integers is dangerous. But note that 
+
+    * `map_int(1.5, identity)` now fails because we believe that silently
+      truncating doubles to integers is dangerous. But note that
       `map_int(1, identity)` still works since no numeric precision is lost.
-      
+
     * `map_int(c(TRUE, FALSE), identity)`, `map_dbl(c(TRUE, FALSE), identity)`,
       `map_lgl(c(1L, 0L), identity)` and `map_lgl(c(1, 0), identity)` now
       succeed because 1/TRUE and 0/FALSE should be interchangeable.
@@ -172,7 +239,7 @@
 * `vec_depth()` is now `pluck_depth()` and works with more types of input
   (#818).
 
-* `pluck()` now requires indices to be length 1 (#813). It also now reports 
+* `pluck()` now requires indices to be length 1 (#813). It also now reports
   the correct type if you supply an unexpected index.
 
 * `pluck()` now accepts negative integers, indexing from the right (#603).
@@ -195,12 +262,12 @@
 * `list_modify()`'s interface has been standardised. Modifying with `NULL`
   now always creates a `NULL` in the output (#810)
 
-### `list_` functions`
+### `list_` functions
 
 * New `list_assign()` which is similar to `list_modify()` but doesn't work
   recursively (#822).
 
-* `list_modify()` no longer recurses into data frames (and other objects built 
+* `list_modify()` no longer recurses into data frames (and other objects built
   on top of lists that are fundamentally non-list like) (#810). You can
   revert to the previous behaviour by setting `.is_node = is.list`.
 
@@ -214,8 +281,8 @@
 * `modify_depth()` is no longer a generic. This makes it more consistent
   with `map_depth()`.
 
-* `map_depth()` and `modify_depth()` have a new `is_node` argument that 
-  allows you to control what counts as a level. The default uses 
+* `map_depth()` and `modify_depth()` have a new `is_node` argument that
+  allows you to control what counts as a level. The default uses
   `vec_is_list()` to avoid recursing into rich S3 objects like linear models
   or data.frames (#958, #920).
 
@@ -226,9 +293,9 @@
 
 * `possibly()` now defaults `otherwise` to NULL.
 
-* `modify_if(.else)` is now actually evaluated for atomic vectors (@mgirlich, 
+* `modify_if(.else)` is now actually evaluated for atomic vectors (@mgirlich,
   #701).
-   
+
 * `lmap_if()` correctly handles `.else` functions (#847).
 
 * `every()` now correctly propagates missing values using the same
@@ -610,7 +677,7 @@ The interface of `partial()` has been simplified (see more about
 
 `invoke()` and `invoke_map()` are retired in favour of `exec()`. Note
 that retired functions are no longer under active development, but
-continue to be maintained undefinitely in the package.
+continue to be maintained indefinitely in the package.
 
 * `invoke()` is retired in favour of the `exec()` function, reexported
   from rlang. `exec()` evaluates a function call built from its inputs
@@ -625,7 +692,7 @@ continue to be maintained undefinitely in the package.
   ```
 
   Note that retired functions are not removed from the package and
-  will be maintained undefinitely.
+  will be maintained indefinitely.
 
 * `invoke_map()` is retired without replacement because it is more
   complex to understand than the corresponding code using `map()`,
@@ -733,13 +800,13 @@ accessor(x[[1]])$foo
 to the equivalent pluck:
 
 ```
-x %>% pluck(1, accessor, "foo")
+x |> pluck(1, accessor, "foo")
 ```
 
 
 ## Map helpers
 
-* `as_function()` is now `as_mapper()` because it is a tranformation that
+* `as_function()` is now `as_mapper()` because it is a transformation that
   makes sense primarily for mapping functions, not in general (#298).
   `.null` has been renamed to `.default` to better reflect its intent (#298).
   `.default` is returned whenever an element is absent or empty (#231, #254).
@@ -841,7 +908,7 @@ of `[<-`.  `modify.default()` is thus a shorthand for `x[] <- map(x, f)`.
 * `every()` and `some()` now return `NA` if present in the input (#174).
 
 * `invoke()` uses a more robust approach to generate the argument list (#249)
-  It no longer uses lazyeval to figure out which enviroment a character `f`
+  It no longer uses lazyeval to figure out which environment a character `f`
   comes from.
 
 * `is_numeric()` and `is_scalar_numeric()` are deprecated because they
@@ -858,7 +925,7 @@ of `[<-`.  `modify.default()` is thus a shorthand for `x[] <- map(x, f)`.
 
 * `rdunif()` checks its inputs for validity (#211).
 
-* `set_names()` can now take a function to tranform the names programmatically
+* `set_names()` can now take a function to transform the names programmatically
   (#276), and you can supply names in `...` to reduce typing even more
   more (#316). `set_names()` is now powered by `rlang::set_names()`.
 
@@ -880,7 +947,7 @@ This is a compatibility release with dplyr 0.6.0.
   functions and idioms in the tidyverse. `dmap()`, `dmap_at()`,
   `dmap_if()`, `invoke_rows()`, `slice_rows()`, `map_rows()`,
   `by_slice()`, `by_row()`, and `unslice()` have been moved to
-  purrrlyr. This is a bit of an aggresive change but it allows us to
+  purrrlyr. This is a bit of an aggressive change but it allows us to
   make the dependencies much lighter.
 
 
@@ -918,7 +985,7 @@ This is a compatibility release with dplyr 0.6.0.
     * `x %||% y` is shorthand for `if (is.null(x)) y else x` (#109).
     * `x %@% "a"` is shorthand for `attr(x, "a", exact = TRUE)` (#69).
 
-* `accumulate()` has been added to handle recursive folding. It is shortand
+* `accumulate()` has been added to handle recursive folding. It is shorthand
   for `Reduce(f, .x, accumulate = TRUE)` and follows a similar syntax to
   `reduce()` (#145). A right-hand version `accumulate_right()` was also added.
 
@@ -957,7 +1024,7 @@ This is a compatibility release with dplyr 0.6.0.
 
 * `set_names()` is a snake-case alternative to `setNames()` with stricter
   equality checking, and more convenient defaults for pipes:
-  `x %>% set_names()` is equivalent to `setNames(x, x)` (#119).
+  `x |> set_names()` is equivalent to `setNames(x, x)` (#119).
 
 
 ## Row based functionals
@@ -969,7 +1036,7 @@ functions.
 * `map()` now always returns a list. Data frame support has been moved
   to `map_df()` and `dmap()`. The latter supports sliced data frames
   as a shortcut for the combination of `by_slice()` and `dmap()`:
-  `x %>% by_slice(dmap, fun, .collate = "rows")`. The conditional
+  `x |> by_slice(dmap, fun, .collate = "rows")`. The conditional
   variants `dmap_at()` and `dmap_if()` also support sliced data frames
   and will recycle scalar results to the slice size.
 
@@ -993,7 +1060,7 @@ functions.
 * `update_list()` can now modify an element called `x` (#98).
 
 * `map*()` now use custom C code, rather than relying on `lapply()`, `mapply()`
-  etc. The performance characteristcs are very similar, but it allows us greater
+  etc. The performance characteristics are very similar, but it allows us greater
   control over the output (#118).
 
 * `map_lgl()` now has second argument `.f`, not `.p` (#134).

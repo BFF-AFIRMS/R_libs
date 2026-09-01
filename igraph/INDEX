@@ -9,6 +9,13 @@ add_layout_             Add layout to graph
 add_vertices            Add vertices to a graph
 adjacent_vertices       Adjacent vertices of multiple vertices in a
                         graph
+align_layout            Align a vertex layout This function centers a
+                        vertex layout on the coordinate system origin
+                        and rotates the layout to achieve a visually
+                        pleasing alignment with the coordinate axes.
+                        Doing this is particularly useful with
+                        force-directed layouts such as
+                        'layout_with_fr()'.
 all_simple_paths        List all simple paths from one source
 alpha_centrality        Find Bonacich alpha centrality scores of
                         network positions
@@ -17,26 +24,29 @@ arpack_defaults         ARPACK eigenvector calculation
 articulation_points     Articulation points and bridges of a graph
 as_adj_list             Adjacency lists
 as_adjacency_matrix     Convert a graph to an adjacency matrix
+as_biadjacency_matrix   Bipartite adjacency matrix of a bipartite graph
 as_data_frame           Creating igraph graphs from data frames or
                         vice-versa
+as_directed             Convert between directed and undirected graphs
 as_edgelist             Convert a graph to an edge list
 as_graphnel             Convert igraph graphs to graphNEL objects from
                         the graph package
 as_ids                  Convert a vertex or edge sequence to an
                         ordinary vector
-as_incidence_matrix     Incidence matrix of a bipartite graph
 as_long_data_frame      Convert a graph to a long data frame
 as_membership           Declare a numeric vector as a membership vector
-as.directed             Convert between directed and undirected graphs
 as.igraph               Conversion to igraph
 as.matrix.igraph        Convert igraph objects to adjacency or edge
                         list matrices
 assortativity           Assortativity coefficient
+authority_score         Kleinberg's authority centrality scores.
 automorphism_group      Generating set of the automorphism group of a
                         graph
+betweenness             Vertex and edge betweenness centrality
 bfs                     Breadth-first search
 biconnected_components
                         Biconnected components
+bipartite_gnm           Bipartite random graphs
 bipartite_mapping       Decide whether a graph is bipartite
 bipartite_projection    Project a bipartite graph
 c.igraph.es             Concatenate edge sequences
@@ -56,7 +66,7 @@ centr_degree            Centralize a graph according to the degrees of
 centr_degree_tmax       Theoretical maximum for degree centralization
 centr_eigen             Centralize a graph according to the eigenvector
                         centrality of vertices
-centr_eigen_tmax        Theoretical maximum for betweenness
+centr_eigen_tmax        Theoretical maximum for eigenvector
                         centralization
 centralize              Centralization of a graph
 cliques                 Functions to find cliques, i.e. complete
@@ -104,6 +114,7 @@ count_automorphisms     Number of automorphisms
 count_isomorphisms      Count the number of isomorphic mappings between
                         two graphs
 count_motifs            Graph motifs
+count_reachable         Count reachable vertices
 count_subgraph_isomorphisms
                         Count the isomorphic mappings between a graph
                         and the subgraphs of another graph
@@ -141,19 +152,19 @@ edge_attr_names         List names of edge attributes
 edge_attr<-             Set one or more edge attributes
 edge_connectivity       Edge connectivity
 edge_density            Graph density
-eigen_centrality        Find Eigenvector Centrality Scores of Network
-                        Positions
+eigen_centrality        Eigenvector centrality of vertices
 embed_adjacency_matrix
                         Spectral Embedding of Adjacency Matrices
 embed_laplacian_matrix
                         Spectral Embedding of the Laplacian of a Graph
 ends                    Incident vertices of some graph edges
-estimate_betweenness    Vertex and edge betweenness centrality
 feedback_arc_set        Finding a feedback arc set in a graph
+feedback_vertex_set     Finding a feedback vertex set in a graph
+find_cycle              Finds a cycle in a graph, if there is one
 fit_hrg                 Fit a hierarchical random graph model
 fit_power_law           Fitting a power-law distribution function to
                         discrete data
-get.edge.ids            Find the edge ids based on the incident
+get_edge_ids            Find the edge ids based on the incident
                         vertices of the edges
 girth                   Girth of a graph
 global_efficiency       Efficiency of a graph
@@ -162,17 +173,18 @@ graph_                  Convert object to a graph
 graph_attr              Graph attributes of a graph
 graph_attr_names        List names of graph attributes
 graph_attr<-            Set all or some graph attributes
+graph_center            Central vertices of a graph
 graph_from_adj_list     Create graphs from adjacency lists
 graph_from_adjacency_matrix
                         Create graphs from adjacency matrices
 graph_from_atlas        Create a graph from the Graph Atlas
+graph_from_biadjacency_matrix
+                        Create graphs from a bipartite adjacency matrix
 graph_from_edgelist     Create a graph from an edge list matrix
 graph_from_graphdb      Load a graph from the graph database for
                         testing graph isomorphism.
 graph_from_graphnel     Convert graphNEL objects from the graph package
                         to igraph
-graph_from_incidence_matrix
-                        Create graphs from an incidence matrix
 graph_from_isomorphism_class
                         Create a graph from an isomorphism class
 graph_from_lcf          Creating a graph from LCF notation
@@ -188,18 +200,15 @@ harmonic_centrality     Harmonic centrality of vertices
 has_eulerian_path       Find Eulerian paths or cycles in a graph
 head_of                 Head of the edge(s) in a graph
 head_print              Print the only the head of an R object
+hits_scores             Kleinberg's hub and authority centrality
+                        scores.
 hrg                     Create a hierarchical random graph from an
                         igraph graph
 hrg_tree                Create an igraph graph from a hierarchical
                         random graph model
 hrg-methods             Hierarchical random graphs
-hub_score               Kleinberg's hub and authority centrality
-                        scores.
 identical_graphs        Decide if two graphs are identical
-igraph_demo             Run igraph demos, step by step
 igraph_options          Parameters for the igraph package
-igraph_test             Run package tests
-igraph_version          Query igraph's version string
 igraph-attribute-combination
                         How igraph functions handle attributes when the
                         graph changes
@@ -213,7 +222,6 @@ igraph-vs-attributes    Query or set attributes of the vertices in a
                         vertex sequence
 igraph-vs-indexing      Indexing vertex sequences
 igraph-vs-indexing2     Select vertices and show their metadata
-igraph.plotting         Drawing graphs
 incident                Incident edges of a vertex in a graph
 incident_edges          Incident edges of multiple vertices in a graph
 indent_print            Indent a printout
@@ -223,19 +231,26 @@ intersection.igraph.es
                         Intersection of edge sequences
 intersection.igraph.vs
                         Intersection of vertex sequences
-is_bipartite            Create a bipartite graph
+invalidate_cache        Invalidate the cache of a graph
+is_acyclic              Acyclic graphs
+is_biconnected          Check biconnectedness
+is_bipartite            Checks whether the graph has a vertex attribute
+                        called 'type'.
 is_chordal              Chordality of a graph
+is_complete             Is this a complete graph?
 is_dag                  Directed acyclic graphs
 is_degseq               Check if a degree sequence is valid for a
                         multi-graph
 is_directed             Check whether a graph is directed
+is_forest               Decide whether a graph is a forest.
 is_graphical            Is a degree sequence graphical?
 is_igraph               Is this object an igraph graph?
 is_matching             Matching
 is_min_separator        Minimal vertex separators
 is_named                Named graphs
 is_printer_callback     Is this a printer callback?
-is_separator            Vertex separators
+is_separator            Check whether removing this set of vertices
+                        would disconnect the graph.
 is_tree                 Decide whether a graph is a tree.
 is_weighted             Weighted graphs
 isomorphic              Decide if two graphs are isomorphic
@@ -243,6 +258,7 @@ isomorphism_class       Isomorphism class of a graph
 isomorphisms            Calculate all isomorphic mappings between the
                         vertices of two graphs
 ivs                     Independent vertex sets
+k_shortest_paths        Find the k shortest paths between two vertices
 keeping_degseq          Graph rewiring while preserving the degree
                         distribution
 knn                     Average nearest neighbor degree
@@ -253,8 +269,10 @@ layout_as_star          Generate coordinates to place the vertices of a
                         graph in a star-shape
 layout_as_tree          The Reingold-Tilford graph layout algorithm
 layout_in_circle        Graph layout with vertices on a circle.
+layout_modifier         Create a layout modifier
 layout_nicely           Choose an appropriate graph layout algorithm
                         automatically
+layout_on_grid          Simple grid layout
 layout_on_sphere        Graph layout with vertices on the surface of a
                         sphere
 layout_randomly         Randomly place vertices on a plane or in 3d
@@ -268,16 +286,11 @@ layout_with_kk          The Kamada-Kawai layout algorithm
 layout_with_lgl         Large Graph Layout
 layout_with_mds         Graph layout by multidimensional scaling
 layout_with_sugiyama    The Sugiyama graph layout generator
-layout.fruchterman.reingold.grid
-                        Grid Fruchterman-Reingold layout, this was
-                        removed from igraph
-layout.reingold.tilford
-                        Deprecated layout functions
-layout.spring           Spring layout, this was removed from igraph
-layout.svd              SVD layout, this was removed from igraph
 local_scan              Compute local scan statistics on graphs
 make_                   Make a new graph
+make_bipartite_graph    Create a bipartite graph
 make_chordal_ring       Create an extended chordal ring graph
+make_circulant          Create a circulant graph
 make_clusters           Creates a communities object.
 make_de_bruijn_graph    De Bruijn graphs
 make_empty_graph        A graph with no edges
@@ -288,6 +301,8 @@ make_full_bipartite_graph
 make_full_citation_graph
                         Create a complete (full) citation graph
 make_full_graph         Create a full graph
+make_full_multipartite
+                        Create a full multipartite graph
 make_graph              Create an igraph graph from a list of edges, or
                         a notable graph
 make_kautz_graph        Kautz graphs
@@ -297,6 +312,8 @@ make_ring               Create a ring graph
 make_star               Create a star graph, a tree with n vertices and
                         n - 1 leaves
 make_tree               Create tree graphs
+make_turan              Create a Turán graph
+make_wheel              Create a wheel graph
 match_vertices          Match Graphs given a seeding of vertex
                         correspondences
 max_cardinality         Maximum cardinality search
@@ -320,6 +337,7 @@ permute                 Permute the vertices of a graph
 plot_dendrogram         Community structure dendrogram plots
 plot_dendrogram.igraphHRG
                         HRG dendrogram plot
+plot.common             Drawing graphs
 plot.igraph             Plotting of graphs
 plot.sir                Plotting the results on multiple SIR model runs
 power_centrality        Find Bonacich Power Centrality Scores of
@@ -335,11 +353,13 @@ print.igraphHRGConsensus
                         Print a hierarchical random graph consensus
                         tree to the screen
 printer_callback        Create a printer callback function
-printr                  Better printing of R packages
 r_pal                   The default R palette
 radius                  Radius of a graph
 random_walk             Random walk on a graph
 read_graph              Reading foreign file formats
+realize_bipartite_degseq
+                        Creating a bipartite graph from two degree
+                        sequences, deterministically
 realize_degseq          Creating a graph from a given degree sequence,
                         deterministically
 reciprocity             Reciprocity of graphs
@@ -352,6 +372,7 @@ rglplot                 3D plotting of graphs with OpenGL
 running_mean            Running mean of a time series
 sample_                 Sample from a random graph model
 sample_bipartite        Bipartite random graphs
+sample_chung_lu         Random graph with given expected degrees
 sample_correlated_gnp   Generate a new random graph from a given graph
                         by randomly adding/removing edges
 sample_correlated_gnp_pair
@@ -399,20 +420,15 @@ sample_traits_callaway
                         types
 sample_tree             Sample trees randomly and uniformly
 scan_stat               Scan statistics on a time series of graphs
-scg                     All-in-one Function for the SCG of Matrices and
-                        Graphs
-scg_eps                 Error of the spectral coarse graining (SCG)
-                        approximation
-scg_group               SCG Problem Solver
-scg_semi_proj           Semi-Projectors
-scg-method              Spectral Coarse Graining
 sequential_pal          Sequential palette
 set_edge_attr           Set edge attributes
 set_graph_attr          Set a graph attribute
 set_vertex_attr         Set vertex attributes
+set_vertex_attrs        Set multiple vertex attributes
 shapes                  Various vertex shapes when plotting igraph
                         graphs
 similarity              Similarity measures of two vertices
+simple_cycles           Finds all simple cycles in a graph.
 simplified              Constructor modifier to drop multiple and loop
                         edges
 simplify                Simple graphs
@@ -432,11 +448,11 @@ subgraph_isomorphic     Decide if a graph is subgraph isomorphic to
 subgraph_isomorphisms   All isomorphic mappings between a graph and
                         subgraphs of another graph
 tail_of                 Tails of the edge(s) in a graph
-time_bins.sir           SIR model on graphs
-tkigraph                Experimental basic igraph GUI
+time_bins               SIR model on graphs
 tkplot                  Interactive plotting of graphs
 to_prufer               Convert a tree graph to its Prüfer sequence
 topo_sort               Topological sorting of vertices in a graph
+transitive_closure      Transitive closure of a graph
 transitivity            Transitivity of a graph
 triad_census            Triad census, subgraphs with three vertices
 triangles               Find triangles in graphs
@@ -457,8 +473,9 @@ vertex_attr_names       List names of vertex attributes
 vertex_attr<-           Set one or more vertex attributes
 vertex_connectivity     Vertex connectivity
 vertex.shape.pie        Using pie charts as vertices in graph plots
+voronoi_cells           Voronoi partitioning of a graph
 weighted_cliques        Functions to find weighted cliques, i.e.
-                        weighted complete subgraphs in a graph
+                        vertex-weighted complete subgraphs in a graph
 which_multiple          Find the multiple or loop edges in a graph
 which_mutual            Find mutual edges in a directed graph
 with_edge_              Constructor modifier to add edge attributes

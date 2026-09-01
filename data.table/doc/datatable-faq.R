@@ -1,4 +1,29 @@
-## ---- echo = FALSE, message = FALSE-------------------------------------------
+## ----echo=FALSE, file='_translation_links.R'----------------------------------
+# build a link list of alternative languages (may be character(0))
+# idea is to look like 'Other languages: en | fr | de'
+.write.translation.links <- function(fmt) {
+    url = "https://rdatatable.gitlab.io/data.table/articles"
+    path = dirname(knitr::current_input(TRUE))
+    if (basename(path) == "vignettes") {
+      lang = "en"
+    } else {
+      lang = basename(path)
+      path = dirname(path)
+    }
+    translation = dir(path,
+      recursive = TRUE,
+      pattern = glob2rx(knitr::current_input(FALSE))
+    )
+    transl_lang = ifelse(dirname(translation) == ".", "en", dirname(translation))
+    block = if (!all(transl_lang == lang)) {
+      linked_transl = sprintf("[%s](%s)", transl_lang, file.path(url, sub("(?i)\\.Rmd$", ".html", translation)))
+      linked_transl[transl_lang == lang] = lang
+      sprintf(fmt, paste(linked_transl, collapse = " | "))
+    } else ""
+    knitr::asis_output(block)
+}
+
+## ----echo = FALSE, message = FALSE--------------------------------------------
 library(data.table)
 knitr::opts_chunk$set(
   comment = "#",
@@ -6,6 +31,7 @@ knitr::opts_chunk$set(
      tidy = FALSE,
     cache = FALSE,
  collapse = TRUE)
+.old.th = setDTthreads(1)
 
 ## -----------------------------------------------------------------------------
 X = data.table(grp = c("a", "a", "b",
@@ -88,9 +114,6 @@ A[B]
 B = data.frame(c("a", "c"), c("B", "C"))
 cat(try(A[B], silent = TRUE))
 
-## ---- eval = FALSE------------------------------------------------------------
-#  DT[where, select|update, group by][order by][...] ... [...]
-
 ## -----------------------------------------------------------------------------
 DT = data.table(a = rep(1:3, 1:3), b = 1:6, c = 7:12)
 DT
@@ -124,4 +147,7 @@ class(6)              # numeric not integer
 DT[2, b := 7L]        # works (faster) without warning
 class(7L)             # L makes it an integer
 DT[ , b := rnorm(5)]  # 'replace' integer column with a numeric column
+
+## ----echo=FALSE---------------------------------------------------------------
+setDTthreads(.old.th)
 

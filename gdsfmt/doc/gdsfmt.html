@@ -443,7 +443,7 @@ add.gdsn(folder, &quot;int&quot;, val=1:1000)
 add.gdsn(folder, &quot;double&quot;, val=seq(1, 100, 0.4), visible=FALSE)</code></pre>
 <p>Users can display the file content by typing <code>gfile</code> or <code>print(gfile)</code>:</p>
 <pre class="r"><code>gfile</code></pre>
-<pre><code>## File: /tmp/RtmpvFu0Li/Rbuild30ccf4a0576f7/gdsfmt/vignettes/test.gds (1.1K)
+<pre><code>## File: /tmp/RtmpnYU7XE/Rbuild918ca48c558b8/gdsfmt/vignettes/test.gds (1.1K)
 ## +    [  ]
 ## |--+ int   { Int32 10000, 39.1K }
 ## |--+ double   { Float64 2498, 19.5K }
@@ -459,7 +459,7 @@ add.gdsn(folder, &quot;double&quot;, val=seq(1, 100, 0.4), visible=FALSE)</code>
 ##    \--+ int   { Int32 1000, 3.9K }</code></pre>
 <p><code>print(gfile, ...)</code> has an argument <em>all</em> to control the display of file content. By default, <em>all=FALSE</em>; if <em>all=TRUE</em>, to show all contents in the file including hidden variables or folders. The GDS variables <em>logical</em>, <em>factor</em> and <em>folder/double</em> are hidden.</p>
 <pre class="r"><code>print(gfile, all=TRUE)</code></pre>
-<pre><code>## File: /tmp/RtmpvFu0Li/Rbuild30ccf4a0576f7/gdsfmt/vignettes/test.gds (64.6K)
+<pre><code>## File: /tmp/RtmpnYU7XE/Rbuild918ca48c558b8/gdsfmt/vignettes/test.gds (64.6K)
 ## +    [  ]
 ## |--+ int   { Int32 10000, 39.1K }
 ## |--+ double   { Float64 2498, 19.5K }
@@ -710,7 +710,7 @@ n1 &lt;- add.gdsn(gfile, &quot;I1&quot;, val=1:100)
 n2 &lt;- add.gdsn(gfile, &quot;I2&quot;, val=matrix(1:20, nrow=4))
 
 gfile</code></pre>
-<pre><code>## File: /tmp/RtmpvFu0Li/Rbuild30ccf4a0576f7/gdsfmt/vignettes/test.gds (224B)
+<pre><code>## File: /tmp/RtmpnYU7XE/Rbuild918ca48c558b8/gdsfmt/vignettes/test.gds (224B)
 ## +    [  ]
 ## |--+ I1   { Int32 100, 400B }
 ## \--+ I2   { Int32 4x5, 80B }</code></pre>
@@ -774,7 +774,7 @@ add.gdsn(gfile, &quot;N5&quot;, val=val, storage=&quot;packedreal16&quot;, scale
 add.gdsn(gfile, &quot;N6&quot;, val=val, storage=&quot;packedreal16&quot;, scale=0.001, offset=0, compress=&quot;ZIP&quot;, closezip=TRUE)
 
 gfile</code></pre>
-<pre><code>## File: /tmp/RtmpvFu0Li/Rbuild30ccf4a0576f7/gdsfmt/vignettes/test.gds (775.1K)
+<pre><code>## File: /tmp/RtmpnYU7XE/Rbuild918ca48c558b8/gdsfmt/vignettes/test.gds (775.1K)
 ## +    [  ]
 ## |--+ N1   { Float64 50000, 390.6K }
 ## |--+ N2   { Float64 50000 ZIP(24.8%), 96.7K }
@@ -999,7 +999,7 @@ digest.gdsn(n, action=&quot;add&quot;)</code></pre>
 <pre><code>##                                md5 
 ## &quot;73ff4a35fd00dac70998570ed654a834&quot;</code></pre>
 <pre class="r"><code>print(f, attribute=TRUE)</code></pre>
-<pre><code>## File: /tmp/RtmpvFu0Li/Rbuild30ccf4a0576f7/gdsfmt/vignettes/test.gds (8.6K)
+<pre><code>## File: /tmp/RtmpnYU7XE/Rbuild918ca48c558b8/gdsfmt/vignettes/test.gds (8.6K)
 ## +    [  ]
 ## \--+ raw   { Float64 1115 ZIP.def(96.1%), 8.4K } *&lt; md5: 73ff4a35fd00dac70998570ed654a834</code></pre>
 <pre class="r"><code>closefn.gds(f)</code></pre>
@@ -1037,13 +1037,13 @@ get.attr.gdsn(n)$md5</code></pre>
 <div id="session-information" class="section level1">
 <h1>Session Information</h1>
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>## R version 4.3.1 (2023-06-16)
-## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 22.04.2 LTS
+<pre><code>## R version 4.5.1 Patched (2025-08-23 r88802)
+## Platform: x86_64-pc-linux-gnu
+## Running under: Ubuntu 24.04.3 LTS
 ## 
 ## Matrix products: default
-## BLAS:   /home/biocbuild/bbs-3.17-bioc/R/lib/libRblas.so 
-## LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0
+## BLAS:   /home/biocbuild/bbs-3.22-bioc/R/lib/libRblas.so 
+## LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.12.0  LAPACK version 3.12.0
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -1060,15 +1060,15 @@ get.attr.gdsn(n)$md5</code></pre>
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] Matrix_1.5-4.1 gdsfmt_1.36.1 
+## [1] Matrix_1.7-4  gdsfmt_1.46.0
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] digest_0.6.32   R6_2.5.1        fastmap_1.1.1   xfun_0.39      
-##  [5] lattice_0.21-8  cachem_1.0.8    knitr_1.43      htmltools_0.5.5
-##  [9] rmarkdown_2.23  cli_3.6.1       grid_4.3.1      sass_0.4.6     
-## [13] jquerylib_0.1.4 compiler_4.3.1  tools_4.3.1     evaluate_0.21  
-## [17] bslib_0.5.0     yaml_2.3.7      crayon_1.5.2    rlang_1.1.1    
-## [21] jsonlite_1.8.7</code></pre>
+##  [1] digest_0.6.37     R6_2.6.1          fastmap_1.2.0     xfun_0.53        
+##  [5] lattice_0.22-7    cachem_1.1.0      knitr_1.50        htmltools_0.5.8.1
+##  [9] rmarkdown_2.30    lifecycle_1.0.4   cli_3.6.5         grid_4.5.1       
+## [13] sass_0.4.10       jquerylib_0.1.4   compiler_4.5.1    tools_4.5.1      
+## [17] evaluate_1.0.5    bslib_0.9.0       yaml_2.3.10       crayon_1.5.3     
+## [21] rlang_1.1.6       jsonlite_2.0.0</code></pre>
 </div>
 
 

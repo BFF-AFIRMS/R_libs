@@ -85,22 +85,11 @@ vignette: >
 
   * [Causal inference](messy-data.html#counterfact)
   * [`cld()`](comparisons.html#CLD)
-  * CLDs
-      * [Alternative](re-engineering-clds.html#alt-CLDs)
-      * [For equivalence sets](re-engineering-clds.html#equiv-CLDs)
-      * [For significance sets](re-engineering-clds.html#signif-CLDs)
-      * [**multcompView** package](re-engineering-clds.html#CLDs)
-      * [Principles](re-engineering-clds.html#CLDs)
-      * [Re-engineered](re-engineering-clds.html#alt-CLDs)
-      * [References](re-engineering-clds.html#refs)
-      * [Relation to underlining](re-engineering-clds.html#underlining)
-      * [Simulated example](re-engineering-clds.html#CLD-example)
   * [`clm` models](models.html#O)
   * [**coda** package](sophisticated.html#bayesxtra)
   * [`coef()`](comparisons.html#contrasts)
   * [Cohen's *d*](comparisons.html#pwpm)
   * [Compact letter displays](comparisons.html#CLD)
-  * [Compact letter displays (CLDs)](re-engineering-clds.html)
   * Comparison arrows
       * [Derivation](xplanations.html#arrows)
   * Comparisons
@@ -136,6 +125,7 @@ vignette: >
       * [Custom](comparisons.html#linfcns)
       * [Formula](comparisons.html#formulas)
       * [Multivariate](interactions.html#multiv)
+      * [Normalized](comparisons.html#nrmlze)
       * [Pairwise](comparisons.html#pairwise)
       * [Polynomial](comparisons.html#contrasts)
       * Tests of
@@ -183,6 +173,7 @@ vignette: >
       * [Dispatching](xtending.html#dispatch)
       * [Hook functions](xtending.html#hooks)
       * [for `lqs` objects](xtending.html#eblqs)
+      * [Re-gridded](xtending.html#regridded)
       * [for `rsm` objects](xtending.html#ebrsm)
   * [`emm_list` object](comparisons.html#formulas)
   * [`emm_options()`](utilities.html#defaults)
@@ -206,6 +197,7 @@ vignette: >
       * [Modifying](utilities.html#update)
       * [Setting defaults for](utilities.html#defaults)
   * `emmip()`
+      * [abbreviated labels](messy-data.html#cows)
       * [in *basics: emmip*](basics.html#emmip)
       * [in *basics: plots*](basics.html#plots)
       * [in *interactions: factors*](interactions.html#factors)
@@ -216,9 +208,8 @@ vignette: >
   * `emtrends()`
       * [in *interactions: covariates*](interactions.html#covariates)
       * [in *interactions: oranges*](interactions.html#oranges)
-  * [Equivalence sets (with CLDs)](re-engineering-clds.html#equiv-CLDs)
   * [`estHook`](xtending.html#hooks)
-  * [Estimability](messy-data.html#nonestex)
+  * [Estimability](messy-data.html#nonest)
   * [Estimability issues](FAQs.html#NAs)
   * [Estimable functions](xplanations.html#joint_tests)
   * Estimated marginal means
@@ -234,7 +225,6 @@ vignette: >
           * [in *sophisticated: mcmc*](sophisticated.html#mcmc)
           * [in *transformations: cbpp*](transformations.html#cbpp)
       * [`ChickWeight`](sophisticated.html#random-slopes)
-      * [CLDs (simulated)](re-engineering-clds.html#CLD-example)
       * [`cows`](messy-data.html#cows)
       * [`feedlot`](predictions.html#feedlot)
       * `fiber`
@@ -403,7 +393,10 @@ vignette: >
       * [System options for](sophisticated.html#lmerOpts)
   * Logistic regression
       * [Odds ratios](transformations.html#oddsrats)
+      * [Risk ratios](transformations.html#riskrats)
       * [Surprising results](FAQs.html#transformations)
+  * Logistic-like regression
+      * [Non-logit links](transformations.html#not-logit)
   * LSD
       * [protected](basics.html#recs2)
 
@@ -423,9 +416,12 @@ vignette: >
       * [Limiting](messy-data.html#rg.limit)
   * [`mira` models](models.html#I)
   * [`misc` attribute and argument](xtending.html#communic)
+  * [`misc$regrid.flag`](xtending.html#regridded)
   * [Missing cells](xplanations.html#joint_tests)
   * [`mlm` models](models.html#N)
   * [`mmer` models](models.html#G)
+  * `mode` argument
+      * [implied re-gridding](transformations.html#regrid3)
   * Model
       * [Get it right first](basics.html#recs2)
       * Importance of
@@ -467,10 +463,12 @@ vignette: >
       * [Auto-detection](messy-data.html#nest-trap)
   * Nesting factors
       * [Creating](utilities.html#groups)
-  * [Non-estimability](messy-data.html#nonestex)
+  * [Non-estimability](messy-data.html#nonest)
   * [`non.nuisance`](messy-data.html#nuisance)
   * [`NonEst` values](FAQs.html#NAs)
+  * [Normalized contrasts](comparisons.html#nrmlze)
   * [`(nothing)` in output](FAQs.html#nopairs)
+  * [`nrmlz.emmc`](comparisons.html#nrmlze)
   * [`nuisance`](messy-data.html#nuisance)
   * [Nuisance factors](messy-data.html#nuisance)
 
@@ -519,9 +517,9 @@ vignette: >
   * [Pairwise *P*-value plots](comparisons.html#pwpp)
   * [`params`](basics.html#params)
   * [Percentage differences](transformations.html#altscale)
+  * [`plot.emmGrid()`](basics.html#plot.emmGrid)
   * [`plot()`](basics.html#plots)
       * [nested factors](messy-data.html#cows)
-  * [`plot.emmGrid()`](basics.html#plot.emmGrid)
   * Plots
       * [of confidence intervals](basics.html#plot.emmGrid)
       * [of EMMs](basics.html#plots)
@@ -549,6 +547,8 @@ vignette: >
       * [Reference grid](predictions.html#ref-grid)
       * [Total SD](predictions.html#feedlot)
   * [`print.summary_emm()`](basics.html#emmobj)
+  * Probit regression
+      * [Odds or risk ratios](transformations.html#not-logit)
   * [`pwpm()`](comparisons.html#pwpm)
   * [`pwpp()`](comparisons.html#pwpp)
 
@@ -559,6 +559,7 @@ vignette: >
 
 
   * [`qdrg()`](FAQs.html#qdrg)
+      * [S3 methods](xtending.html#qdrg)
   * [Quadratic terms](basics.html#depcovs)
   * [Quick-start guide](AQuickStart.html)
 
@@ -577,8 +578,12 @@ vignette: >
   * Ratios
       * [but I wanted differences](FAQs.html#ratios)
   * [`rbind()`](utilities.html#rbind)
+  * Re-gridding
+      * [Implied](transformations.html#regrid3)
   * [Re-labeling](utilities.html#relevel)
   * [Recommended practices](basics.html#recs1)
+  * `recover_data.call()`
+      * [`frame` argument](xtending.html#rdargs)
   * [`recover_data()`](xtending.html#intro)
       * [Communicating with `emm_basis()`](xtending.html#communic)
       * [`data` and `params` arguments](xtending.html#rdargs)
@@ -586,8 +591,6 @@ vignette: >
       * [Error handling](xtending.html#rderrs)
       * [for `lqs` objects](xtending.html#rd.lqs)
       * [for `rsm` objects](xtending.html#rdrsm)
-  * `recover_data.call()`
-      * [`frame` argument](xtending.html#rdargs)
   * [`ref_grid()`](basics.html#RG)
       * [`at`](basics.html#RG)
       * `cov.reduce`
@@ -605,17 +608,23 @@ vignette: >
   * Reference grids
       * [Prediction on](predictions.html#ref-grid)
   * [Region of practical equivalence](sophisticated.html#bayesxtra)
+  * [Registering `qdrg` methods](xtending.html#exporting)
   * [Registering `recover_data` and `emm_basis` methods](xtending.html#exporting)
   * [`regrid` argument](transformations.html#stdize)
+  * [`regrid.flag`](xtending.html#regridded)
   * [`regrid()`](transformations.html#regrid)
+      * [probit or other non-logit models](transformations.html#not-logit)
       * [`regrid` vs. `type`](transformations.html#regrid2)
+      * [to obtain risk ratios](transformations.html#riskrats)
       * [`transform = "log"`](transformations.html#logs)
   * [Residual plots](basics.html#pigs)
   * [Response scale](confidence-intervals.html#tran)
   * [Response transformations](basics.html#transf)
   * [`revpairwise` contrasts](comparisons.html#contrasts)
   * [`rg.limit` option](messy-data.html#rg.limit)
+  * [Risk ratios](transformations.html#riskrats)
   * [RMarkdown](basics.html#formatting)
+  * [**robmixglm** example](xtending.html#qdrg)
   * [ROPE](sophisticated.html#bayesxtra)
   * [**rsm** package](xtending.html#rsm)
   * [`rstanarm`](sophisticated.html#mcmc)
@@ -637,7 +646,6 @@ vignette: >
   * [Sidak adjustment](confidence-intervals.html#adjust)
   * Significance
       * [Assessing](basics.html#pvalues)
-  * [Significance sets (with CLDs)](re-engineering-clds.html#signif-CLDs)
   * [`simple = "each"`](confidence-intervals.html#simple)
   * Simple comparisons
       * [in *confidence-intervals: simple*](confidence-intervals.html#simple)
@@ -659,6 +667,8 @@ vignette: >
       * [in *messy-data: submodels*](messy-data.html#submodels)
       * [in *xplanations: submodels*](xplanations.html#submodels)
   * [Subsets of data](FAQs.html#model)
+  * [`summary_emm` object](basics.html#emmobj)
+      * [As a data frame](utilities.html#data)
   * `summary()`
       * [`adjust`](comparisons.html#pairwise)
       * [in *basics: emmobj*](basics.html#emmobj)
@@ -674,8 +684,6 @@ vignette: >
           * [in *confidence-intervals: summary*](confidence-intervals.html#summary)
       * [Show sample size](confidence-intervals.html#summary)
       * [`type = "unlink"`](transformations.html#tranlink)
-  * [`summary_emm` object](basics.html#emmobj)
-      * [As a data frame](utilities.html#data)
 
 
 [Back to top](#topnav)
@@ -689,7 +697,7 @@ vignette: >
       * [`joint = TRUE`](confidence-intervals.html#joint)
   * Tests
       * [Equivalence](confidence-intervals.html#equiv)
-      * [Noninferiority](confidence-intervals.html#equiv)
+      * [Non-inferiority](confidence-intervals.html#equiv)
       * [Nonzero null](confidence-intervals.html#summary)
       * [One- and two-sided](confidence-intervals.html#summary)
   * [Too few means](AQuickStart.html#covar)
@@ -711,6 +719,8 @@ vignette: >
       * [`scale()`](transformations.html#stdize)
       * [Standardizing](transformations.html#stdize)
       * [Timing is everything](transformations.html#timing)
+  * [Transformations|Implied re-gridding](transformations.html#regrid3)
+  * [Transformations|Special modes](transformations.html#regrid3)
   * Trends
       * [Estimating and comparing](interactions.html#oranges)
   * [`trt.vs.ctrl` contrasts](comparisons.html#contrasts)
@@ -731,7 +741,6 @@ vignette: >
 
 
   * [Unadjusted tests](confidence-intervals.html#adjmore)
-  * [Underlining, grouping by](re-engineering-clds.html#underlining)
   * [`update()`](utilities.html#update)
       * [`tran`](transformations.html#after)
   * [Using results](utilities.html#data)
@@ -753,9 +762,7 @@ vignette: >
       * [FAQS](FAQs.html)
       * [Interactions](interactions.html)
       * [Messy data](messy-data.html)
-      * [Models](models.html)
       * [Predictions](predictions.html)
-      * [Re-engineering CLDs](re-engineering-clds.html)
       * [Sophisticated models](sophisticated.html)
       * [Transformations and link functions](transformations.html)
       * [Utilities and options](utilities.html)
@@ -796,3 +803,5 @@ vignette: >
 
 
 *Index generated by the [vigindex](https://github.com/rvlenth/vigindex) package.*
+
+</div> <!-- closes div class = "vigindex" -->

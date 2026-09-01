@@ -1,3 +1,40 @@
+# Version 1.27.1 [2025-05-02]
+
+## Bug Fixes
+
+ * `Rdoc$compile()` would produce `Error in strsplit(x,
+   as.character(split), fixed, perl, useBytes)` for any `@see` tag of
+   format `<pkg>::<object>`.
+ 
+
+# Version 1.27.0 [2024-11-01]
+
+## Significant Changes
+
+ * `getMethods()` is an **R.oo** generic in R (>= 4.5.0), whereas in
+   versions before that it is n **methods** generic. This is because
+   `methods::getMethods()` is being deprecated in base R.
+ 
+
+# Version 1.26.0 [2024-01-23]
+
+## Significant Changes
+
+ * The `hashCode(s)` implementation for strings was rewritten to avoid
+   integer overflow (see below bug fix).  As a consequence, the
+   computed hash is no longer the same for some strings.
+
+## Documentation
+
+ * Fixed a few small mistakes in the help pages.
+
+## Bug Fixes
+
+ * `hashCode(s)` could return NA, due to integer overflow, for strings
+   with more than 13-15 symbols, e.g.  `hashCode("abcdefghijklmno")`
+   resulted in a missing value and a warning.
+ 
+
 # Version 1.25.0 [2022-06-11]
 
 ## New Features
@@ -47,7 +84,7 @@
 
 ## CRAN Policy
 
- * Dont test `example(getBundle.Package)` because they may take more
+ * Don't test `example(getBundle.Package)` because they may take more
    than 5 seconds when run on CRAN where `installed.packages()` will
    take a long time due to many thousands of packages.
 
@@ -968,7 +1005,7 @@
 
 ## Bug Fixes
 
- * Loading the package would generate warnings of of several
+ * Loading the package would generate warnings of several
    conflicts. Forgot to export `.conflicts.OK` after adding the
    namespace.
  
@@ -1357,7 +1394,7 @@
  
 # Version 1.1.6 [2006-04-03]
 
- * This version was commited to CRAN.
+ * This version was committed to CRAN.
 
 ## New Features
 
@@ -1673,7 +1710,7 @@
 
 ## Bug Fixes
  
- * Fixed deprecated warning about `package.description()` that occured
+ * Fixed deprecated warning about `package.description()` that occurred
    R v1.9.0 such that the code still works for older versions of
    R. This was needed for the `Package` class.
  
@@ -1791,7 +1828,7 @@
 
  * `Rdoc$compile()` generated an `InternalException` when a class was
    not found saying "Not a class". Now it throws an `RdocException`
-   and is more specific saying that the class does not exists.
+   and is more specific saying that the class does not exist.
    Updated the Rdoc comments saying pointing out that the classes and
    methods have to be loaded before calling `Rdoc$compile()`. Again,
    thanks Nathan.
@@ -1819,7 +1856,7 @@
 
  * Now the Rdoc compiler generates the correct `\synopsis` and
    `\usage` pairs.  Before they were added either or, but that was a
-   mistake by me. `\synopsis` should be *added* whenever the the
+   mistake by me. `\synopsis` should be *added* whenever the
    `\usage` statement is not complete.
 
  * `update()` of `Package` did not work. Did by mistake add a package
@@ -1844,7 +1881,7 @@
    their own simple tags.
 
  * All Rd files are now making use of `\link[pkg:name]{label}` for
-   refering to methods not named according to the label. This is for
+   referring to methods not named according to the label. This is for
    instance the case with all class specific methods. More over, all
    Rd files for classes has `\keyword{classes}` and the `\usage{}` is
    used where it works and otherwise `\synopsis{}` is used (as
@@ -2069,7 +2106,7 @@
 
 ## New Features
  
- * Added the functions `Q()` and `Quit()` for quiting with the option
+ * Added the functions `Q()` and `Quit()` for quitting with the option
    to save the `ObjectSpace` also.
 
  * Added `isGenericS3()` and `isGenericS4()`.
@@ -2121,7 +2158,7 @@
    `description()`.
 
  * Now the package reports its name, version and date if it was
-   succesfully loaded.
+   successfully loaded.
 
  * Minimized the number of warnings when loading packages.
 
@@ -2142,7 +2179,7 @@
  
 ## New Features
  
- * The classes `Throwable` and `Exception` have been transfered to
+ * The classes `Throwable` and `Exception` have been transferred to
    here from the **R.lang** package. With the `trycatch()` they are
    really useful.
 
@@ -2180,7 +2217,7 @@
    `[<-.Reference` will be added later.
 
  * Added trial version of a new feature for `Object`/`Reference`
-   fields. Now, if a field does not exists and there is no method with
+   fields. Now, if a field does not exist and there is no method with
    the same name, then, if a method named `get<Field name>()` exists,
    the value of `get<Field name>(<object>)` is returned. This way one
    can have fields that are generated "on the fly" to save memory
@@ -2345,7 +2382,7 @@
    package **methods**. Hopefully, these changes makes **methods** run
    when **R.classes** is loaded.
 
- * Starting to seperate `Object` methods and `.Reference`
+ * Starting to separate `Object` methods and `.Reference`
    methods. Eventually maybe **R.oo** `Object`'s could work very similar
    to **methods** object where `.Reference` is just an add-on to make
    the `Object`'s referensable.

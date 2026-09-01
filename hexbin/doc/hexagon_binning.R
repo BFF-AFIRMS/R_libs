@@ -242,5 +242,3 @@ grid.lines(pseq, predict(ll.fit,pseq),
 } else {
 	plot(1)
 }
-
-

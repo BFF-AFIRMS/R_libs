@@ -1,3 +1,4 @@
+cowplot-package	cowplot-package
 add_sub	add_sub
 agg_null_device	png_null_device
 align_margin	align_margin
@@ -8,7 +9,7 @@ axis_canvas	axis_canvas
 background_grid	background_grid
 cairo_null_device	png_null_device
 circle_key_glyph	rectangle_key_glyph
-cowplot	cowplot
+cowplot	cowplot-package
 draw_figure_label	draw_figure_label
 draw_grob	draw_grob
 draw_image	draw_image

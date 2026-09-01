@@ -29,6 +29,48 @@
 %%     }
 %%   }
 %% }
+\section{Changes in pls version 2.9-0}{
+  \subsection{New features}{
+    \itemize{
+      \item Added nipals() (NIPALS PLS) and nipalspcr() (NIPALS PCR) with robustness against missing data.
+      \item Added cross-validation and test set abilities for scores() and scoreplot()
+      \item Added pkgdown site with documentation and vignette.
+    }
+  }
+  \subsection{User-visible changes}{
+    \itemize{
+      \item Added feedback in summary() regarding number of dropped samples when missingness is present.
+    }
+  }
+}
+\section{Changes in pls version 2.8-5}{
+  \subsection{Bug fixes}{
+    \itemize{
+      \item Fixed issues with single component models in
+      loadingplot().
+    }
+  }
+}
+\section{Changes in pls version 2.8-4}{
+  \subsection{New features}{
+    \itemize{
+      \item Added fac2seg() to create cross-validation segments from a factor.
+    }
+  }
+  \subsection{Bug fixes}{
+    \itemize{
+      \item Fixed issues with single component, multiple respons models in
+      summary.mvr(), loadingplot() and scoreplot().
+    }
+  }
+}
+\section{Changes in pls version 2.8-3}{
+  \subsection{Documentation}{
+    \itemize{
+      \item Added _PACKAGE to conform to changed roxygen2.
+    }
+  }
+}
 \section{Changes in pls version 2.8-2}{
   \subsection{New features}{
     \itemize{

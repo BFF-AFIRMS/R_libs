@@ -25,6 +25,8 @@ FLXcontrol-class        Class "FLXcontrol"
 FLXdist                 Finite Mixtures of Distributions
 FLXdist-class           Class "FLXdist"
 FLXfit                  Fitter Function for FlexMix Models
+flxglht                 Simultaneous Inference in Finite Mixtures of
+                        Regression Models
 FLXM-class              Class "FLXM"
 FLXMCdist1              FlexMix Clustering of Univariate Distributions
 FLXMCfactanal           Driver for Mixtures of Factor Analyzers
@@ -71,5 +73,5 @@ seizure                 Epileptic Seizure Data
 stepFlexmix             Run FlexMix Repeatedly
 tribolium               Tribolium Beetles
 trypanosome             Trypanosome
-whiskey                 Survey Data on Brands of Scotch whiskey
+whiskey                 Survey Data on Brands of Scotch Whiskey
                         Consumed

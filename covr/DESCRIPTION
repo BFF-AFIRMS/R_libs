@@ -1,7 +1,7 @@
 Encoding: UTF-8
 Package: covr
 Title: Test Coverage for Packages
-Version: 3.6.2
+Version: 3.6.5
 Authors@R: c(
     person("Jim", "Hester", email = "james.f.hester@gmail.com", role = c("aut", "cre")),
     person("Willem", "Ligtenberg", role = "ctb"),
@@ -42,16 +42,18 @@ Description: Track and report code coverage for your package and (optionally)
 URL: https://covr.r-lib.org, https://github.com/r-lib/covr
 BugReports: https://github.com/r-lib/covr/issues
 Depends: R (>= 3.1.0), methods
-Imports: digest, stats, utils, jsonlite, rex, httr, crayon, withr (>=
+Imports: digest, stats, utils, jsonlite, rex, httr, cli, withr (>=
         1.0.2), yaml
-Suggests: R6, curl, knitr, rmarkdown, htmltools, DT (>= 0.2), testthat,
-        rlang, rstudioapi (>= 0.2), xml2 (>= 1.0.0), parallel, memoise,
-        mockery, covr
+Suggests: R6, S7 (>= 0.2.0), curl, knitr, rmarkdown, htmltools, DT (>=
+        0.2), testthat (>= 3.0.0), rlang, rstudioapi (>= 0.2), xml2 (>=
+        1.0.0), parallel, memoise, covr, box (>= 1.2.0)
 License: MIT + file LICENSE
 VignetteBuilder: knitr
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.3
+Config/testthat/edition: 3
+Config/testthat/parallel: TRUE
 NeedsCompilation: yes
-Packaged: 2023-03-24 14:00:42 UTC; jimhester
+Packaged: 2025-11-06 16:15:28 UTC; jimhester
 Author: Jim Hester [aut, cre],
   Willem Ligtenberg [ctb],
   Kirill Müller [ctb],
@@ -82,5 +84,5 @@ Author: Jim Hester [aut, cre],
   Twitter, Inc [cph] (Bootstrap library)
 Maintainer: Jim Hester <james.f.hester@gmail.com>
 Repository: CRAN
-Date/Publication: 2023-03-25 12:50:17 UTC
-Built: R 4.3.0; x86_64-pc-linux-gnu; 2023-07-07 03:32:30 UTC; unix
+Date/Publication: 2025-11-09 20:50:02 UTC
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-01 21:01:22 UTC; unix

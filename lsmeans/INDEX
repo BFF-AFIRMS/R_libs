@@ -1,4 +1,3 @@
-auto.noise              Data sets
 lsmeans-package         Least-squares means
 ref.grid                Create a reference grid from a fitted model
 ref.grid-class          The 'ref.grid' and 'lsmobj' classes

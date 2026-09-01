@@ -3,12 +3,16 @@ AIC.logLik.phyloglm	phyloglm-methods
 AIC.logLik.phylolm	phylolm-methods
 AIC.phyloglm	phyloglm-methods
 AIC.phylolm	phylolm-methods
+confint.phylolm	phylolm-methods
 extractAIC.phylolm	phylolm-methods
 flowerSize	flowerSize
 flowerTree	flowerTree
 guidetree	guidetree
 logLik.phyloglm	phyloglm-methods
 logLik.phylolm	phylolm-methods
+mace	mace
+model.frame.phylolm	phylolm-methods
+nobs.phyloglm	phyloglm-methods
 nobs.phylolm	phylolm-methods
 OU1d.loglik	OU1d.loglik
 OUshifts	OUshifts

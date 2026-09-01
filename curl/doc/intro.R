@@ -1,4 +1,4 @@
-## ---- echo = FALSE, message = FALSE-----------------------------------------------------------------------------------
+## ----echo = FALSE, message = FALSE------------------------------------------------------------------------------------
 knitr::opts_chunk$set(comment = "")
 options(width = 120, max.print = 100)
 wrap.simpleError <- function(x, options) {
@@ -35,23 +35,25 @@ out <- readLines(con)
 close(con)
 cat(out, sep = "\n")
 
-## ---- eval=FALSE------------------------------------------------------------------------------------------------------
-#  # This httpbin mirror doesn't cache
-#  con <- curl("https://nghttp2.org/httpbin/drip?duration=1&numbytes=50")
-#  open(con, "rb", blocking = FALSE)
-#  while(isIncomplete(con)){
-#    buf <- readBin(con, raw(), 1024)
-#    if(length(buf))
-#      cat("received: ", rawToChar(buf), "\n")
-#  }
-#  close(con)
+## ----eval=FALSE-------------------------------------------------------------------------------------------------------
+# # This httpbin mirror doesn't cache
+# con <- curl("https://nghttp2.org/httpbin/drip?duration=1&numbytes=50")
+# open(con, "rb", blocking = FALSE)
+# while(isIncomplete(con)){
+#   buf <- readBin(con, raw(), 1024)
+#   if(length(buf))
+#     cat("received: ", rawToChar(buf), "\n")
+# }
+# close(con)
 
 ## ---------------------------------------------------------------------------------------------------------------------
 pool <- new_pool()
-cb <- function(req){cat("done:", req$url, ": HTTP:", req$status, "\n")}
-curl_fetch_multi('https://www.google.com', done = cb, pool = pool)
-curl_fetch_multi('https://cloud.r-project.org', done = cb, pool = pool)
-curl_fetch_multi('https://hb.cran.dev/blabla', done = cb, pool = pool)
+success <- function(req){cat("success:", req$url, ": HTTP:", req$status, "\n")}
+failure <- function(err){cat("failure:", err, "\n")}
+curl_fetch_multi('https://www.google.com', done = success, fail = failure, pool = pool)
+curl_fetch_multi('https://cloud.r-project.org', done = success, fail = failure, pool = pool)
+curl_fetch_multi('https://hb.cran.dev/blabla', done = success, fail = failure, pool = pool)
+curl_fetch_multi('https://doesnotexit.xyz', done = success, fail = failure, pool = pool)
 
 ## ---------------------------------------------------------------------------------------------------------------------
 # This actually performs requests:
@@ -64,7 +66,15 @@ curl_download('https://cloud.r-project.org/CRAN_mirrors.csv', 'mirrors.csv')
 mirros <- read.csv('mirrors.csv')
 unlink('mirrors.csv')
 
-## ---- echo = FALSE, message = FALSE, warning=FALSE--------------------------------------------------------------------
+## ----error=TRUE-------------------------------------------------------------------------------------------------------
+try({
+# Oops! A typo in the URL!
+curl_download('https://cloud.r-project.org/CRAN_mirrorZ.csv', 'mirrors.csv')
+con <- curl('https://cloud.r-project.org/CRAN_mirrorZ.csv')
+open(con)
+})
+
+## ----echo = FALSE, message = FALSE, warning=FALSE---------------------------------------------------------------------
 close(con)
 rm(con)
 
@@ -81,6 +91,12 @@ print(req$status_code)
 head(readLines('mirrors.csv'))
 unlink('mirrors.csv')
 
+## ----error=TRUE-------------------------------------------------------------------------------------------------------
+try({
+h <- new_handle(failonerror = TRUE)
+curl_fetch_memory('https://cloud.r-project.org/CRAN_mirrorZ.csv', handle = h)
+})
+
 ## ---------------------------------------------------------------------------------------------------------------------
 h <- new_handle()
 handle_setopt(h, copypostfields = "moo=moomooo");
@@ -93,25 +109,27 @@ handle_setheaders(h,
 ## ---------------------------------------------------------------------------------------------------------------------
 handle <- new_handle(verbose = TRUE)
 
-## ---- error = TRUE----------------------------------------------------------------------------------------------------
+## ----error = TRUE-----------------------------------------------------------------------------------------------------
+try({
 # URLOPT_MASFILESIZE must be a number
 handle_setopt(handle, maxfilesize = "foo")
 
 # CURLOPT_USERAGENT must be a string
 handle_setopt(handle, useragent = 12345)
+})
 
 ## ---------------------------------------------------------------------------------------------------------------------
 curl::curl_symbols("CURLUSESSL")
 
 ## ---------------------------------------------------------------------------------------------------------------------
-handle_setopt(handle, use_ssl = 3)
+handle_setopt(handle, use_ssl = CURLUSESSL_ALL)
 
 ## ---------------------------------------------------------------------------------------------------------------------
 curl_symbols('CURL_HTTP_VERSION_')
 
 ## ---------------------------------------------------------------------------------------------------------------------
-# Force using HTTP 1.1 (the number 2 is an enum value, see above)
-handle_setopt(handle, http_version = 2)
+# Force using HTTP 1.1 (CURL_HTTP_VERSION_1_1 is an enum, not a real value)
+handle_setopt(handle, http_version = CURL_HTTP_VERSION_1_1)
 
 ## ---------------------------------------------------------------------------------------------------------------------
 req <- curl_fetch_memory("https://hb.cran.dev/post", handle = h)
@@ -121,7 +139,7 @@ jsonlite::prettify(rawToChar(req$content))
 con <- curl("https://hb.cran.dev/post", handle = h)
 jsonlite::prettify(readLines(con))
 
-## ---- echo = FALSE, message = FALSE, warning=FALSE--------------------------------------------------------------------
+## ----echo = FALSE, message = FALSE, warning=FALSE---------------------------------------------------------------------
 close(con)
 
 ## ---------------------------------------------------------------------------------------------------------------------
@@ -153,7 +171,7 @@ handle_cookies(h)
 
 ## ---------------------------------------------------------------------------------------------------------------------
 req1 <- curl_fetch_memory("https://hb.cran.dev/get")
-req2 <- curl_fetch_memory("https://www.r-project.org")
+req2 <- curl_fetch_memory("https://www.google.com")
 
 ## ---------------------------------------------------------------------------------------------------------------------
 req <- curl_fetch_memory("https://api.github.com/users/ropensci")
@@ -177,12 +195,13 @@ handle_setform(h,
 )
 req <- curl_fetch_memory("https://hb.cran.dev/post", handle = h)
 
-## ---------------------------------------------------------------------------------------------------------------------
-library(magrittr)
+## ----eval=getRversion() > "4.1"---------------------------------------------------------------------------------------
+# Perform request
+res <- new_handle() |>
+  handle_setopt(copypostfields = "moo=moomooo") |>
+  handle_setheaders("Content-Type"="text/moo", "Cache-Control"="no-cache", "User-Agent"="A cow") |>
+  curl_fetch_memory(url = "https://hb.cran.dev/post")
 
-new_handle() %>%
-  handle_setopt(copypostfields = "moo=moomooo") %>%
-  handle_setheaders("Content-Type"="text/moo", "Cache-Control"="no-cache", "User-Agent"="A cow") %>%
-  curl_fetch_memory(url = "https://hb.cran.dev/post") %$% content %>% 
-  rawToChar %>% jsonlite::prettify()
+# Parse response
+res$content |> rawToChar() |> jsonlite::prettify()
 

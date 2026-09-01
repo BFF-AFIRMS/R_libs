@@ -1,4 +1,77 @@
+# ps 1.9.3
+
+* On Linux, process create times are now computed using
+  `CLOCK_REALTIME - CLOCK_MONOTONIC` instead of `/proc/stat btime`, giving
+  sub-second precision (previously, integer-second boot time caused up to 1s
+  error). Handle validation accepts both the precise and the legacy boot time,
+  so handles created by older versions of processx continue to work.
+  For https://github.com/r-lib/processx/issues/394 and
+  https://github.com/r-lib/processx/issues/402.
+
+# ps 1.9.2
+
+* New `ps_string()` for uniquely identifying a process (#208, @dansmith01).
+
+# ps 1.9.1
+
+* ps now builds correctly on Alpine Linux (3.19) on R 4.5.0.
+
+# ps 1.9.0
+
+* `ps_memory_full_info()` now contains `maxrss`, the maximum resident set
+  size for the calling process.
+
+* New `columns` argument in `ps()`, to customize what data is returned
+  (#138).
+
+# ps 1.8.1
+
+* ps can now be installed again on unsupported platforms.
+
+# ps 1.8.0
+
+* New `ps_apps()` function to list all running applications on macOS.
+
+* New function `ps_disk_io_counters()` to query disk I/O counters
+  (#145, @michaelwalshe).
+
+* New `ps_fs_info()` to query information about the file system of one
+  or more files or directories.
+
+* New `ps_wait()` to start an interruptible wait on multiple processes,
+  with a timeout (#166).
+
+* `ps_handle()` now allows a numeric (double) scalar as the pid, as long
+  as its value is integer.
+
+* `ps_send_signal()`, `ps_suspend()`, `ps_resume()`, `ps_terminate()`,
+  `ps_kill()`, and `ps_interrupt()` can now operate on multiple processes,
+  if passed a list of process handles.
+
+* `ps_kill()` and `ps_kill_tree()` have a new `grace` argument.
+  On Unix, if this argument is not zero, then `ps_kill()` first sends a
+  `TERM` signal, and waits for the processes to quit gracefully, via
+  `ps_wait()`. The processes that are still alive after the grace period
+  are then killed with `SIGKILL`.
+
+* `ps_status()` (and thus `ps()`) is now better at getting the correct
+  status of processes on macOS. This usually requires calling the external
+  `ps` tool. See `?ps_status()` on how to opt out from the new
+  behavior (#31).
+
+# ps 1.7.7
+
+* `ps_cpu_times()` values are now correct on newer arm64 macOS.
+
+# ps 1.7.6
+
+* `ps_name()` now does not fail in the rare case when `ps_cmdline()` returns an empty vector (#150).
+
+* `ps_system_cpu_times()` now returns CPU times divided by the HZ as reported by CLK_TCK, in-line with other OS's and the per-process version. (#144, @michaelwalshe).
+
 # ps 1.7.5
+
+No user visible changes.
 
 # ps 1.7.4
 

@@ -1,7 +1,9 @@
 ## ----setup, include=FALSE-----------------------------------------------------
 library(knitr)
-opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(error = Sys.getenv("IN_PKGDOWN") != "true" || (getRversion() < "3.5"))
+opts_chunk$set(
+  echo = TRUE,
+  error = Sys.getenv("IN_PKGDOWN") != "true" || (getRversion() < "3.5")
+)
 
 knit_print.data.frame <- function(x, ...) {
   print(head(x, 3))
@@ -18,10 +20,10 @@ library(DBI)
 
 con <- dbConnect(
   RMariaDB::MariaDB(),
-  host = "relational.fit.cvut.cz",
+  host = "relational.fel.cvut.cz",
   port = 3306,
   username = "guest",
-  password = "relational",
+  password = "ctu-relational",
   dbname = "sakila"
 )
 
@@ -44,7 +46,7 @@ dbClearResult(res)
 safe_id <- dbQuoteIdentifier(con, "rating")
 safe_param <- dbQuoteLiteral(con, "G")
 
-query <- paste0("SELECT title, ", safe_id, " FROM film WHERE ", safe_id, " = ", safe_param )
+query <- paste0("SELECT title, ", safe_id, " FROM film WHERE ", safe_id, " = ", safe_param)
 query
 
 res <- dbSendQuery(con, query)
@@ -123,6 +125,7 @@ dbClearResult(rs)
 
 dbReadTable(con, "cars")
 
+## -----------------------------------------------------------------------------
 dbDisconnect(con)
 
 ## -----------------------------------------------------------------------------
@@ -174,6 +177,7 @@ dbReadTable(con, "cash")
 dbReadTable(con, "account")
 
 ## ----error = TRUE-------------------------------------------------------------
+try({
 withdraw_safely <- function(amount) {
   dbWithTransaction(con, {
     withdraw(amount)
@@ -186,6 +190,7 @@ withdraw_safely <- function(amount) {
 withdraw_safely(5000)
 dbReadTable(con, "cash")
 dbReadTable(con, "account")
+})
 
 ## -----------------------------------------------------------------------------
 dbDisconnect(con)

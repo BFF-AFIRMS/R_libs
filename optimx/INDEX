@@ -1,4 +1,4 @@
-axsearch                Perform axial search around a supposed minimum
+axsearch                Perform axial search around a supposed MINIMUM
                         and provide diagnostics
 bmchk                   Check bounds and masks for parameter
                         constraints used in nonlinear optimization
@@ -23,6 +23,8 @@ grfwd                   Forward difference numerical gradient
                         approximation.
 grnd                    A reorganization of the call to numDeriv grad()
                         function.
+grpracma                A reorganization of the call to the pracma
+                        grad() function.
 hesschk                 Run tests, where possible, on user objective
                         function and (optionally) gradient and hessian
 hjn                     Compact R Implementation of Hooke and Jeeves
@@ -30,42 +32,33 @@ hjn                     Compact R Implementation of Hooke and Jeeves
 kktchk                  Check Kuhn Karush Tucker conditions for a
                         supposed function minimum
 multistart              General-purpose optimization - multiple starts
+ncg                     An R implementation of a Dai / Yuan nonlinear
+                        conjugate gradient algorithm.
+nvm                     Variable metric nonlinear function
+                        minimization, driver.
 opm                     General-purpose optimization
+opm2optimr              Extract optim() solution for one method of
+                        opm() result
 optchk                  General-purpose optimization
 optimr                  General-purpose optimization
+optimr2opm              Add a single optimr() solution to a opm()
+                        result set
 optimx                  General-purpose optimization
 optimx-package          A replacement and extension of the optim()
                         function, plus various optimization tools
+pd_check                Check Hessian matrix is positive definite by
+                        attempting a Cholesky decomposition.
 polyopt                 General-purpose optimization - sequential
                         application of methods
 proptimr                Compact display of an 'optimr()' result object
-Rcgmin                  An R implementation of a nonlinear conjugate
-                        gradient algorithm with the Dai / Yuan update
-                        and restart. Based on Nash (1979) Algorithm 22
-                        for its main structure.
-Rcgminb                 An R implementation of a bounded nonlinear
-                        conjugate gradient algorithm with the Dai /
-                        Yuan update and restart. Based on Nash (1979)
-                        Algorithm 22 for its main structure. CALL THIS
-                        VIA 'Rcgmin' AND DO NOT USE DIRECTLY.
-Rcgminu                 An R implementation of an unconstrained
-                        nonlinear conjugate gradient algorithm with the
-                        Dai / Yuan update and restart. Based on Nash
-                        (1979) Algorithm 22 for its main structure.
-                        CALL THIS VIA 'Rcgmin' AND DO NOT USE DIRECTLY.
+Rcgmin                  An R implementation of a Dai / Yuan nonlinear
+                        conjugate gradient algorithm.
+Rtnmin                  Truncated Newton function minimization
 Rvmmin                  Variable metric nonlinear function
                         minimization, driver.
-Rvmminb                 Variable metric nonlinear function minimization
-                        with bounds constraints
-Rvmminu                 Variable metric nonlinear function
-                        minimization, unconstrained
 scalechk                Check the scale of the initial parameters and
                         bounds input to an optimization code used in
                         nonlinear optimization
 snewton                 Safeguarded Newton methods for function
                         minimization using R functions.
 summary.optimx          Summarize optimx object
-tn                      Truncated Newton minimization of an
-                        unconstrained function.
-tnbc                    Truncated Newton function minimization with
-                        bounds constraints

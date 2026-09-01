@@ -1,11 +1,23 @@
 Package: RUnit
-Version: 0.4.32
-Date: 2018-05-07
+Version: 0.4.33.1
+Date: 2024-02-09
 Title: R Unit Test Framework
-Author: Matthias Burger <burgerm@users.sourceforge.net>, Klaus
-        Juenemann <k.junemann@gmx.net>, Thomas Koenig
-        <thomas.koenig@epigenomics.com>
-Maintainer: Roman Zenka <zenka.roman@mayo.edu>
+Authors@R: c(person(given = "Matthias",
+                    family = "Burger",
+                    role = "aut",
+                    email = "burgerm@users.sourceforge.net"),
+             person(given = "Klaus",
+                    family = "Juenemann",
+                    role = "aut",
+                    email = "k.junemann@gmx.net"),
+             person(given = "Thomas",
+                    family = "Koenig",
+                    role = "aut",
+                    email = "thomas.koenig@epigenomics.com"),
+             person(given = "Roman",
+                    family = "Zenka",
+                    role = "cre",
+                    email = "zenka.roman@mayo.edu"))
 LazyLoad: yes
 Depends: R (>= 2.5.0), utils (>= 2.5.0), methods (>= 2.5.0), graphics
         (>= 2.5.0)
@@ -15,7 +27,12 @@ Description: R functions implementing a standard Unit Testing
         generation tools.
 License: GPL-2
 NeedsCompilation: no
-Packaged: 2018-05-18 16:00:38 UTC; m044910
+Packaged: 2025-06-17 10:32:59 UTC; hornik
 Repository: CRAN
-Date/Publication: 2018-05-18 16:32:53 UTC
-Built: R 4.3.0; ; 2023-07-07 02:29:25 UTC; unix
+Date/Publication: 2025-06-17 10:53:27 UTC
+Author: Matthias Burger [aut],
+  Klaus Juenemann [aut],
+  Thomas Koenig [aut],
+  Roman Zenka [cre]
+Maintainer: Roman Zenka <zenka.roman@mayo.edu>
+Built: R 4.5.0; ; 2026-09-01 20:49:49 UTC; unix

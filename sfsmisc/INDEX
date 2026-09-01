@@ -4,6 +4,7 @@ cairoSwd                Cairo PDF Graphics Device useful for Sweave
 capture.and.write       Capture output and Write / Print First and Last
                         Parts
 col01scale              Matrix Scaling Utilities
+compact01               Compact Representation of Binary, 0/1 Values
 compresid2way           Plot Components + Residuals for Two Factors
 cum.Vert.funkt          Kumulative Verteilung Aufzeichnen
 D1D2                    Numerical Derivatives of (x,y) Data via
@@ -22,14 +23,16 @@ ellipsePoints           Compute Radially Equispaced Points on Ellipse
 empty.dimnames          Empty Dimnames of an Array
 errbar                  Scatter Plot with Error Bars
 f.robftest              Robust F-Test: Wald test for multiple
-                        coefficients of rlm() Object.
+                        coefficients of rlm() Object
 factorize               Prime Factorization of Integers
+formatN                 Compact Numeric Formatting
 funEnv                  List-like Environment of Functions (and More)
+GCD                     Greatest Common Divisor and Least Common
+                        Multiple
 hatMat                  Hat Matrix of a Smoother
 helppdf                 help() Type="pdf" and View It
 histBxp                 Plot a Histogram and a Boxplot
-integrate.xy            Cheap Numerical Integration through Data
-                        points.
+integrate.xy            Cheap Numerical Integration through Data Points
 inv.seq                 Inverse seq() - Short Expression for Index
                         Vector
 is.whole                Test Whether a Vector or Array Consists of
@@ -128,5 +131,5 @@ uniqueL                 A Reversable Version of unique()
 vcat                    Paste Utilities - Concatenate Strings
 wrapFormula             Enhance Formula by Wrapping each Term, e.g., by
                         "s(.)"
-xy.grid                 Produce regular grid matrix.
+xy.grid                 Produce Regular Grid Matrix
 xy.unique.x             Uniqify (X,Y) Values using Weights

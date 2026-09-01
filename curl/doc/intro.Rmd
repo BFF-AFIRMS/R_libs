@@ -112,10 +112,12 @@ As of `curl 2.0` the package provides an async interface which can perform multi
 
 ```{r}
 pool <- new_pool()
-cb <- function(req){cat("done:", req$url, ": HTTP:", req$status, "\n")}
-curl_fetch_multi('https://www.google.com', done = cb, pool = pool)
-curl_fetch_multi('https://cloud.r-project.org', done = cb, pool = pool)
-curl_fetch_multi('https://hb.cran.dev/blabla', done = cb, pool = pool)
+success <- function(req){cat("success:", req$url, ": HTTP:", req$status, "\n")}
+failure <- function(err){cat("failure:", err, "\n")}
+curl_fetch_multi('https://www.google.com', done = success, fail = failure, pool = pool)
+curl_fetch_multi('https://cloud.r-project.org', done = success, fail = failure, pool = pool)
+curl_fetch_multi('https://hb.cran.dev/blabla', done = success, fail = failure, pool = pool)
+curl_fetch_multi('https://doesnotexit.xyz', done = success, fail = failure, pool = pool)
 ```
 
 When we call `multi_run()`, all scheduled requests are performed concurrently. The callback functions get triggered when each request completes.
@@ -150,7 +152,7 @@ unlink('mirrors.csv')
 
 If the HTTP request was unsuccessful, R will not continue:
 
-```{r, error=TRUE, purl = FALSE}
+```{r, error=TRUE}
 # Oops! A typo in the URL!
 curl_download('https://cloud.r-project.org/CRAN_mirrorZ.csv', 'mirrors.csv')
 con <- curl('https://cloud.r-project.org/CRAN_mirrorZ.csv')
@@ -186,7 +188,7 @@ unlink('mirrors.csv')
 
 If you *do* want the `curl_fetch_*` functions to automatically raise an error, you should set the [`FAILONERROR`](https://curl.se/libcurl/c/CURLOPT_FAILONERROR.html) option to `TRUE` in the handle of the request.
 
-```{r, error=TRUE, purl = FALSE}
+```{r, error=TRUE}
 h <- new_handle(failonerror = TRUE)
 curl_fetch_memory('https://cloud.r-project.org/CRAN_mirrorZ.csv', handle = h)
 ```
@@ -238,9 +240,9 @@ handle_setopt(handle, useragent = 12345)
 
 ### ENUM (long) options
 
-Some curl options take an long in C that actually corresponds to an ENUM value. 
+Some curl options take a long in C that actually corresponds to an ENUM value. 
 
-For example the [CURLOPT_USE_SSL](https://curl.se/libcurl/c/CURLOPT_USE_SSL.html) docs explains that there are 4 possible values for this option: `CURLUSESSL_NONE`, `CURLUSESSL_TRY`, `CURLUSESSL_CONTROL`, and `CURLUSESSL_ALL`. To use this option you have to lookup the integer values for these enums in the symbol table. These symbol values never change, so you only need to lookup the value you need once and then hardcode the integer value in your R code.
+For example the [CURLOPT_USE_SSL](https://curl.se/libcurl/c/CURLOPT_USE_SSL.html) docs explains that there are 4 possible values for this option:
 
 ```{r}
 curl::curl_symbols("CURLUSESSL")
@@ -249,20 +251,18 @@ curl::curl_symbols("CURLUSESSL")
 So suppose we want to set `CURLOPT_USE_SSL` to `CURLUSESSL_ALL` we would use this R code:
 
 ```{r}
-handle_setopt(handle, use_ssl = 3)
+handle_setopt(handle, use_ssl = CURLUSESSL_ALL)
 ```
 
 ### Disabling HTTP/2
 
-Another example is the [CURLOPT_HTTP_VERSION](https://curl.se/libcurl/c/CURLOPT_HTTP_VERSION.html) option. This option is needed to disable or enable HTTP/2. However some users are not aware this is actually an ENUM and not a regular numeric value!
+Another example is the [CURLOPT_HTTP_VERSION](https://curl.se/libcurl/c/CURLOPT_HTTP_VERSION.html) option. This option is needed to disable or enable HTTP/2 or HTTP/3. However some users are not aware this is actually an ENUM and not a regular numeric value.
 
 The [docs](https://curl.se/libcurl/c/CURLOPT_HTTP_VERSION.html) explain HTTP_VERSION can be set to one of several strategies for negotiating the HTTP version between client and server. Valid values are:
 
 ```{r}
 curl_symbols('CURL_HTTP_VERSION_')
 ```
-
-As seen, the value `2` corresponds to `CURL_HTTP_VERSION_1_1` and `3` corresponds to `CURL_HTTP_VERSION_2_0`. 
 
 As of libcurl 7.62.0, the default `http_version` is `CURL_HTTP_VERSION_2TLS` which uses HTTP/2 when possible, but only for HTTPS connections. Package authors should usually leave the default to let curl select the best appropriate http protocol.
 
@@ -271,12 +271,11 @@ One exception is when writing a client for a server that seems to be running a b
 The easiest remedy is to __disable http/2__ for this server by forcing http 1.1 until the service has upgraded their webservers. To do so, set the `http_version` to `CURL_HTTP_VERSION_1_1` (value: `2`):
 
 ```{r}
-# Force using HTTP 1.1 (the number 2 is an enum value, see above)
-handle_setopt(handle, http_version = 2)
+# Force using HTTP 1.1 (CURL_HTTP_VERSION_1_1 is an enum, not a real value)
+handle_setopt(handle, http_version = CURL_HTTP_VERSION_1_1)
 ```
 
-Note that the value `1` corresponds to HTTP 1.0 which is a legacy version of HTTP that you should not use!
-Code that sets `http_version` to `1` (or even `1.1` which R simply rounds to 1) is almost always a bug.
+Note that a value `1` corresponds to HTTP 1.0 which is a legacy version of HTTP that you should not use. Code that sets `http_version` to `1` (or even `1.1` which R simply rounds to 1) is almost certainly a bug; we need to pick one of the `CURL_HTTP_VERSION*` values.
 
 ## Performing the request
 
@@ -346,7 +345,7 @@ In recent versions of the curl package there are no performance benefits of reus
 
 ```{r}
 req1 <- curl_fetch_memory("https://hb.cran.dev/get")
-req2 <- curl_fetch_memory("https://www.r-project.org")
+req2 <- curl_fetch_memory("https://www.google.com")
 ```
 
 In past versions of this package you needed to manually use a handle to take advantage of http Keep-Alive. However as of version 2.3 this is no longer the case: curl automatically maintains global a pool of open http connections shared by all handles. When performing many requests to the same server, curl automatically uses existing connections when possible, eliminating TCP/SSL handshaking overhead:
@@ -392,12 +391,13 @@ The `form_data` function is similar but simply posts a string or raw value with 
 
 All of the `handle_xxx` functions return the handle object so that function calls can be chained using the popular pipe operators:
 
-```{r}
-library(magrittr)
+```{r eval=getRversion() > "4.1"}
+# Perform request
+res <- new_handle() |>
+  handle_setopt(copypostfields = "moo=moomooo") |>
+  handle_setheaders("Content-Type"="text/moo", "Cache-Control"="no-cache", "User-Agent"="A cow") |>
+  curl_fetch_memory(url = "https://hb.cran.dev/post")
 
-new_handle() %>%
-  handle_setopt(copypostfields = "moo=moomooo") %>%
-  handle_setheaders("Content-Type"="text/moo", "Cache-Control"="no-cache", "User-Agent"="A cow") %>%
-  curl_fetch_memory(url = "https://hb.cran.dev/post") %$% content %>% 
-  rawToChar %>% jsonlite::prettify()
+# Parse response
+res$content |> rawToChar() |> jsonlite::prettify()
 ```

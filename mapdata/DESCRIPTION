@@ -14,4 +14,4 @@ NeedsCompilation: yes
 Packaged: 2022-10-31 20:52:53 UTC; alex
 Repository: CRAN
 Date/Publication: 2022-11-01 00:57:32 UTC
-Built: R 4.3.0; x86_64-pc-linux-gnu; 2023-07-07 02:35:27 UTC; unix
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-01 21:03:07 UTC; unix

@@ -1,3 +1,31 @@
+# Cubist 0.6.0
+
+* A new control option, `strip_time_stamps`, is used to remove date/time and duration information for better reproducability. (#63) 
+
+* An error is thrown if a data or data/time column is passed. 
+
+* Switched from base R `stop()` and `warning()` to cli's `cli_abort()` and `cli_warn()` for improved error messages with better formatting and context.
+
+* Fixed compiler warnings for unused variables in C source code.
+
+# Cubist 0.5.1
+
+* Big fixed related to how rule values are formatted. (#59)
+
+# Cubist 0.5.0
+
+* Updated C code to stop overwriting keyword symbols. 
+
+# Cubist 0.4.4
+
+* Fixed two issues in the vignette. 
+
+* vignette now uses `rules::tidy()` instead of `tidyrules:: tidyRules()`
+
+# Cubist 0.4.3
+
+* 12.8 hours after the last submission was accepted, CRAN required another because the url `https://topepo.github.io/Cubist` forwards to `https://topepo.github.io/Cubist/` (with a slash at the end). 
+
 # Cubist 0.4.2
 
 * Maintenance release to fix CRAN issues related to compiler issues.

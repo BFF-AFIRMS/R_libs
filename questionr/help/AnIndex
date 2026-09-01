@@ -32,6 +32,9 @@ first_non_null	first_non_null
 format.proptab	format.proptab
 freq	freq
 freq.na	freq.na
+freqtable	freqtable
+freqtable.default	freqtable
+freqtable.survey.design	freqtable
 ggsurvey	ggsurvey
 happy	happy
 hdv2003	hdv2003

@@ -1,3 +1,4 @@
+bank_plot               Bank a Plot's Own Data to 45 Degrees
 bank_slopes             Bank Slopes to 45 degrees
 calc_pal                Calc color palette (discrete)
 calc_shape_pal          Calc shape palette (discrete)
@@ -20,7 +21,6 @@ fivethirtyeight_pal     FiveThirtyEight color palette
 gdocs_pal               Google Docs color palette (discrete)
 geom_rangeframe         Range Frames
 geom_tufteboxplot       Tufte's Box Plot
-ggthemes                ggthemes
 ggthemes_data           Palette and theme data
 hc_pal                  Highcharts color palette (discrete)
 palette_pander          Color palette from the pander package

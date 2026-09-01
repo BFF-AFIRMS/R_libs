@@ -48,6 +48,7 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -520,7 +521,7 @@ get the date of the next Monday:</p>
 the target weekday. To use the <code>boundary = &quot;advance&quot;</code>
 behavior, you could implement <code>next_weekday()</code> as:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>next_weekday2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, target) {</span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>  x <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="fu">duration_days</span>(1L)</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>  x <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="fu">duration_days</span>(<span class="dv">1</span><span class="dt">L</span>)</span>
 <span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>  x <span class="sc">+</span> (target <span class="sc">-</span> <span class="fu">as_weekday</span>(x))</span>
 <span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>}</span>
 <span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a></span>
@@ -935,7 +936,7 @@ replicate with <code>calendar_start()</code> and
 <span id="cb46-12"><a href="#cb46-12" tabindex="-1"></a>  <span class="fu">as_naive_time</span>(x_start),</span>
 <span id="cb46-13"><a href="#cb46-13" tabindex="-1"></a>  <span class="fu">as_naive_time</span>(x),</span>
 <span id="cb46-14"><a href="#cb46-14" tabindex="-1"></a>  <span class="st">&quot;week&quot;</span></span>
-<span id="cb46-15"><a href="#cb46-15" tabindex="-1"></a>) <span class="sc">+</span> 1L</span>
+<span id="cb46-15"><a href="#cb46-15" tabindex="-1"></a>) <span class="sc">+</span> <span class="dv">1</span><span class="dt">L</span></span>
 <span id="cb46-16"><a href="#cb46-16" tabindex="-1"></a><span class="co">#&gt; [1] 48</span></span></code></pre></div>
 <p>You could also peek at the <code>lubridate::week()</code>
 implementation to see that this is just:</p>
@@ -943,7 +944,7 @@ implementation to see that this is just:</p>
 <span id="cb47-2"><a href="#cb47-2" tabindex="-1"></a>doy</span>
 <span id="cb47-3"><a href="#cb47-3" tabindex="-1"></a><span class="co">#&gt; [1] 332</span></span>
 <span id="cb47-4"><a href="#cb47-4" tabindex="-1"></a></span>
-<span id="cb47-5"><a href="#cb47-5" tabindex="-1"></a>(doy <span class="sc">-</span> 1L) <span class="sc">%/%</span> 7L <span class="sc">+</span> 1L</span>
+<span id="cb47-5"><a href="#cb47-5" tabindex="-1"></a>(doy <span class="sc">-</span> <span class="dv">1</span><span class="dt">L</span>) <span class="sc">%/%</span> <span class="dv">7</span><span class="dt">L</span> <span class="sc">+</span> <span class="dv">1</span><span class="dt">L</span></span>
 <span id="cb47-6"><a href="#cb47-6" tabindex="-1"></a><span class="co">#&gt; [1] 48</span></span></code></pre></div>
 <div id="high-level-api-8" class="section level3">
 <h3>High level API</h3>
@@ -951,7 +952,7 @@ implementation to see that this is just:</p>
 don’t have to think about switching between types.</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">date_build</span>(<span class="dv">2019</span>, <span class="dv">11</span>, <span class="dv">28</span>)</span>
 <span id="cb48-2"><a href="#cb48-2" tabindex="-1"></a></span>
-<span id="cb48-3"><a href="#cb48-3" tabindex="-1"></a><span class="fu">date_count_between</span>(<span class="fu">date_start</span>(x, <span class="st">&quot;year&quot;</span>), x, <span class="st">&quot;week&quot;</span>) <span class="sc">+</span> 1L</span>
+<span id="cb48-3"><a href="#cb48-3" tabindex="-1"></a><span class="fu">date_count_between</span>(<span class="fu">date_start</span>(x, <span class="st">&quot;year&quot;</span>), x, <span class="st">&quot;week&quot;</span>) <span class="sc">+</span> <span class="dv">1</span><span class="dt">L</span></span>
 <span id="cb48-4"><a href="#cb48-4" tabindex="-1"></a><span class="co">#&gt; [1] 48</span></span></code></pre></div>
 </div>
 </div>
@@ -1138,7 +1139,7 @@ time.</p>
 <span id="cb64-2"><a href="#cb64-2" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is_naive_time</span>(x)) {</span>
 <span id="cb64-3"><a href="#cb64-3" tabindex="-1"></a>    <span class="fu">abort</span>(<span class="st">&quot;`x` must be a naive-time.&quot;</span>)</span>
 <span id="cb64-4"><a href="#cb64-4" tabindex="-1"></a>  }</span>
-<span id="cb64-5"><a href="#cb64-5" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(x) <span class="sc">!=</span> 1L) {</span>
+<span id="cb64-5"><a href="#cb64-5" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(x) <span class="sc">!=</span> <span class="dv">1</span><span class="dt">L</span>) {</span>
 <span id="cb64-6"><a href="#cb64-6" tabindex="-1"></a>    <span class="fu">abort</span>(<span class="st">&quot;`x` must be length 1.&quot;</span>)</span>
 <span id="cb64-7"><a href="#cb64-7" tabindex="-1"></a>  }</span>
 <span id="cb64-8"><a href="#cb64-8" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span>rlang<span class="sc">::</span><span class="fu">is_string</span>(abbrev)) {</span>

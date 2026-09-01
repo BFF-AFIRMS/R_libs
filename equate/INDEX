@@ -2,7 +2,6 @@ ACTmath                 ACT Mathematics Test Scores
 bootstrap               Bootstrap Equating Error
 composite               Composite Linking and Equating
 equate                  Observed Score Linking and Equating
-equate-package          Observed-Score Linking and Equating
 freqtab                 Frequency Distribution Tables
 KBneat                  Test Scores under a NEAT design
 PISA                    Programme for International Student Assessment

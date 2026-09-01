@@ -1,11 +1,11 @@
 Package: hunspell
 Type: Package
 Title: High-Performance Stemmer, Tokenizer, and Spell Checker
-Version: 3.0.2
+Version: 3.0.6
 Depends: R (>= 3.0.2)
 Encoding: UTF-8
 Authors@R: c(
-    person("Jeroen", "Ooms", ,"jeroen@berkeley.edu", role = c("aut", "cre")),
+    person("Jeroen", "Ooms", ,"jeroenooms@gmail.com", role = c("aut", "cre")),
     person("Authors of libhunspell", role = "cph", comment = "see AUTHORS file"))
 Description: Low level spell checker and morphological analyzer based on the 
     famous 'hunspell' library <https://hunspell.github.io>. The package can analyze
@@ -14,22 +14,20 @@ Description: Low level spell checker and morphological analyzer based on the
     this package to automate checking of files, documentation and vignettes in all
     common formats.
 License: GPL-2 | LGPL-2.1 | MPL-1.1
-URL: https://docs.ropensci.org/hunspell/ (docs),
-        https://github.com/ropensci/hunspell (devel)
-        https://hunspell.github.io (upstream)
+URL: https://docs.ropensci.org/hunspell/
+        https://ropensci.r-universe.dev/hunspell
 BugReports: https://github.com/ropensci/hunspell/issues
 Imports: Rcpp, digest
 LinkingTo: Rcpp (>= 0.12.12)
-Suggests: spelling, testthat, pdftools, janeaustenr, wordcloud2, knitr,
-        stopwords, rmarkdown
+Suggests: spelling, testthat, knitr, rmarkdown
 VignetteBuilder: knitr
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Language: en-US
 NeedsCompilation: yes
-Packaged: 2022-09-04 15:04:08 UTC; jeroen
+Packaged: 2025-03-22 20:15:55 UTC; jeroen
 Author: Jeroen Ooms [aut, cre],
   Authors of libhunspell [cph] (see AUTHORS file)
-Maintainer: Jeroen Ooms <jeroen@berkeley.edu>
+Maintainer: Jeroen Ooms <jeroenooms@gmail.com>
 Repository: CRAN
-Date/Publication: 2022-09-04 15:40:02 UTC
-Built: R 4.3.0; x86_64-pc-linux-gnu; 2023-07-07 02:34:22 UTC; unix
+Date/Publication: 2025-03-22 20:50:02 UTC
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-01 20:49:10 UTC; unix

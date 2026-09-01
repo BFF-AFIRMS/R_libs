@@ -1,10 +1,10 @@
-## ---- echo = FALSE, results = "hide", message = FALSE---------------------------------------------
+## ----echo = FALSE, results = "hide", message = FALSE----------------------------------------------
 require("emmeans")
 knitr::opts_chunk$set(fig.width = 4.5, class.output = "ro")
 set.seed(271828)
 
 ## ----eval=FALSE-----------------------------------------------------------------------------------
-#  help("extending-emmeans", package="emmeans")
+# help("extending-emmeans", package="emmeans")
 
 ## -------------------------------------------------------------------------------------------------
 fake = expand.grid(rep = 1:5, A = c("a1","a2"), B = c("b1","b2","b3"))
@@ -18,6 +18,23 @@ fake.rlm = rlm(y ~ A * B, data = fake)
 
 library(emmeans)
 emmeans(fake.rlm, ~ B | A)
+
+## -------------------------------------------------------------------------------------------------
+require(robmixglm, quietly = TRUE)
+fit <- robmixglm(inverse(conc) ~ source + factor(percent), family = "gamma",
+                 data = pigs, cores = 1)
+
+## -------------------------------------------------------------------------------------------------
+qdrg.robmixglm <- function(object, data = eval(object$call$data), ...) {
+    coef <- coef(object)
+    idx <- seq_along(coef)
+    qdrg(formula = formula(object), data = data, coef = coef,
+         vcov = object$fit@vcov[idx, idx, drop = FALSE], ...)
+}
+
+## -------------------------------------------------------------------------------------------------
+rg <- qdrg(object = fit, link = "log")
+emmeans(rg, ~ ., type = "response")
 
 ## -------------------------------------------------------------------------------------------------
 fake.lts = ltsreg(y ~ A * B, data = fake)
