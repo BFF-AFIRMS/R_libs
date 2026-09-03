@@ -1,0 +1,55 @@
+Binding: create_golem_gui
+Title: Create a {golem} Shiny App
+OpenFiles: dev/01_start.R
+Icon: golem.png
+
+Parameter: without_comments
+Widget: CheckboxInput
+Label: Remove golem comments
+Default: Off
+Position: left
+
+Parameter: project_hook
+Widget: TextInput
+Label: Project hook
+Default: golem::project_hook
+Position: left
+
+Parameter: check_name
+Widget: CheckboxInput
+Label: Check package name
+Default: On
+Position: left
+
+Parameter: with_git
+Widget: CheckboxInput
+Label: Create git repository
+Default: Off
+Position: left
+
+Parameter: with_agents
+Widget: CheckboxInput
+Label: Install agent skills
+Default: Off
+Position: right
+
+Parameter: with_agents_source
+Widget: SelectInput
+Label: Skill source
+Fields: local, remote
+Default: local
+Position: right
+
+Parameter: with_agents_agent_specs
+Widget: SelectInput
+Label: Agent target
+Fields: both, agents, claude
+Default: both
+Position: right
+
+Parameter: with_agents_main_md_files
+Widget: SelectInput
+Label: Main md files
+Fields: yes, no
+Default: yes
+Position: right
