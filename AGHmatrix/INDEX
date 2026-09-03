@@ -1,0 +1,24 @@
+Amatrix                 Construction of Relationship Matrix A
+AmatrixPolyCross        Construction of pedigree-based relationship
+                        matrix with parental guessing possibility
+asciitonumber           Convert pedigree names to numeric indices using
+                        C++
+datatreat               Organizes pedigree data in a chronological way
+                        using C++
+expandAmatrix           Add new crosses to a current A matrix
+filterpedigree          Filter the pedigree to keep only the genealogy
+                        of a subset of individuals
+formatmatrix            Transform a matrix in 3 columns
+Gmatrix                 Construction of Relationship Matrix G
+H_martini_blocks        Compute Martini block corrections (H11, H12,
+                        H21, H22 - A22)
+Hmatrix                 Construction of Combined Relationship Matrix H
+Mcheck                  Check and filter markers
+missingdata             Survying on missing data
+munoz_var_mean_by_Aclass
+                        Compute var/mean of G by classes of rounded A,
+                        and fill varA/meanG
+ped.mrode               Pedigree Data
+ped.sol                 Pedigree data for autopolyploid examples
+snp.pine                Molecular data for diploid examples
+snp.sol                 Molecular data for autopolyploid examples
