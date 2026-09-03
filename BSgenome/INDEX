@@ -1,0 +1,15 @@
+AdvancedBSgenomeForge   [Moved to BSgenomeForge] Tools to forge a
+                        BSgenome data package
+available.genomes       Find available/installed genomes
+bsapply                 bsapply
+BSgenome-class          BSgenome objects
+BSgenome-utils          BSgenome utilities
+BSgenomeViews-class     BSgenomeViews objects
+BSParams-class          Class "BSParams"
+export-methods          Export a BSgenome object as a FASTA or twoBit
+                        file
+getSeq                  getSeq methods for BSgenome and XStringSet
+                        objects
+injectSNPs              SNP injection
+SNPlocs-class           SNPlocs objects
+XtraSNPlocs-class       XtraSNPlocs objects

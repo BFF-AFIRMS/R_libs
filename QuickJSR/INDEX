@@ -11,6 +11,7 @@ JSContext-method-source
 JSContext-method-validate
                         Assess validity of JS code without evaluating
 qjs_eval                qjs_eval
+quickjs_flags           QuickJS-NG Compiler and Linker Flags
 quickjs_version         Get the version of the bundled QuickJS library
 QuickJSR-package        The QuickJSR package.
 to_json                 to_json

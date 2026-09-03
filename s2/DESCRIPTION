@@ -1,6 +1,6 @@
 Package: s2
 Title: Spherical Geometry Operators Using the S2 Geometry Library
-Version: 1.1.11
+Version: 1.1.12
 Authors@R: c(
      person(given = "Dewey",
            family = "Dunnington",
@@ -35,7 +35,7 @@ Depends: R (>= 3.0.0)
 Config/testthat/edition: 3
 Config/roxygen2/version: 8.0.0
 NeedsCompilation: yes
-Packaged: 2026-06-01 09:16:23 UTC; edzer
+Packaged: 2026-09-03 07:29:53 UTC; edzer
 Author: Dewey Dunnington [aut] (ORCID: <https://orcid.org/0000-0002-9415-4582>),
   Edzer Pebesma [aut, cre] (ORCID:
     <https://orcid.org/0000-0001-8049-7069>),
@@ -44,5 +44,5 @@ Author: Dewey Dunnington [aut] (ORCID: <https://orcid.org/0000-0002-9415-4582>),
   Google, Inc. [cph] (Original s2geometry.io source code)
 Maintainer: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
 Repository: CRAN
-Date/Publication: 2026-06-01 10:30:02 UTC
-Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-01 20:57:05 UTC; unix
+Date/Publication: 2026-09-03 09:30:02 UTC
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-03 23:19:46 UTC; unix

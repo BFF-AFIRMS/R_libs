@@ -1,0 +1,14 @@
+fractional              Representation of a numeric vector in vulgar
+                        fractional form
+Math.fractional         Method for the group generic function for the
+                        elementary mathematical functions
+numerators              Extract the parts of a fractional object
+numerical               Convert a fractional object to the equivalent
+                        numeric object
+Ops.fractional          Method for the group generic function for the
+                        arithmetic operators
+rat                     Calculate Rational Approximation Using
+                        Continued Fraction Methods
+unfractional            Demote a fractional object back to a numeric
+                        one
+vfractional             Vectorized form for fractional

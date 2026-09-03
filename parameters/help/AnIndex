@@ -163,4 +163,5 @@ standard_error.factor	standard_error
 standard_error.gam	standard_error
 summary.parameters_model	print.parameters_model
 supported_models	reexports
+tinyplot.parameters_model	tinyplot.parameters_model
 visualisation_recipe	reexports

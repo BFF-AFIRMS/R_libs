@@ -1,0 +1,38 @@
+acl                     Adjective Checklist Data
+Antisemitism            Change in antisemitism after seeing a movie
+BodySatisfaction        Body satisfaction for seven body parts
+ClarenceThomas          Opinion on Supreme Court nominee Clarence
+                        Thomas, two-wave panel study
+cmm-package             Categorical Marginal Models
+ConstraintMatrix        ConstraintMatrix
+DesignMatrix            DesignMatrix
+DirectSum               DirectSum
+DutchConcern            Concern about crime and social security in the
+                        Netherlands
+DutchPolitics           Political party and candidate preference in the
+                        Netherlands
+ErieCounty              Erie County political preference, two-wave
+                        panel
+EVS                     European Values Study (EVS): attitude towards
+                        women's role in society
+GSS93                   Political Orientation and Religion in the
+                        United States in 1993 (General Social Survey,
+                        1993)
+JoinModels              JoinModels
+LaborParticipation      Women's labor participation: 1967-1971
+MarginalMatrix          MarginalMatrix
+MarginalModelFit        MarginalModelFit
+Margins                 Margins
+MarihuanaAlcohol        Marihuana and alcohol use during adolescence,
+                        five-wave panel
+ModelStatistics         ModelStatistics
+NES                     Political Orientation in the US, three-wave
+                        panel study
+NKPS                    Attitudes on sex roles and marriage,
+                        measurements clustered in families
+RecordsToFrequencies    RecordsToFrequencies
+SampleStatistics        SampleStatistics
+Smoking                 Smoking cessation after experimental
+                        intervention
+SpecifyCoefficient      SpecifyCoefficient
+TestCronbachAlpha       Testing Cronbach's alpha using marginal models

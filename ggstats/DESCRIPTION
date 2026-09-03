@@ -1,7 +1,7 @@
 Package: ggstats
 Type: Package
 Title: Extension to 'ggplot2' for Plotting Stats
-Version: 0.13.0
+Version: 0.14.0
 Authors@R: c(
     person(
       "Joseph", "Larmarange", ,
@@ -25,15 +25,15 @@ Suggests: betareg, broom, broom.helpers (>= 1.20.0), emmeans, glue,
         nnet, parameters, pscl, testthat (>= 3.0.0), spelling, survey,
         survival, vdiffr
 Encoding: UTF-8
-RoxygenNote: 7.3.3
 Config/testthat/edition: 3
 Language: en-US
 VignetteBuilder: knitr
+Config/roxygen2/version: 8.1.0
 NeedsCompilation: no
-Packaged: 2026-03-06 13:00:41 UTC; josep
+Packaged: 2026-09-01 16:01:08 UTC; josep
 Author: Joseph Larmarange [aut, cre] (ORCID:
     <https://orcid.org/0000-0001-7097-700X>)
 Maintainer: Joseph Larmarange <joseph@larmarange.net>
 Repository: CRAN
-Date/Publication: 2026-03-06 13:40:02 UTC
-Built: R 4.5.0; ; 2026-09-01 21:20:46 UTC; unix
+Date/Publication: 2026-09-02 05:20:33 UTC
+Built: R 4.5.0; ; 2026-09-03 23:16:23 UTC; unix

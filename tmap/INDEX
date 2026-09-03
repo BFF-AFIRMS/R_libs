@@ -1,0 +1,78 @@
+.tmap_providers         Get basemap tile providers
+land                    Spatial data of global land cover
+metro                   Spatial data of metropolitan areas
+NLD_prov                Spatial data of the Netherlands
+print.tmap              Display thematic map
+qtm                     Quick thematic map plot
+renderTmap              Shiny integration for tmap
+theme_ps                ggplot2 theme for proportional symbols
+tm_add_legend           Map component: manual legend
+tm_animate_fast         Specify an animation
+tm_basemap              Map layer: basemap / overlay tiles
+tm_chart                Map component: scale charts
+tm_check_fix            Check and fix invalid geometries
+tm_circles              Map layer: geographic circles
+tm_compass              Map component: compass
+tm_components           Group map components
+tm_const                Constant map variable value
+tm_credits              Map component: credits
+tm_crs                  Set the map projection (CRS)
+tm_extra_inner_margin   Layout helpers: inner margins and legend
+                        placement
+tm_facets               Specify facets
+tm_graticules           Coordinate grid / graticule lines
+tm_group                Layer group control
+tm_inset                Map component: inset map
+tm_iso                  Map layer: iso (contour)
+tm_label_format         Label formatting for scales
+tm_legend               Map component: scale legend
+tm_lines                Map layer: lines
+tm_logo                 Map component: logo
+tm_minimap              Map component: minimap
+tm_mouse_coordinates    Map component: mouse coordinates
+tm_options              Per-map tmap options
+tm_plot                 Plot mode options
+tm_plot_order           Determine plotting order of features
+tm_polygons             Map layer: polygons
+tm_popup                Popup specification for interactive maps
+tm_pos                  Set the position of map components
+tm_raster               Map layer: raster
+tm_rgb                  Map layer: RGB images
+tm_scale                Scales: automatic scale
+tm_scale_asis           Scales: as is
+tm_scale_bivariate      Scales: bivariate scale
+tm_scale_continuous     Scales: continuous scale
+tm_scale_discrete       Scales: discrete scale
+tm_scale_intervals      Scales: interval scale
+tm_scale_ordinal        Scales: categorical and ordinal scale
+tm_scale_rank           Scales: rank scale
+tm_scale_rgb            Scales: RGB
+tm_scalebar             Map component: scale bar
+tm_seq                  Specify a numeric sequence
+tm_sf                   Map layer: simple features
+tm_shape                Shape (spatial object) specification
+tm_style                Per-map layout options
+tm_symbols              Map layer: symbols
+tm_text                 Map layer: text
+tm_title                Map component: title
+tm_vars                 Specify variables
+tm_view                 View mode options
+tm_xlab                 Map component: axis labels
+tmap_animation          Save tmap animation to file
+tmap_arrange            Arrange small multiples in grid layout
+tmap_design_mode        Toggle design overlay
+tmap_devel_mode         Toggle developer diagnostics
+tmap_icons              Specify icons
+tmap_last               Retrieve the last map to be modified or created
+tmap_leaflet            Export tmap to the mode's native object
+tmap_mode               Get or set tmap mode
+tmap_options            Global tmap options
+tmap_overview           Overview of tmap layers
+tmap_save               Save tmap to file
+tmap_style              Set or get the default tmap style
+tmap_style_catalogue    Create a style catalog
+tmap_tip                Print a random tip to the console
+tmap-element            Stacking of tmap elements
+tmap-package            Thematic Map Visualization
+World                   Spatial data of the world
+World_rivers            Spatial data of rivers

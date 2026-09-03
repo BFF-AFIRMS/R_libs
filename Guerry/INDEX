@@ -1,0 +1,11 @@
+Angeville               Data from d'Angeville (1836) on the population
+                        of France
+gfrance                 Map of France in 1830 with the Guerry data
+gfrance85               Map of France in 1830 with the Guerry data,
+                        excluding Corsica
+Guerry                  Data from A.-M. Guerry, "Essay on the Moral
+                        Statistics of France"
+Guerry-package          Maps, Data and Methods Related to Guerry (1833)
+                        "Moral Statistics of France"
+propensity              Distribution of crimes against persons at
+                        different ages

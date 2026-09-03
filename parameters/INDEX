@@ -101,3 +101,6 @@ standard_error          Standard Errors
 standardize_info        Get Standardization Information
 standardize_parameters
                         Parameters standardization
+tinyplot.parameters_model
+                        Forest plot of model parameters using
+                        'tinyplot'

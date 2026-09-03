@@ -60,11 +60,13 @@
 # saveWorkbook(wb, "writeXLSX6.xlsx", overwrite = TRUE)
 
 ## ----include = TRUE, tidy = TRUE, eval = FALSE, highlight = TRUE--------------
-# require(ggplot2)
+# if (requireNamespace("ggplot2")) {
+# library(ggplot2)
 # wb <- createWorkbook()
 # options("openxlsx.borderColour" = "#4F80BD")
 # options("openxlsx.borderStyle" = "thin")
 # modifyBaseFont(wb, fontSize = 10, fontName = "Arial Narrow")
+# }
 
 ## ----include = TRUE,tidy = TRUE, eval = FALSE, highlight = TRUE---------------
 # addWorksheet(wb, sheetName = "Motor Trend Car Road Tests", gridLines = FALSE)
@@ -182,12 +184,14 @@
 # addWorksheet(wb = wb, sheetName = test.n)
 # writeData(wb = wb, sheet = test.n, x = my.table)
 # 
+# if (requireNamespace("survival")) {
 # ## survdiff 1
 # library(survival)
 # test.n <- "survdiff1"
 # addWorksheet(wb = wb, sheetName = test.n)
 # x <- survdiff(Surv(futime, fustat) ~ rx, data = ovarian)
 # writeData(wb = wb, sheet = test.n, x = x)
+# }
 # 
 # ## survdiff 2
 # test.n <- "survdiff2"
@@ -234,7 +238,8 @@
 # 
 
 ## ----eval = FALSE, include = TRUE, tidy = TRUE, highlight= TRUE---------------
-# require(ggplot2)
+# if (requireNamespace("ggplot2")) {
+# library(ggplot2)
 # 
 # wb <- createWorkbook()
 # 
@@ -284,11 +289,13 @@
 # ## save workbook to working directory
 # saveWorkbook(wb, "stockPrice.xlsx", overwrite = TRUE)
 # openXL("stockPrice.xlsx")
+# }
 
 ## ----eval = FALSE, include = TRUE---------------------------------------------
-# require(openxlsx)
-# require(jpeg)
-# require(ggplot2)
+# if (requireNamespace(c("ggplot2", "jpeg"))) {
+# library(openxlsx)
+# library(jpeg)
+# library(ggplot2)
 # 
 # plotFn <- function(x, ...) {
 #   colvec <- grey(x)
@@ -417,6 +424,7 @@
 #   if(length(file_list)>0) {
 #     rm(file_list)
 #   }
+# }
 # }
 
 ## ----cleanup, eval = FALSE, include = FALSE-----------------------------------

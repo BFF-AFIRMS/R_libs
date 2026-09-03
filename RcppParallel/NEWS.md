@@ -1,3 +1,102 @@
+# RcppParallel 6.2.1
+
+* Fixed bundled oneTBB builds with recent libc++, which no longer includes
+  `<algorithm>` transitively. `tbb/concurrent_queue.h` uses `std::equal` but
+  did not include it, giving "no member named 'equal' in namespace 'std'" when
+  compiling `concurrent_bounded_queue.cpp`, as seen on CRAN's clang-trunk
+  checks. (#280)
+
+* Fixed bundled oneTBB builds and downstream compilation with Clang and libc++
+  when targeting macOS 10.12 or earlier, where C++17 aligned allocation is not
+  available. (#219)
+
+
+# RcppParallel 6.2.0
+
+* Fixed a failure to install with toolchains that accept `-std=c++20` but
+  provide a pre-C++20 standard library, with errors of the form "no member
+  named 'random_access_iterator' in namespace 'std'" from
+  `tbb/parallel_for_each.h`. The bundled oneTBB selected its concepts-based
+  iterator dispatch on a macro testing only the language standard, rather than
+  the `__TBB_CPP20_CONCEPTS_PRESENT` used elsewhere in that same header. This
+  affected RcppParallel's own compilation, as well as any package including
+  the header; CRAN's macOS x86_64 machines, which pair Apple clang 14 with the
+  macOS 11.3 SDK, are one such toolchain. (#268)
+
+* On Windows, RcppParallel now builds the bundled oneTBB as a shared library
+  and links against it, shipping `tbb.dll` and `tbbmalloc.dll` alongside the
+  package -- the same arrangement already used on every other platform.
+  Previously it linked the static TBB provided by Rtools directly into
+  `RcppParallel.dll`, which meant the TBB version (and ABI) depended on the
+  user's toolchain, and left downstream packages with no TBB library to link
+  against. Rtools42 in particular provides Intel TBB 2017, whose headers
+  downstream packages cannot build against: StanHeaders uses
+  `tbb::this_task_arena::isolate`, which that release still gates behind
+  `TBB_PREVIEW_TASK_ISOLATION` and does not export from its library, so rstan
+  could no longer be built on R 4.2 for Windows. Building TBB ourselves gives
+  every platform the same oneTBB and makes the ABI a property of RcppParallel
+  rather than of the toolchain. `TBB_LIB` / `TBB_INC` are still honoured for
+  anyone supplying their own build. (#269, #274)
+
+* Building RcppParallel now requires cmake (>= 3.5) on all platforms, as
+  `SystemRequirements` has always declared. Previously a missing or unusable
+  cmake was fatal everywhere except Windows, where it instead produced a
+  package with no TBB backend at all -- a silently degraded install that was
+  easy to end up with and hard to notice. TBB is now always enabled. Rtools has
+  shipped cmake since Rtools42, so this should not affect Windows users in
+  practice. Note that the tinythread backend remains selectable at runtime via
+  `RCPP_PARALLEL_BACKEND=tinythread`; it is only no longer a build outcome.
+  (#275)
+
+* As a consequence, `RcppParallel::RcppParallelLibs()` now emits `-ltbb` and
+  `-ltbbmalloc` on Windows, in addition to `-lRcppParallel` (which remains
+  necessary there for the entry points RcppParallel compiles itself, such as
+  `isProcessForkedChild`). Packages that previously resolved TBB symbols out of
+  `RcppParallel.dll`, or the tbbmalloc API via `-lRcppParallel` alone, should
+  rebuild against these flags.
+
+* The `tbb.dll` compatibility stub is gone. It existed to publish the
+  pre-oneTBB `task_scheduler_observer` entry point on top of a statically
+  linked runtime, but because it linked the TBB archives itself it amounted to
+  a second, independent copy of the oneTBB scheduler living in the same
+  process. That entry point is now exported by the real `tbb.dll`, as it
+  already was by the shared libraries on other platforms, so binaries built
+  against RcppParallel 5.1.11 and earlier continue to resolve it.
+
+* On macOS, `RcppParallel::LdFlags()` now also emits an `-rpath` entry for the
+  directory containing the TBB libraries. The libraries record an
+  `@rpath`-relative install name, so packages linking against them previously
+  produced binaries with no runtime search path for TBB; those binaries could
+  only be loaded when RcppParallel (and hence TBB) already happened to be
+  loaded into the process, and failed with "Library not loaded:
+  @rpath/libtbb.dylib" otherwise. (#209, #271)
+
+* Fixed `RcppParallel::tbbLibraryPath()` returning `NULL` on Windows, and
+  `tbbRoot()` reporting a directory that need not exist on the machine running
+  the package -- for a pre-built binary, the Rtools tree of the machine that
+  built it. Both now describe the installation actually in use. (#270, #273)
+
+* Fixed an issue where building the bundled oneTBB could fail when `CXX`
+  (or `CC`) was configured with a leading compiler launcher such as `ccache`
+  (e.g. `CXX = "ccache g++"`). The launcher is now forwarded to cmake via
+  `CMAKE_<LANG>_COMPILER_LAUNCHER` instead of being mistaken for the compiler
+  itself. (#267)
+
+
+# RcppParallel 6.1.1
+
+* Fixed an issue where package installation could fail if `cmake` was not
+  available on the `PATH`, even when it was discoverable at another known
+  location (e.g. `/Applications/CMake.app/Contents/bin/cmake` on macOS).
+  This caused installation failures on CRAN's macOS machines, where `cmake`
+  is not on the `PATH` by default.
+
+* Removed vestigial compiler / flag detection code from the configure
+  script. This code has been unused since the switch to a cmake-driven
+  build of the bundled oneTBB, and probed `R CMD config` variables that
+  are defunct in R (>= 4.6.0).
+
+
 # RcppParallel 6.1.0
 
 * RcppParallel now provides `isProcessForkedChild()` (R) and

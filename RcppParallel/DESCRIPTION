@@ -1,7 +1,7 @@
 Package: RcppParallel
 Type: Package
 Title: Parallel Programming Tools for 'Rcpp'
-Version: 6.1.0
+Version: 6.2.1
 Authors@R: c(
     person("Kevin", "Ushey", role = c("aut", "cre"), email = "kevin@rstudio.com",
         comment = c(ORCID = "0000-0003-2880-7407")),
@@ -34,7 +34,7 @@ Biarch: TRUE
 RoxygenNote: 7.3.3
 Encoding: UTF-8
 NeedsCompilation: yes
-Packaged: 2026-07-25 00:09:30 UTC; kevin
+Packaged: 2026-08-26 18:00:02 UTC; kevin
 Author: Kevin Ushey [aut, cre] (ORCID: <https://orcid.org/0000-0003-2880-7407>),
   JJ Allaire [aut],
   Romain Francois [aut, cph],
@@ -50,5 +50,5 @@ Author: Kevin Ushey [aut, cre] (ORCID: <https://orcid.org/0000-0003-2880-7407>),
   Posit, PBC [cph]
 Maintainer: Kevin Ushey <kevin@rstudio.com>
 Repository: CRAN
-Date/Publication: 2026-07-25 22:50:02 UTC
-Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-03 22:03:50 UTC; unix
+Date/Publication: 2026-08-27 05:10:40 UTC
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-03 23:17:47 UTC; unix
