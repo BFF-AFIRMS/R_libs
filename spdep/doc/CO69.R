@@ -1,14 +1,14 @@
 ## ----setup, include=FALSE-----------------------------------------------------
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 
-## ---- echo=FALSE,eval=TRUE----------------------------------------------------
+## ----echo=FALSE,eval=TRUE-----------------------------------------------------
 run <- require("sp", quiet=TRUE)
 
 ## ----echo=TRUE,eval=run,results='hide'----------------------------------------
 library(spdep)
-eire <- as(sf::st_read(system.file("shapes/eire.shp", package="spData")[1]), "Spatial")
+eire <- as(sf::st_read(system.file("shapes/eire.gpkg", package="spData")[1]), "Spatial")
 row.names(eire) <- as.character(eire$names)
-proj4string(eire) <- CRS("+proj=utm +zone=30 +ellps=airy +units=km")
+#proj4string(eire) <- CRS("+proj=utm +zone=30 +ellps=airy +units=km")
 
 ## ----echo=TRUE,eval=run-------------------------------------------------------
 class(eire)
@@ -60,13 +60,13 @@ lw_unstand
 nb <- poly2nb(eire_ge1)
 nb
 
-## ----echo=TRUE,eval=run-------------------------------------------------------
-xx <- diffnb(nb, lw_unstand$neighbours, verbose=TRUE)
+## ----echo=TRUE,eval=run,warning=FALSE-----------------------------------------
+xx <- diffnb(nb, lw_unstand$neighbours, legacy=TRUE, verbose=TRUE)
 
 ## ----echo=TRUE,eval=FALSE,results='hide'--------------------------------------
-#  plot(eire_ge1, border="grey60")
-#  plot(nb, coordinates(eire_ge1), add=TRUE, pch=".", lwd=2)
-#  plot(xx, coordinates(eire_ge1), add=TRUE, pch=".", lwd=2, col=3)
+# plot(eire_ge1, border="grey60")
+# plot(nb, coordinates(eire_ge1), add=TRUE, pch=".", lwd=2)
+# plot(xx, coordinates(eire_ge1), add=TRUE, pch=".", lwd=2, col=3)
 
 ## ----eval=run,echo=FALSE, fig.cap="County boundaries and contiguities"--------
 par(mfrow=c(1,2))
@@ -84,14 +84,14 @@ par(mfrow=c(1,1))
 load(system.file("etc/misc/raw_grass_borders_new.RData", package="spdep")[1])
 
 ## ----echo=TRUE,eval=FALSE,results='hide'--------------------------------------
-#  library(terra)
-#  v_eire_ge1 <-vect(eire_ge1)
-#  SG <- rasterize(v_eire_ge1, rast(nrows=70, ncols=50, extent=ext(v_eire_ge1)), field="county")
-#  library(rgrass7)
-#  grass_home <- "/home/rsb/topics/grass/g820/grass82"
-#  initGRASS(grass_home, home=tempdir(), SG=SG, override=TRUE)
-#  write_VECT(v_eire_ge1, "eire", flags=c("o", "overwrite"))
-#  res <- vect2neigh("eire", ID="serlet")
+# library(terra)
+# v_eire_ge1 <-vect(eire_ge1)
+# SG <- rasterize(v_eire_ge1, rast(nrows=70, ncols=50, extent=ext(v_eire_ge1)), field="county")
+# library(rgrass)
+# grass_home <- "/home/rsb/topics/grass/g820/grass82"
+# initGRASS(grass_home, home=tempdir(), SG=SG, override=TRUE)
+# write_VECT(v_eire_ge1, "eire", flags=c("o", "overwrite"))
+# res <- vect2neigh("eire", ID="serlet")
 
 ## ----echo=TRUE,eval=run-------------------------------------------------------
 res$length <- res$length*1000
@@ -224,40 +224,40 @@ nsim <- 4999
 set.seed(1234)
 
 ## ----echo=TRUE,eval=FALSE---------------------------------------------------------------
-#  system.time({
-#  MoranNb <- lapply(vars, function(x) f_bpara(x=eire_ge1[[x]], nsim=nsim, listw=nb_B))
-#  MoranRb <- lapply(vars, function(x) f_bperm(x=eire_ge1[[x]], nsim=nsim, listw=nb_B))
-#  Prop_unstdNb  <- lapply(vars, function(x) f_bpara(x=eire_ge1[[x]], nsim=nsim, listw=lw_unstand))
-#  Prop_unstdRb  <- lapply(vars, function(x) f_bperm(x=eire_ge1[[x]], nsim=nsim, listw=lw_unstand))
-#  Prop_stdNb  <- lapply(vars, function(x) f_bpara(x=eire_ge1[[x]], nsim=nsim, listw=lw_std))
-#  Prop_stdRb  <- lapply(vars, function(x) f_bperm(x=eire_ge1[[x]], nsim=nsim, listw=lw_std))
-#  })
+# system.time({
+# MoranNb <- lapply(vars, function(x) f_bpara(x=eire_ge1[[x]], nsim=nsim, listw=nb_B))
+# MoranRb <- lapply(vars, function(x) f_bperm(x=eire_ge1[[x]], nsim=nsim, listw=nb_B))
+# Prop_unstdNb  <- lapply(vars, function(x) f_bpara(x=eire_ge1[[x]], nsim=nsim, listw=lw_unstand))
+# Prop_unstdRb  <- lapply(vars, function(x) f_bperm(x=eire_ge1[[x]], nsim=nsim, listw=lw_unstand))
+# Prop_stdNb  <- lapply(vars, function(x) f_bpara(x=eire_ge1[[x]], nsim=nsim, listw=lw_std))
+# Prop_stdRb  <- lapply(vars, function(x) f_bperm(x=eire_ge1[[x]], nsim=nsim, listw=lw_std))
+# })
 
 ## ----echo=FALSE,eval=FALSE--------------------------------------------------------------
-#  zzz <- system.time({
-#  MoranNb <- lapply(vars, function(x) f_bpara(x=eire_ge1[[x]], nsim=nsim, listw=nb_B))
-#  MoranRb <- lapply(vars, function(x) f_bperm(x=eire_ge1[[x]], nsim=nsim, listw=nb_B))
-#  Prop_unstdNb  <- lapply(vars, function(x) f_bpara(x=eire_ge1[[x]], nsim=nsim, listw=lw_unstand))
-#  Prop_unstdRb  <- lapply(vars, function(x) f_bperm(x=eire_ge1[[x]], nsim=nsim, listw=lw_unstand))
-#  Prop_stdNb  <- lapply(vars, function(x) f_bpara(x=eire_ge1[[x]], nsim=nsim, listw=lw_std))
-#  Prop_stdRb  <- lapply(vars, function(x) f_bperm(x=eire_ge1[[x]], nsim=nsim, listw=lw_std))
-#  })
-#  res <- lapply(c("MoranNb", "MoranRb", "Prop_unstdNb", "Prop_unstdRb", "Prop_stdNb", "Prop_stdRb"), function(x) sapply(get(x), function(y) (y$t0 - mean(y$t))/sd(y$t)))
-#  res <- t(do.call("rbind", res))
-#  colnames(res) <- c("MoranNb", "MoranRb", "Prop_unstdNb", "Prop_unstdRb", "Prop_stdNb", "Prop_stdRb")
-#  rownames(res) <- vars
-#  save(zzz, res, file="backstore/boot_res.RData")
+# zzz <- system.time({
+# MoranNb <- lapply(vars, function(x) f_bpara(x=eire_ge1[[x]], nsim=nsim, listw=nb_B))
+# MoranRb <- lapply(vars, function(x) f_bperm(x=eire_ge1[[x]], nsim=nsim, listw=nb_B))
+# Prop_unstdNb  <- lapply(vars, function(x) f_bpara(x=eire_ge1[[x]], nsim=nsim, listw=lw_unstand))
+# Prop_unstdRb  <- lapply(vars, function(x) f_bperm(x=eire_ge1[[x]], nsim=nsim, listw=lw_unstand))
+# Prop_stdNb  <- lapply(vars, function(x) f_bpara(x=eire_ge1[[x]], nsim=nsim, listw=lw_std))
+# Prop_stdRb  <- lapply(vars, function(x) f_bperm(x=eire_ge1[[x]], nsim=nsim, listw=lw_std))
+# })
+# res <- lapply(c("MoranNb", "MoranRb", "Prop_unstdNb", "Prop_unstdRb", "Prop_stdNb", "Prop_stdRb"), function(x) sapply(get(x), function(y) (y$t0 - mean(y$t))/sd(y$t)))
+# res <- t(do.call("rbind", res))
+# colnames(res) <- c("MoranNb", "MoranRb", "Prop_unstdNb", "Prop_unstdRb", "Prop_stdNb", "Prop_stdRb")
+# rownames(res) <- vars
+# save(zzz, res, file="backstore/boot_res.RData")
 
 ## ----echo=FALSE,eval=FALSE--------------------------------------------------------------
-#  bsfn <- system.file("etc/backstore/boot_res.RData", package="spdep")
-#  load(bsfn)
-#  zzz
+# bsfn <- system.file("etc/backstore/boot_res.RData", package="spdep")
+# load(bsfn)
+# zzz
 
 ## ----echo=TRUE,eval=FALSE---------------------------------------------------------------
-#  res <- lapply(c("MoranNb", "MoranRb", "Prop_unstdNb", "Prop_unstdRb", "Prop_stdNb", "Prop_stdRb"), function(x) sapply(get(x), function(y) (y$t0 - mean(y$t))/sd(y$t)))
-#  res <- t(do.call("rbind", res))
-#  colnames(res) <- c("MoranNb", "MoranRb", "Prop_unstdNb", "Prop_unstdRb", "Prop_stdNb", "Prop_stdRb")
-#  rownames(res) <- vars
+# res <- lapply(c("MoranNb", "MoranRb", "Prop_unstdNb", "Prop_unstdRb", "Prop_stdNb", "Prop_stdRb"), function(x) sapply(get(x), function(y) (y$t0 - mean(y$t))/sd(y$t)))
+# res <- t(do.call("rbind", res))
+# colnames(res) <- c("MoranNb", "MoranRb", "Prop_unstdNb", "Prop_unstdRb", "Prop_stdNb", "Prop_stdRb")
+# rownames(res) <- vars
 
 ## ----echo=TRUE,eval=run-----------------------------------------------------------------
 print(formatC(res, format="f", digits=4), quote=FALSE)
@@ -297,7 +297,7 @@ oores <- res - ores[,c(1,3,5)]
 apply(oores, 2, mad)
 all((res >= alpha_0.05) == (ores[,c(1,3,5)] >= alpha_0.05))
 
-## ---- echo=FALSE,eval=run---------------------------------------------------------------
+## ----echo=FALSE,eval=run----------------------------------------------------------------
 run <- run && require("spatialreg", quiet=TRUE) && packageVersion("spatialreg") >= "1.2"
 
 ## ----echo=TRUE,eval=run-----------------------------------------------------------------
@@ -314,32 +314,32 @@ rownames(res) <- vars
 ## ----echo=TRUE,eval=run-----------------------------------------------------------------
 print(formatC(res, format="f", digits=4), quote=FALSE)
 
-## ----results='asis',eval=run,echo=FALSE, fig.cap="Three contrasted spatial weights definitions"----
-pal <- grey.colors(9, 1, 0.5, 2.2)
-oopar <- par(mfrow=c(1,3), mar=c(1,1,3,1)+0.1)
-z <- t(listw2mat(nb_B))
-brks <- c(0,0.1,1)
-image(1:25, 1:25, z[,ncol(z):1], breaks=brks, col=pal[c(1,9)],
- main="Binary", axes=FALSE)
-box()
-z <- t(listw2mat(lw_unstand))
-brks <- c(0,quantile(c(z)[c(z) > 0], seq(0,1,1/8)))
-image(1:25, 1:25, z[,ncol(z):1], breaks=brks, col=pal, main="General", axes=FALSE)
-box()
-z <- t(listw2mat(lw_std))
-brks <- c(0,quantile(c(z)[c(z) > 0], seq(0,1,1/8)))
-image(1:25, 1:25, z[,ncol(z):1], breaks=brks, col=pal,
- main="Std. general", axes=FALSE)
-box()
-par(oopar)
+## ----results='asis',eval=FALSE,echo=FALSE, fig.cap="Three contrasted spatial weights definitions"----
+# pal <- grey.colors(9, 1, 0.5, 2.2)
+# oopar <- par(mfrow=c(1,3), mar=c(1,1,3,1)+0.1)
+# z <- t(listw2mat(nb_B))
+# brks <- c(0,0.1,1)
+# image(1:25, 1:25, z[,ncol(z):1], breaks=brks, col=pal[c(1,9)],
+#  main="Binary", axes=FALSE)
+# box()
+# z <- t(listw2mat(lw_unstand))
+# brks <- c(0,quantile(c(z)[c(z) > 0], seq(0,1,1/8)))
+# image(1:25, 1:25, z[,ncol(z):1], breaks=brks, col=pal, main="General", axes=FALSE)
+# box()
+# z <- t(listw2mat(lw_std))
+# brks <- c(0,quantile(c(z)[c(z) > 0], seq(0,1,1/8)))
+# image(1:25, 1:25, z[,ncol(z):1], breaks=brks, col=pal,
+#  main="Std. general", axes=FALSE)
+# box()
+# par(oopar)
 
-## ----results='asis',eval=run,echo=FALSE-------------------------------------------------
-eire_ge1$nb_B <- sapply(nb_B$weights, sum)
-eire_ge1$lw_unstand <- sapply(lw_unstand$weights, sum)
-library(lattice)
-trellis.par.set(sp.theme())
-p1 <- spplot(eire_ge1, c("nb_B"), main="Binary")
-p2 <- spplot(eire_ge1, c("lw_unstand"), main="General")
-print(p1, split=c(1,1,2,1), more=TRUE)
-print(p2, split=c(2,1,2,1), more=FALSE)
+## ----results='asis',eval=FALSE,echo=FALSE-----------------------------------------------
+# eire_ge1$nb_B <- sapply(nb_B$weights, sum)
+# eire_ge1$lw_unstand <- sapply(lw_unstand$weights, sum)
+# library(lattice)
+# trellis.par.set(sp.theme())
+# p1 <- spplot(eire_ge1, c("nb_B"), main="Binary")
+# p2 <- spplot(eire_ge1, c("lw_unstand"), main="General")
+# print(p1, split=c(1,1,2,1), more=TRUE)
+# print(p2, split=c(2,1,2,1), more=FALSE)
 

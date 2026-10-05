@@ -1,23 +1,34 @@
+---
+title: "Short `intergraph` tutorial"
+author: "Michał Bojanowski"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    number_sections: true
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Short intergraph tutorial}
+  %\VignetteEncoding{UTF-8}
+---
+
 <!--
-%\VignetteEngine{knitr::knitr}
-%\VignetteIndexEntry{Short intergraph tutorial}
 vim:spell:spelllang=en_us
 -->
 
-```{r, setup, include=FALSE, echo=FALSE}
+```{r, setup, include=FALSE}
 library(intergraph)
 library(knitr)
-options(markdown.HTML.options="toc")
-opts_knit$set(upload.fun = image_uri)
+
 set.seed(123)
 ```
+
 - - -
 
-# Short tutorial on using functions in package "intergraph"
+
 
 "Intergraph" is an R package with coercion routines for netowrk data objects. For more information, see
 
-* Homepage on [http://mbojan.github.io/intergraph](http://mbojan.github.io/intergraph).
+* Homepage on [https://mbojan.github.io/intergraph/](https://mbojan.github.io/intergraph/).
 * Package development pages on [https://github.com/mbojan/intergraph](https://github.com/mbojan/intergraph).
 
 This is a short tutorial showing how to use functions in package "intergraph"
@@ -181,8 +192,8 @@ Now we can use it with `asIgraph`:
 (ig2 <- asIgraph(exNetwork, amap=rules))
 
 # check if "na" was dropped
-"na" %in% igraph::list.vertex.attributes(ig1)
-"na" %in% igraph::list.vertex.attributes(ig2)
+"na" %in% igraph::vertex_attr_names(ig1)
+"na" %in% igraph::vertex_attr_names(ig2)
 ```
 
 

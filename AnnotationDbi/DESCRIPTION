@@ -5,7 +5,7 @@ biocViews: Annotation, Microarray, Sequencing, GenomeAnnotation
 URL: https://bioconductor.org/packages/AnnotationDbi
 Video: https://www.youtube.com/watch?v=8qvGNTVz3Ik
 BugReports: https://github.com/Bioconductor/AnnotationDbi/issues
-Version: 1.62.2
+Version: 1.72.0
 License: Artistic-2.0
 Encoding: UTF-8
 Author: Hervé Pagès, Marc Carlson, Seth Falcon, Nianhua Li
@@ -35,10 +35,11 @@ Collate: 00RTobjs.R AllGenerics.R AllClasses.R unlist2.R utils.R SQL.R
         print.probetable.R makeMap.R inpIDMapper.R
         test_AnnotationDbi_package.R
 git_url: https://git.bioconductor.org/packages/AnnotationDbi
-git_branch: RELEASE_3_17
-git_last_commit: baefc54
-git_last_commit_date: 2023-06-30
-Date/Publication: 2023-07-02
+git_branch: RELEASE_3_22
+git_last_commit: ffdaf5d
+git_last_commit_date: 2025-10-29
+Repository: Bioconductor 3.22
+Date/Publication: 2025-10-29
 NeedsCompilation: no
-Packaged: 2023-07-02 19:50:02 UTC; biocbuild
-Built: R 4.3.0; ; 2023-07-07 13:08:02 UTC; unix
+Packaged: 2025-10-30 02:30:36 UTC; biocbuild
+Built: R 4.5.0; ; 2026-09-03 23:13:39 UTC; unix

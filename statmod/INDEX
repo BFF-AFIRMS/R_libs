@@ -33,6 +33,6 @@ remlscoregamma          Approximate REML for Gamma Regression with
                         Structured Dispersion
 sage.test               Exact Binomial Tests For Comparing Two SAGE
                         Libraries (Obsolete)
-statmod-package         Introduction to the StatMod Package
+statmod-package         Introduction to the statmod Package
 tweedie                 Tweedie Generalized Linear Models
 welding                 Data: Tensile Strength of Welds

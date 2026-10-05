@@ -1,3 +1,69 @@
+Version 0.41
+    o Functions using() and stopError() now work better together
+    o Function inside() now detects duplicated variables names
+    o Fixed function scan.clipboard() for Windows
+    o Dropped OpenMP in favor of pthreads
+
+Version 0.40
+    o Function using() now correctly detects invisibly returned values
+    o Package documentation now uses roxygen2
+    o Fixed situations when package QCA is needed but not installed
+
+Version 0.39
+    o Improved detection of sufficiency, in function recreate()
+    o Fixed printing bug in objects of class "admisc_fobject", when expressions
+      are evaluated using the "split.by" argument for a single variable
+    o Function recode() now correctly preserves the labels for the declared
+      missing values, if existing in the input data
+    o If the input is a declared object, function recode() now allows providing
+      a variable label for the resulting declared object, using the argument
+      "label" (see also the argument "label" in function declared() from the
+      package declared)
+    o Function recode() now discards the labels for declared missing values,
+      if no such declared values are found in the input data, for instance
+      because of drop_na()
+    o Bug fix in function recode(), the number of labels is now checked to be
+      equal to the number of recodings
+    o New class method for matrices (coerced to data frames) in function using()
+
+Version 0.38
+    o Bug fix in function recode() treating NA values using the argument cut
+    o Improved function using() treating split.by argument and result printing
+    o Function expand() now returns the snames as an attribute, if provided,
+      and function translate() now detects it in the expression's attributes
+    o Function writePrimeimp() renamed to writePIs()
+    o Function negate() renamed to invert()
+    o Former function invert() renamed to sopos()
+    o Function finvert() renamed to frev()
+
+Version 0.37
+    o Better output for function using() with a vector of expressions
+    o Function export() is now generic, allowing for class extensions
+    o New S3 class extension for function update() to update a file
+      (for the moment, specific to package DDIwR updating a DDI Codebook)
+
+Version 0.36
+    o Function recreate() now captures a tilde for global objects
+    o Improved functions recode() and getInfo() for objects of class "declared"
+    o New function betweenQuotes()
+    o Function insideBrackets() is now deprecated, replaced by betweenBrackets()
+    o Bug fixes in possibleNumeric(), where diacritics are detected as
+      multi-byte characters, or when x has length 1
+    o Bug fixes in strsplit() and replaceText(), to avoid infinite loops
+      calling each other
+
+Version 0.35
+    o Fixed recode() for the more recent treatment that c() is NULL
+    o Improved function change() with respect to QCA truth tables
+    o Function recreate() now recognizes "-.>" as a sufficiency operator
+    o Small code improvements
+
+Version 0.34
+    o New function overwrite()
+    o New function change()
+    o Improved version of inside(), where now the argument "data" can be
+      anything (including a list component)
+
 Version 0.33
     o Minor changes to the internal function getInfo()
     o Employed hexadecimal representation for replacing special characters
@@ -75,19 +141,19 @@ Version 0.22
     o New function hclr(), to produce colors from the HCL spectrum
     o New function coerceMode(), to coerce objects to numeric or integer, if at
       all possible
-    
+
 Version 0.21
     o Bug fix in function negate(), expressions were not properly concatenated
       (thanks to Alessandra Costa for the report)
-    
+
 Version 0.20
     o New argument "each" in functions possibleNumeric() and wholeNumeric()
-    
+
 Version 0.19
     o New function asSOP(), to coerce a POS expression to a standard SOP format
     o New function mvSOP(), to coerce an expression from crisp set notation to
       multi-value notation
-    
+
 Version 0.18
     o Fixed bug affecting the function negate() when the SOP expression contains
       a single condition in one of the conjuncts / products
@@ -96,26 +162,26 @@ Version 0.18
       "haven_labelled" to be converted as numeric
     o Improved function stopError(), printing error messages containing newline
       characters
-    
+
 Version 0.17
     o More robust support for multi-byte locales when detecting tilde and
       dash operators
     o Fixed bug in possibleNumeric() for objects of class declared
-    
+
 Version 0.16
     o New functions agtb(), altb() and aneqb() to test (in)equality of floats
     o New utility function getName() to return the name of the object being
       used in a function call
     o Fixed bug when recoding objects of class "declared"
     o Fixed bug detecting multibyte strings
-      
+
 Version 0.15
     o possibleNumeric() and asNumeric() are now more robust in situations
       with invalid multibyte strings
     o Argument "cuts" renamed to "cut" in function recode()
     o Fixed bug in function recode() that prevented creating ordered
       factors
-      
+
 Version 0.12
     o Solved bug in function translate() when called from plumber or
       callr (thanks to Trevor Strobel for the report)
@@ -132,17 +198,17 @@ Version 0.11
     o Improved version of combnk(), to cover input vectors of any type
     o Improved error trapping for functions negate() and simplify, when
       dealing with multivalue expressions
-      
+
 Version 0.10
     o Minor, internal functionality changes
-      
+
 Version 0.9
     o Solved bug in translate() recognizing column names for datasets with more
       than 27 columns (thanks to Sophia Birchinger for the report)
     o New function export(), moved here from package QCA
-      
+
 Version 0.8
-    o Extended functionality to other types of vectors, such as having the 
+    o Extended functionality to other types of vectors, such as having the
       class "haven_labelled"
     o Novel way of recognizing SOP expressions, even without quotes
     o New utility function recreate() to facilitate substitution
@@ -176,7 +242,7 @@ Version 0.5
       suited in dealing with set names of variable number of
       characters, including space
     o As a result, argument "snames" from function venn() can deal with
-      spaces in set names (thanks to Andre Gohr for the suggestion) 
+      spaces in set names (thanks to Andre Gohr for the suggestion)
 
 Version 0.4
     o Fixed small printing bug in possibleNumeric()

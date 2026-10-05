@@ -7,11 +7,11 @@ knitr::opts_chunk$set(
 )
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  FielDHub::run_app()
+# FielDHub::run_app()
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  library(FielDHub)
-#  run_app()
+# library(FielDHub)
+# run_app()
 
 ## ----include=FALSE------------------------------------------------------------
 FACTORS <- rep(c("A", "B", "C"), c(3,3,2))
@@ -38,14 +38,14 @@ factorial <- full_factorial(
 )
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
-#  print(factorial)
+# print(factorial)
 
 ## ----echo=FALSE, eval=TRUE----------------------------------------------------
 print(factorial)
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
-#  field_book <- factorial$fieldBook
-#  head(factorial$fieldBook, 10)
+# field_book <- factorial$fieldBook
+# head(factorial$fieldBook, 10)
 
 ## ----echo=FALSE, eval=TRUE----------------------------------------------------
 field_book <- factorial$fieldBook

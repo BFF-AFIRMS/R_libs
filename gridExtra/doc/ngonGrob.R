@@ -1,8 +1,8 @@
-## ----setup, echo=FALSE, results='hide'-----------------------------------
+## ----setup, echo=FALSE, results='hide'----------------------------------------
 library(knitr)
 opts_chunk$set(message=FALSE, fig.width=4, fig.height=3)
 
-## ----basic---------------------------------------------------------------
+## ----basic--------------------------------------------------------------------
 library(gridExtra)
 library(grid)
 library(grid)
@@ -17,7 +17,7 @@ g <- ngonGrob(unit(xy[,1],"cm") + unit(0.5,"npc"),
 grid.newpage()
 grid.draw(g)
 
-## ----rotated-------------------------------------------------------------
+## ----rotated------------------------------------------------------------------
 g2 <- ngonGrob(unit(xy[,1],"cm") + unit(0.5,"npc"),
               unit(xy[,2],"cm") + unit(0.5,"npc"),
               n=seq_len(N)+2, ar=seq_len(N),
@@ -27,7 +27,7 @@ g2 <- ngonGrob(unit(xy[,1],"cm") + unit(0.5,"npc"),
 grid.newpage()
 grid.draw(g2)
 
-## ----ellipse-------------------------------------------------------------
+## ----ellipse------------------------------------------------------------------
 g3 <- ellipseGrob(unit(xy[,1],"cm") + unit(0.5,"npc"),
                   unit(xy[,2],"cm") + unit(0.5,"npc"),
                   angle=-2*seq(0,N-1)*pi/N+pi/2,

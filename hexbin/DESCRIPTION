@@ -1,11 +1,26 @@
 Package: hexbin
-Version: 1.28.3
+Version: 1.28.6
 Title: Hexagonal Binning Routines
-Author: Dan Carr <dcarr@voxel.galaxy.gmu.edu>, ported by Nicholas
-        Lewin-Koh and Martin Maechler <maechler@stat.math.ethz.ch>,
-		contains copies of lattice functions written by Deepayan Sarkar 
-		<deepayan.sarkar@r-project.org>
-Maintainer: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
+Authors@R: c(person(given = "Dan",
+                      family = "Carr",
+                      role = "aut",
+                      email = "dcarr@voxel.galaxy.gmu.edu"),
+               person(given = c("Nicholas"),
+                      family = "Lewin-Koh",
+                      role = "aut"),
+               person(given = "Martin",
+                      family = "Maechler",
+                      role = "aut",
+                      email = "maechler@stat.math.ethz.ch"),
+               person(given = "Deepayan",
+                      family = "Sarkar",
+                      role = "aut",
+                      email = "deepayan.sarkar@r-project.org"),
+               person(given = "Edzer",
+                      family = "Pebesma",
+                      role = "cre",
+                      comment = c(ORCID = "0000-0001-8049-7069"),
+                      email = "edzer.pebesma@uni-muenster.de"))
 Depends: R (>= 2.0.1), methods
 Imports: lattice, grid, graphics, grDevices, stats, utils
 Suggests: marray, affy, Biobase, limma, knitr
@@ -18,7 +33,13 @@ License: GPL-2
 VignetteBuilder: knitr
 NeedsCompilation: yes
 URL: https://github.com/edzer/hexbin
-Packaged: 2023-03-21 20:34:52 UTC; edzer
+Packaged: 2026-07-28 09:53:32 UTC; edzer
+Author: Dan Carr [aut],
+  Nicholas Lewin-Koh [aut],
+  Martin Maechler [aut],
+  Deepayan Sarkar [aut],
+  Edzer Pebesma [cre] (ORCID: <https://orcid.org/0000-0001-8049-7069>)
+Maintainer: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
 Repository: CRAN
-Date/Publication: 2023-03-21 21:40:05 UTC
-Built: R 4.3.0; x86_64-pc-linux-gnu; 2023-07-07 02:34:16 UTC; unix
+Date/Publication: 2026-07-28 10:50:07 UTC
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-01 21:46:26 UTC; unix

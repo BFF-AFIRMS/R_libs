@@ -1,0 +1,40 @@
+Array2Vector            Transforming an array to a vector
+coef.mipfp              Extract the coefficients of the estimates from
+                        an object of class mipfp
+CompareMaxDev           Comparing deviations of mipfp objects
+ComputeA                Computes the marginal matrix A and margins
+                        vector m of an estimation problem
+confint.mipfp           Computing confidence intervals for the mipfp
+                        estimates
+Corr2Odds               Converting correlation to odds ratio
+Corr2PairProbs          Converting correlation to pairwise probability
+error.margins           Extracts the deviation between every target and
+                        generated margin
+Estimate                Update an N-way table given target margins
+expand                  Expand a Table in a Data Frame
+flat                    Flatten a table, array or matrix
+GetConfInt              Computing confidence intervals for the
+                        estimated counts and probabilities (deprecated)
+GetLinInd               Extracting the linearly independant columns
+                        from a matrix
+gof.estimates           Wald, Log-likelihood ratio and Person
+                        Chi-square statistics for mipfp object
+Ipfp                    Multidimensional Iterative Proportional Fitting
+IpfpCov                 Covariance matrix of the estimators produced by
+                        Ipfp (deprecated)
+mipfp-package           Multidimensional Iterative Proportional Fitting
+                        and Alternative Models
+ObtainModelEstimates    Estimating a contingency table using
+                        model-based approaches
+ObtainMultBinaryDist    Generating a multivariate Bernoulli
+                        joint-distribution
+Odds2Corr               Converting odds ratio to correlation
+Odds2PairProbs          Converting odds ratio to pairwise probability
+Qaqish                  Qaqish
+RMultBinary             Simulating a multivariate Bernoulli
+                        distribution
+spnamur                 Synthetic population of Namur (Belgium)
+summary.mipfp           Summarizing objects of class mipfp
+vcov.mipfp              Calculate variance-covariance matrix for mipfp
+                        objects
+Vector2Array            Transforming a vector to an array

@@ -1,6 +1,32 @@
 \name{NEWS}
 \title{News for Package \sQuote{sn}}
 \encoding{UTF-8}
+%--------------------------------------------
+\section{Changes in sn version 2.1.3 (2026-02-24)}{
+\itemize{
+  \item In \code{msn.mle} and its auxiliary functions, exact symmetry of 
+    the estimated \code{Omega} matrix is being forced, to avoid a numerical 
+    issue arising in particular instances. 
+  \item Working of the \code{show} method for \code{selm} and \code{mselm} 
+    classes has been reinstated. This had effectively been inhibited in a
+    previous version of \pkg{sn} by unfortunate re-definitions of the methods. 
+  \item In function \code{st.prelimFit}, the call to \code{quantreg::rq.wfit} 
+    now has \code{method="fn"} to reduce the chance of warning messages 
+    \dQuote{Solution may be nonunique}.
+  \item Fixed a minor bug in \code{convolutionSUNdistr}.
+  \item Various scattered improvements in the documentation.  
+  }
+}
+
+
+\section{Changes in sn version 2.1.2 (2026-01-24)}{
+\itemize{
+  \item Fixed a bug which affected usage of \code{...} in \code{pst} 
+        and \code{qst}, and improved documentation of these functions.
+  \item Improved documentation in \code{"SUNdistr-base"}.
+  }
+}
+
 \section{Changes in sn version 2.1.1 (2023-04-04)}{
   \itemize{
   \item Coding of \code{pst} is improved for extreme \code{x} arguments

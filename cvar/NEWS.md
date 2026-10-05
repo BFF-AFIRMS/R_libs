@@ -1,4 +1,22 @@
-# cvar 0.5 (CRAN)
+# cvar 0.6.1
+
+* fixed a test failing after a change in the arguments of `RNGkind` in R-devel
+  =svn r90299=.
+
+
+# cvar 0.6
+
+* `ES.numeric` was giving wrong results when `length(p_loss) > 1`.
+
+* VaR and ES now have methods for class `"matrix"`.
+
+* documented that now ES and VaR can be computed from data, as well.
+
+* new argument `transf` of `Var()` and `ES()` can be used to request the values
+  corresponding to the returns (when `dist` represents log-returns).
+  
+
+# cvar 0.5
 
 * made `ES` generic (`VaR` was already generic).
 
@@ -8,7 +26,7 @@
   expressive and suggests that it relates to the losses, usually small numbers
   like `0.05`. Other suitable names like `alpha`, `p`, and `prob`, are commonly
   used as arguments to other functions that might be used as argument `dist` and
-  make them mmore difficult to pass via the `...` arguments.
+  make them more difficult to pass via the `...` arguments.
 
   For now, an warning is issued if `x` is used as a named argument in a call
   (e.g. `VaR(dist, x = 0.05)`) with the intend to turn that in an error in the
@@ -19,14 +37,14 @@
 * moved `fGarch` from Imports to Suggests.
 
 
-# cvar 0.4.1 (CRAN)
+# cvar 0.4.1
 
 * when the input was numeric, `ES()` was not handling the level `x` properly
   (fixes issue #2, reported by Marius Bommert).
 
 * changed the JSS reference to use the new-style doi.
 
-* fixed a bug in the tests, in v0.4-0, that was causing faiure of the tests on
+* fixed a bug in the tests, in v0.4-0, that was causing failure of the tests on
   travis, despite all checks on CRAN passing with OK. `devtools::test()` was
   failing too, but only on the first run in a session, details in the git
   commit.
@@ -34,14 +52,14 @@
 * set up GHA.
 
 
-# cvar 0.4-0 (CRAN)
+# cvar 0.4-0
 
 * fix tests to pass with the changed R random generator.
 
 * some new examples and minor documentation changes.
 
 
-# cvar 0.3-0 (CRAN)
+# cvar 0.3-0
 
 * now `\VignetteIndexEntry` in `Guide_cvar.Rnw` is plain text.
 
@@ -55,7 +73,7 @@
   had been wrongly swappped. 
 
 
-# cvar 0.2-0 (CRAN)
+# cvar 0.2-0
 
 * suggest 'covr'.
 
@@ -72,7 +90,7 @@
 * added experimental web site (docs/)
 
 
-# cvar 0.1-1 (CRAN)
+# cvar 0.1-1
 
 * added a doi to DESCRIPTION.
 

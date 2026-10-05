@@ -1,5 +1,5 @@
 Package: R.utils
-Version: 2.12.2
+Version: 2.13.0
 Depends: R (>= 2.14.0), R.oo
 Imports: methods, utils, tools, R.methodsS3
 Suggests: datasets, digest (>= 0.6.10)
@@ -15,7 +15,7 @@ URL: https://henrikbengtsson.github.io/R.utils/,
         https://github.com/HenrikBengtsson/R.utils
 BugReports: https://github.com/HenrikBengtsson/R.utils/issues
 NeedsCompilation: no
-Packaged: 2022-11-11 18:51:45 UTC; hb
+Packaged: 2025-02-24 19:44:20 UTC; henrik
 Repository: CRAN
-Date/Publication: 2022-11-11 22:00:03 UTC
-Built: R 4.3.0; ; 2023-07-07 03:08:52 UTC; unix
+Date/Publication: 2025-02-24 21:20:02 UTC
+Built: R 4.5.0; ; 2026-09-01 21:10:14 UTC; unix

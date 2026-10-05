@@ -1,9 +1,9 @@
-## ---- eval=FALSE--------------------------------------------------------------
-#  if (!requireNamespace("BiocManager", quietly = TRUE))
-#      install.packages("BiocManager")
-#  BiocManager::install("S4Arrays")
+## ----eval=FALSE---------------------------------------------------------------
+# if (!require("BiocManager", quietly=TRUE))
+#     install.packages("BiocManager")
+# BiocManager::install("S4Arrays")
 
-## ---- message=FALSE-----------------------------------------------------------
+## ----message=FALSE------------------------------------------------------------
 library(S4Arrays)
 
 showClass("Array")

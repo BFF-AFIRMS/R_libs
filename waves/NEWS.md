@@ -1,3 +1,46 @@
+# waves
+
+# waves 0.2.7
+
+* Bug fix: Fixed namespace resolution error with `lifecycle::deprecated()` function calls that was causing "could not find function deprecated" errors for users. All function parameters now properly use `lifecycle::deprecated()` instead of `deprecated()`.
+* Bug fix: `train_spectra()` now correctly populates `RMSEcv` and `R2cv` for `rf`, `svmLinear`, and `svmRadial` model methods. Previously these were always `NA` for non-PLS models.
+* Bug fix: Replaced deprecated tidyr and dplyr functions across `plot_spectra()`, `aggregate_spectra()`, `train_spectra()`, and the `ikeogu.2017` example to resolve deprecation warnings.
+* Internal: Fixed `trainControl()` configuration in `train_spectra()` — changed `method` from `"repeatedcv"` (with no repeats set) to `"cv"` and removed a malformed `seeds` argument that was being silently ignored. Reproducibility is maintained via the existing `set.seed()` call.
+* Bug fix: The final RF model returned by `train_spectra()` is now trained with 500 trees (the randomForest default) instead of `tune.length` (≤5). The tuned `mtry` from training iterations is now correctly applied to the final model.
+* Bug fix: The final SVM model returned by `train_spectra()` no longer incorrectly uses the `unique.id` column as a predictor. Training data is now subset to reference and spectral columns only, consistent with iterative model training.
+* Bug fix: The final PLS model returned by `train_spectra()` is now fit using the modal best `ncomp` from training iterations rather than `tune.length`. `predict_spectra()` now reads `ncomp` directly from the model object instead of the stats file.
+* Bug fix: `train_spectra()` now correctly subsets partitioned data using column names rather than pre-computed indices, preventing an `undefined columns selected` crash when `cv.scheme` is used (the genotype column is removed by `format_cv()` before subsetting).
+* Bug fix: `train_spectra()` now correctly determines the training data for the final model when `cv.scheme` is used. It calls `format_cv()` one final time to obtain the training set defined by the chosen scheme: CV0/CV00 train on trial2 + trial3; CV1 trains on t1.b + t2.b; CV2 trains on t1.b + trial2. In all schemes the test set is t1.a (held-out genotypes from trial1).
+* Bug fix: `test_spectra()` now correctly forwards `best.model.metric` and `seed` to `train_spectra()`. Previously these arguments were accepted but silently ignored.
+* Bug fix: `train_spectra()` now calls `set.seed()` before `createDataPartition()`, ensuring that stratified train/test splits are fully reproducible. Previously, `set.seed()` was called after `createDataPartition()`, so the partition depended on whatever the random state happened to be at call time. **Note on reproducibility:** users who called `test_spectra()` with a non-default `seed` were previously receiving results generated with `seed = 1` regardless of the value they set. To reproduce old results, set `seed = 1` explicitly. This will restore previous iterative performance statistics (RMSEp, R2p, etc.), but the returned `$model` object will still differ due to the RF, SVM, and PLS final model fixes also introduced in this version.
+* Bug fix: Removed invalid `ntree` and `mtry` arguments from `predict.randomForest()` calls in `train_individual_model()` and `predict_spectra()`. These arguments are not accepted by `predict.randomForest()` and were silently ignored.
+* Bug fix: Fixed corrupted `importance` output when running `test_spectra()` with multiple pretreatments and an SVM model. Previously, `cbind()` on a `NULL` importance element produced a garbage 1×1 matrix instead of `NULL`.
+
+# waves 0.2.6
+
+* Bug fix: `plot_spectra()` no longer returns an error when `detect.outliers` is set to `FALSE` and no alternative title is provided via the `alternate.title` parameter (#29).
+* Bug fix: Fixed compatibility issue with updated `spectacles` package (v0.5.5) that was causing data frame construction errors in model performance calculations.
+* Fixed: Temporary CRAN archive issue with the dependency `spectacles` resolved (#31). 
+  - The dependency `spectacles` is now restored on CRAN.
+  - `waves` is fully compatible with the restored version.
+* Performance improvements: 
+  - Optimized cross-validation loops in `train_spectra()` using vectorized indexing and preallocated result structures.
+  - Optimized matrix operations in `train_spectra()` for faster column selection and reduced memory overhead.
+  - Added shared utility functions to eliminate code duplication between `train_spectra()` and `test_spectra()`.
+* When `return.distances = TRUE`, the h.distance column is now located between metadata and spectra in the returned `data.frame` (#28).
+* Internal code improvements:
+  - Significantly refactored `train_spectra()` and `test_spectra()` to reduce cyclomatic complexity (#26).
+    - `train_spectra()` complexity reduced from 32+ to 25
+    - `test_spectra()` complexity reduced to 11
+  - Extracted shared utility functions: `handle_deprecations()`, `validate_inputs()`, `partition_data()`, `train_individual_model()`, `calculate_performance()`, and `create_cv_control()`.
+  - Improved code maintainability and reduced duplication through function decomposition.
+  - Added robust error handling for spectacles package compatibility.
+
+# waves 0.2.5
+
+* Bug fix: `predict_spectra()` no longer returns error when running example code (#25).
+
+
 # waves 0.2.4
 
 * Bug fix: Different CV schemes no longer return the same results (#20).

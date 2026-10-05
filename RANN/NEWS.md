@@ -1,3 +1,18 @@
+# RANN 2.6.3
+
+* Replace deprecated special argument names in `structure()` calls for R-devel.
+
+# RANN 2.6.2
+
+* define R_NO_REMAP and switch to Rf_* functions at the request of CRAN by 
+  @jefferis in https://github.com/jefferislab/RANN/pull/32
+* Use namespacing to isolate ann library and vendor source by @krlmlr in https://github.com/jefferislab/RANN/pull/30
+  (this could be used to provide the L1 metric in the same package in future)
+* switch to github actions by @jefferis in https://github.com/jefferislab/RANN/pull/33
+* dev: switch GitHub repo to jefferislab/RANN
+
+**Full Changelog**: https://github.com/jefferislab/RANN/compare/v2.6.1...v2.6.2
+
 # RANN 2.6.1
 
 * Fix Solaris compile error (as requested by BDR, #25)

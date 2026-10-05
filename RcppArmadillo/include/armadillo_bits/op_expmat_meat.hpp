@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
 // 
-// Copyright 2008-2016 Conrad Sanderson (http://conradsanderson.id.au)
+// Copyright 2008-2016 Conrad Sanderson (https://conradsanderson.id.au)
 // Copyright 2008-2016 National ICT Australia (NICTA)
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// http://www.apache.org/licenses/LICENSE-2.0
+// https://www.apache.org/licenses/LICENSE-2.0
 // 
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,7 +33,7 @@ inline
 void
 op_expmat::apply(Mat<typename T1::elem_type>& out, const Op<T1, op_expmat>& expr)
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   const bool status = op_expmat::apply_direct(out, expr.m);
   
@@ -51,7 +51,7 @@ inline
 bool
 op_expmat::apply_direct(Mat<typename T1::elem_type>& out, const Base<typename T1::elem_type, T1>& expr)
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   typedef typename T1::elem_type eT;
   typedef typename T1::pod_type   T;
@@ -60,7 +60,7 @@ op_expmat::apply_direct(Mat<typename T1::elem_type>& out, const Base<typename T1
     {
     out = expr.get_ref();  // force the evaluation of diagmat()
     
-    arma_debug_check( (out.is_square() == false), "expmat(): given matrix must be square sized", [&](){ out.soft_reset(); } );
+    arma_conform_check( (out.is_square() == false), "expmat(): given matrix must be square sized", [&](){ out.soft_reset(); } );
     
     const uword N = (std::min)(out.n_rows, out.n_cols);
     
@@ -71,11 +71,11 @@ op_expmat::apply_direct(Mat<typename T1::elem_type>& out, const Base<typename T1
   
   Mat<eT> A = expr.get_ref();
   
-  arma_debug_check( (A.is_square() == false), "expmat(): given matrix must be square sized" );
+  arma_conform_check( (A.is_square() == false), "expmat(): given matrix must be square sized" );
   
   if(A.is_diagmat())
     {
-    arma_extra_debug_print("op_expmat: detected diagonal matrix");
+    arma_debug_print("op_expmat: diag optimisation");
     
     const uword N = (std::min)(A.n_rows, A.n_cols);
     
@@ -86,21 +86,9 @@ op_expmat::apply_direct(Mat<typename T1::elem_type>& out, const Base<typename T1
     return true;
     }
   
-  bool do_sym = false;
-  
-  if( (arma_config::optimise_sym) && (auxlib::crippled_lapack(A) == false) )
+  if( (arma_config::optimise_sym) && sym_helper::is_approx_sym(A) )
     {
-    bool is_approx_sym   = false;
-    bool is_approx_sympd = false;
-    
-    sym_helper::analyse_matrix(is_approx_sym, is_approx_sympd, A);
-    
-    do_sym = ((is_cx<eT>::no) ? (is_approx_sym) : (is_approx_sym && is_approx_sympd));
-    }
-  
-  if(do_sym)
-    {
-    arma_extra_debug_print("op_expmat: symmetric/hermitian optimisation");
+    arma_debug_print("op_expmat: symmetric/hermitian optimisation");
     
     Col< T> eigval;
     Mat<eT> eigvec;
@@ -116,15 +104,29 @@ op_expmat::apply_direct(Mat<typename T1::elem_type>& out, const Base<typename T1
     return true;
     }
   
+  // trace reduction
+  
+  const eT     diag_shift = arma::trace(A) / T(A.n_rows);
+  const eT exp_diag_shift = std::exp(diag_shift);
+  
+  const bool do_trace_reduction = arma_isfinite(diag_shift) && arma_isfinite(exp_diag_shift) && (exp_diag_shift != eT(0)) && ( (is_cx<eT>::yes) ? (std::abs(diag_shift) > T(0)) : (access::tmp_real(diag_shift) > T(0)) );
+  
+  if(do_trace_reduction)
+    {
+    arma_debug_print("op_expmat: diag_shift: ", diag_shift);
+    
+    A.diag() -= diag_shift;
+    }
+  
   const T norm_val = arma::norm(A, "inf");
   
-  if(arma_isfinite(norm_val) == false)  { return false; }
+  if(arma_isnonfinite(norm_val))  { return false; }
   
-  const double log2_val = (norm_val > T(0)) ? double(eop_aux::log2(norm_val)) : double(0);
+  int exponent = int(0);  std::frexp(norm_val, &exponent);
   
-  int exponent = int(0);  std::frexp(log2_val, &exponent);
+  const uword s = (std::min)( uword( (std::max)(int(0), exponent) ), uword(1023) );
   
-  const uword s = uword( (std::max)(int(0), exponent + int(1)) );
+  arma_debug_print("op_expmat: s: ", s);
   
   A /= eT(eop_aux::pow(double(2), double(s)));
   
@@ -137,7 +139,7 @@ op_expmat::apply_direct(Mat<typename T1::elem_type>& out, const Base<typename T1
   
   bool positive = true;
   
-  const uword N = 6;
+  const uword N = 8;
   
   for(uword i = 2; i <= N; ++i)
     {
@@ -160,6 +162,9 @@ op_expmat::apply_direct(Mat<typename T1::elem_type>& out, const Base<typename T1
   
   for(uword i=0; i < s; ++i)  { out = out * out; }
   
+  // inverse trace reduction
+  if(do_trace_reduction)  { out *= exp_diag_shift; }
+  
   return true;
   }
 
@@ -170,7 +175,7 @@ inline
 void
 op_expmat_sym::apply(Mat<typename T1::elem_type>& out, const Op<T1,op_expmat_sym>& in)
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   const bool status = op_expmat_sym::apply_direct(out, in.m);
   
@@ -188,26 +193,26 @@ inline
 bool
 op_expmat_sym::apply_direct(Mat<typename T1::elem_type>& out, const Base<typename T1::elem_type,T1>& expr)
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   #if defined(ARMA_USE_LAPACK)
     {
     typedef typename T1::elem_type eT;
     typedef typename T1::pod_type   T;
     
-    const unwrap<T1>   U(expr.get_ref());
-    const Mat<eT>& X = U.M;
+    const plain_unwrap<T1> U(expr.get_ref());
+    const Mat<eT>& X     = U.M;
     
-    arma_debug_check( (X.is_square() == false), "expmat_sym(): given matrix must be square sized" );
+    arma_conform_check( (X.is_square() == false), "expmat_sym(): given matrix must be square sized" );
     
-    if((arma_config::debug) && (arma_config::warn_level > 0) && (is_cx<eT>::yes) && (sym_helper::check_diag_imag(X) == false))
+    if((arma_config::check_conform) && (arma_config::warn_level > 0) && (is_cx<eT>::yes) && (sym_helper::check_diag_imag(X) == false))
       {
-      arma_debug_warn_level(1, "inv_sympd(): imaginary components on diagonal are non-zero");
+      arma_warn(1, "expmat_sym(): imaginary components on diagonal are non-zero");
       }
     
     if(is_op_diagmat<T1>::value || X.is_diagmat())
       {
-      arma_extra_debug_print("op_expmat_sym: detected diagonal matrix");
+      arma_debug_print("op_expmat_sym: diag optimisation");
       
       out = X;
       

@@ -12,10 +12,10 @@
 <div style="text-align: center;">
 <a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
 <a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
-</div><h2>Documentation for package &lsquo;mice&rsquo; version 3.16.0</h2>
+</div><h2>Documentation for package &lsquo;mice&rsquo; version 3.19.0</h2>
 
-<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
-<li><a href="../NEWS">Package NEWS</a>.</li>
+<ul><li><a href="../DESCRIPTION" type="text/plain; charset=utf-8">DESCRIPTION file</a>.</li>
+<li><a href="../NEWS.md">Package NEWS</a>.</li>
 </ul>
 
 <h2>Help Pages</h2>
@@ -209,12 +209,14 @@
 <h2><a id="M">-- M --</a></h2>
 
 <table style="width: 100%;">
-<tr><td style="width: 25%;"><a href="mads-class.html">mads-class</a></td>
+<tr><td style="width: 25%;"><a href="mads.html">mads</a></td>
 <td>Multivariate amputed data set ('mads')</td></tr>
 <tr><td style="width: 25%;"><a href="make.blocks.html">make.blocks</a></td>
 <td>Creates a 'blocks' argument</td></tr>
 <tr><td style="width: 25%;"><a href="make.blots.html">make.blots</a></td>
 <td>Creates a 'blots' argument</td></tr>
+<tr><td style="width: 25%;"><a href="make.calltype.html">make.calltype</a></td>
+<td>Create calltype of the imputation model</td></tr>
 <tr><td style="width: 25%;"><a href="make.formulas.html">make.formulas</a></td>
 <td>Creates a 'formulas' argument</td></tr>
 <tr><td style="width: 25%;"><a href="make.method.html">make.method</a></td>
@@ -239,8 +241,6 @@
 <td>Graphical parameter for missing data plots</td></tr>
 <tr><td style="width: 25%;"><a href="selfreport.html">mgg</a></td>
 <td>Self-reported and measured BMI</td></tr>
-<tr><td style="width: 25%;"><a href="mice.html">mice</a></td>
-<td>'mice': Multivariate Imputation by Chained Equations</td></tr>
 <tr><td style="width: 25%;"><a href="mice.impute.2l.bin.html">mice.impute.2l.bin</a></td>
 <td>Imputation by a two-level logistic model using 'glmer'</td></tr>
 <tr><td style="width: 25%;"><a href="mice.impute.2l.lmer.html">mice.impute.2l.lmer</a></td>
@@ -313,18 +313,18 @@
 <td>Multivariate Imputation by Chained Equations (Iteration Step)</td></tr>
 <tr><td style="width: 25%;"><a href="mice.theme.html">mice.theme</a></td>
 <td>Set the theme for the plotting Trellis functions</td></tr>
-<tr><td style="width: 25%;"><a href="mids-class.html">mids</a></td>
+<tr><td style="width: 25%;"><a href="mids.html">mids</a></td>
 <td>Multiply imputed data set ('mids')</td></tr>
-<tr><td style="width: 25%;"><a href="mids-class.html">mids-class</a></td>
+<tr><td style="width: 25%;"><a href="mids.html">mids-class</a></td>
 <td>Multiply imputed data set ('mids')</td></tr>
 <tr><td style="width: 25%;"><a href="mids2mplus.html">mids2mplus</a></td>
 <td>Export 'mids' object to Mplus</td></tr>
 <tr><td style="width: 25%;"><a href="mids2spss.html">mids2spss</a></td>
 <td>Export 'mids' object to SPSS</td></tr>
-<tr><td style="width: 25%;"><a href="mira-class.html">mira</a></td>
-<td>Multiply imputed repeated analyses ('mira')</td></tr>
-<tr><td style="width: 25%;"><a href="mira-class.html">mira-class</a></td>
-<td>Multiply imputed repeated analyses ('mira')</td></tr>
+<tr><td style="width: 25%;"><a href="mira.html">mira</a></td>
+<td>Create an object of class "mira"</td></tr>
+<tr><td style="width: 25%;"><a href="mira.html">mira-class</a></td>
+<td>Create an object of class "mira"</td></tr>
 <tr><td style="width: 25%;"><a href="mice.impute.mnar.html">mnar.logreg</a></td>
 <td>Imputation under MNAR mechanism by NARFCS</td></tr>
 <tr><td style="width: 25%;"><a href="mice.impute.mnar.html">mnar.norm</a></td>
@@ -381,8 +381,8 @@
 <td>Datasets with various missing data patterns</td></tr>
 <tr><td style="width: 25%;"><a href="pattern.html">pattern4</a></td>
 <td>Datasets with various missing data patterns</td></tr>
-<tr><td style="width: 25%;"><a href="plot.mids.html">plot.mids</a></td>
-<td>Plot the trace lines of the MICE algorithm</td></tr>
+<tr><td style="width: 25%;"><a href="mids.html">plot.mids</a></td>
+<td>Multiply imputed data set ('mids')</td></tr>
 <tr><td style="width: 25%;"><a href="mice.impute.pmm.html">pmm</a></td>
 <td>Imputation by predictive mean matching</td></tr>
 <tr><td style="width: 25%;"><a href="pool.html">pool</a></td>
@@ -397,6 +397,8 @@
 <td>Multiple imputation pooling: univariate version</td></tr>
 <tr><td style="width: 25%;"><a href="pool.html">pool.syn</a></td>
 <td>Combine estimates by pooling rules</td></tr>
+<tr><td style="width: 25%;"><a href="pool.table.html">pool.table</a></td>
+<td>Combines estimates from a tidy table</td></tr>
 <tr><td style="width: 25%;"><a href="popmis.html">popmis</a></td>
 <td>Hox pupil popularity data with missing popularity scores</td></tr>
 <tr><td style="width: 25%;"><a href="pops.html">pops</a></td>
@@ -405,16 +407,18 @@
 <td>Project on preterm and small for gestational age infants (POPS)</td></tr>
 <tr><td style="width: 25%;"><a href="potthoffroy.html">potthoffroy</a></td>
 <td>Potthoff-Roy data</td></tr>
-<tr><td style="width: 25%;"><a href="print.mads.html">print.mads</a></td>
-<td>Print a 'mads' object</td></tr>
+<tr><td style="width: 25%;"><a href="predict_mi.html">predict_mi</a></td>
+<td>Predict method for linear models with multiply imputed data</td></tr>
+<tr><td style="width: 25%;"><a href="mads.html">print.mads</a></td>
+<td>Multivariate amputed data set ('mads')</td></tr>
 <tr><td style="width: 25%;"><a href="print.html">print.mice.anova</a></td>
-<td>Print a 'mids' object</td></tr>
+<td>Print a 'mira' object</td></tr>
 <tr><td style="width: 25%;"><a href="print.html">print.mice.anova.summary</a></td>
-<td>Print a 'mids' object</td></tr>
-<tr><td style="width: 25%;"><a href="print.html">print.mids</a></td>
-<td>Print a 'mids' object</td></tr>
+<td>Print a 'mira' object</td></tr>
+<tr><td style="width: 25%;"><a href="mids.html">print.mids</a></td>
+<td>Multiply imputed data set ('mids')</td></tr>
 <tr><td style="width: 25%;"><a href="print.html">print.mira</a></td>
-<td>Print a 'mids' object</td></tr>
+<td>Print a 'mira' object</td></tr>
 </table>
 
 <h2><a id="Q">-- Q --</a></h2>
@@ -448,12 +452,12 @@
 <td>Stripplot of observed and imputed data</td></tr>
 <tr><td style="width: 25%;"><a href="stripplot.mids.html">stripplot.mids</a></td>
 <td>Stripplot of observed and imputed data</td></tr>
-<tr><td style="width: 25%;"><a href="summary.html">summary.mads</a></td>
-<td>Summary of a 'mira' object</td></tr>
+<tr><td style="width: 25%;"><a href="mads.html">summary.mads</a></td>
+<td>Multivariate amputed data set ('mads')</td></tr>
 <tr><td style="width: 25%;"><a href="summary.html">summary.mice.anova</a></td>
 <td>Summary of a 'mira' object</td></tr>
-<tr><td style="width: 25%;"><a href="summary.html">summary.mids</a></td>
-<td>Summary of a 'mira' object</td></tr>
+<tr><td style="width: 25%;"><a href="mids.html">summary.mids</a></td>
+<td>Multiply imputed data set ('mids')</td></tr>
 <tr><td style="width: 25%;"><a href="summary.html">summary.mira</a></td>
 <td>Summary of a 'mira' object</td></tr>
 <tr><td style="width: 25%;"><a href="supports.transparent.html">supports.transparent</a></td>
@@ -491,6 +495,8 @@
 <td>Walking disability data</td></tr>
 <tr><td style="width: 25%;"><a href="windspeed.html">windspeed</a></td>
 <td>Subset of Irish wind speed data</td></tr>
+<tr><td style="width: 25%;"><a href="with.mids.html">with</a></td>
+<td>Evaluate an expression in multiple imputed datasets</td></tr>
 <tr><td style="width: 25%;"><a href="with.mids.html">with.mids</a></td>
 <td>Evaluate an expression in multiple imputed datasets</td></tr>
 </table>

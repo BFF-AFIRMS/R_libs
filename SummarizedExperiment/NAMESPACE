@@ -7,7 +7,7 @@ import(BiocGenerics)
 importFrom(MatrixGenerics, rowRanges)
 import(S4Vectors)
 import(IRanges)
-import(GenomeInfoDb)
+import(Seqinfo)
 import(GenomicRanges)
 import(Biobase)
 import(S4Arrays)
@@ -49,6 +49,7 @@ exportMethods(
     is.unsorted, order, rank, sort,
     start, "start<-", end, "end<-", width, "width<-",
     strand, "strand<-",
+    saveRDS,
     updateObject,
 
     ## Generics defined in S4Vectors:
@@ -62,14 +63,15 @@ exportMethods(
     pcompare,
 
     ## Generics defined in IRanges:
+    narrow,
     ranges, "ranges<-",
-    shift, narrow, resize, flank, promoters, restrict, trim,
+    shift, resize, flank, promoters, terminators, restrict, trim,
     isDisjoint, disjointBins,
     coverage,
     findOverlaps,
     precede, follow, nearest, distance, distanceToNearest,
 
-    ## Generics defined in GenomeInfoDb:
+    ## Generics defined in Seqinfo:
     seqinfo, "seqinfo<-",
     seqnames, "seqnames<-",
 

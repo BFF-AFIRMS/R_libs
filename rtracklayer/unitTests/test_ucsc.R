@@ -31,7 +31,8 @@ test_ucsc <- function(x) {
     # creating a track for Track Hub
     start <- c(237640, 521500 ,565725, 565900, 566760,
                119905, 122525, 173925, 179865, 180185)
-    ir <- IRanges(start, width = 151)
+    start <- start + 1L
+    ir <- IRanges(start, width = 150)
     space <- factor(c(rep("chr1", 5), rep("chr10", 5)))
     name <- rep(".", 10)
     score <- seq.int(70L, 700L, length = 10)
@@ -44,6 +45,7 @@ test_ucsc <- function(x) {
 
     ## TEST: ucscTableQuery with UCSCSession with NAMES selection
     session <- browserSession()
+    genome(session) <- "hg38"
     query <- ucscTableQuery(session, table = table_name, names = "ABBA01004242.1")
     checkIdentical(range(query), full_range)
     checkIdentical(getTable(query), selected_table)
@@ -90,4 +92,48 @@ test_ucsc <- function(x) {
     checkIdentical(range(query), trackhub_custom_range)
     checkIdentical(track(query), trackhub_track[1])
     checkIdentical(getTable(query), as.data.frame(trackhub_track)[1,])
+
+
+
+
+    # TEST: UCSCSession gets initialize
+    ucscsession <- new("UCSCSession")
+    checkTrue(is.character(ucscsession@hguid) && length(ucscsession@hguid) != 0L)
+
+    # TEST ucscCart returns details of the activeView
+    ucscCart <- rtracklayer:::ucscCart(new("UCSCSession"))
+    checkTrue(length(ucscCart) != 0L)
+
+    # TEST ucscTracks retrieves the modes and ids
+    tracks <- rtracklayer:::ucscTracks(new("UCSCSession"))
+    checkIdentical(length(tracks@ids), length(tracks@modes))
+    checkTrue(length(tracks@ids) != 0L)
+
+    # TEST browserView with browse = F
+    # caveat:we have to test manually whether with `browse = T`
+    # UCSC sets the correct view onto the browser.
+    bView <- browserView(new("UCSCSession"), browse = FALSE)
+    checkTrue(!is.null(bView@session@views$instances))
+    checkTrue(is.character(bView@hgsid) && length(bView@hgsid) != 0L)
+
+    # TEST : range(UCSCSession)<-
+    session <- new("UCSCSession")
+    range <- GRanges("chr7:200000-250000")
+    range(session) <- range
+    returned <- range(session)
+    checkIdentical(as.character(seqnames(range)), as.character(seqnames(returned)))
+    checkIdentical(start(range), start(returned))
+    checkIdentical(end(range), end(returned))
+    checkIdentical(strand(range), strand(returned))
+    checkIdentical(elementMetadata(range), elementMetadata(returned))
+
+    # TEST : genome(UCSCSession)<-
+    session <- new("UCSCSession")
+    genome(session) <- "hg18"
+    checkIdentical(genome(session), "hg18")
+
+    # TEST : track(GRanges)<-
+    session <- new("UCSCSession")
+    track(session, "test_track") <- GRanges("chr7:1-50")
+    checkTrue("test_track" %in% names(trackNames(session)))
 }

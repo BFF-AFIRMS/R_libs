@@ -1,5 +1,7 @@
 test_transcriptsBy <- function()
 {
+    library(txdbmaker)  # for makeTxDb()
+
     ## A TOY CASE
     ## ----------
     transcripts0 <- data.frame(
@@ -129,11 +131,11 @@ test_transcriptsBy_seqlevelsStyleSwap <- function(){
     txdb <- loadDb(system.file("extdata", "hg19_knownGene_sample.sqlite", 
                                package="GenomicFeatures"))    
     get_grl <- transcriptsBy(txdb, by="gene")
-    checkTrue(seqlevelsStyle(txdb) == "UCSC")
+    checkTrue(GenomeInfoDb::seqlevelsStyle(txdb) == "UCSC")
     checkTrue(all(seqnames(get_grl[["100130275"]]) =="chr6"))
     
-    seqlevelsStyle(txdb) <- "NCBI"
-    checkTrue(seqlevelsStyle(txdb)[1] == "NCBI")    
+    GenomeInfoDb::seqlevelsStyle(txdb) <- "NCBI"
+    checkTrue(GenomeInfoDb::seqlevelsStyle(txdb)[1] == "NCBI")    
     get_grlN <- transcriptsBy(txdb, by="gene")
     checkTrue(all(seqnames(get_grlN[["100130275"]]) == "6"))
 }
@@ -233,9 +235,10 @@ test_intronsByTranscript <- function()
 
 test_exonsBy_cdsBy_fiveUTRsByTranscript_threeUTRsByTranscript <- function()
 {
+    library(txdbmaker)  # for makeTxDbFromGFF()
+
     ## ITAG4.1_gene_models.subset.gff: 10 coding transcripts
-    gff <- system.file("extdata", "GFF3_files",
-                       "ITAG4.1_gene_models.subset.gff",
+    gff <- system.file("extdata", "ITAG4.1_gene_models.subset.gff",
                        package="GenomicFeatures")
     txdb <- makeTxDbFromGFF(gff)
 

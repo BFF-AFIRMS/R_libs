@@ -1,3 +1,22 @@
+# gmailr 3.0.0
+
+* All HTTP responses are passed through `gargle::response_process()`, which updates gmailr's error handling to be consistent with other packages that use gargle for HTTP requests. Users might notice that errors are more verbose (and hopefully more informative). Also the class vector has changed:
+
+  - Previously: `c("condition", "error", "gmail_error")`
+  - Now: `c("gmailr_error", "gargle_error_request_failed", "http_error_{XXX}", "gargle_error", "rlang_error", "error", "condition")`
+
+* Text headers, such as `Subject`, are now properly prepared as per RFC 2047, fixing a problem with long-ish headers that contain non-ASCII characters (#193).
+
+* Fixed MIME structure for emails with text+HTML bodies and attachments. These messages now correctly use nested `multipart/mixed` (outer) containing `multipart/alternative` (inner text/HTML), preventing the loss of some of the message parts (#202).
+
+## Deprecations
+
+* Functions that lack the `gm_` prefix have been removed, concluding a deprecation process that kicked off with gmailr 1.0.0 (released 2019-08-23). These functions were hard deprecated in gmailr 2.0.0 (released 2023-06-30). This eliminates many name conflicts with other packages (including with the base package, e.g. `base::body()` or `base::message()`).
+  
+* Legacy auth functions `clear_token()`, `gmail_auth()`, and `use_secret_file()` have been removed, following the same deprecation timeline as described above.
+
+* `gm_last_response()` is deprecated, in favor of `gargle::gargle_last_response()`, since gmailr no longer caches the last response itself.
+
 # gmailr 2.0.0
 
 ## Changes around the OAuth client
@@ -120,7 +139,7 @@ Versions 1.3.0, 1.4.0, and 1.5.1 of gargle introduced some changes around OAuth 
 
 * New `gm_auth_configure()` and `gm_auth()` functions added conforming to the
   conventions in the [gargle](https://cran.r-project.org/package=gargle) package.
-  `gmail_auth()`, `clear_token()` and `use_secret_token()` are now deprecated and will be removed
+  `gmail_auth()`, `clear_token()` and `use_secret_file()` are now deprecated and will be removed
   in a future release.
 
 * The google application bundled in previous gmailr releases has been removed,
@@ -170,7 +189,7 @@ Versions 1.3.0, 1.4.0, and 1.5.1 of gargle introduced some changes around OAuth 
 ### Major Changes
 
 * Added ability to create and send drafts and messages. (#5, #6)
-* Added a number of tests for mime message creation derived from the [Email::Stuffer](http://search.cpan.org/~rjbs/Email-Stuffer-0.009/lib/Email/Stuffer.pm) perl module.
+* Added a number of tests for mime message creation derived from the [Email::Stuffer](https://metacpan.org/pod/release/RJBS/Email-Stuffer-0.009/lib/Email/Stuffer.pm) perl module.
 
 ### Minor Fixes
 

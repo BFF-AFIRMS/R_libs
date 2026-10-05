@@ -11,6 +11,9 @@ coverage_to_list	coverage_to_list
 coveralls	coveralls
 covr	covr-package
 covr.record_tests	covr.record_tests
+current_test_call_count	current_test_call_count
+current_test_index	current_test_index
+current_test_key	current_test_key
 display_name	display_name
 environment_coverage	environment_coverage
 exclusions	exclusions

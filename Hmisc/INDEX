@@ -49,6 +49,7 @@ dotchart2               Enhanced Dot Chart
 dotchart3               Enhanced Version of dotchart Function
 dotchartpl              Enhanced Version of dotchart Function for
                         plotly
+dualSD                  Dual Standard Deviations
 ebpcomp                 ebpcomp
 Ecdf                    Empirical Cumulative Distribution Plot
 ecdfSteps               ecdfSteps
@@ -62,6 +63,7 @@ event.chart             Flexible Event Chart for Time-to-Event Data
 event.convert           Event Conversion for Time-to-Event Data
 event.history           Produces event.history graph for survival data
 extractlabs             extractlabs
+Fdebug                  Debug Printing Function Generator
 fImport                 fImport
 find.matches            Find Close Matches
 first.word              First Word in a String or Expression
@@ -70,6 +72,7 @@ format.pval             Format P Values
 gbayes                  Gaussian Bayesian Posterior and Predictive
                         Distributions
 gbayesSeqSim            gbayesSeqSim
+geom_stepconfint        Step function confidence intervals for ggplot2
 getabd                  getabd
 getHdata                Download and Install Datasets for 'Hmisc',
                         'rms', and Statistical Modeling
@@ -133,23 +136,33 @@ nobsY                   Compute Number of Observations for Left Hand
                         Side of Formula
 nstr                    Creates a string of arbitry length
 num.intercepts          Extract number of intercepts
+ordGroupBoot            Minimally Group an Ordinal Variable So
+                        Bootstrap Samples Will Contain All Distinct
+                        Values
 pairUpDiff              pairUpDiff
 panel.bpplot            Box-Percentile Panel Function for Trellis
 partition               Patitions an object into different sets
 pc1                     First Principal Component
+plot.princmp            plot.princmp
 plotCorrM               plotCorrM
 plotCorrPrecision       Plot Precision of Estimate of Pearson
                         Correlation Coefficient
 plotlyM                 plotly Multiple
 plsmo                   Plot smoothed estimates
+pMedian                 pMedian
 popower                 Power and Sample Size for Ordinal Response
 princmp                 princmp
 print.char.list         prints a list of lists in a visually readable
                         format.
 print.char.matrix       Function to print a matrix with stacked cells
+print.princmp           print.princmp
+printL                  printL
 prn                     Print and Object with its Name
 prselect                Selectively Print Lines of a Text Vector
 pstamp                  Date/Time/Directory Stamp the Current Plot
+qcrypt                  qcrypt
+qrxcenter               qrxcenter
+r2describe              r2describe
 R2Measures              R2Measures
 rcorr                   Matrix of Correlations and P-values
 rcorr.cens              Rank Correlation for Censored Data
@@ -163,6 +176,7 @@ redun                   Redundancy Analysis
 reShape                 Reshape Matrices and Serial Data
 rlegend                 Special Version of legend for R
 rm.boot                 Bootstrap Repeated Measurements Model
+rmClose                 rmClose
 rMultinom               Generate Multinomial Random Variables with
                         Varying Probabilities
 runifChanged            runifChanged

@@ -1,6 +1,6 @@
 // Vector.h: Rcpp R/C++ interface class library -- vectors
 //
-// Copyright (C) 2010 - 2023  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2026  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -21,6 +21,7 @@
 #define Rcpp__vector__Vector_h
 
 #include <Rcpp/vector/Subsetter.h>
+#include <type_traits>
 
 namespace Rcpp{
 
@@ -236,11 +237,9 @@ public:
         std::transform( first, last, begin(), func) ;
     }
 
-#ifdef HAS_CXX0X_INITIALIZER_LIST
     Vector( std::initializer_list<init_type> list ) {
         assign( list.begin() , list.end() ) ;
     }
-#endif
 
     template <typename T>
     Vector& operator=( const T& x) {
@@ -331,7 +330,7 @@ public:
     }
 
     inline iterator begin() { return cache.get() ; }
-    inline iterator end() { return cache.get() + size() ; }
+    inline iterator end() { return cache.get() + size(); }
     inline const_iterator begin() const{ return cache.get_const() ; }
     inline const_iterator end() const{ return cache.get_const() + size() ; }
     inline const_iterator cbegin() const{ return cache.get_const() ; }
@@ -339,6 +338,20 @@ public:
 
     inline Proxy operator[]( R_xlen_t i ){ return cache.ref(i) ; }
     inline const_Proxy operator[]( R_xlen_t i ) const { return cache.ref(i) ; }
+#ifndef LONG_VECTOR_SUPPORT
+    // On platforms without long vector support (notably wasm32) R_xlen_t is
+    // int while ptrdiff_t is long, so subscripting with any wider integer
+    // type would otherwise be ambiguous with the built-in pointer subscript
+    // synthesised via the implicit Vector -> SEXP conversion. The template
+    // overloads below provide an exact-match member candidate for every
+    // integer index type other than R_xlen_t itself.
+    template <typename T>
+    inline typename std::enable_if<std::is_integral<T>::value && !std::is_same<T, R_xlen_t>::value, Proxy>::type
+    operator[]( T i ){ return cache.ref(static_cast<R_xlen_t>(i)) ; }
+    template <typename T>
+    inline typename std::enable_if<std::is_integral<T>::value && !std::is_same<T, R_xlen_t>::value, const_Proxy>::type
+    operator[]( T i ) const { return cache.ref(static_cast<R_xlen_t>(i)) ; }
+#endif
 
     inline Proxy operator()( const size_t& i) {
         return cache.ref( offset(i) ) ;
@@ -347,10 +360,10 @@ public:
         return cache.ref( offset(i) ) ;
     }
 
-    inline Proxy at( const size_t& i) {
+    inline Proxy at( const size_t& i) {												// #nocov start
        return cache.ref( offset(i) ) ;
     }
-    inline const_Proxy at( const size_t& i) const {									// #nocov start
+    inline const_Proxy at( const size_t& i) const {
        return cache.ref( offset(i) ) ;
     }																				// #nocov end
 
@@ -593,7 +606,7 @@ public:
         return false ;
     }
 
-    int findName(const std::string& name) const {
+    R_xlen_t findName(const std::string& name) const {
         SEXP names = RCPP_GET_NAMES(Storage::get__());
         if (Rf_isNull(names)) stop("'names' attribute is null");
         R_xlen_t n = Rf_xlength(names);
@@ -1122,7 +1135,55 @@ public:
         return Vector( 0 ) ;
     }
 
-    #include <Rcpp/generated/Vector__create.h>
+public:
+    template <typename... T>
+    static Vector create(const T&... t){
+        return create__dispatch( typename traits::integral_constant<bool,
+                                 traits::is_any_named<T...>::value
+                                 >::type(), t... ) ;
+    }
+
+private:
+    template <typename... T>
+    static Vector create__dispatch(traits::false_type, const T&... t){
+        Vector res(sizeof...(T)) ;
+        iterator it(res.begin());
+        create_dispatch_impl(it, t...);
+        return res;
+    }
+
+    template <typename... T>
+    static Vector create__dispatch( traits::true_type, const T&... t) {
+        Vector res(sizeof...(T)) ;
+        Shield<SEXP> names(::Rf_allocVector(STRSXP, sizeof...(T)));
+        int index = 0;
+        iterator it(res.begin());
+        replace_element_impl(it, names, index, t...);
+        res.attr("names") = names;
+        return res;
+    }
+
+    template <typename T>
+    static void create_dispatch_impl(iterator& it, const T& t) {
+        *it = converter_type::get(t);
+    }
+
+    template <typename T, typename... TArgs>
+    static void create_dispatch_impl(iterator& it, const T& t, const TArgs&... args) {
+        *it = converter_type::get(t);
+        create_dispatch_impl(++it, args...);
+    }
+
+    template <typename T>
+    static void replace_element_impl(iterator& it, Shield<SEXP>& names, int& index, const T& t) {
+        replace_element(it, names, index, t);
+    }
+
+    template <typename T, typename... TArgs>
+    static void replace_element_impl(iterator& it, Shield<SEXP>& names, int& index, const T& t, const TArgs&... args) {
+        replace_element(it, names, index, t);
+        replace_element_impl(++it, names, ++index, args...);
+    }
 
 public:
 

@@ -14,12 +14,12 @@
 #ifndef __BOOST_SORT_PARALLEL_DETAIL_UTIL_MERGE_VECTOR_HPP
 #define __BOOST_SORT_PARALLEL_DETAIL_UTIL_MERGE_VECTOR_HPP
 
-#include <boost/sort/common/merge_four.hpp>
 #include <functional>
 #include <iterator>
 #include <memory>
 #include <type_traits>
 #include <vector>
+#include <boost/sort/common/merge_four.hpp>
 
 namespace boost
 {
@@ -65,7 +65,7 @@ void merge_level4(range<Iter1_t> dest, std::vector<range<Iter2_t> > &v_input,
     {
         v_output.emplace_back(move_forward(dest, v_input[0]));
         return;
-    };
+    }
 
     uint32_t nrange = v_input.size();
     uint32_t pos_ini = 0;
@@ -78,9 +78,9 @@ void merge_level4(range<Iter1_t> dest, std::vector<range<Iter2_t> > &v_input,
         dest.first = rz.last;
         pos_ini += nelem;
         nrange -= nelem;
-    };
+    }
     return;
-};
+}
 //
 //-----------------------------------------------------------------------------
 //  function : uninit_merge_level4
@@ -99,7 +99,7 @@ void merge_level4(range<Iter1_t> dest, std::vector<range<Iter2_t> > &v_input,
 template<class Value_t, class Iter_t, class Compare>
 void uninit_merge_level4(range<Value_t *> dest,
                          std::vector<range<Iter_t> > &v_input,
-                         std::vector<range<Value_t *> > &v_output, Compare comp)
+                         std::vector <range<Value_t *> > &v_output, Compare comp)
 {
     typedef range<Value_t *> range1_t;
     typedef util::value_iter<Iter_t> type1;
@@ -127,7 +127,7 @@ void uninit_merge_level4(range<Value_t *> dest,
         nrange -= nelem;
     };
     return;
-};
+}
 //
 //-----------------------------------------------------------------------------
 //  function : merge_vector4
@@ -185,12 +185,12 @@ range<Iter2_t> merge_vector4(range<Iter1_t> range_input,
         };
     };
     return (sw) ? v_output[0] : move_forward(range_output, v_input[0]);
-};
+}
 
 //****************************************************************************
-};//    End namespace common
-};//    End namespace sort
-};//    End namespace boost
+}//    End namespace common
+}//    End namespace sort
+}//    End namespace boost
 //****************************************************************************
 //
 #endif

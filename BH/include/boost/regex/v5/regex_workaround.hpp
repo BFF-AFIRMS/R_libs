@@ -20,9 +20,11 @@
 #define BOOST_REGEX_WORKAROUND_HPP
 
 #include <boost/regex/config.hpp>
+#ifndef BOOST_REGEX_AS_MODULE
 #include <algorithm>
 #include <stdexcept>
 #include <cstring>
+#endif
 
 #ifndef BOOST_REGEX_STANDALONE
 #include <boost/detail/workaround.hpp>
@@ -116,10 +118,10 @@ namespace boost{ namespace BOOST_REGEX_DETAIL_NS{
       const char *strSource 
    )
    {
-	  std::size_t lenSourceWithNull = std::strlen(strSource) + 1;
-	  if (lenSourceWithNull > sizeInBytes)
+     std::size_t lenSourceWithNull = std::strlen(strSource) + 1;
+     if (lenSourceWithNull > sizeInBytes)
          return 1;
-	  std::memcpy(strDestination, strSource, lenSourceWithNull);
+     std::memcpy(strDestination, strSource, lenSourceWithNull);
       return 0;
    }
    inline std::size_t strcat_s(
@@ -128,11 +130,11 @@ namespace boost{ namespace BOOST_REGEX_DETAIL_NS{
       const char *strSource 
    )
    {
-	  std::size_t lenSourceWithNull = std::strlen(strSource) + 1;
-	  std::size_t lenDestination = std::strlen(strDestination);
-	  if (lenSourceWithNull + lenDestination > sizeInBytes)
+     std::size_t lenSourceWithNull = std::strlen(strSource) + 1;
+     std::size_t lenDestination = std::strlen(strDestination);
+     if (lenSourceWithNull + lenDestination > sizeInBytes)
          return 1;
-	  std::memcpy(strDestination + lenDestination, strSource, lenSourceWithNull);
+     std::memcpy(strDestination + lenDestination, strSource, lenSourceWithNull);
       return 0;
    }
 

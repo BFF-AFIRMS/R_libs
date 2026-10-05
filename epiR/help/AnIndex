@@ -17,6 +17,8 @@ epi.dsl	epi.dsl
 epi.edr	epi.edr
 epi.empbayes	epi.empbayes
 epi.epidural	epi.epidural
+epi.evalue	epi.evalue
+epi.fpos	epi.fpos
 epi.herdtest	epi.herdtest
 epi.incin	epi.incin
 epi.indirectadj	epi.indirectadj
@@ -25,6 +27,7 @@ epi.interaction	epi.interaction
 epi.iv	epi.iv
 epi.kappa	epi.kappa
 epi.ltd	epi.ltd
+epi.mbf	epi.mbf
 epi.mh	epi.mh
 epi.nomogram	epi.nomogram
 epi.occc	epi.occc

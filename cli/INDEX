@@ -13,6 +13,8 @@ ansi_nzchar             Like 'base::nzchar()', but for ANSI strings
 ansi_regex              Perl compatible regular expression that matches
                         ANSI escape sequences
 ansi_simplify           Simplify ANSI styling tags
+ansi_string             Labels a character vector as containing ANSI
+                        control codes.
 ansi_strip              Remove ANSI escape sequences from a string
 ansi_strsplit           Split an ANSI colored string
 ansi_strtrim            Truncate an ANSI string
@@ -91,6 +93,7 @@ hash_emoji              Emoji hash
 hash_md5                MD5 hash
 hash_sha1               SHA-1 hash
 hash_sha256             SHA-256 hash
+hash_xxhash             xxHash
 inline-markup           About inline markup in the semantic cli
 is_ansi_tty             Detect if a stream support ANSI escape
                         characters

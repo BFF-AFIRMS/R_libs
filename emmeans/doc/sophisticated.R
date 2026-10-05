@@ -1,11 +1,12 @@
-## ---- echo = FALSE, results = "hide", message = FALSE---------------------------------------------
+## ----echo = FALSE, results = "hide", message = FALSE----------------------------------------------
 require("emmeans")
 require("lme4")
+require(lmerTest)
 options(show.signif.stars = FALSE, width = 100) 
 knitr::opts_chunk$set(fig.width = 4.5, class.output = "ro") 
 
 ## -------------------------------------------------------------------------------------------------
-library(lme4)
+library(lme4); library(lmerTest)
 Oats.lmer <- lmer(yield ~ Variety + factor(nitro) + (1|Block/Variety),
                         data = nlme::Oats, subset = -c(1,2,3,5,8,13,21,34,55))
 
@@ -69,10 +70,10 @@ EMM@grid
 emmeans(ins.glm, "size", type = "response", offset = log(1))
 
 ## ----eval = FALSE---------------------------------------------------------------------------------
-#  emmeans(ins.glm, "size", type = "response", at = list(n = 1))
+# emmeans(ins.glm, "size", type = "response", at = list(n = 1))
 
 ## ----eval = FALSE---------------------------------------------------------------------------------
-#  emmeans(ins.glm, "size", type = "response", offset = log(100))
+# emmeans(ins.glm, "size", type = "response", offset = log(100))
 
 ## -------------------------------------------------------------------------------------------------
 require("ordinal")
@@ -102,17 +103,17 @@ emmeans(wine.clm, "temp", mode = "mean.class")
 summary(ref_grid(wine.clm, mode = "scale"), type = "response")
 
 ## ----eval = FALSE---------------------------------------------------------------------------------
-#  cbpp <- transform(lme4::cbpp, unit = 1:56)
-#  require("bayestestR")
-#  options(contrasts = c("contr.bayes", "contr.poly"))
-#  cbpp.rstan <- rstanarm::stan_glmer(
-#      cbind(incidence, size - incidence) ~ period + (1|herd) + (1|unit),
-#      data = cbpp, family = binomial,
-#      prior = student_t(df = 5, location = 0, scale = 2, autoscale = FALSE),
-#      chains = 2, cores = 1, seed = 2021.0120, iter = 1000)
-#  cbpp_prior.rstan <- update(cbpp.rstan, prior_PD = TRUE)
-#  cbpp.rg <- ref_grid(cbpp.rstan)
-#  cbpp_prior.rg <- ref_grid(cbpp_prior.rstan)
+# cbpp <- transform(lme4::cbpp, unit = 1:56)
+# require("bayestestR")
+# options(contrasts = c("contr.bayes", "contr.poly"))
+# cbpp.rstan <- rstanarm::stan_glmer(
+#     cbind(incidence, size - incidence) ~ period + (1|herd) + (1|unit),
+#     data = cbpp, family = binomial,
+#     prior = student_t(df = 5, location = 0, scale = 2, autoscale = FALSE),
+#     chains = 2, cores = 1, seed = 2021.0120, iter = 1000)
+# cbpp_prior.rstan <- update(cbpp.rstan, prior_PD = TRUE)
+# cbpp.rg <- ref_grid(cbpp.rstan)
+# cbpp_prior.rg <- ref_grid(cbpp_prior.rstan)
 
 ## ----echo = FALSE---------------------------------------------------------------------------------
 cbpp.rg <- do.call(emmobj, 
@@ -136,7 +137,7 @@ bayestestR::bayesfactor_parameters(pairs(cbpp.rg), prior = pairs(cbpp_prior.rg))
 bayestestR::p_rope(pairs(cbpp.rg), range = c(-0.25, 0.25))
 
 ## ----eval = FALSE---------------------------------------------------------------------------------
-#  cbpp.sigma = as.matrix(cbpp.rstan$stanfit)[, 78:79]
+# cbpp.sigma = as.matrix(cbpp.rstan$stanfit)[, 78:79]
 
 ## -------------------------------------------------------------------------------------------------
 head(cbpp.sigma)
@@ -146,13 +147,13 @@ totSD <- sqrt(apply(cbpp.sigma^2, 1, sum))
 cbpp.rgrd <- regrid(cbpp.rg, bias.adjust = TRUE, sigma = totSD)
 summary(cbpp.rgrd)
 
-## ---- fig.alt = "kernel denity estimates for each of the 4 periods. Their medians and spreads decrease with period, and period 1 is especially different. See the previous summary table for the numerical values of the estimated means"----
+## ----fig.alt = "kernel denity estimates for each of the 4 periods. Their medians and spreads decrease with period, and period 1 is especially different. See the previous summary table for the numerical values of the estimated means"----
 bayesplot::mcmc_areas(as.mcmc(cbpp.rgrd))
 
 ## -------------------------------------------------------------------------------------------------
 contrast(cbpp.rgrd, "consec", reverse = TRUE)
 
-## ---- fig.alt = "Histograms of the predictive distributions for each period. The one for period 1 has bins from 0 to 15; the number of bins decreases until period 4 has only bins for 0 through 5."----
+## ----fig.alt = "Histograms of the predictive distributions for each period. The one for period 1 has bins from 0 to 15; the number of bins decreases until period 4 has only bins for 0 through 5."----
 set.seed(2019.0605)
 cbpp.preds <- as.mcmc(cbpp.rgrd, likelihood = "binomial", trials = 25)
 bayesplot::mcmc_hist(cbpp.preds, binwidth = 1)

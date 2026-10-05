@@ -1,16 +1,17 @@
 ## ----setup, include=FALSE-----------------------------------------------------
 if (!requireNamespace("rmarkdown", quietly = TRUE) ||
     !rmarkdown::pandoc_available("1.14")) {
-  warning(call. = FALSE, "These vignettes assume rmarkdown and pandoc version 1.14.  These were not found. Older versions will not work.")
+  warning(call. = FALSE, "These vignettes assume rmarkdown and Pandoc
+          version 1.14.  These were not found. Older versions will not work.")
   knitr::knit_exit()
 }
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, snapshot = FALSE, screenshot.force = FALSE)
 library(rgl)
 options(rgl.useNULL = TRUE)
 setupKnitr(autoprint = TRUE)
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  setupKnitr(autoprint = TRUE)
+# setupKnitr(autoprint = TRUE)
 
 ## -----------------------------------------------------------------------------
 # Show regression plane with z as dependent variable

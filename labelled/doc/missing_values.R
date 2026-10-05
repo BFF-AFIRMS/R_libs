@@ -20,7 +20,8 @@ is_tagged_na(x)
 is_tagged_na(x, "a")
 is_regular_na(x)
 
-## ---- error=TRUE--------------------------------------------------------------
+## ----error=TRUE---------------------------------------------------------------
+try({
 y <- c("a", "b", tagged_na("z"))
 y
 is_tagged_na(y)
@@ -29,6 +30,7 @@ format_tagged_na(y)
 z <- c(1L, 2L, tagged_na("a"))
 typeof(z)
 format_tagged_na(z)
+})
 
 ## -----------------------------------------------------------------------------
 x <- c(1, 2, tagged_na("a"), 1, tagged_na("z"), 2, tagged_na("a"), NA)

@@ -1,7 +1,7 @@
 ---
 title: "_SummarizedExperiment_ for Coordinating Experimental Assays, Samples, and Regions of Interest"
 author: "Martin Morgan, Valerie Obenchain, Jim Hester, Hervé Pagès"
-date: "Revised: 3 May, 2018"
+date: "Revised: 5 Jan, 2023"
 output:
   BiocStyle::html_document:
     toc: true
@@ -186,6 +186,52 @@ a `DataFrame` for the _rowData_ argument:
 SummarizedExperiment(assays=list(counts=counts), colData=colData)
 ```
 
+# Top-level dimnames vs assay-level dimnames
+
+In addition to the dimnames that are set on a `SummarizedExperiment` object
+itself, the individual assays that are stored in the object can have their
+own dimnames or not:
+
+```{r construct_se3}
+a1 <- matrix(runif(24), ncol=6, dimnames=list(letters[1:4], LETTERS[1:6]))
+a2 <- matrix(rpois(24, 0.8), ncol=6)
+a3 <- matrix(101:124, ncol=6, dimnames=list(NULL, LETTERS[1:6]))
+se3 <- SummarizedExperiment(SimpleList(a1, a2, a3))
+```
+
+The dimnames of the `SummarizedExperiment` object (top-level dimnames):
+
+```{r top_level_dimnames}
+dimnames(se3)
+```
+
+When extracting assays from the object, the top-level dimnames are put on
+them by default:
+
+```{r top_level_dimnames_are_propagated}
+assay(se3, 2)  # this is 'a2', but with the top-level dimnames on it
+
+assay(se3, 3)  # this is 'a3', but with the top-level dimnames on it
+```
+
+However if using `withDimnames=FALSE` then the assays are returned
+_as-is_, i.e. with their original dimnames (this is how they are stored
+in the `SummarizedExperiment` object):
+
+```{r assay_level_dimnames}
+assay(se3, 2, withDimnames=FALSE)  # identical to 'a2'
+
+assay(se3, 3, withDimnames=FALSE)  # identical to 'a3'
+
+rownames(se3) <- strrep(letters[1:4], 3)
+
+dimnames(se3)
+
+assay(se3, 1)  # this is 'a1', but with the top-level dimnames on it
+
+assay(se3, 1, withDimnames=FALSE)  # identical to 'a1'
+```
+
 # Common operations on `SummarizedExperiment`
 
 ## Subsetting
@@ -245,6 +291,19 @@ to subset a `SummarizedExperiment` object by an interval.
 roi <- GRanges(seqnames="1", ranges=100000:1100000)
 subsetByOverlaps(se, roi)
 ```
+
+# Interactive visualization
+
+The `r BiocStyle::Biocpkg("iSEE")` package provides functions for creating an interactive user interface based on the `r BiocStyle::CRANpkg("shiny")` package for exploring data stored in `SummarizedExperiment` objects.
+Information stored in standard components of `SummarizedExperiment` objects -- including assay data, and row and column metadata -- are automatically detected and used to populate the interactive multi-panel user interface.
+Particular attention is given to the `r BiocStyle::Biocpkg("SingleCellExperiment")` extension of the `SummarizedExperiment` class, with visualization of dimensionality reduction results.
+
+Extensions to the `r BiocStyle::Biocpkg("iSEE")` package provide support for more context-dependent functionality:
+
+- `r BiocStyle::Biocpkg("iSEEde")` provides additional panels that facilitate the interactive visualization of differential expression results, including the `DESeqDataSet` extension of `SummarizedExperiment` implemented in `r BiocStyle::Biocpkg("DESeq2")`.
+- `r BiocStyle::Biocpkg("iSEEpathways")` provides additional panels for the interactive visualization of pathway analysis results.
+- `r BiocStyle::Biocpkg("iSEEhub")` provides functionality to import data sets stored in the Bioconductor `r BiocStyle::Biocpkg("ExperimentHub")`.
+- `r BiocStyle::Biocpkg("iSEEhub")` provides functionality to import data sets from custom sources (local and remote).
 
 # Session information
 

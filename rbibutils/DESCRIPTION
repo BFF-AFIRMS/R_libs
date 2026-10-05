@@ -1,12 +1,12 @@
 Package: rbibutils
 Type: Package
 Title: Read 'Bibtex' Files and Convert Between Bibliography Formats
-Version: 2.2.13
+Version: 2.4.1
 Authors@R: c( person(given = c("Georgi", "N."), family = "Boshnakov", 
                      role = c("aut", "cre"), 	
                      email = "georgi.boshnakov@manchester.ac.uk",
-		     comment = "R port, R code, new C code and modifications to bibutils' C code, conversion to Bibentry (R and C code)"
-		     ),
+		     comment = c(ORCID = "0000-0003-2839-346X",
+		                         "R port, R code, new C code and modifications to bibutils' C code, conversion to Bibentry (R and C code)") ),
               person(given = "Chris", family = "Putman",
                      role = "aut",
 		     comment = "src/*, author of the bibutils libraries, https://sourceforge.net/projects/bibutils/"),
@@ -15,8 +15,10 @@ Authors@R: c( person(given = c("Georgi", "N."), family = "Boshnakov",
 		     comment = "src/addsout.c"),
               person(given = "Johannes", family = "Wilm",
                      role = "ctb",
-		     comment = "src/biblatexin.c, src/bltypes.c")
-		     )
+		     comment = "src/biblatexin.c, src/bltypes.c"),
+	      person("R Core Team", role = "ctb",
+	             comment = "base R's bibentry and bibstyle implementation")
+            )
 Description: Read and write 'Bibtex' files. Convert between bibliography
     formats, including 'Bibtex', 'Biblatex', 'PubMed', 'Endnote', and
     'Bibentry'.  Includes a port of the 'bibutils' utilities by Chris
@@ -25,7 +27,7 @@ Description: Read and write 'Bibtex' files. Convert between bibliography
     'bibutils'.
 License: GPL-2
 URL: https://geobosh.github.io/rbibutils/ (doc),
-        https://github.com/GeoBosh/rbibutils (devel)
+        https://CRAN.R-project.org/package=rbibutils
 BugReports: https://github.com/GeoBosh/rbibutils/issues
 Depends: R (>= 2.10)
 Imports: utils, tools
@@ -33,15 +35,17 @@ Suggests: testthat
 Encoding: UTF-8
 NeedsCompilation: yes
 Config/Needs/memcheck: devtools, rcmdcheck
-Packaged: 2023-01-13 09:13:20 UTC; georgi
-Author: Georgi N. Boshnakov [aut, cre] (R port, R code, new C code and
-    modifications to bibutils' C code, conversion to Bibentry (R and C
-    code)),
+Packaged: 2026-01-20 19:58:02 UTC; georgi
+Author: Georgi N. Boshnakov [aut, cre] (ORCID:
+    <https://orcid.org/0000-0003-2839-346X>, R port, R code, new C code
+    and modifications to bibutils' C code, conversion to Bibentry (R
+    and C code)),
   Chris Putman [aut] (src/*, author of the bibutils libraries,
     https://sourceforge.net/projects/bibutils/),
   Richard Mathar [ctb] (src/addsout.c),
-  Johannes Wilm [ctb] (src/biblatexin.c, src/bltypes.c)
+  Johannes Wilm [ctb] (src/biblatexin.c, src/bltypes.c),
+  R Core Team [ctb] (base R's bibentry and bibstyle implementation)
 Maintainer: Georgi N. Boshnakov <georgi.boshnakov@manchester.ac.uk>
 Repository: CRAN
-Date/Publication: 2023-01-13 13:50:02 UTC
-Built: R 4.3.0; x86_64-pc-linux-gnu; 2023-07-07 02:18:52 UTC; unix
+Date/Publication: 2026-01-21 06:40:34 UTC
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-01 20:39:07 UTC; unix

@@ -1,16 +1,17 @@
 Package: pROC
 Type: Package
 Title: Display and Analyze ROC Curves
-Version: 1.18.4
-Date: 2023-07-04
+Version: 1.19.1
+Date: 2026-08-27
 Encoding: UTF-8
 Depends: R (>= 2.14)
-Imports: methods, plyr, Rcpp (>= 0.11.1)
-Suggests: microbenchmark, tcltk, MASS, logcondens, doParallel,
-        testthat, vdiffr, ggplot2, rlang
+Imports: methods, Rcpp (>= 0.11.1)
+Suggests: MASS, logcondens, testthat, vdiffr, ggplot2, rlang, knitr,
+        rmarkdown
+VignetteBuilder: knitr, rmarkdown
 LinkingTo: Rcpp
 Authors@R: c(person("Xavier", "Robin", role = c("cre", "aut"), 
-                    email = "pROC-cran@xavier.robin.name",
+                    email = "pROC-cran@xavamail.net",
                     comment = c(ORCID = "0000-0002-6813-3200")),
              person("Natacha", "Turck", role = "aut"),
              person("Alexandre", "Hainard", role = "aut"),
@@ -27,12 +28,13 @@ Authors@R: c(person("Xavier", "Robin", role = c("cre", "aut"),
                     comment = "DeLong paired test CI"))
 Description: Tools for visualizing, smoothing and comparing receiver operating characteristic (ROC curves). (Partial) area under the curve (AUC) can be compared with statistical tests based on U-statistics or bootstrap. Confidence intervals can be computed for (p)AUC or ROC curves.
 License: GPL (>= 3)
-URL: http://expasy.org/tools/pROC/
+URL: https://xrobin.github.io/pROC/
 BugReports: https://github.com/xrobin/pROC/issues
 LazyData: yes
 NeedsCompilation: yes
-Packaged: 2023-07-04 06:40:59 UTC; xavier
-Author: Xavier Robin [cre, aut] (<https://orcid.org/0000-0002-6813-3200>),
+Packaged: 2026-08-27 07:17:30 UTC; xavier
+Author: Xavier Robin [cre, aut] (ORCID:
+    <https://orcid.org/0000-0002-6813-3200>),
   Natacha Turck [aut],
   Alexandre Hainard [aut],
   Natalia Tiberti [aut],
@@ -42,7 +44,7 @@ Author: Xavier Robin [cre, aut] (<https://orcid.org/0000-0002-6813-3200>),
   Stefan Siegert [ctb] (Fast DeLong code),
   Matthias Doering [ctb] (Hand & Till Multiclass),
   Zane Billings [ctb] (DeLong paired test CI)
-Maintainer: Xavier Robin <pROC-cran@xavier.robin.name>
+Maintainer: Xavier Robin <pROC-cran@xavamail.net>
 Repository: CRAN
-Date/Publication: 2023-07-06 00:10:56 UTC
-Built: R 4.3.0; x86_64-pc-linux-gnu; 2023-07-07 03:04:23 UTC; unix
+Date/Publication: 2026-08-27 10:00:02 UTC
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-01 21:47:12 UTC; unix

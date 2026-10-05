@@ -1,16 +1,18 @@
-## ----setup, include=FALSE,warning=FALSE, message=FALSE------------------------
-knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(error = Sys.getenv("IN_PKGDOWN") != "true" || (getRversion() < "3.5"))
+## ----setup, include=FALSE-----------------------------------------------------
+knitr::opts_chunk$set(
+  echo = TRUE,
+  error = Sys.getenv("IN_PKGDOWN") != "true" || (getRversion() < "3.5")
+)
 
 ## -----------------------------------------------------------------------------
 library(DBI)
 
 con <- dbConnect(
   RMariaDB::MariaDB(),
-  host = "relational.fit.cvut.cz",
+  host = "relational.fel.cvut.cz",
   port = 3306,
   username = "guest",
-  password = "relational",
+  password = "ctu-relational",
   dbname = "sakila"
 )
 
@@ -18,17 +20,24 @@ dbListTables(con)
 dbDisconnect(con)
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  con <- dbConnect(
-#    RMariaDB::MariaDB(),
-#    host = "relational.fit.cvut.cz",
-#    port = 3306,
-#    username = "guest",
-#    password = keyring::key_get("relational.fit.cvut.cz", "guest"),
-#    dbname = "sakila"
-#  )
+# con <- dbConnect(
+#   RMariaDB::MariaDB(),
+#   host = "relational.fel.cvut.cz",
+#   port = 3306,
+#   username = "guest",
+#   password = keyring::key_get("relational.fel.cvut.cz", "guest"),
+#   dbname = "sakila"
+# )
 
 ## -----------------------------------------------------------------------------
-con <- dbConnect(RMariaDB::MariaDB(), username = "guest", password = "relational", host = "relational.fit.cvut.cz", port = 3306, dbname = "sakila")
+con <- dbConnect(
+  RMariaDB::MariaDB(),
+  host = "relational.fel.cvut.cz",
+  port = 3306,
+  username = "guest",
+  password = "ctu-relational",
+  dbname = "sakila"
+)
 dbListFields(con, "film")
 
 ## -----------------------------------------------------------------------------
@@ -41,7 +50,7 @@ head(df, 3)
 
 ## -----------------------------------------------------------------------------
 df <- dbGetQuery(con, "SELECT film_id, title, description FROM film WHERE release_year = 2006 AND rating = 'G'")
-head(df,3)
+head(df, 3)
 
 ## ----message=FALSE------------------------------------------------------------
 library(dplyr)

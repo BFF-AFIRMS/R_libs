@@ -1,3 +1,60 @@
+# htmltools 0.5.9
+
+* Fix test for testthat 3.3.0. (#442) 
+
+# htmltools 0.5.8.1
+
+* `capturePlot()`s examples are now only run when `interactive()`. (#429)
+
+# htmltools 0.5.8
+
+## Improvements
+
+* The fill CSS attached to fillable containers and fill items with `bindFillRole()` now uses a [CSS cascade layer](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_layers) named `htmltools` to reduce the precedence order of the fill CSS. (#425)
+
+* Improved documentation for boolean attributes in `tagAppendAttributes()` to note that they can be set via an `NA` value, e.g. `tagAppendAttributes(div(), contenteditable = NA)` creates `<div contenteditable></div>`. (thanks @russHyde, #427)
+
+## Bug fixes
+
+* `bindFillRole()` now attaches its `HTMLDependency()` to fill items, thus reducing the possibility of filling layout breaking due to missing CSS. (#421)
+
+
+# htmltools 0.5.7
+
+## New Features
+
+* `save_html()` is now an S3 generic, allowing for more customization over how certain classes are saved to an HTML file. (#411)
+
+## Improvements
+
+* Fill items no longer set `overflow: auto` or `width: 100%` by default. (#401)
+
+* `css()` now fully supports setting custom CSS properties (or CSS variables) via inline styles. When the name of a value passed to `css()` starts with `--`, it will be treated as a custom CSS property and absolutely no changes will be made to the variable. For example, `css("--font_size" = "3em")` returns `--font_size:3em;` while `css(font_size = "3em")` will return `font-size:3em`. (#402)
+
+## Bug fixes
+
+* `{htmltools}` now requires `{rlang}` version 1.0.0 or higher. (#403)
+
+# htmltools 0.5.6.1
+
+## Improvements
+
+* `tagQuery()` no longer throws an error when attempting to traverse a NULL value with r-devel. (#407)
+
+# htmltools 0.5.6
+
+## Possibly breaking changes
+
+* Closed #386: Fillable containers no longer set `overflow: auto` by default. Instead, they set `min-width` and `min-height` to `0` to ensure that fill items a constrained in the fillable container without clipping their direct children. (#387)
+
+* Closed #370: Non-fill items in fillable containers no longer grow or shrink and instead respect their intrinsic size. Use `height` to control the height of non-fill items in fillable containers and `min-height` and `max-height` on fill items to limit how much they are allowed to grow or shrink within a fillable container. (#391)
+
+## Minor improvements
+
+* Closed #375: calling `htmlDependency()` or a function that returns an `htmlDependency()` object (e.g., `fontawesome::fa_html_dependency()`) in an R chunk in an R Markdown or knitr-powered Quarto document will now include the dependency rather than printing the object structure. If you want to print the object structure, you can use `print()` or `str()`. (#376)
+
+* Closed #124: `includeHTML()` will now issue a warning if it detects that the file passed to it contains a complete HTML document. `includeHTML()` is designed to include HTML fragments where the contents of the file can be written directly into the current app or document, but subtle errors can occur when the file contains a complete HTML document. In most cases, you should instead use `tags$iframe()` to embed external documents. (#382)
+
 # htmltools 0.5.5
 
 ## Bug fixes

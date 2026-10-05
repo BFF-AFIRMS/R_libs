@@ -7,11 +7,11 @@ knitr::opts_chunk$set(
 )
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  FielDHub::run_app()
+# FielDHub::run_app()
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  library(FielDHub)
-#  run_app()
+# library(FielDHub)
+# run_app()
 
 ## ----include = FALSE----------------------------------------------------------
 wp <- LETTERS[1:5]
@@ -38,14 +38,14 @@ spd <- split_plot(
 ) 
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
-#  print(spd)
+# print(spd)
 
 ## ----echo=FALSE, eval=TRUE----------------------------------------------------
 print(spd)
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
-#  field_book <- spd$fieldBook
-#  head(spd$fieldBook, 10)
+# field_book <- spd$fieldBook
+# head(spd$fieldBook, 10)
 
 ## ----echo=FALSE, eval=TRUE----------------------------------------------------
 field_book <- spd$fieldBook

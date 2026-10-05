@@ -16,7 +16,13 @@
 ## Run checks ----
 ## Check the package before sending to prod
 devtools::check()
-rhub::check_for_cran()
+
+## add a classic token with "repo" and "workflow" permissions here:
+## https://github.com/settings/personal-access-tokens/new
+rhub::rhub_setup()
+gitcreds::gitcreds_set()
+rhub::rhub_doctor()
+rhub::rhub_check(platform = "rchk") # CRAN-like checks with GH-Actions
 
 # Deploy
 
@@ -25,35 +31,37 @@ rhub::check_for_cran()
 ## sent to CRAN, or to a package manager
 devtools::build()
 
-## RStudio ----
-## If you want to deploy on RStudio related platforms
-golem::add_rstudioconnect_file()
-golem::add_shinyappsio_file()
-golem::add_shinyserver_file()
-
 ## Docker ----
 ## If you want to deploy via a generic Dockerfile
 golem::add_dockerfile_with_renv()
-
 ## If you want to deploy to ShinyProxy
 golem::add_dockerfile_with_renv_shinyproxy()
 
+## Posit ----
+## If you want to deploy on Posit related platforms
+golem::add_positconnect_file()
+golem::add_shinyappsio_file()
+golem::add_shinyserver_file()
 
-# Deploy to Posit Connect or ShinyApps.io
-# In command line.
+## Deploy to Posit Connect or ShinyApps.io ----
+
+## Add/update manifest file (optional; for Git backed deployment on Posit )
+rsconnect::writeManifest()
+
+## In command line.
 rsconnect::deployApp(
-  appName = desc::desc_get_field("Package"),
-  appTitle = desc::desc_get_field("Package"),
-  appFiles = c(
-    # Add any additional files unique to your app here.
-    "R/",
-    "inst/",
-    "data/",
-    "NAMESPACE",
-    "DESCRIPTION",
-    "app.R"
-  ),
-  appId = rsconnect::deployments(".")$appID,
-  lint = FALSE,
-  forceUpdate = TRUE
+	appName = desc::desc_get_field("Package"),
+	appTitle = desc::desc_get_field("Package"),
+	appFiles = c(
+		# Add any additional files unique to your app here.
+		"R/",
+		"inst/",
+		"data/",
+		"NAMESPACE",
+		"DESCRIPTION",
+		"app.R"
+	),
+	appId = rsconnect::deployments(".")$appID,
+	lint = FALSE,
+	forceUpdate = TRUE
 )

@@ -30,14 +30,14 @@ rcd <- row_column(
 )
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
-#  print(rcd)
+# print(rcd)
 
 ## ----echo=FALSE, eval=TRUE----------------------------------------------------
 print(rcd)
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
-#  field_book <- rcd$fieldBook
-#  head(rcd$fieldBook, 10)
+# field_book <- rcd$fieldBook
+# head(rcd$fieldBook, 10)
 
 ## ----echo=FALSE, eval=TRUE----------------------------------------------------
 field_book <- rcd$fieldBook

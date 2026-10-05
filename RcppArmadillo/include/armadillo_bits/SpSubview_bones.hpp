@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
 // 
-// Copyright 2008-2016 Conrad Sanderson (http://conradsanderson.id.au)
+// Copyright 2008-2016 Conrad Sanderson (https://conradsanderson.id.au)
 // Copyright 2008-2016 National ICT Australia (NICTA)
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// http://www.apache.org/licenses/LICENSE-2.0
+// https://www.apache.org/licenses/LICENSE-2.0
 // 
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,6 +33,8 @@ class SpSubview : public SpBase< eT, SpSubview<eT> >
   static constexpr bool is_row  = false;
   static constexpr bool is_col  = false;
   static constexpr bool is_xvec = false;
+  
+  static constexpr bool has_subview = true;
   
   const uword aux_row1;
   const uword aux_col1;
@@ -104,24 +106,24 @@ class SpSubview : public SpBase< eT, SpSubview<eT> >
   inline void randn();
   
   
-  arma_hot inline SpSubview_MapMat_val<eT> operator[](const uword i);
-  arma_hot inline eT                       operator[](const uword i) const;
+  arma_warn_unused inline SpSubview_MapMat_val<eT> operator[](const uword i);
+  arma_warn_unused inline eT                       operator[](const uword i) const;
   
-  arma_hot inline SpSubview_MapMat_val<eT> operator()(const uword i);
-  arma_hot inline eT                       operator()(const uword i) const;
+  arma_warn_unused inline SpSubview_MapMat_val<eT> operator()(const uword i);
+  arma_warn_unused inline eT                       operator()(const uword i) const;
   
-  arma_hot inline SpSubview_MapMat_val<eT> operator()(const uword in_row, const uword in_col);
-  arma_hot inline eT                       operator()(const uword in_row, const uword in_col) const;
+  arma_warn_unused inline SpSubview_MapMat_val<eT> operator()(const uword in_row, const uword in_col);
+  arma_warn_unused inline eT                       operator()(const uword in_row, const uword in_col) const;
   
-  arma_hot inline SpSubview_MapMat_val<eT> at(const uword i);
-  arma_hot inline eT                       at(const uword i) const;
+  arma_warn_unused inline SpSubview_MapMat_val<eT> at(const uword i);
+  arma_warn_unused inline eT                       at(const uword i) const;
   
-  arma_hot inline SpSubview_MapMat_val<eT> at(const uword in_row, const uword in_col);
-  arma_hot inline eT                       at(const uword in_row, const uword in_col) const;
+  arma_warn_unused inline SpSubview_MapMat_val<eT> at(const uword in_row, const uword in_col);
+  arma_warn_unused inline eT                       at(const uword in_row, const uword in_col) const;
   
   inline bool check_overlap(const SpSubview& x) const;
   
-  inline bool is_vec() const;
+  arma_warn_unused inline bool is_vec() const;
   
   inline       SpSubview_row<eT> row(const uword row_num);
   inline const SpSubview_row<eT> row(const uword row_num) const;
@@ -321,7 +323,8 @@ class SpSubview : public SpBase< eT, SpSubview<eT> >
   inline const_row_iterator end_row(const uword row_num) const;
   
   //! don't use this unless you're writing internal Armadillo code
-  arma_inline bool is_alias(const SpMat<eT>& X) const;
+  template<typename eT2>
+  arma_inline bool is_alias(const SpMat<eT2>& X) const;
   
   
   private:
@@ -351,6 +354,8 @@ class SpSubview_col : public SpSubview<eT>
   static constexpr bool is_col  = true;
   static constexpr bool is_xvec = false;
   
+  static constexpr bool has_subview = true;
+  
   inline void operator= (const SpSubview<eT>& x);
   inline void operator= (const SpSubview_col& x);
   
@@ -360,6 +365,8 @@ class SpSubview_col : public SpSubview<eT>
   arma_warn_unused inline const SpOp<SpSubview_col<eT>,spop_htrans>  t() const;
   arma_warn_unused inline const SpOp<SpSubview_col<eT>,spop_htrans> ht() const;
   arma_warn_unused inline const SpOp<SpSubview_col<eT>,spop_strans> st() const;
+  
+  arma_warn_unused inline const SpToDOp<SpSubview_col<eT>,op_sp_as_dense> as_dense() const;
   
   
   protected:
@@ -389,6 +396,8 @@ class SpSubview_row : public SpSubview<eT>
   static constexpr bool is_col  = false;
   static constexpr bool is_xvec = false;
   
+  static constexpr bool has_subview = true;
+  
   inline void operator= (const SpSubview<eT>& x);
   inline void operator= (const SpSubview_row& x);
   
@@ -398,6 +407,8 @@ class SpSubview_row : public SpSubview<eT>
   arma_warn_unused inline const SpOp<SpSubview_row<eT>,spop_htrans>  t() const;
   arma_warn_unused inline const SpOp<SpSubview_row<eT>,spop_htrans> ht() const;
   arma_warn_unused inline const SpOp<SpSubview_row<eT>,spop_strans> st() const;
+  
+  arma_warn_unused inline const SpToDOp<SpSubview_row<eT>,op_sp_as_dense> as_dense() const;
   
   
   protected:

@@ -1,10 +1,12 @@
 Package: backports
 Type: Package
 Title: Reimplementations of Functions Introduced Since R-3.0.0
-Version: 1.4.1
+Version: 1.5.1
 Authors@R: c(
     person("Michel", "Lang", NULL, "michellang@gmail.com",
       role = c("cre", "aut"), comment = c(ORCID = "0000-0001-9754-0393")),
+    person("Duncan", "Murdoch", NULL, "murdoch.duncan@gmail.com",
+      role = c("aut")),
     person("R Core Team", role = "aut"))
 Maintainer: Michel Lang <michellang@gmail.com>
 Description: 
@@ -21,10 +23,11 @@ NeedsCompilation: yes
 ByteCompile: yes
 Depends: R (>= 3.0.0)
 Encoding: UTF-8
-RoxygenNote: 7.1.2
-Packaged: 2021-12-13 10:49:30 UTC; michel
-Author: Michel Lang [cre, aut] (<https://orcid.org/0000-0001-9754-0393>),
+RoxygenNote: 7.3.3
+Packaged: 2026-04-02 18:05:52 UTC; michel
+Author: Michel Lang [cre, aut] (ORCID: <https://orcid.org/0000-0001-9754-0393>),
+  Duncan Murdoch [aut],
   R Core Team [aut]
 Repository: CRAN
-Date/Publication: 2021-12-13 11:30:02 UTC
-Built: R 4.3.0; x86_64-pc-linux-gnu; 2023-07-07 02:19:16 UTC; unix
+Date/Publication: 2026-04-03 05:10:23 UTC
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-01 20:39:06 UTC; unix

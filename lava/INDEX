@@ -16,8 +16,6 @@ constrain               Add non-linear constraints to latent variable model
 constrain<-             -
 covariance              Add covariance structure to Latent Variable Model
 covariance<-            -
-covfix                  -
-covfix<-                -
 variance                -
 variance<-              -
 descendants             Extract descendants of nodes
@@ -34,14 +32,8 @@ exogenous<-             -
 eventTime               Add an observed event time outcome to a latent variable model
 eventTime<-             -
 fixsome                 Constrain parameters in measurement models (identifiability)
-functional              Add non-linear associations (for simulation only)
-functional<-            -
 intercept               Fix mean parameters in 'lvm'-object
 intercept<-             -
-intfix                  -
-intfix<-                -
-intervention            Define intervention variable
-intervention<-          -
 rmvar                   Remove variables from (model) object.
 rmvar<-                 -
 kill                    -
@@ -62,8 +54,6 @@ ordinal                 Define variables as ordinal
 ordinal<-               -
 parameter               Define additional parameters of the model
 parameter<-             -
-parfix                  Fix parameters of model
-parfix<-                -
 parpos                  Generic method for finding indeces of model parameters
 pars                    Extract model parameter names
 parents                 Extract parents of nodes
@@ -74,23 +64,20 @@ randomslope             Define random slope component
 randomslope<-           -
 regression              Add regression association to latent variable model
 regression<-            -
-regfix                  -
-regfix<-                -
 roots                   Extract root nodes of graph
 sinks                   Extract sink nodes of graph
 subset.lvm              Extract subset of latent variable model
-timedep                 Time-dependent parameters
-timedep<-               -
 transform               Create non-linear parameter constraints
 transform<-             -
 vars                    Extract variable names from latent variable model
 
 ** Model inference
 
+alpha_zmax              Multiple testing adjustment
 backdoor                Check backdoor criterion
 bootstrap               Generic bootstrap method
 bootstrap.lvm           Calculate bootstrap estimates of a lvm object
-closed.testing          Closed testing procedure
+closed_testing          Closed testing procedure
 confint.lvmfit          Calculate confidence limits for parameters
 contr                   Create contrast matrices
 compare                 Statistical tests Performs Likelihood-ratio, Wald and score tests
@@ -127,7 +114,6 @@ nonlinear               Define non-linear associations (see 'twostage')
 nonlinear<-             -
 ordreg                  Ordinal regression models
 partialcor              Calculate partial correlations
-p.correct               Multiple testing adjustment
 pcor                    Polychoric correlations
 plot.estimate           Forest-plot or regression line plot
 predict.lvm             Prediction in structural equation models
@@ -187,7 +173,6 @@ devcoords               Returns device-coordinates and plot-region
 diagtest                Calculate diagnostic tests for 2x2 table
 images                  Organize several image calls (for visualizing categorical data)
 Inverse                 Generalized inverse
-org                     Convert object to ascii suitable for org-mode
 parsedesign             Create contrast matrix from expression
 plotConf                Plot regression lines
 pdfconvert              Convert pdf to raster format
@@ -198,7 +183,7 @@ surface                 Visualize function surface
 offdiag                 Extract or set off-diagonal elements of matrix
 offdiag<-               -
 density.sim             Plot sim object
-spaghettu               Plot longitudinal data
+spaghetti               Plot longitudinal data
 toformula               Converts strings to formula
 tr                      Trace operator
 trim                    Trim tring of (leading/trailing/all) white spaces
@@ -210,43 +195,45 @@ na.pass0                Handle missing data by setting NA to zero
 
 ** Distributions
 
+dist_gaussian           Normal distribution
+dist_lognormal          Log-normal distribution
+dist_poisson            Poisson distribution
+dist_threshold          Threshold model (e.g., Probit)
+dist_bernoulli          Binomial family / Bernoulli distribution
+dist_gamma              Gamma distribution
+dist_loggamma           Log-Gamma distribution
+dist_chisq              Chi-squared distribution
+dist_t                  Student-t distribution
+dist_uniform            Uniform (continuous or discrete) distribution
+dist_weibull            Weibull distribution
+dist_seqint             Sequence of integers 1:n
+dist_seq                Sequence
+dist_ones               Fixed sequence of zeros and ones
+dist_const              Fixed single value
+dist_beta               Beta distribution
+dist_multinomial        Multinomial distribution
+dist_mvn                Multivariate normal distribution
+dist_gaussian_mixture2  Gaussian mixture distribution
+dist_gaussian_mixture3  Gaussian mixture distribution
+dist_cox_weibull        Cox-model (Weibull baseline)
+dist_cox_exponential    Cox-model (Exponential baseline)
+dist_cox_gompertz       Cox-model (Gompertz baseline)
+dist_aalen_exponential  Aalen additive model
+dist_pareto             Pareto distribution
+dist_nonem              Deterministic variable (fixed at its mean-structure)
 Missing                 Add missing mechanism to model
 Missing<-               -
-normal.lvm              Normal distribution
-gaussian.lvm            -
-lognormal.lvm           Log-normal distribution
-poisson.lvm             Poisson distribution
-threshold.lvm           Threshold model (e.g., Probit)
-binomial.lvm            Binomial family / Bernoulli distribution
-logit.lvm               -
-probit.lvm              -
-Gamma.lvm               Gamma distribution
-loggamma.lvm            Log-Gamma distribution
-chisq.lvm               Chi-squared distribution
-student.lvm             Student-t distribution
-uniform.lvm             Uniform (continuous or discrete) distribution
-weibull.lvm             Weibull distribution
-id.lvm                  Sequence of integers 1:n
-Sequence.lvm            -
-ones.lvm                Fixed sequence of zeros and ones
-constant.lvm            Fixed single value
-binary.lvm              -
-Binary.lvm              -
-beta.lvm                Beta distribution
-multinomial.lvm         Multinomial distribution
-mvn.lvm                 Multivariate normal distribution
-GM2.lvm                 Gaussian mixture distribution
-GM3.lvm                 -
-coxWeibull.lvm          Cox-model (Weibull baseline)
-coxExponential.lvm      Cox-model (Exponential baseline)
-coxGompertz.vlm         Cox-model (Gompertz baseline)
-aalenExponential.lvm    Aalen additive model
+intervention            Define intervention variable
+intervention<-          -
+functional              Add non-linear associations (for simulation only)
+functional<-            -
 heavytail.lvm           Heavy-tailed distribution
 heavytail<-             -
+timedep                 Time-dependent parameters
+timedep<-               -
 binomial.rd             Binomial odds-product model (risk difference)
 binomial.rr             Binomial odds-product model (relative risk)
-pareto.lvm              Pareto distribution
-none.lvm                Deterministic variable (fixed at its mean-structure)
+
 
 ** Datasets
 
@@ -261,7 +248,21 @@ nldata                  Example data (nonlinear model)
 missingdata             Data
 nsem                    Example SEM data (nonlinear)
 semdata                 Example SEM data
-serotonin               Serotonin data
-serotonin2              Data
+serotonin               Serotonin simulated data
 twindata                Twin menarche data
 
+** Working with Influence Function
+
+IC.default              Extract influence function from model object
+c.estimate              Concatenate estimate objects
+c.summary.estimate      Concatenate summary.estimate objects
+estimate.array          Estimate parameters and influence function for population summaries
+estimate.default        Influence function based inference
+estimate.glm            Estimate method for GLM objects
+estimate.list           Estimate method for lists
+merge.estimate          Concatenate estimate objects
+multinomial             Estimate probabilities in contingency table
+plot.estimate           Plot method for 'estimate' objects
+stack.estimate          Stack estimating equations
+summary.estimate        Summary of estimate objects
+var_ic                  Variance based on influence function

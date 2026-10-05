@@ -1,6 +1,7 @@
 s2-package	s2-package
 as_s2_cell	s2_cell
 as_s2_cell.character	s2_cell
+as_s2_cell.integer64	s2_cell
 as_s2_cell.s2_cell	s2_cell
 as_s2_cell.s2_geography	s2_cell
 as_s2_cell.wk_xy	s2_cell

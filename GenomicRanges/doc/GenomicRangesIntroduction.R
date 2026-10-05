@@ -2,9 +2,9 @@
 BiocStyle::markdown()
 
 ## ----BiocManager, eval=FALSE--------------------------------------------------
-#  if (!require("BiocManager"))
-#      install.packages("BiocManager")
-#  BiocManager::install("GenomicRanges")
+# if (!require("BiocManager"))
+#     install.packages("BiocManager")
+# BiocManager::install("GenomicRanges")
 
 ## ----initialize, results="hide", warning=FALSE, message=FALSE-----------------
 library(GenomicRanges)
@@ -111,10 +111,10 @@ pintersect(g2, g3)
 psetdiff(g2, g3)
 
 ## ----manPage, eval=FALSE------------------------------------------------------
-#  ?GRanges
+# ?GRanges
 
 ## ----granges-methods, eval=FALSE----------------------------------------------
-#  methods(class="GRanges")
+# methods(class="GRanges")
 
 ## ----example-GRangesList------------------------------------------------------
 gr1 <- GRanges(
@@ -183,10 +183,10 @@ shift(grl, 20)
 coverage(grl)
 
 ## ----subsetGRL, eval=FALSE----------------------------------------------------
-#  grl[1]
-#  grl[[1]]
-#  grl["txA"]
-#  grl$txB
+# grl[1]
+# grl[[1]]
+# grl["txA"]
+# grl$txB
 
 ## ----subsetGRL2---------------------------------------------------------------
 grl[1, "score"]
@@ -225,8 +225,8 @@ grl <- relist(gr, grl)
 grl
 
 ## ----manPage2, eval=FALSE-----------------------------------------------------
-#  ?GRangesList
-#  methods(class="GRangesList")   # _partial_ list
+# ?GRangesList
+# methods(class="GRangesList")   # _partial_ list
 
 ## ----findOverlaps-------------------------------------------------------------
 findOverlaps(gr, grl)
@@ -242,7 +242,8 @@ findOverlaps(gr, grl, select="first")
 findOverlaps(grl, gr, select="first")
 
 ## ----subjectx_declaration-----------------------------------------------------
-txdb <- TxDb.Hsapiens.UCSC.hg19.knownGene::TxDb.Hsapiens.UCSC.hg19.knownGene
+library(TxDb.Hsapiens.UCSC.hg38.knownGene)
+txdb <- TxDb.Hsapiens.UCSC.hg38.knownGene
 broads <- GenomicFeatures::genes(txdb)
 x <- GRanges(
     seqnames = Rle(c("chr1", "chr2", "chr1", "chr3"), c(1, 3, 2, 4)),

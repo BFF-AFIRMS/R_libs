@@ -9,7 +9,7 @@ choynowski              Choynowski probability map values
 columbus                Columbus OH spatial analysis data set
 diffnb                  Differences between neighbours lists
 dnearneigh              Neighbourhood contiguity by distance
-droplinks               Drop links in a neighbours list
+droplinks               Drop and add links in a neighbours list
 EBest                   Global Empirical Bayes estimator
 EBImoran.mc             Permutation test for empirical Bayes index
 EBlocal                 Local Empirical Bayes estimator
@@ -21,8 +21,9 @@ geary.mc                Permutation test for Geary's C statistic
 geary.test              Geary's C test for spatial autocorrelation
 globalG.test            Global G test for spatial autocorrelation
 grid2nb                 Construct neighbours for a GridTopology
-hotspot                 Cluster classifications for local indicators of
-                        spatial association
+hotspot                 Cluster Classifications for Local Indicators of
+                        Spatial Association and Local Indicators for
+                        Categorical Data
 include.self            Include self in neighbours list
 intersect.nb            Set operations on neighborhood objects
 is.symmetric.nb         Test a neighbours list for symmetry
@@ -37,9 +38,11 @@ lag.listw               Spatial lag of a numeric vector
 lee                     Compute Lee's statistic
 lee.mc                  Permutation test for Lee's L statistic
 lee.test                Lee's L test for spatial autocorrelation
+licd_multi              Local Indicators for Categorical Data
 listw2sn                Spatial neighbour sparse representation
-lm.LMtests              Lagrange Multiplier diagnostics for spatial
-                        dependence in linear models
+lm.LMtests              Rao's score (a.k.a Lagrange Multiplier)
+                        diagnostics for spatial dependence in linear
+                        models
 lm.morantest            Moran's I test for residual spatial
                         autocorrelation
 lm.morantest.exact      Exact global Moran's I test
@@ -96,12 +99,17 @@ prunemst                Prune a Minimun Spanning Tree
 read.gal                Read a GAL lattice file into a neighbours list
 read.gwt2nb             Read and write spatial neighbour files
 Rotation                Rotate a set of point by a certain angle
+SD.RStests              Rao's score and adjusted Rao's score tests of
+                        linear hypotheses for spatial Durbin and
+                        spatial Durbin error models
 set.mcOption            Options for parallel support
 set.spChkOption         Control checking of spatial object IDs
 skater                  Spatial 'K'luster Analysis by Tree Edge Removal
 sp.correlogram          Spatial correlogram
 sp.mantel.mc            Mantel-Hubert spatial general cross product
                         statistic
+spatialdelta            Weighted Multivariate Spatial Autocorrelation
+                        Measures
 spdep                   Return package version number
 spdep-defunct           Defunct Functions in Package 'spdep'
 spweights.constants     Provides constants for spatial weights matrices

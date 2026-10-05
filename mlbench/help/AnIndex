@@ -22,7 +22,6 @@ mlbench.1spiral	mlbench.spirals
 mlbench.2dnormals	mlbench.2dnormals
 mlbench.cassini	mlbench.cassini
 mlbench.circle	mlbench.circle
-mlbench.corners	mlbench.hypercube
 mlbench.cuboids	mlbench.cuboids
 mlbench.friedman1	mlbench.friedman1
 mlbench.friedman2	mlbench.friedman2
@@ -39,8 +38,6 @@ mlbench.twonorm	mlbench.twonorm
 mlbench.waveform	mlbench.waveform
 mlbench.xor	mlbench.xor
 Ozone	Ozone
-PimaIndiansDiabetes	PimaIndiansDiabetes
-PimaIndiansDiabetes2	PimaIndiansDiabetes
 plot.mlbench	plot.mlbench
 Satellite	Satellite
 Servo	Servo
@@ -48,6 +45,8 @@ Shuttle	Shuttle
 simplex	mlbench.simplex
 Sonar	Sonar
 Soybean	Soybean
+SynthDiabetes	SynthDiabetes
+SynthDiabetes2	SynthDiabetes
 Vehicle	Vehicle
 Vowel	Vowel
 Zoo	Zoo

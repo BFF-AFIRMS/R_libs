@@ -1,3 +1,137 @@
+## Version 1.8.1
+
+This is a large cumulative release of several versions since the last CRAN release.
+
+* `label.ellipse()` now returns invisibly the coordinates where the label was placed.
+* `heplot()` adds a `label.cex` argument to control the size of labels on H/E ellipses. The `label.pos` argument is vectorized, so that the changes to `label.ellipse()` now apply.
+* `boxM()` & `plot.boxM()` now correctly handle the situation where one or more groups have singular covariance matrices because !n>p
+* Fixed bug in `covEllipses.boxM()` method. `boxM()` now returns `ngroups` and `means` among it's components.
+* add @family tags to improve cross-referencing in documentation
+
+## Version 1.8.0
+
+* describe more fully constructing the datasets table using concept tags
+* added `text_usr()` to add text in normalized device coordinates
+* begin to convert documentation to use markdown via {roxygen2md}
+* `label.ellipse()` re-written to allow a fully general way to specify label positions [Thx: Claude]
+
+## Version 1.7.9
+
+* plot.robmlm() gains a `groups` arg to vary point color and `pch`
+* plot.robmlm() gains a `group.axis` arg to draw an axis identifying the groups at the top of the plot.
+
+## Version 1.7.8
+
+Several small maintenance fixes, plus a new diagnostic plot and a new vignette
+
+o Added `distancePlot()` for plots of Mahalanobis distances of X vs Y. For an MLM, diagnoses high leverage and large residuals
+o Added a vignette on robust MLMs using `robmlm()` and diagnostic plots
+o Added `rel_diff()` to calculate relative difference between two arrays or data frames
+o Fixed buglet in plot.robmlm()
+o Fixed some non-canonical URLs
+o Fixed cex buglet in `distancePlot()`
+
+## Version 1.7.6 
+
+* fixing data, group names in boxM to avoid necessity for `gplabel` in plots.
+* added reference for CI in `plot.boxm()`
+
+## Version 1.7.5 
+
+Fix bugs and add some args for better control
+
+* Edit description of NLSY data and extend the examples to show `coefplot()`, `cqplot()`
+* Revise documentation for `robmlm()`
+* Add dev/pulpfiber.R for a classic robust MLM example
+* fix default Y axis label in `plot.robmlm()`
+* fixed bug in `coefplot.mlm()` in selecting terms with `parm`.
+* `coefplot.mlm()` gains a `cex.lab` argument
+* Fleshed out details of Rohwer dataset PA measures
+* Fixed nits from R CMD check
+
+## Version 1.7.4 (2025-04-15)
+
+This is largely a maintenance release, but adds a function to identify "noteworthy" points in 2D scatterplots.
+
+* added plotting all X vs all Y to Rohwer examples
+* added `schoolsites` dataset, providing additional variables related to the `schooldata` dataset.
+* `cqplot()` now prints a warning if there are missing cases and also returns the upper tail p-values corresponding to Mahalanobis $D^2$.
+* Default `method.id` in `cqplot()` changed to "r", to identify points with the largest $D^2$.
+* added `noteworthy(x, y)` as a utility to select "noteworthy" observations in a 2D plot, extending the ideas in `car::showLabels()`
+* corrected some minor documentation problems
+* fixed some 301 "moved" URLs
+* Now Depends: on R >= 4.1.0 because package uses native pipes |>
+* Added Suggests: KernSmooth, aplpack, foreign, used in some demos
+
+## Version 1.7.3 (2024-12-05)
+
+This is a moderate update, adding new functionality
+
+* `leveneTests()` gains formula and lm methods
+* `bartlettTests()` gains formula and lm methods
+* `colDevs()` gains a `group.var` argument; examples extended
+* Added `uniStats()` for an anova version of `glance.mlm()`
+* Corrected documentation of `covEllipses()` to more accurately describe recycling of arguments.
+* `size="significance"` now allowed as a synonym for `size="evidence"` in heplot functions.
+
+## Version 1.7.2 (2024-11-25)
+
+* Fixed bug in `ellipse.axes()` re center/centre
+* `ellipse.axes()` gains a `type` argument to draw lines or arrows
+* `ellipse.axes()` gains a `extend` argument to extend/shrink the axes
+
+## Version 1.7.1 (2024-11-14)
+
+This is a modest update, adding two new datasets for simple examples and a PDF vignette
+
+* Extended the "datasets" vignette with further description of how this was done.
+* Added `dogfood` and `oral` datasets, both simple MANOVA examples.
+* Added HE Plots for Repeated Measures Designs vignette
+* Fixed nits from URLs vanished or moved
+
+## Version 1.7.0 (2024-05-01)
+
+This is a semi-major release, primarily documenting all datasets in the package with `@concept` tags.
+It also adds new datasets and fixes bugs and documentation errors since the last CRAN release (v 1.6.2)
+
+* Added a new example (`AddHealth` data) to the `HE_manova` vignette
+* Added `Overdose` data, a simple MMRA example.
+* All datasets now classified by `@concept` tags in documentation, giving the primary methods ("MANOVA", "MMRA", "repeated", ...) that they illustrate. These supplement `@keyword` tags and appear in the index of the package documentation.
+* A new vignette (`datasets`) lists the datasets in the package, classified by these `@concept` tags.
+
+## Version 1.6.3 (2024-03-05)
+
+* Correct documentation error in `cqplot()`
+* `cqplot()` now returns DSQ values for identified points
+* Fixed small buglet re: labeling of hypothesis ellipses in `heplot()`
+
+## Version 1.6.2 (2024-02-14)
+
+* Add `peng` dataset, a version of `palmerpenguins::penguins`
+* Correct documentation problems from Roxygen 7.3.1 (@docType)
+
+## Version 1.6.1 (2023-12-05)
+
+* add warning to label.ellipse() if length(label.pos) > 1
+* fixed label.pos in `coefplot.mlm()`
+* add `ellipse.axes()` to draw axes of a covariance ellipse
+* add `ellipse.box()` to draw conjugate axes of a covariance ellipse
+
+## Version 1.6.0 (2023-08-30)
+
+* converted pkg to roxygen documentation
+* now Suggests: car rather than Depends:
+* fix CITATION authors
+
+## Version 1.5.0 (2023-05-30)
+
+* `covEllipses()` gains a formula method
+* Internal function `ellipsoid()` used in `heplot3d()` becomes an (experimental) exported function, `Ellipsoid()`
+
+## Version 1.4-3 (2023-01-02)
+
+* replace rgl.pop() with pop3D (PR #7); thx: D. Murdoch
+
 ## Version 1.4-2 (2022-10-09)
 
 * Fix CITATION
@@ -37,7 +171,7 @@
 
 ## Version 1.3-5 (2018-04-02)
 
-* fix references to car datatsets -> carData
+* fix references to car datasets -> carData
 * fix error resulting from car 3.0 changes
 * bump pkg version
 
@@ -154,10 +288,10 @@
 * interpPlot gains add=, points= and col= arguments for greater control of graphical parameters.
 
 ## Version 1.0-2 (2012-12-05)
-* Added schooldata and further example of comparison of mlm with robmlm()
+* Added Schooldata and further example of comparison of mlm with robmlm()
 
 ## Version 1.0-1 (2012-10-18)
-* Added simple robmlm methods for robust mlms with print and summary methods and a vcov.mlm method.
+* Added simple robmlm methods for robust MLMss with print and summary methods and a vcov.mlm method.
   This allows heplot() and related methods to show robust HE plots.
 
 ## Version 1.0-0 (2012-6-3)

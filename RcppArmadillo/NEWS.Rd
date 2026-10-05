@@ -3,6 +3,550 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/RcppArmadillo/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/RcppArmadillo/issues/#1}{##1}}
 
+\section{Changes in RcppArmadillo version 15.4.2-1 (2026-07-25)}{
+  \itemize{
+    \item Upgraded to Armadillo release 15.4.2 (Medium Roast Agave)
+    \itemize{
+      \item Fix speed regressions in \code{diagvec()} and \code{diagmat()}
+    }
+  }
+}
+
+\section{Changes in RcppArmadillo version 15.4.1-1 [github-only] (2026-07-09)}{
+  \itemize{
+    \item Upgraded to Armadillo release 15.4.1 (Medium Roast Agave)
+    \itemize{
+      \item Fix for rare infinite recursion bug in sparse version of \code{diagmat()}
+      \item More efficient checks for aliasing
+    }
+  }
+}
+
+\section{Changes in RcppArmadillo version 15.4.0-1 (2026-06-17)}{
+  \itemize{
+    \item Upgraded to Armadillo release 15.4.0 (Medium Roast Agave)
+    \itemize{
+      \item Added \code{fill::nan}, \code{fill::pos_inf},
+      \code{fill::neg_inf} as optional fill forms for the \code{Mat} class
+      \item Added \code{.push_back()} for appending elements to vectors
+      \item Faster handling of \code{find()} within \code{.elem()}
+      \item Faster element-wise \code{min()} and \code{max()}
+      \item Faster \code{conv_to} when element types of input and output
+      objects are the same
+    }
+  }
+}
+
+\section{Changes in RcppArmadillo version 15.2.7-1 (2026-05-29)}{
+  \itemize{
+    \item Upgraded to Armadillo release 15.2.7 (Medium Roast Deluxe)
+    \itemize{
+      \item More efficient checks for aliasing
+    }
+  }
+}
+
+\section{Changes in RcppArmadillo version 15.2.6-1 (2026-04-20)}{
+  \itemize{
+    \item Upgraded to Armadillo release 15.2.6 (Medium Roast Deluxe)
+    \itemize{
+      \item Ensure internally computed tolerances are not \code{NaN}
+    }
+    \item The \code{rmultinom} deploys 'Kahan summation' as R-devel does now.
+  }
+}
+
+\section{Changes in RcppArmadillo version 15.2.5-1 [github-only] (2026-04-18)}{
+  \itemize{
+    \item Upgraded to Armadillo release 15.2.5 (Medium Roast Deluxe)
+    \itemize{
+      \item Fix for handling NaN elements in \code{.is_zero()}
+      \item Fix for handling NaN in tolerance and conformance checks
+      \item Faster handling of diagonal views and submatrices with one row
+    }
+    \item Sunset the C++11 fallback of including Armadillo 14.6.3 (\ghpr{504}
+    closing \ghit{503})
+    \item The vignettes have refreshed bibliographies, and are now built using
+    the \code{Rcpp::asis} vignette builder (\ghpr{506})
+    \item One \code{rmultinom} test is skipped under R-devel which has
+  switched to a higher precisions calc
+  }
+}
+
+\section{Changes in RcppArmadillo version 15.2.4-1 (2026-03-17)}{
+  \itemize{
+    \item Upgraded to Armadillo release 15.2.4 (Medium Roast Deluxe)
+    \itemize{
+      \item Workarounds for bugs in GCC and Clang sanitisers (ASAN false positives)
+      \item Faster handling of blank sparse matrices
+    }
+    \item Refined OpenMP setup (Dirk in \ghpr{500})
+  }
+}
+
+\section{Changes in RcppArmadillo version 15.2.3-1 (2025-12-16)}{
+  \itemize{
+    \item Upgraded to Armadillo release 15.2.3 (Medium Roast Deluxe)
+    \itemize{
+      \item Faster \code{.resize()} for vectors
+      \item Faster \code{repcube()}
+    }
+  }
+}
+
+\section{Changes in RcppArmadillo version 15.2.2-1 (2025-11-21)}{
+  \itemize{
+    \item Upgraded to Armadillo release 15.2.2 (Medium Roast Deluxe)
+    \itemize{
+      \item Improved reproducibility of random number generation when using OpenMP
+    }
+    \item Skip a unit test file under macOS as complex algebra seems to fail
+    under newer macOS LAPACK setting
+    \item Further OpenMP detection rework for macOS (Dirk in \ghpr{497}, \ghpr{499})
+    \item Define ARMA_CRIPPLED_LAPACK on Windows only if 'LEGACY' Armadillo selected
+  }
+}
+
+\section{Changes in RcppArmadillo version 15.2.1-0 (2025-10-28) (GitHub Only)}{
+  \itemize{
+    \item Upgraded to Armadillo release 15.2.1 (Medium Roast Deluxe)
+    \itemize{
+      \item Faster handling of submatrices with one row
+    }
+    \item Improve OpenMP detection (Dirk in \ghpr{495} fixing \ghit{493})
+  }
+}
+
+\section{Changes in RcppArmadillo version 15.2.0-0 (2025-10-20) (GitHub Only)}{
+  \itemize{
+    \item Upgraded to Armadillo release 15.2.0 (Medium Roast Deluxe)
+    \itemize{
+      \item Added \code{rande()} for generating matrices with elements from
+      exponential distributions
+      \item \code{shift()} has been deprecated in favour of
+      \code{circshift()}, for consistency with Matlab/Octave
+      \item Reworked detection of aliasing, leading to more efficient
+      compiled code
+    }
+    \item OpenMP detection in \code{configure} has been simplified
+  }
+}
+
+\section{Changes in RcppArmadillo version 15.0.2-2 (2025-09-18)}{
+  \itemize{
+    \item Minor update to skeleton \code{Makevars},\code{Makevars.win}
+    \item Update README.md to mention ldlasb2 repository
+    \item Minor documentation update (\ghpr{487})
+    \item Synchronized with Armadillo upstream (\ghpr{488})
+    \item Refine Armadillo version selection in coordination with CRAN
+    maintainers to support transition towards Armadillo 15.0.*
+  }
+}
+
+\section{Changes in RcppArmadillo version 15.0.2-1 (2025-09-08)}{
+  \itemize{
+    \item Upgraded to Armadillo release 15.0.2-1 (Medium Roast)
+    \itemize{
+      \item Optionally use OpenMP parallelisation for fp16 matrix multiplication
+      \item Faster vectorisation of cube tubes
+    }
+    \item Provide a top-level include file \code{armadillo} as fallback
+    (\ghpr{480})
+    \item Retire the no-longer-needed check for insufficient LAPACK as R
+    now should supply a sufficient libRlapack (when used) (\ghpr{483})
+    \item Two potential narrowing warnings are avoided via cast
+  }
+}
+
+\section{Changes in RcppArmadillo version 15.0.1-1 (2025-09-01)}{
+  \itemize{
+    \item Upgraded to Armadillo release 15.0.1-1 (Medium Roast)
+    \itemize{
+      \item Workaround for GCC compiler bug involving misoptimisation of
+      complex number multiplication
+    }
+    \item This version contains both 'legacy' and 'current' version of
+    Armadillo (see also below). Package authors should set a '#define' to
+    select the 'current' version, or select the 'legacy' version (also chosen
+    as default) if they must. See 'GitHub issue #475' for more details.
+    \item Updated DESCRIPTION and README.md
+  }
+}
+
+\section{Changes in RcppArmadillo version 15.0.0-1 (2025-08-21) (GitHub Only)}{
+  \itemize{
+    \item Upgraded to Armadillo release 15.0.0-1 (Medium Roast)
+    \itemize{
+      \item C++14 is now the minimum required C++ standard
+      \item Aded preliminary support for matrices with half-precision fp16
+      element type
+      \item Added second form of \code{cond()} to allow detection of failures
+      \item Added \code{repcube()}
+      \item Added \code{.freeze()} and \code{.unfreeze()} member functions to
+      \code{wall_clock}
+      \item Extended \code{conv()} and \code{conv2()} to accept the "valid"
+      shape argument
+    }
+    \item Also includes Armadillo 14.6.3 as fallback for C++11 compilations
+    \item This new 'dual' setup had been rigorously tested with five interim
+    pre-releases of which several received full reverse-dependency checks
+  }
+}
+
+\section{Changes in RcppArmadillo version 14.6.3-1 (2025-08-14)}{
+  \itemize{
+    \item Upgraded to Armadillo release 14.6.3 (Caffe Mocha)
+    \itemize{
+      \item Fix OpenMP related crashes in \code{Cube::slice()} on Arm64 CPUs
+    }
+  }
+}
+
+\section{Changes in RcppArmadillo version 14.6.2-1 (2025-08-09) (GitHub Only)}{
+  \itemize{
+    \item Upgraded to Armadillo release 14.6.2 (Caffe Mocha)
+    \itemize{
+      \item Fix for corner-case speed regression in \code{sum()}
+      \item Better handling of OpenMP in \code{omit_nan()} and
+      \code{omit_nonfinite()}
+    }
+  }
+}
+
+\section{Changes in RcppArmadillo version 14.6.1-1 (2025-07-21) (GitHub Only)}{
+  \itemize{
+    \item Upgraded to Armadillo release 14.6.1 (Caffe Mocha)
+    \itemize{
+      \item Fix for speed regression in \code{mean()}
+      \item Fix for detection of compiler configuration
+      \item Use of \code{pow} optimization now optional
+    }
+  }
+}
+
+\section{Changes in RcppArmadillo version 14.6.0-1 (2025-07-02)}{
+  \itemize{
+    \item Upgraded to Armadillo release 14.6.0 (Caffe Mocha)
+    \itemize{
+      \item Added \code{balance()} to transform matrices so that column and
+      row norms are roughly the same
+      \item Added \code{omit_nan()} and \code{omit_nonfinite()} to extract
+      elements while omitting NaN and non-finite values
+      \item Added \code{find_nonnan()} for finding indices of non-NaN elements
+      \item Added standalone \code{replace()} function
+    }
+    \item The \code{fastLm()} help page now mentions that options to
+    \code{solve()} can control its behavior.
+  }
+}
+
+\section{Changes in RcppArmadillo version 14.4.3-1 (2025-05-21)}{
+  \itemize{
+    \item Upgraded to Armadillo release 14.4.3 (Filtered Espresso)
+    \itemize{
+      \item Fix for several corner cases involving handling of non-finite
+      elements by sparse matrices
+    }
+  }
+}
+
+\section{Changes in RcppArmadillo version 14.4.2-1 (2025-04-25)}{
+  \itemize{
+    \item Upgraded to Armadillo release 14.4.2 (Filtered Espresso)
+    \itemize{
+      \item Fix for \code{expmat()}
+      \item Workaround for bugs in clang 20 compiler
+    }
+    \item Micro-cleanup in one test file
+  }
+}
+
+\section{Changes in RcppArmadillo version 14.4.1-1 (2025-03-27)}{
+  \itemize{
+    \item Upgraded to Armadillo release 14.4.1 (Filtered Espresso)
+    \itemize{
+      \item Fix for \code{fft()} and \code{ifft()} when using FFTW3 in
+      multi-threaded contexts (such as OpenMP)
+    }
+  }
+}
+
+\section{Changes in RcppArmadillo version 14.4.0-1 (2025-03-17)}{
+  \itemize{
+    \item CRAN release having given a few packages time to catch-up to small
+    upstream change as discussed and managed in \ghit{462}
+    \item Updated bibliography, and small edits to sparse matrix vignette
+    \item Switched continuous integration action to r-ci with implicit bootstrap
+  }
+}
+
+\section{Changes in RcppArmadillo version 14.4.0-0 (2025-02-17) (GitHub Only)}{
+  \itemize{
+    \item Upgraded to Armadillo release 14.4.0 (Filtered Espresso)
+    \itemize{
+      \item Faster handling of \code{pow()} and \code{square()} within
+      \code{accu()} and \code{sum()} expressions
+      \item Faster \code{sort()} and \code{sort_index()} for complex matrices
+      \item Expanded the field class with \code{.reshape()} and
+      \code{.resize()} member functions
+      \item More efficient handling of compound expressions by \code{sum()},
+      \code{reshape()}, \code{trans() }
+      \item Better detection of vector expressions by \code{pow()},
+      \code{imag()}, \code{conj()}
+    }
+    \item The package generator helper function now supports additional DESCRIPTIONs
+    \item This release revealed a need for very minor changes for a handful
+    reverse-dependency packages which will be organized via GitHub issue tracking
+  }
+}
+
+\section{Changes in RcppArmadillo version 14.2.3-1 (2025-02-05)}{
+  \itemize{
+    \item Upgraded to Armadillo release 14.2.3 (Smooth Caffeine)
+    \itemize{
+      \item Minor fix for declaration of \code{xSYCON} and \code{xHECON} functions in LAPACK
+      \item Fix for rare corner-case in \code{reshape()}
+    }
+  }
+}
+
+\section{Changes in RcppArmadillo version 14.2.2-1 (2024-12-05)}{
+  \itemize{
+    \item Upgraded to Armadillo release 14.2.2 (Smooth Caffeine)
+    \itemize{
+      \item Workarounds for regressions in pre-release versions of GCC 15
+      \item More selective detection of symmetric/hermitian matrices by various functions
+    }
+  }
+}
+
+\section{Changes in RcppArmadillo version 14.2.1-1 (2024-11-24) (GitHub Only)}{
+  \itemize{
+    \item Upgraded to Armadillo release 14.2.1 (Smooth Caffeine)
+    \itemize{
+      \item Fix for \code{index_min()} and \code{index_max()} to ensure that the
+      first index of equal extremum values is found
+    }
+  }
+}
+
+\section{Changes in RcppArmadillo version 14.2.0-1 (2024-11-16)}{
+  \itemize{
+    \item Upgraded to Armadillo release 14.2.0 (Smooth Caffeine)
+    \itemize{
+      \item Faster handling of symmetric matrices by \code{inv()} and
+      \code{rcond()}
+      \item Faster handling of hermitian matrices by \code{inv()},
+      \code{rcond()}, \code{cond()}, \code{pinv()}, \code{rank()}
+      \item Added \code{solve_opts::force_sym} option to \code{solve()} to
+      force the use of the symmetric solver
+      \item More efficient handling of compound expressions by \code{solve()}
+    }
+    \item Added exporter specialisation for \code{icube} for the
+    \code{ARMA_64BIT_WORD} case
+  }
+}
+
+\section{Changes in RcppArmadillo version 14.0.2-1 (2024-09-11)}{
+  \itemize{
+    \item Upgraded to Armadillo release 14.0.2 (Stochastic Parrot)
+    \itemize{
+      \item Optionally use C++20 memory alignment
+      \item Minor corrections for several corner-cases
+    }
+    \item The order of items displayed by \code{citation()} is reversed (Conrad
+    in \ghpr{449})
+    \item The DESCRIPTION file now uses an Authors@R field with ORCID IDs
+  }
+}
+
+\section{Changes in RcppArmadillo version 14.0.0-1 (2024-07-05)}{
+  \itemize{
+    \item Upgraded to Armadillo release 14.0.0 (Stochastic Parrot)
+    \itemize{
+      \item C++14 is now the minimum recommended C++ standard
+      \item Faster handling of compound expressions by \code{as_scalar()},
+      \code{accu()}, \code{dot()}
+      \item Faster interactions between sparse and dense matrices
+      \item Expanded \code{stddev()} to handle sparse matrices
+      \item Expanded relational operators to handle expressions between
+      sparse matrices and scalars
+      \item Added \code{.as_dense()} to obtain dense vector/matrix
+      representation of any sparse matrix expression
+      \item Updated physical constants to NIST 2022 CODATA values
+    }
+    \item New package version numbering scheme following upstream versions
+    \item Re-enabling \code{ARMA_IGNORE_DEPRECATED_MARKE} for silent CRAN
+    builds
+  }
+}
+
+\section{Changes in RcppArmadillo version 0.12.8.4.0 (2024-05-30)}{
+  \itemize{
+    \item Upgraded to Armadillo release 12.8.4 (Cortisol Injector)
+    \itemize{
+      \item Faster handling of sparse submatrix views
+    }
+    \item Update versioned Depends on \pkg{Rcpp} to 1.0.8 or later to match
+    use of Light/Lighter/Lightest headers.
+   }
+}
+
+\section{Changes in RcppArmadillo version 0.12.8.3.0 (2024-05-07)}{
+  \itemize{
+    \item Upgraded to Armadillo release 12.8.3 (Cortisol Injector)
+    \itemize{
+      \item Fix issue in \code{fft()} and \code{fft2()} in multi-threaded
+      contexts with FFTW3 enabled
+    }
+    \item No longer set C++11 for the \pkg{Rcpp} plugin as this standard has
+    been the default by R for very long time now.
+  }
+}
+
+\section{Changes in RcppArmadillo version 0.12.8.2.1 (2024-04-15)}{
+  \itemize{
+    \item One-char bug fix release commenting out one test that upsets
+    \pkg{reticulate} when accessing a \pkg{scipy} sparse matrix
+  }
+}
+
+\section{Changes in RcppArmadillo version 0.12.8.2.0 (2024-04-02)}{
+  \itemize{
+    \item Upgraded to Armadillo release 12.8.2 (Cortisol Injector)
+    \itemize{
+      \item Workaround for FFTW3 header clash
+      \item Workaround in testing framework for issue under macOS
+      \item Minor cleanups to reduce code bloat
+      \item Improved documentation
+    }
+  }
+}
+
+\section{Changes in RcppArmadillo version 0.12.8.1.0 (2024-03-02)}{
+  \itemize{
+    \item Upgraded to Armadillo release 12.8.1 (Cortisol Injector)
+    \itemize{
+      \item Workaround in \code{norm()} for yet another bug in macOS
+      accelerate framework
+    }
+    \item Update README for RcppArmadillo usage counts
+    \item Update examples to use '#include <RcppArmadillo/Lighter>' for
+    faster compilation excluding unused Rcpp features
+  }
+}
+
+\section{Changes in RcppArmadillo version 0.12.8.0.0 (2024-02-06)}{
+  \itemize{
+    \item Upgraded to Armadillo release 12.8.0 (Cortisol Injector)
+    \itemize{
+      \item Faster detection of symmetric expressions by \code{pinv()} and \code{rank()}
+      \item Expanded \code{shift()} to handle sparse matrices
+      \item Expanded \code{conv_to} for more flexible conversions between
+      sparse and dense matrices
+      \item Added \code{cbrt()}
+      \item More compact representation of integers when saving matrices in CSV format
+    }
+    \item Five non-user facing top-level include files have been removed
+    (\ghpr{432} closing \ghit{400} and building on \ghpr{395} and \ghpr{396})
+  }
+}
+
+\section{Changes in RcppArmadillo version 0.12.6.7.0 (2023-12-18)}{
+  \itemize{
+    \item Upgraded to Armadillo release 12.6.7 (Cortisol Retox)
+    \itemize{
+      \item Fix for saving sparse matrices as CSV files
+    }
+    \item Added unit tests for thread throttling
+  }
+}
+
+\section{Changes in RcppArmadillo version 0.12.6.6.1 (2023-12-03)}{
+  \itemize{
+    \item Following the extendeded transition in \ghit{391} and \ghit{402},
+    this release no longer sets \code{ARMA_IGNORE_DEPRECATED_MARKER}.
+    Maintainers of affected packages have received pull requests or patches
+    and can set \code{-DARMA_IGNORE_DEPRECATED_MARKER} as \code{PKG_CPPFLAGS}.
+  }
+}
+
+\section{Changes in RcppArmadillo version 0.12.6.6.0 (2023-10-31)}{
+  \itemize{
+    \item Upgraded to Armadillo release 12.6.6 (Cortisol Retox)
+    \itemize{
+      \item Fix \code{eigs_sym()}, \code{eigs_gen()} and \code{svds()} to
+      generate deterministic results in ARPACK mode
+    }
+    \item Add helper functions to set and get the number of OpenMP threads
+    \item Store initial thread count at package load and use in
+    thread-throttling helper (and resetter) suitable for CRAN constraints
+  }
+}
+
+\section{Changes in RcppArmadillo version 0.12.6.5.0 (2023-10-14)}{
+  \itemize{
+    \item Upgraded to Armadillo release 12.6.5 (Cortisol Retox)
+    \itemize{
+      \item Fix for corner-case bug in handling sparse matrices with no
+      non-zero elements
+    }
+  }
+}
+
+\section{Changes in RcppArmadillo version 0.12.6.4.0 (2023-09-06)}{
+  \itemize{
+    \item Upgraded to Armadillo release 12.6.4 (Cortisol Retox)
+    \itemize{
+      \item Workarounds for bugs in Apple accelerate framework
+      \item Fix incorrect calculation of rcond for band matrices in \code{solve()}
+      \item Remove expensive and seldom used optimisations, leading to faster
+      compilation times
+    }
+  }
+}
+
+\section{Changes in RcppArmadillo version 0.12.6.3.0 (2023-08-28)}{
+  \itemize{
+    \item Upgraded to Armadillo release 12.6.3 (Cortisol Retox)
+    \itemize{
+      \item Fix for corner-case in loading CSV files with headers
+      \item For consistent file handling, all \code{.load()} functions now
+      open text files in binary mode
+    }
+  }
+}
+
+\section{Changes in RcppArmadillo version 0.12.6.2.0 (2023-08-08)}{
+  \itemize{
+    \item Upgraded to Armadillo release 12.6.2 (Cortisol Retox)
+    \itemize{
+      \item use thread-safe Mersenne Twister as the default RNG on all
+      platforms
+      \item use unique RNG seed for each thread within multi-threaded
+      execution (such as OpenMP)
+      \item explicitly document \code{arma_rng::set_seed()} and
+      \code{arma_rng::set_seed_random() }
+    }
+    \item None of the changes above affect R use as \pkg{RcppArmadillo}
+    connects the RNGs used by R to Armadillo
+  }
+}
+
+\section{Changes in RcppArmadillo version 0.12.6.1.0 (2023-07-26)}{
+  \itemize{
+    \item Upgraded to Armadillo release 12.6.1 (Cortisol Retox)
+    \itemize{
+      \item faster multiplication of dense vectors by sparse matrices (and
+      vice versa)
+      \item faster \code{eigs_sym()} and \code{eigs_gen()}
+      \item faster \code{conv()} and \code{conv2()} when using OpenMP
+      \item added \code{diags()} and \code{spdiags()} for generating band
+      matrices from set of vectors
+    }
+  }
+}
+
 \section{Changes in RcppArmadillo version 0.12.4.1.0 (2023-06-17)}{
   \itemize{
     \item Upgraded to Armadillo release 12.4.1 (Cortisol Profusion Redux)
@@ -156,7 +700,7 @@
     \item Accomodate upcoming \pkg{Matrix} 1.4-2 deprecation for
     conversion (Dirk in \ghpr{387})
     \item CRAN release with small upstream changes in Armadillo
-    11.2.{1,2,3} made since the last CRAN release 0.11.2.0.0
+    11.2.(1,2,3) made since the last CRAN release 0.11.2.0.0
     (Dirk in \ghpr{383}, \ghpr{384} and \ghpr{386})
     \item Undefine \code{arma_deprecated} warning as it affects a number
     of CRAN packages which will likely need a small transition
@@ -858,7 +1402,7 @@
       \item smarter use of the element cache in sparse matrices
     }
     \item Aligned OpenMP flags in the RcppArmadillo.package.skeleton
-    used Makevars{,.win} to not use one C and C++ flag.
+    used Makevars(,.win) to not use one C and C++ flag.
   }
 }
 

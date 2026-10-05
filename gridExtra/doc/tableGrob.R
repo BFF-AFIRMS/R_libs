@@ -1,14 +1,14 @@
-## ----setup, echo=FALSE, results='hide'-----------------------------------
+## ----setup, echo=FALSE, results='hide'----------------------------------------
 library(knitr)
 opts_chunk$set(message=FALSE, fig.width=4, fig.height=2)
 
-## ----basic---------------------------------------------------------------
+## ----basic--------------------------------------------------------------------
 library(gridExtra)
 library(grid)
 d <- head(iris[,1:3])
 grid.table(d)
 
-## ----annotations, fig.height=3-------------------------------------------
+## ----annotations, fig.height=3------------------------------------------------
 d[2,3] <- "this is very wwwwwide"
 d[1,2] <- "this\nis\ntall"
 colnames(d) <- c("alpha*integral(xdx,a,infinity)",
@@ -18,7 +18,7 @@ tt <- ttheme_default(colhead=list(fg_params = list(parse=TRUE)))
 grid.table(d, theme=tt)
 
 
-## ----theme, fig.width=8--------------------------------------------------
+## ----theme, fig.width=8-------------------------------------------------------
 tt1 <- ttheme_default()
 tt2 <- ttheme_minimal()
 tt3 <- ttheme_minimal(
@@ -33,7 +33,7 @@ grid.arrange(
   tableGrob(iris[1:4, 1:2], theme=tt3),
   nrow=1)
 
-## ----recycling-----------------------------------------------------------
+## ----recycling----------------------------------------------------------------
 t1 <- ttheme_default(core=list(
         fg_params=list(fontface=c(rep("plain", 4), "bold.italic")),
         bg_params = list(fill=c(rep(c("grey95", "grey90"),
@@ -43,7 +43,7 @@ t1 <- ttheme_default(core=list(
 
 grid.table(iris[1:5, 1:3], theme = t1)
 
-## ----justify, fig.width=8------------------------------------------------
+## ----justify, fig.width=8-----------------------------------------------------
 tt1 <- ttheme_default()
 tt2 <- ttheme_default(core=list(fg_params=list(hjust=1, x=0.9)),
                       rowhead=list(fg_params=list(hjust=1, x=0.95)))
@@ -55,13 +55,13 @@ grid.arrange(
   tableGrob(mtcars[1:4, 1:2], theme=tt3),
   nrow=1)
 
-## ----sizes, fig.width=8--------------------------------------------------
+## ----sizes, fig.width=8-------------------------------------------------------
 g <- g2 <- tableGrob(iris[1:4, 1:3], cols = NULL, rows=NULL)
 g2$widths <- unit(rep(1/ncol(g2), ncol(g2)), "npc")
 grid.arrange(rectGrob(), rectGrob(), nrow=1)
 grid.arrange(g, g2, nrow=1, newpage = FALSE)
 
-## ----align, fig.width=6, fig.height=3------------------------------------
+## ----align, fig.width=6, fig.height=3-----------------------------------------
 d1 <- PlantGrowth[1:3,1, drop=FALSE]
 d2 <- PlantGrowth[1:2,1:2]
 
@@ -73,7 +73,7 @@ valigned <- gtable_combine(g1,g2, along=2)
 grid.newpage()
 grid.arrange(haligned, valigned, ncol=2)
 
-## ----numberingDemo1------------------------------------------------------
+## ----numberingDemo1-----------------------------------------------------------
 library(gtable)
 g <- tableGrob(iris[1:4, 1:3], rows = NULL)
 g <- gtable_add_grob(g,
@@ -84,7 +84,7 @@ g <- gtable_add_grob(g,
 		t = 1, l = 1, r = ncol(g))
 grid.draw(g)
 
-## ----numberingDemo2------------------------------------------------------
+## ----numberingDemo2-----------------------------------------------------------
 g <- tableGrob(iris[1:4, 1:3])
 g <- gtable_add_grob(g,
 		grobs = rectGrob(gp = gpar(fill = NA, lwd = 2)),
@@ -94,7 +94,7 @@ g <- gtable_add_grob(g,
 		t = 1, l = 1, r = ncol(g))
 grid.draw(g)
 
-## ----segments1-----------------------------------------------------------
+## ----segments1----------------------------------------------------------------
 g <- tableGrob(iris[1:4, 1:3])
 g <- gtable_add_grob(g,
 		grobs = segmentsGrob( # line across the bottom
@@ -106,7 +106,7 @@ g <- gtable_add_grob(g,
 		t = 3, b = 3, l = 3, r = 3)
 grid.draw(g)
 
-## ----segments2-----------------------------------------------------------
+## ----segments2----------------------------------------------------------------
 g <- tableGrob(iris[1:4, 1:3])
 g <- gtable_add_grob(g,
 		grobs = segmentsGrob( # line across the bottom
@@ -118,7 +118,7 @@ g <- gtable_add_grob(g,
 		t = 3, b = 3, l = 3, r = 3)
 grid.draw(g)
 
-## ----segments3-----------------------------------------------------------
+## ----segments3----------------------------------------------------------------
 g <- tableGrob(iris[1:4, 1:3])
 g <- gtable_add_grob(g,
 		grobs = grobTree(
@@ -137,7 +137,7 @@ g <- gtable_add_grob(g,
 		t = 3, b = 3, l = 3, r = 3)
 grid.draw(g)
 
-## ----separators, fig.width=8---------------------------------------------
+## ----separators, fig.width=8--------------------------------------------------
 g <- tableGrob(head(iris), theme = ttheme_minimal())
 separators <- replicate(ncol(g) - 2,
                      segmentsGrob(x1 = unit(0, "npc"), gp=gpar(lty=2)),
@@ -147,7 +147,7 @@ g <- gtable::gtable_add_grob(g, grobs = separators,
                      t = 2, b = nrow(g), l = seq_len(ncol(g)-2)+2)
 grid.draw(g)
 
-## ----highlight-----------------------------------------------------------
+## ----highlight----------------------------------------------------------------
 g <- tableGrob(iris[1:4, 1:3])
 find_cell <- function(table, row, col, name="core-fg"){
   l <- table$layout
@@ -160,7 +160,7 @@ g$grobs[ind][[1]][["gp"]] <- gpar(fontsize=15, fontface="bold")
 g$grobs[ind2][[1]][["gp"]] <- gpar(fill="darkolivegreen1", col = "darkolivegreen4", lwd=5)
 grid.draw(g)
 
-## ----ftable, fig.width=6-------------------------------------------------
+## ----ftable, fig.width=6------------------------------------------------------
 grid.ftable <- function(d, padding = unit(4, "mm"), ...) {
 
   nc <- ncol(d)

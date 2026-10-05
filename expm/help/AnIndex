@@ -1,4 +1,6 @@
 %^%	matpow
+.methComplex	expm
+.methSparse	expm
 balance	balance
 dgebal	balance
 expAtv	expAtv

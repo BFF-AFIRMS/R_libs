@@ -32,6 +32,9 @@ effSources.gls	effSources
 effSources.rlmerMod	effSources
 Legacy Arguments	LegacyArguments
 LegacyArguments	LegacyArguments
+levels2dates	plot.effect
+levels2dates.eff	plot.effect
+levels2dates.effpoly	plot.effect
 plot.eff	plot.effect
 plot.effect	plot.effect
 plot.effects	plot.effect

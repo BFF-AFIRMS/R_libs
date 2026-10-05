@@ -12,9 +12,9 @@
 <div style="text-align: center;">
 <a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
 <a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
-</div><h2>Documentation for package &lsquo;EnvStats&rsquo; version 2.8.1</h2>
+</div><h2>Documentation for package &lsquo;EnvStats&rsquo; version 3.1.0</h2>
 
-<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+<ul><li><a href="../DESCRIPTION" type="text/plain">DESCRIPTION file</a>.</li>
 <li><a href="../NEWS">Package NEWS</a>.</li>
 </ul>
 
@@ -68,10 +68,14 @@
 <table style="width: 100%;">
 <tr><td style="width: 25%;"><a href="base.html">base</a></td>
 <td>Base b Representation of a Number</td></tr>
+<tr><td style="width: 25%;"><a href="Beal.2010.Pb.df.html">Beal.2010.Pb.df</a></td>
+<td>Lead concentration in soil samples.</td></tr>
 <tr><td style="width: 25%;"><a href="Benthic.df.html">Benthic.df</a></td>
 <td>Benthic Data from Monitoring Program in Chesapeake Bay</td></tr>
 <tr><td style="width: 25%;"><a href="EPA.89b.benzene.df.html">Benzene</a></td>
 <td>Benzene Concentrations from 1989 USEPA Guidance Document</td></tr>
+<tr><td style="width: 25%;"><a href="BJC.2000.df.html">BJC.2000.df</a></td>
+<td>Randomly sampled measurements of an analyte in soil samples.</td></tr>
 <tr><td style="width: 25%;"><a href="boxcox.html">Box-Cox</a></td>
 <td>Boxcox Power Transformation</td></tr>
 <tr><td style="width: 25%;"><a href="boxcoxCensored.html">Box-Cox Censored</a></td>
@@ -289,6 +293,8 @@
 <td>Estimate Parameters of a Normal (Gaussian) Distribution</td></tr>
 <tr><td style="width: 25%;"><a href="enormCensored.html">enormCensored</a></td>
 <td>Estimate Parameters for a Normal Distribution Based on Type I Censored Data</td></tr>
+<tr><td style="width: 25%;"><a href="enpar.html">enpar</a></td>
+<td>Estimate Mean, Standard Deviation, and Standard Error Nonparametrically</td></tr>
 <tr><td style="width: 25%;"><a href="enparCensored.html">enparCensored</a></td>
 <td>Estimate Mean, Standard Deviation, and Standard Error Nonparametrically Based on Censored Data</td></tr>
 <tr><td style="width: 25%;"><a href="Environmental.html">Environmental</a></td>
@@ -704,10 +710,12 @@
 <td>Abstract: Hosking et al. (1985)</td></tr>
 <tr><td style="width: 25%;"><a href="HoskingEtAl1985.html">HoskingEtAl1985</a></td>
 <td>Abstract: Hosking et al. (1985)</td></tr>
-<tr><td style="width: 25%;"><a href="htest.object.html">htest.object</a></td>
-<td>S3 Class "htest"</td></tr>
+<tr><td style="width: 25%;"><a href="htest.htestEnvStats.object.html">htest.object</a></td>
+<td>S3 Classes "htest" and "htestEnvStats"</td></tr>
 <tr><td style="width: 25%;"><a href="htestCensored.object.html">htestCensored.object</a></td>
 <td>S3 Class "htestCensored"</td></tr>
+<tr><td style="width: 25%;"><a href="htest.htestEnvStats.object.html">htestEnvStats.object</a></td>
+<td>S3 Classes "htest" and "htestEnvStats"</td></tr>
 <tr><td style="width: 25%;"><a href="FcnsByCatHypothTests.html">Hypothesis Tests</a></td>
 <td>EnvStats Functions for Hypothesis Tests</td></tr>
 </table>
@@ -997,12 +1005,16 @@
 <td>Probability That at Least One Set of Future Observations Violates the Given Rule Based on a Nonparametric Simultaneous Prediction Interval</td></tr>
 <tr><td style="width: 25%;"><a href="predIntPois.html">predIntPois</a></td>
 <td>Prediction Interval for a Poisson Distribution</td></tr>
+<tr><td style="width: 25%;"><a href="print.html">print</a></td>
+<td>Print Values</td></tr>
 <tr><td style="width: 25%;"><a href="print.boxcox.html">print.boxcox</a></td>
 <td>Print Output of Objective for Box-Cox Power Transformations</td></tr>
 <tr><td style="width: 25%;"><a href="print.boxcoxCensored.html">print.boxcoxCensored</a></td>
 <td>Print Output of Objective for Box-Cox Power Transformations Based on Type I Censored Data</td></tr>
 <tr><td style="width: 25%;"><a href="print.boxcoxLm.html">print.boxcoxLm</a></td>
 <td>Print Output of Objective for Box-Cox Power Transformations for an "lm" Object</td></tr>
+<tr><td style="width: 25%;"><a href="print.html">print.default</a></td>
+<td>Print Values</td></tr>
 <tr><td style="width: 25%;"><a href="print.distChoose.html">print.distChoose</a></td>
 <td>Print Output of Goodness-of-Fit Tests</td></tr>
 <tr><td style="width: 25%;"><a href="print.distChooseCensored.html">print.distChooseCensored</a></td>
@@ -1021,9 +1033,11 @@
 <td>Print Output of Goodness-of-Fit Outlier Tests</td></tr>
 <tr><td style="width: 25%;"><a href="print.gofTwoSample.html">print.gofTwoSample</a></td>
 <td>Print Output of Two-Sample Goodness-of-Fit Tests</td></tr>
+<tr><td style="width: 25%;"><a href="print.htest.htestEnvStats.html">print.htest</a></td>
+<td>Print Output of Hypothesis Tests</td></tr>
 <tr><td style="width: 25%;"><a href="print.htestCensored.html">print.htestCensored</a></td>
 <td>Print Output of Hypothesis Tests Based on Censored Data</td></tr>
-<tr><td style="width: 25%;"><a href="print.htestEnvStats.html">print.htestEnvStats</a></td>
+<tr><td style="width: 25%;"><a href="print.htest.htestEnvStats.html">print.htestEnvStats</a></td>
 <td>Print Output of Hypothesis Tests</td></tr>
 <tr><td style="width: 25%;"><a href="print.permutationTest.html">print.permutationTest</a></td>
 <td>Print Output of Permutation Tests</td></tr>
@@ -1043,6 +1057,8 @@
 <td>Compute Sample Size Necessary to Achieve a Specified Power for a One- or Two-Sample Proportion Test</td></tr>
 <tr><td style="width: 25%;"><a href="propTestPower.html">propTestPower</a></td>
 <td>Compute the Power of a One- or Two-Sample Proportion Test</td></tr>
+<tr><td style="width: 25%;"><a href="ProUCL.5.2.TRS.df.html">ProUCL.5.2.TRS.df</a></td>
+<td>Real dataset from ProUCL 5.2.0.</td></tr>
 <tr><td style="width: 25%;"><a href="ProUCL.Crit.Vals.for.AD.Test.for.Gamma.array.html">ProUCL.Crit.Vals.for.AD.Test.for.Gamma.array</a></td>
 <td>ProUCL Critical Values for Anderson-Darling Goodness-of-Fit Test for Gamma Distribution</td></tr>
 <tr><td style="width: 25%;"><a href="ProUCL.Crit.Vals.for.KS.Test.for.Gamma.array.html">ProUCL.Crit.Vals.for.KS.Test.for.Gamma.array</a></td>

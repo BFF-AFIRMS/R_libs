@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
 // 
-// Copyright 2008-2016 Conrad Sanderson (http://conradsanderson.id.au)
+// Copyright 2008-2016 Conrad Sanderson (https://conradsanderson.id.au)
 // Copyright 2008-2016 National ICT Australia (NICTA)
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// http://www.apache.org/licenses/LICENSE-2.0
+// https://www.apache.org/licenses/LICENSE-2.0
 // 
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,13 +25,15 @@ template<typename eT>
 inline
 norm2est_randu_filler<eT>::norm2est_randu_filler()
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
+  
+  typedef typename promote_type<eT, float>::result eTp;
   
   typedef typename std::mt19937_64::result_type local_seed_type;
   
   local_engine.seed(local_seed_type(123));
   
-  typedef typename std::uniform_real_distribution<eT>::param_type local_param_type;
+  typedef typename std::uniform_real_distribution<eTp>::param_type local_param_type;
   
   local_u_distr.param(local_param_type(-1.0, +1.0));
   }
@@ -42,7 +44,7 @@ inline
 void
 norm2est_randu_filler<eT>::fill(eT* mem, const uword N)
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   for(uword i=0; i<N; ++i)  { mem[i] = eT( local_u_distr(local_engine) ); }
   }
@@ -55,13 +57,15 @@ template<typename T>
 inline
 norm2est_randu_filler< std::complex<T> >::norm2est_randu_filler()
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
+  
+  typedef typename promote_type<T, float>::result Tp;
   
   typedef typename std::mt19937_64::result_type local_seed_type;
   
   local_engine.seed(local_seed_type(123));
   
-  typedef typename std::uniform_real_distribution<T>::param_type local_param_type;
+  typedef typename std::uniform_real_distribution<Tp>::param_type local_param_type;
   
   local_u_distr.param(local_param_type(-1.0, +1.0));
   }
@@ -72,7 +76,7 @@ inline
 void
 norm2est_randu_filler< std::complex<T> >::fill(std::complex<T>* mem, const uword N)
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   for(uword i=0; i<N; ++i)
     {
@@ -101,13 +105,13 @@ op_norm2est::norm2est
   const uword                             max_iter
   )
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   typedef typename T1::pod_type   T;
   typedef typename T1::elem_type eT;
   
-  arma_debug_check( (tolerance <      T(0)), "norm2est(): parameter 'tolerance' must be > 0" );
-  arma_debug_check( (max_iter  == uword(0)), "norm2est(): parameter 'max_iter' must be > 0"  );
+  arma_conform_check( ((tolerance >= T(0)) == false), "norm2est(): parameter 'tolerance' must be > 0" );
+  arma_conform_check( (max_iter == uword(0)),         "norm2est(): parameter 'max_iter' must be > 0"  );
   
   const T tol = (tolerance == T(0)) ? T(1e-6) : T(tolerance);
   
@@ -116,7 +120,7 @@ op_norm2est::norm2est
   
   if(A.n_elem == 0)  { return T(0); }
   
-  if(A.internal_has_nonfinite())  { arma_debug_warn_level(1, "norm2est(): given matrix has non-finite elements"); }
+  if(A.internal_has_nonfinite())  { arma_warn(1, "norm2est(): given matrix has non-finite elements"); }
   
   if((A.n_rows == 1) || (A.n_cols == 1))  { return op_norm::vec_norm_2( Proxy< Mat<eT> >(A) ); }
   
@@ -132,13 +136,13 @@ op_norm2est::norm2est
   
   for(uword i=0; i<max_iter; ++i)
     {
-    arma_extra_debug_print(arma_str::format("norm2est(): iteration: %u") % i);
+    arma_debug_print(arma_str::format("norm2est(): iteration: %u") % i);
     
     x = A * y;
     
     T x_norm = op_norm::vec_norm_2( Proxy< Col<eT> >(x) );
     
-    if(x_norm == T(0) || (arma_isfinite(x_norm) == false) || (x.internal_has_nonfinite()))
+    if( (x_norm == T(0)) || arma_isnonfinite(x_norm) || x.internal_has_nonfinite() )
       {
       randu_filler.fill(x.memptr(), x.n_elem);
       
@@ -152,10 +156,10 @@ op_norm2est::norm2est
     est_old = est_cur;
     est_cur = op_norm::vec_norm_2( Proxy< Col<eT> >(y) );
     
-    arma_extra_debug_print(arma_str::format("norm2est(): est_old: %e") % est_old);
-    arma_extra_debug_print(arma_str::format("norm2est(): est_cur: %e") % est_cur);
+    arma_debug_print(arma_str::format("norm2est(): est_old: %e") % est_old);
+    arma_debug_print(arma_str::format("norm2est(): est_cur: %e") % est_cur);
     
-    if(arma_isfinite(est_cur) == false)  { return est_old; }
+    if(arma_isnonfinite(est_cur))  { return est_old; }
     
     if( ((std::abs)(est_cur - est_old)) <= (tol * (std::max)(est_cur,est_old)) )  { break; }
     }
@@ -181,13 +185,13 @@ op_norm2est::norm2est
   const uword                               max_iter
   )
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   typedef typename T1::pod_type   T;
   typedef typename T1::elem_type eT;
   
-  arma_debug_check( (tolerance <      T(0)), "norm2est(): parameter 'tolerance' must be > 0" );
-  arma_debug_check( (max_iter  == uword(0)), "norm2est(): parameter 'max_iter' must be > 0"  );
+  arma_conform_check( ((tolerance >= T(0)) == false), "norm2est(): parameter 'tolerance' must be > 0" );
+  arma_conform_check( (max_iter == uword(0)),         "norm2est(): parameter 'max_iter' must be > 0"  );
   
   const T tol = (tolerance == T(0)) ? T(1e-6) : T(tolerance);
   
@@ -196,7 +200,7 @@ op_norm2est::norm2est
   
   if(A.n_nonzero == 0)  { return T(0); }
   
-  if(A.internal_has_nonfinite())  { arma_debug_warn_level(1, "norm2est(): given matrix has non-finite elements"); }
+  if(A.internal_has_nonfinite())  { arma_warn(1, "norm2est(): given matrix has non-finite elements"); }
   
   if((A.n_rows == 1) || (A.n_cols == 1))  { return spop_norm::vec_norm_k(A.values, A.n_nonzero, 2); }
   
@@ -212,13 +216,13 @@ op_norm2est::norm2est
   
   for(uword i=0; i<max_iter; ++i)
     {
-    arma_extra_debug_print(arma_str::format("norm2est(): iteration: %u") % i);
+    arma_debug_print(arma_str::format("norm2est(): iteration: %u") % i);
     
     x = A * y;
     
     T x_norm = op_norm::vec_norm_2( Proxy< Mat<eT> >(x) );
     
-    if(x_norm == T(0) || (arma_isfinite(x_norm) == false) || (x.internal_has_nonfinite()))
+    if( (x_norm == T(0)) || arma_isnonfinite(x_norm) || x.internal_has_nonfinite() )
       {
       randu_filler.fill(x.memptr(), x.n_elem);
       
@@ -232,10 +236,10 @@ op_norm2est::norm2est
     est_old = est_cur;
     est_cur = op_norm::vec_norm_2( Proxy< Mat<eT> >(y) );
     
-    arma_extra_debug_print(arma_str::format("norm2est(): est_old: %e") % est_old);
-    arma_extra_debug_print(arma_str::format("norm2est(): est_cur: %e") % est_cur);
+    arma_debug_print(arma_str::format("norm2est(): est_old: %e") % est_old);
+    arma_debug_print(arma_str::format("norm2est(): est_cur: %e") % est_cur);
     
-    if(arma_isfinite(est_cur) == false)  { return est_old; }
+    if(arma_isnonfinite(est_cur))  { return est_old; }
     
     if( ((std::abs)(est_cur - est_old)) <= (tol * (std::max)(est_cur,est_old)) )  { break; }
     }

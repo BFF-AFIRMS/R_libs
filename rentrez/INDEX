@@ -21,6 +21,5 @@ extract_from_esummary   Extract elements from a list of esummary
                         records
 linkout_urls            Extract URLs from an elink object
 parse_pubmed_xml        Summarize an XML record from pubmed.
-rentrez                 rentrez
 set_entrez_key          Set the ENTREZ_KEY variable to be used by all
                         rentrez functions

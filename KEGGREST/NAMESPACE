@@ -12,9 +12,9 @@ export(
     listDatabases,
     keggFind,
     keggGet,
+    keggCompounds,
     keggConv,
     keggLink,
-    mark.pathway.by.objects,
     color.pathway.by.objects
 )
 

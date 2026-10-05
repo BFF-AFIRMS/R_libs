@@ -1,11 +1,74 @@
+CHANGES IN VERSION 1.62.0
+-------------------------
+
+NEW FEATURES
+
+    o Add makeGPosFromDataFrame().
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+    o The package depends on Seqinfo instead of GenomeInfoDb.
+
+    o The package no longer depends on XVector.
+
+
+CHANGES IN VERSION 1.60.0
+-------------------------
+
+- No changes in this version.
+
+
+CHANGES IN VERSION 1.58.0
+-------------------------
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+    o Use hg38 instead of hg19 in vignettes and examples. See commit 57af07f
+      for the details.
+
+BUG FIXES
+
+    o The as.data.frame() methods for GenomicRanges and GPos objects
+      now obey the 'optional' argument.
+      See https://github.com/Bioconductor/GenomicRanges/issues/86
+
+
+CHANGES IN VERSION 1.56.0
+-------------------------
+
+NEW FEATURES
+
+    o Add terminators() method, same as promoters() but for terminator regions.
+
+BUG FIXES
+
+    o Small fix in makeGRangesFromDataFrame(). Fix error when: (1) input has
+      zero rows, and (2) has no strand field or 'ignore.strand' is TRUE.
+      By Marcel Ramos.
+      See https://github.com/Bioconductor/GenomicRanges/issues/81
+
+
+CHANGES IN VERSION 1.54.0
+-------------------------
+
+NEW FEATURES
+
+    o Add 'ignore.strand' arg to gaps() method for GenomicRanges objects.
+
+BUG FIXES
+
+    o Small tweaks to GRanges() constructor and to coercion from GPos
+      to GRanges.
+
+
 CHANGES IN VERSION 1.52.0
 -------------------------
 
 SIGNIFICANT USER-VISIBLE CHANGES
 
-  o Improve documentation of findOverlaps() argument 'minoverlap':
-    The man page now explains how findOverlaps() argument 'minoverlap'
-    is interpreted when 'query' or 'subject' is a GRangesList object.
+    o Improve documentation of findOverlaps() argument 'minoverlap':
+      The man page now explains how findOverlaps() argument 'minoverlap'
+      is interpreted when 'query' or 'subject' is a GRangesList object.
 
 
 CHANGES IN VERSION 1.50.0
@@ -83,7 +146,7 @@ CHANGES IN VERSION 1.38.0
 NEW FEATURES
 
     o GPos objects now exist in 2 flavors: UnstitchedGPos and StitchedGPos
-    
+
       GPos is now a virtual class with 2 concrete subclasses: UnstitchedGPos
       and StitchedGPos. In an UnstitchedGPos instance the positions are stored
       as an integer vector. In a StitchedGPos instance, like with old GPos
@@ -91,7 +154,7 @@ NEW FEATURES
       represents a run of consecutive positions. This is analog to the
       IPos/UnstitchedIPos/StitchedIPos situation. See ?GPos for more
       information.
-    
+
       Old serialized GPos instances can be converted to StitchedGPos
       instances with updateObject().
 

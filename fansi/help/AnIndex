@@ -1,8 +1,10 @@
+fansi-package	fansi
 close_state	state_at_end
 dflt_css	dflt_term_cap
 dflt_term_cap	dflt_term_cap
 fansi	fansi
 fansi_lines	fansi_lines
+fansi_unicode_version	fansi_unicode_version
 fwl	fwl
 has_ctl	has_ctl
 has_sgr	has_sgr

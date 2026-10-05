@@ -18,24 +18,13 @@ if (file.exists("nc.shp"))
 	file.remove("nc.shp", "nc.dbf", "nc.shx")
 ```
 
-[Simple features](https://en.wikipedia.org/wiki/Simple_Features) or [_simple feature access_](https://www.ogc.org/standard/sfa/) refers to a formal standard (ISO 19125-1:2004) that describes how objects in the real world can be represented in computers, with emphasis on the _spatial_ geometry of these objects. It also describes how such objects can be stored in and retrieved from databases, and which geometrical operations should be defined for them.
+[Simple features](https://en.wikipedia.org/wiki/Simple_Features) or _simple feature access_ refers to a formal standard (ISO 19125-1:2004) that describes how objects in the real world can be represented in computers, with emphasis on the _spatial_ geometry of these objects. It also describes how such objects can be stored in and retrieved from databases, and which geometrical operations should be defined for them.
 
 The standard is widely implemented in spatial
 databases (such as [PostGIS](https://postgis.net/)), commercial GIS (e.g., [ESRI
 ArcGIS](https://www.esri.com/en-us/home)) and forms the vector data basis for
 libraries such as [GDAL](https://gdal.org/). A subset of
 simple features forms the [GeoJSON](https://geojson.org/) standard.
-
-R has well-supported classes for storing spatial
-data ([sp](https://CRAN.R-project.org/package=sp))
-and interfacing to the above mentioned environments
-([rgdal](https://CRAN.R-project.org/package=rgdal),
-[rgeos](https://CRAN.R-project.org/package=rgeos)), but has so far lacked a
-complete implementation of simple features, making conversions
-at times convoluted, inefficient or incomplete. The package
-[sf](https://github.com/r-spatial/sf) tries to fill this gap, and aims
-at succeeding [sp](https://CRAN.R-project.org/package=sp) in the
-long term.
 
 This vignette:
 
@@ -70,7 +59,7 @@ features are based on 2D geometry with linear interpolation between
 vertices._"  We will see soon that the same standard will extend
 its coverage beyond 2D and beyond linear interpolation. Here, we
 take simple features as the data structures and operations described
-in the [standard](https://www.ogc.org/standard/sfa/).
+in the standard.
 
 ## Dimensions
 
@@ -96,16 +85,16 @@ The following seven simple feature types are the most common, and are for instan
 | type | description                                        |
 | ---- | -------------------------------------------------- |
 | `POINT` | zero-dimensional geometry containing a single point |
-| `LINESTRING` | sequence of points connected by straight, non-self intersecting line pieces; one-dimensional geometry |
+| `LINESTRING` | sequence of points connected by straight, non-self intersecting line segments; one-dimensional geometry |
 | `POLYGON` | geometry with a positive area (two-dimensional); sequence of points form a closed, non-self intersecting ring; the first ring denotes the exterior ring, zero or more subsequent rings denote holes in this exterior ring |
 | `MULTIPOINT` | set of points; a MULTIPOINT is simple if no two Points in the MULTIPOINT are equal |
 | `MULTILINESTRING` | set of linestrings |
 | `MULTIPOLYGON` | set of polygons |
 | `GEOMETRYCOLLECTION` | set of geometries of any type except GEOMETRYCOLLECTION |
 
-Each of the geometry types can also be a (typed) empty set, containing zero coordinates (for `POINT` the standard is not clear how to represent the empty geometry). Empty geometries can be thought of being the analogue to missing (`NA`) attributes, NULL values or empty lists.
+Each of the geometry types can also be a (typed) empty set, containing zero coordinates (for `POINT` the standard is not clear how to represent the empty geometry). Empty geometries can be thought of being analogues to missing (`NA`) attributes, NULL values or empty lists.
 
-The remaining geometries 10 are rarer, but increasingly find implementations:
+The remaining ten geometries are rare but are increasingly found:
 
 | type | description                                        |
 | ---- | -------------------------------------------------- |
@@ -171,7 +160,7 @@ library(sf)
 nc <- st_read(system.file("shape/nc.shp", package="sf"))
 ```
 
-(Note that users will not use `system.file` but give a `filename` directly, and that shapefiles consist of more than one file, all with identical basename, which reside in the same directory.)
+(Note that users will not use `system.file()` but give a `filename` directly, and that shapefiles consist of more than one file, all with identical basename, which reside in the same directory.)
 The short report printed gives the file name, the driver (ESRI Shapefile), mentions that there are 100 features (records, represented as rows) and 14
 fields (attributes, represented as columns). This object is of class
 
@@ -194,7 +183,7 @@ print(nc[9:15], n = 3)
 ```
 which would give the following output:
 
-![](sf_xfig.png)
+![](sf_fig.png)
 
 In the output we see:
 
@@ -224,7 +213,7 @@ However, such objects:
 
 The column in the `sf` data.frame that contains the geometries is a list, of class `sfc`.
 We can retrieve the geometry list-column in this case by `nc$geom` or `nc[[15]]`, but the
-more general way uses `st_geometry`:
+more general way uses `st_geometry()`:
 
 ```{r}
 (nc_geom <- st_geometry(nc))
@@ -273,9 +262,9 @@ Methods for geometry list-columns include:
 methods(class = 'sfc')
 ```
 
-Coordinate reference systems (`st_crs` and `st_transform`) are discussed in the section on [coordinate reference systems](#crs).
-`st_as_wkb` and `st_as_text` convert geometry list-columns into well-known-binary or well-known-text, explained [below](#wkb).
-`st_bbox` retrieves the coordinate bounding box.
+Coordinate reference systems (`st_crs()` and `st_transform()`) are discussed in the section on [coordinate reference systems](#crs).
+`st_as_wkb()` and `st_as_text()` convert geometry list-columns into well-known-binary or well-known-text, explained [below](#wkb).
+`st_bbox()` retrieves the coordinate bounding box.
 
 Attributes include:
 ```{r}
@@ -466,7 +455,7 @@ by using the otherwise nearly identical but more quiet
 nc <- read_sf(filename)
 ```
 
-Writing takes place in the same fashion, using `st_write`:
+Writing takes place in the same fashion, using `st_write()`:
 
 ```{r}
 st_write(nc, "nc.shp")
@@ -487,10 +476,10 @@ write_sf(nc, "nc.shp") # silently overwrites
 
 ### Driver-specific options
 
-The `dsn` and `layer` arguments to `st_read` and `st_write`
+The `dsn` and `layer` arguments to `st_read()` and `st_write()`
 denote a data source name and optionally a layer name.  Their exact
 interpretation as well as the options they support vary per driver,
-the [GDAL driver documentation](https://gdal.org/drivers/vector/index.html)
+the [GDAL driver documentation](https://gdal.org/en/latest/drivers/vector/index.html)
 is best consulted for this.  For instance, a PostGIS table in
 database `postgis` might be read by:
 
@@ -500,11 +489,11 @@ meuse <- st_read("PG:dbname=postgis", "meuse")
 
 where the `PG:` string indicates this concerns the PostGIS driver,
 followed by database name, and possibly port and user credentials.
-When the `layer` and `driver` arguments are not specified, `st_read`
+When the `layer` and `driver` arguments are not specified, `st_read()`
 tries to guess them from the datasource, or else simply reads the
 first layer, giving a warning in case there are more.
 
-`st_read` typically reads the coordinate reference system as
+`st_read()` typically reads the coordinate reference system as
 `proj4string`, but not the EPSG (SRID).  GDAL cannot retrieve SRID
 (EPSG code) from `proj4string` strings, and, when needed, it has
 to be set by the user. See also the section on [coordinate reference systems](#crs).
@@ -517,13 +506,13 @@ of some common data formats is illustrated below:
 `st_layers(dsn)` lists the layers present in data source `dsn`,
 and gives the number of fields, features and geometry type for each
 layer:
-```{r}
+```{r eval=FALSE}
 st_layers(system.file("osm/overpass.osm", package="sf"))
 ```
 we see that in this case, the number of features is `NA` because
 for this xml file the whole file needs to be read, which may be
 costly for large files. We can force counting by:
-```{r}
+```{r eval=FALSE}
 Sys.setenv(OSM_USE_CUSTOM_INDEXING="NO")
 st_layers(system.file("osm/overpass.osm", package="sf"), do_count = TRUE)
 ```
@@ -551,7 +540,7 @@ bikraces <- st_read("bikeraces.kml")
 GDAL provides the
 [crud](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete)
 (create, read, update, delete) functions to persistent storage.
-`st_read` (or `read_sf`) are used for reading. `st_write` (or `write_sf`)
+`st_read()` (or `read_sf()`) are used for reading. `st_write()` (or `write_sf()`)
 creates, and has the following arguments to control update and delete:
 
 * `update=TRUE` causes an existing data source to be updated, if it
@@ -576,38 +565,35 @@ functions are limited to PostGIS.
 
 ## Coordinate reference systems and transformations {#crs}
 
-Coordinate reference systems (CRS) are like measurement units for
-coordinates: they specify which location on Earth a particular
-coordinate pair refers to. We saw above that `sfc` objects
-(geometry list-columns) have two attributes to store a CRS: `epsg`
-and `proj4string`.  This implies that all geometries in a geometry
-list-column must have the same CRS. Both may be `NA`, e.g. in case
-the CRS is unknown, or when we work with local coordinate systems
-(e.g. inside a building, a body, or an abstract space).
+Coordinate reference systems (CRS) are like measurement units
+for coordinates: they specify which location on Earth a particular
+coordinate pair refers to. We saw above that `sfc` objects (geometry
+list-columns) have an attribute of class `crs` that stores the
+CRS. This implies that all geometries in a geometry list-column
+have the same CRS. It may be `NA` in case the CRS is unknown, or
+when we work with local coordinate systems (e.g. inside a building,
+a body, or an abstract space); in that case coordinates are assumed
+to be Cartesian (in case of 2D: defining positions on in a flat
+plane).
 
-`proj4string` is a generic, string-based description of a CRS,
-understood by the [PROJ](https://proj4.org/) library. It defines
+A `crs` object contains two character fields: `input` for the
+name (if existing) or the user-definition of the CRS, and `wkt`
+for the WKT-2 specification; WKT-2 is a standard encoding for
+describing CRS that is used throughout the spatial data science
+industry.  When defining a CRS, a PROJ string may be used that is
+understood by the [PROJ](https://proj.org/) library. It defines
 projection types and (often) defines parameter values for particular
 projections, and hence can cover an infinite amount of different
-projections.  This library (also used by GDAL) provides functions
-to convert or transform between different CRS.  `epsg` is the
-integer ID for a particular, known CRS that can be resolved into a
-`proj4string`. Some `proj4string` values can resolved back into
-their corresponding `epsg` ID, but this does not always work.
+projections. Alternatively, codes like `EPSG:3035` or `OGC:CRS84`
+may be used; these are well-known identifiers of CRS defined in
+the PROJ database.
 
-The importance of having `epsg` values stored with data besides
-`proj4string` values is that the `epsg` refers to particular,
-well-known CRS, whose parameters may change (improve) over time;
-fixing only the `proj4string` may remove the possibility to benefit
-from such improvements, and limit some of the provenance of datasets,
-but may help reproducibility.
-
-Coordinate reference system transformations can be carried out using
-`st_transform`, e.g. converting longitudes/latitudes in NAD27 to
-web mercator (EPSG:3857) can be done by:
+Coordinate reference system transformations are carried out using
+`st_transform()`, e.g. converting longitudes/latitudes in NAD27 to
+Web Mercator (EPSG:3857) can be done by:
 
 ```{r}
-nc.web_mercator <- st_transform(nc, 3857)
+nc.web_mercator <- st_transform(nc, "EPSG:3857")
 st_geometry(nc.web_mercator)[[4]][[2]][[1]][1:3,]
 ```
 
@@ -643,15 +629,15 @@ will override this, and create `MULTIPOLYGON`s in all cases. For `LINES` the sit
 
 The standard for simple feature access defines a number of geometrical operations.
 
-`st_is_valid` and `st_is_simple` return a boolean indicating whether
+`st_is_valid()` and `st_is_simple()` return a Boolean indicating whether
 a geometry is valid or simple.
 
 ```{r}
 st_is_valid(nc[1:2,])
 ```
 
-`st_distance` returns a dense numeric matrix with distances
-between geometries. `st_relate` returns a character matrix with the
+`st_distance()` returns a dense numeric matrix with distances
+between geometries. `st_relate()` returns a character matrix with the
 [DE9-IM](https://en.wikipedia.org/wiki/DE-9IM#Illustration) values
 for each pair of geometries:
 
@@ -661,10 +647,10 @@ st_distance(x[c(1,4,22),], x[c(1, 33,55,56),])
 st_relate(nc[1:5,], nc[1:4,])
 ```
 
-The commands `st_intersects`, `st_disjoint`, `st_touches`,
-`st_crosses`, `st_within`, `st_contains`, `st_overlaps`,
-`st_equals`, `st_covers`, `st_covered_by`, `st_equals_exact` and
-`st_is_within_distance` return a sparse matrix with matching (TRUE)
+`st_intersects()`, `st_disjoint()`, `st_touches()`,
+`st_crosses()`, `st_within()`, `st_contains()`, `st_overlaps()`,
+`st_equals()`, `st_covers()`, `st_covered_by()`, `st_equals_exact()` and
+`st_is_within_distance()` return a sparse matrix (`sgbp` object) with matching (`TRUE`)
 indexes, or a full logical matrix:
 
 ```{r}
@@ -672,9 +658,9 @@ st_intersects(nc[1:5,], nc[1:4,])
 st_intersects(nc[1:5,], nc[1:4,], sparse = FALSE)
 ```
 
-The commands `st_buffer`, `st_boundary`, `st_convexhull`,
-`st_union_cascaded`, `st_simplify`, `st_triangulate`,
-`st_polygonize`, `st_centroid`, `st_segmentize`, and `st_union`
+`st_buffer()`, `st_boundary()`, `st_convexhull()`,
+`st_union_cascaded`, `st_simplify`, `st_triangulate()`,
+`st_polygonize()`, `st_centroid()`, `st_segmentize()`, and `st_union()`
 return new geometries, e.g.:
 
 ```{r fig.height=3}
@@ -686,8 +672,8 @@ plot(geom, add = TRUE)
 plot(st_buffer(geom, -5000), add = TRUE, border = 'blue')
 ```
 
-Commands `st_intersection`, `st_union`, `st_difference`,
-`st_sym_difference` return new geometries that are a function of
+`st_intersection()`, `st_union()`, `st_difference()`, and
+`st_sym_difference()` return new geometries that are a function of
 pairs of geometries:
 
 ```{r fig.height=3}

@@ -20,7 +20,7 @@ test_ConstantArray <- function()
 
     out <- extract_sparse_array(A3, list(1:10, 1:20))
     checkIdentical(dim(out), c(10L, 20L))
-    checkIdentical(nzdata(out), numeric(0))
+    checkIdentical(nzvals(out), numeric(0))
 }
 
 test_ConstantArray_other <- function()

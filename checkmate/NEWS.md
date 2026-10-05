@@ -1,3 +1,28 @@
+# Version 2.3.3
+* Removed deprecated calls to internal R functions.
+
+# Version 2.3.3
+* Fixed a minor bug in `allMissing()` for complex numbers where either the real
+  part or the imaginary part was missing while the other part was not missing
+  (#279).
+* Dropped usage for internal C function `isFrame()` for recent R versions (278).
+* Improved documentation (#273, #264).
+
+# Version 2.3.2
+* Removed calls to deprecated / internal C routines.
+* Fixed compiler warnings regarding sprintf format strings.
+* Fixed an issue regarding sortedness and missing numeric values (#259, thanks to @tdeenes)
+
+# Version 2.3.1
+* Fixed a sprintf format string for long integers.
+
+# Version 2.3.0
+* `NULL` is not longer considered to be atomic in future versions of R
+  (c.f. <https://stat.ethz.ch/pipermail/r-devel/2023-September/082892.html>).
+  To avoid breaking reverse dependencies, checkmate will stick to the old
+  behavior until further notice.
+* Fixed a warning in `checkAtomic()` (#245).
+
 # Version 2.2.0
 * Fixed C compiler warnings for windows
 * Added `checkPermutation` (#230).

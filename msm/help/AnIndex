@@ -1,3 +1,4 @@
+msm-package	msm-package
 absorbing.msm	transient.msm
 aneur	aneur
 boot.msm	boot.msm
@@ -9,7 +10,7 @@ cmodel.object	cmodel.object
 coef.msm	coef.msm
 contour.msm	surface.msm
 crudeinits.msm	crudeinits.msm
-d2phase	2phase
+d2phase	twophase
 deltamethod	deltamethod
 dmenorm	medists
 dmeunif	medists
@@ -23,7 +24,7 @@ ematrix.msm	ematrix.msm
 emodel.object	emodel.object
 envisits.msm	totlos.msm
 fev	fev
-h2phase	2phase
+h2phase	twophase
 hazard.msm	hazard.msm
 hmm-dists	hmm-dists
 hmmBeta	hmm-dists
@@ -45,6 +46,7 @@ hmmTNorm	hmm-dists
 hmmUnif	hmm-dists
 hmmWeibull	hmm-dists
 hmodel.object	hmodel.object
+hmodel2list	hmodel2list
 image.msm	surface.msm
 logLik.msm	logLik.msm
 lrtest.msm	lrtest.msm
@@ -58,7 +60,7 @@ msm.form.qoutput	msm.form.qoutput
 msm.object	msm.object
 msm2Surv	msm2Surv
 odds.msm	odds.msm
-p2phase	2phase
+p2phase	twophase
 paramdata.object	paramdata.object
 pearson.msm	pearson.msm
 persp.msm	surface.msm
@@ -82,7 +84,7 @@ printnew.msm	print.msm
 printold.msm	printold.msm
 psor	psor
 ptnorm	tnorm
-q2phase	2phase
+q2phase	twophase
 qcmodel.object	qcmodel.object
 qgeneric	qgeneric
 qmatrix.msm	qmatrix.msm
@@ -92,7 +94,7 @@ qmodel.object	qmodel.object
 qpexp	pexp
 qratio.msm	qratio.msm
 qtnorm	tnorm
-r2phase	2phase
+r2phase	twophase
 recreate.olddata	recreate.olddata
 rmenorm	medists
 rmeunif	medists
@@ -106,8 +108,13 @@ sojourn.msm	sojourn.msm
 statetable.msm	statetable.msm
 summary.msm	summary.msm
 surface.msm	surface.msm
+tidy.msm	tidy.msm
+tidy.msm.est	tidy.msm.est
+tidy.msm.estbystate	tidy.msm.estbystate
+tidy.msm.prevalence	tidy.msm.prevalence
 tnorm	tnorm
 totlos.msm	totlos.msm
 transient.msm	transient.msm
+twophase	twophase
 updatepars.msm	updatepars.msm
 viterbi.msm	viterbi.msm

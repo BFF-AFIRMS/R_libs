@@ -12,9 +12,9 @@
 <div style="text-align: center;">
 <a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
 <a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
-</div><h2>Documentation for package &lsquo;gdata&rsquo; version 2.19.0</h2>
+</div><h2>Documentation for package &lsquo;gdata&rsquo; version 3.0.1</h2>
 
-<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+<ul><li><a href="../DESCRIPTION" type="text/plain">DESCRIPTION file</a>.</li>
 <li><a href="../doc/index.html">User guides, package vignettes and other documentation.</a></li>
 <li><a href="../NEWS">Package NEWS</a>.</li>
 </ul>
@@ -44,7 +44,6 @@
 <a href="#T">T</a>
 <a href="#U">U</a>
 <a href="#W">W</a>
-<a href="#X">X</a>
 <a href="#misc">misc</a>
 </p>
 
@@ -66,7 +65,7 @@
 <td>Mapping levels</td></tr>
 <tr><td style="width: 25%;"><a href="mapLevels.html">as.listLevelsMap</a></td>
 <td>Mapping levels</td></tr>
-<tr><td style="width: 25%;"><a href="object.size.html">as.object_sizes</a></td>
+<tr><td style="width: 25%;"><a href="object_size.html">as.object_sizes</a></td>
 <td>Report the Space Allocated for Objects</td></tr>
 </table>
 
@@ -84,7 +83,7 @@
 <td>Mapping levels</td></tr>
 <tr><td style="width: 25%;"><a href="mapLevels.html">c.listLevelsMap</a></td>
 <td>Mapping levels</td></tr>
-<tr><td style="width: 25%;"><a href="object.size.html">c.object_sizes</a></td>
+<tr><td style="width: 25%;"><a href="object_size.html">c.object_sizes</a></td>
 <td>Report the Space Allocated for Objects</td></tr>
 <tr><td style="width: 25%;"><a href="case.html">case</a></td>
 <td>Map elements of a vector according to the provided 'cases'</td></tr>
@@ -121,7 +120,7 @@
 <td>Return first or last element of an object</td></tr>
 <tr><td style="width: 25%;"><a href="first.html">first&lt;-</a></td>
 <td>Return first or last element of an object</td></tr>
-<tr><td style="width: 25%;"><a href="object.size.html">format.object_sizes</a></td>
+<tr><td style="width: 25%;"><a href="object_size.html">format.object_sizes</a></td>
 <td>Report the Space Allocated for Objects</td></tr>
 <tr><td style="width: 25%;"><a href="frameApply.html">frameApply</a></td>
 <td>Subset analysis on data frames</td></tr>
@@ -188,15 +187,13 @@
 <h2><a id="I">-- I --</a></h2>
 
 <table style="width: 100%;">
-<tr><td style="width: 25%;"><a href="installXLSXsupport.html">installXLSXsupport</a></td>
-<td>Install perl modules needed for read.xls to support Excel 2007+ XLSX format</td></tr>
 <tr><td style="width: 25%;"><a href="interleave.html">interleave</a></td>
 <td>Interleave Rows of Data Frames or Matrices</td></tr>
 <tr><td style="width: 25%;"><a href="mapLevels.html">is.levelsMap</a></td>
 <td>Mapping levels</td></tr>
 <tr><td style="width: 25%;"><a href="mapLevels.html">is.listLevelsMap</a></td>
 <td>Mapping levels</td></tr>
-<tr><td style="width: 25%;"><a href="object.size.html">is.object_sizes</a></td>
+<tr><td style="width: 25%;"><a href="object_size.html">is.object_sizes</a></td>
 <td>Report the Space Allocated for Objects</td></tr>
 <tr><td style="width: 25%;"><a href="is.what.html">is.what</a></td>
 <td>Run Multiple is.* Tests on a Given Object</td></tr>
@@ -229,11 +226,11 @@
 <tr><td style="width: 25%;"><a href="first.html">last&lt;-</a></td>
 <td>Return first or last element of an object</td></tr>
 <tr><td style="width: 25%;"><a href="left.html">left</a></td>
-<td>Return the leftmost or rightmost columns of a matrix or dataframe</td></tr>
+<td>Return the leftmost or rightmost columns of a matrix or data frame</td></tr>
 <tr><td style="width: 25%;"><a href="left.html">left.data.frame</a></td>
-<td>Return the leftmost or rightmost columns of a matrix or dataframe</td></tr>
+<td>Return the leftmost or rightmost columns of a matrix or data frame</td></tr>
 <tr><td style="width: 25%;"><a href="left.html">left.matrix</a></td>
-<td>Return the leftmost or rightmost columns of a matrix or dataframe</td></tr>
+<td>Return the leftmost or rightmost columns of a matrix or data frame</td></tr>
 <tr><td style="width: 25%;"><a href="ll.html">ll</a></td>
 <td>Describe Objects or Elements</td></tr>
 <tr><td style="width: 25%;"><a href="upperTriangle.html">lowerTriangle</a></td>
@@ -293,21 +290,25 @@
 <tr><td style="width: 25%;"><a href="unknown.html">NAToUnknown.list</a></td>
 <td>Change unknown values to NA and vice versa</td></tr>
 <tr><td style="width: 25%;"><a href="nobs.html">nobs</a></td>
-<td>Compute the Number of Non-missing Observations</td></tr>
+<td>Compute the Number of Non-Missing Observations</td></tr>
 <tr><td style="width: 25%;"><a href="nobs.html">nobs.data.frame</a></td>
-<td>Compute the Number of Non-missing Observations</td></tr>
+<td>Compute the Number of Non-Missing Observations</td></tr>
 <tr><td style="width: 25%;"><a href="nobs.html">nobs.default</a></td>
-<td>Compute the Number of Non-missing Observations</td></tr>
+<td>Compute the Number of Non-Missing Observations</td></tr>
 <tr><td style="width: 25%;"><a href="nobs.html">nobs.lm</a></td>
-<td>Compute the Number of Non-missing Observations</td></tr>
+<td>Compute the Number of Non-Missing Observations</td></tr>
 <tr><td style="width: 25%;"><a href="nPairs.html">nPairs</a></td>
 <td>Number of variable pairs</td></tr>
+<tr><td style="width: 25%;"><a href="nobs.html">n_obs</a></td>
+<td>Compute the Number of Non-Missing Observations</td></tr>
 </table>
 
 <h2><a id="O">-- O --</a></h2>
 
 <table style="width: 100%;">
-<tr><td style="width: 25%;"><a href="object.size.html">object.size</a></td>
+<tr><td style="width: 25%;"><a href="object_size.html">object.size</a></td>
+<td>Report the Space Allocated for Objects</td></tr>
+<tr><td style="width: 25%;"><a href="object_size.html">object_size</a></td>
 <td>Report the Space Allocated for Objects</td></tr>
 </table>
 
@@ -318,42 +319,38 @@
 <td>Mapping levels</td></tr>
 <tr><td style="width: 25%;"><a href="mapLevels.html">print.listLevelsMap</a></td>
 <td>Mapping levels</td></tr>
-<tr><td style="width: 25%;"><a href="object.size.html">print.object_sizes</a></td>
+<tr><td style="width: 25%;"><a href="object_size.html">print.object_sizes</a></td>
 <td>Report the Space Allocated for Objects</td></tr>
 </table>
 
 <h2><a id="R">-- R --</a></h2>
 
 <table style="width: 100%;">
-<tr><td style="width: 25%;"><a href="read.xls.html">read.xls</a></td>
-<td>Read Excel files</td></tr>
 <tr><td style="width: 25%;"><a href="rename.vars.html">remove.vars</a></td>
-<td>Remove or rename variables in a dataframe</td></tr>
+<td>Remove or rename variables in a data frame</td></tr>
 <tr><td style="width: 25%;"><a href="rename.vars.html">rename.vars</a></td>
-<td>Remove or rename variables in a dataframe</td></tr>
+<td>Remove or rename variables in a data frame</td></tr>
 <tr><td style="width: 25%;"><a href="reorder.html">reorder.factor</a></td>
 <td>Reorder the Levels of a Factor</td></tr>
 <tr><td style="width: 25%;"><a href="resample.html">resample</a></td>
 <td>Consistent Random Samples and Permutations</td></tr>
 <tr><td style="width: 25%;"><a href="left.html">right</a></td>
-<td>Return the leftmost or rightmost columns of a matrix or dataframe</td></tr>
+<td>Return the leftmost or rightmost columns of a matrix or data frame</td></tr>
 <tr><td style="width: 25%;"><a href="left.html">right.data.frame</a></td>
-<td>Return the leftmost or rightmost columns of a matrix or dataframe</td></tr>
+<td>Return the leftmost or rightmost columns of a matrix or data frame</td></tr>
 <tr><td style="width: 25%;"><a href="left.html">right.matrix</a></td>
-<td>Return the leftmost or rightmost columns of a matrix or dataframe</td></tr>
+<td>Return the leftmost or rightmost columns of a matrix or data frame</td></tr>
 </table>
 
 <h2><a id="S">-- S --</a></h2>
 
 <table style="width: 100%;">
-<tr><td style="width: 25%;"><a href="sheetCount.html">sheetCount</a></td>
-<td>Count or list sheet names in Excel spreadsheet files.</td></tr>
-<tr><td style="width: 25%;"><a href="sheetCount.html">sheetNames</a></td>
-<td>Count or list sheet names in Excel spreadsheet files.</td></tr>
 <tr><td style="width: 25%;"><a href="mapLevels.html">sort.levelsMap</a></td>
 <td>Mapping levels</td></tr>
 <tr><td style="width: 25%;"><a href="startsWith.html">startsWith</a></td>
-<td>Determine if a character string "starts with" with the specified characters.</td></tr>
+<td>Does String Start or End With Another String?</td></tr>
+<tr><td style="width: 25%;"><a href="startsWith.html">starts_with</a></td>
+<td>Does String Start or End With Another String?</td></tr>
 </table>
 
 <h2><a id="T">-- T --</a></h2>
@@ -383,9 +380,9 @@
 <tr><td style="width: 25%;"><a href="unmatrix.html">unmatrix</a></td>
 <td>Convert a matrix into a vector, with appropriate names</td></tr>
 <tr><td style="width: 25%;"><a href="update.list.html">update.data.frame</a></td>
-<td>Update the elements of a list, or rows of a dataframe</td></tr>
+<td>Update the elements of a list, or rows of a data frame</td></tr>
 <tr><td style="width: 25%;"><a href="update.list.html">update.list</a></td>
-<td>Update the elements of a list, or rows of a dataframe</td></tr>
+<td>Update the elements of a list, or rows of a data frame</td></tr>
 <tr><td style="width: 25%;"><a href="upperTriangle.html">upperTriangle</a></td>
 <td>Extract or replace the upper/lower triangular portion of a matrix</td></tr>
 <tr><td style="width: 25%;"><a href="upperTriangle.html">upperTriangle&lt;-</a></td>
@@ -398,22 +395,7 @@
 <tr><td style="width: 25%;"><a href="wideByFactor.html">wideByFactor</a></td>
 <td>Create multivariate data by a given factor</td></tr>
 <tr><td style="width: 25%;"><a href="write.fwf.html">write.fwf</a></td>
-<td>Write object in fixed width format</td></tr>
-</table>
-
-<h2><a id="X">-- X --</a></h2>
-
-<table style="width: 100%;">
-<tr><td style="width: 25%;"><a href="read.xls.html">xls2csv</a></td>
-<td>Read Excel files</td></tr>
-<tr><td style="width: 25%;"><a href="read.xls.html">xls2sep</a></td>
-<td>Read Excel files</td></tr>
-<tr><td style="width: 25%;"><a href="read.xls.html">xls2tab</a></td>
-<td>Read Excel files</td></tr>
-<tr><td style="width: 25%;"><a href="read.xls.html">xls2tsv</a></td>
-<td>Read Excel files</td></tr>
-<tr><td style="width: 25%;"><a href="xlsFormats.html">xlsFormats</a></td>
-<td>Check which file formats are supported by read.xls</td></tr>
+<td>Write object to file in fixed width format</td></tr>
 </table>
 
 <h2><a id="misc">-- misc --</a></h2>

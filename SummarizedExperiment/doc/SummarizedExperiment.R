@@ -1,7 +1,7 @@
 ## ----style, echo=FALSE, results='asis'----------------------------------------
 BiocStyle::markdown()
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 suppressPackageStartupMessages(library(SummarizedExperiment))
 suppressPackageStartupMessages(data(airway, package="airway"))
 
@@ -12,7 +12,7 @@ se <- airway
 se
 
 ## ----assays, eval = FALSE-----------------------------------------------------
-#  assays(se)$counts
+# assays(se)$counts
 
 ## ----assays_table, echo = FALSE-----------------------------------------------
 knitr::kable(assays(se)$counts[1:10,])
@@ -51,6 +51,33 @@ SummarizedExperiment(assays=list(counts=counts),
 
 ## ----constructSE--------------------------------------------------------------
 SummarizedExperiment(assays=list(counts=counts), colData=colData)
+
+## ----construct_se3------------------------------------------------------------
+a1 <- matrix(runif(24), ncol=6, dimnames=list(letters[1:4], LETTERS[1:6]))
+a2 <- matrix(rpois(24, 0.8), ncol=6)
+a3 <- matrix(101:124, ncol=6, dimnames=list(NULL, LETTERS[1:6]))
+se3 <- SummarizedExperiment(SimpleList(a1, a2, a3))
+
+## ----top_level_dimnames-------------------------------------------------------
+dimnames(se3)
+
+## ----top_level_dimnames_are_propagated----------------------------------------
+assay(se3, 2)  # this is 'a2', but with the top-level dimnames on it
+
+assay(se3, 3)  # this is 'a3', but with the top-level dimnames on it
+
+## ----assay_level_dimnames-----------------------------------------------------
+assay(se3, 2, withDimnames=FALSE)  # identical to 'a2'
+
+assay(se3, 3, withDimnames=FALSE)  # identical to 'a3'
+
+rownames(se3) <- strrep(letters[1:4], 3)
+
+dimnames(se3)
+
+assay(se3, 1)  # this is 'a1', but with the top-level dimnames on it
+
+assay(se3, 1, withDimnames=FALSE)  # identical to 'a1'
 
 ## ----2d-----------------------------------------------------------------------
 # subset the first five transcripts and first three samples

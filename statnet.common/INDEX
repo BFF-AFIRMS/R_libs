@@ -1,5 +1,7 @@
 all_identical           Test if all items in a vector or a list are
                         identical.
+arr_from_coo            Conveniently covert between coordinate-value
+                        and array representations
 as.control.list         Convert to a control list.
 attr                    A wrapper for base::attr which defaults to
                         exact matching.
@@ -23,9 +25,12 @@ diff.control.list       Identify and the differences between two
                         control lists.
 empty_env               Replace an object's environment with a simple,
                         static environment.
-ERRVL                   Return the first argument passed (out of any
-                        number) that is not a 'try-error' (result of
-                        'try' encountering an error.
+enlist                  Wrap an object into a singleton list if not
+                        already a list
+envir                   A generic for querying and setting an object's
+                        environment
+ERRVL                   Attempt a series of statements and return the
+                        first one that is not an error.
 fixed.pval              Format a p-value in fixed notation.
 forkTimeout             Evaluate an R expression with a hard time limit
                         by forking a process
@@ -38,8 +43,12 @@ locate_function         Locate a function with a given name and return
                         it and its environment.
 logspace.utils          Utilities for performing calculations on
                         logarithmic scale.
+match_names             Construct a named vector with semantics useful
+                        for parameter vectors
 mcmc-utilities          Utility operations for 'mcmc.list' objects
 message_print           'print' objects to the 'message' output.
+modify_in_place         Modify the argument in the calling environment
+                        of the calling function
 NVL                     Convenience functions for handling 'NULL'
                         objects.
 once                    Evaluate a function once for a given input.
@@ -54,12 +63,20 @@ paste.and               Concatenates the elements of a vector
                         conjunctions.
 persistEval             Evaluate an expression, restarting on error
 print.control.list      Pretty print the control list
+replace                 Replace values in a vector according to
+                        functions
+set_diag                Return the matrix with diagonal set to a
+                        specified value
 set.control.class       Set the class of the control list
+sign<-                  A generic for setting the sign of an object
 simplify_simple         Convert a list to an atomic vector if it
                         consists solely of atomic elements of length 1.
+skip_if_not_checking    Skip a test if not called via R CMD 'check'
 snctrl                  Statnet Control
 snctrl_names            Helper functions used by packages to facilitate
                         'snctrl' updating.
+split_len               Split a list or some other 'split()'-able
+                        object by lengths
 split.array             A 'split()' method for 'array' and 'matrix'
                         types on a margin.
 ssolve                  Wrappers around matrix algebra functions that
@@ -86,6 +103,7 @@ vector.namesmatch       reorder vector v into order determined by
                         of names
 Welford                 A Welford accumulator for sample mean and
                         variance
+which_top_n             Top or bottom 'n' elements of a vector
 wmatrix                 A data matrix with row weights
 wmatrix_weights         Set or extract weighted matrix row weights
 xTAx                    Common quadratic forms

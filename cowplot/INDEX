@@ -9,8 +9,6 @@ axis_canvas             Generates a canvas onto which one can draw
                         axis-like objects.
 background_grid         Add/modify/remove the background grid in a
                         ggplot2 plot
-cowplot                 Streamlined Plot Theme and Plot Annotations for
-                        'ggplot2'
 draw_figure_label       Add a label to a figure
 draw_grob               Draw a grob.
 draw_image              Draw an image

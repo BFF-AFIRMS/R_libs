@@ -6,15 +6,14 @@ Description: Provides memory efficient S4 classes for storing sequences
 biocViews: Infrastructure, DataRepresentation
 URL: https://bioconductor.org/packages/XVector
 BugReports: https://github.com/Bioconductor/XVector/issues
-Version: 0.40.0
+Version: 0.50.0
 License: Artistic-2.0
 Encoding: UTF-8
 Author: Hervé Pagès and Patrick Aboyoun
 Maintainer: Hervé Pagès <hpages.on.github@gmail.com>
 Depends: R (>= 4.0.0), methods, BiocGenerics (>= 0.37.0), S4Vectors (>=
-        0.27.12), IRanges (>= 2.23.9)
-Imports: methods, utils, tools, zlibbioc, BiocGenerics, S4Vectors,
-        IRanges
+        0.27.12), IRanges (>= 2.43.8)
+Imports: methods, utils, stats, tools, BiocGenerics, S4Vectors, IRanges
 LinkingTo: S4Vectors, IRanges
 Suggests: Biostrings, drosophila2probe, RUnit
 Collate: io-utils.R RDS-random-access.R SharedVector-class.R
@@ -27,10 +26,11 @@ Collate: io-utils.R RDS-random-access.R SharedVector-class.R
         slice-methods.R view-summarization-methods.R
         updateObject-methods.R zzz.R
 git_url: https://git.bioconductor.org/packages/XVector
-git_branch: RELEASE_3_17
-git_last_commit: 875b4b4
-git_last_commit_date: 2023-04-25
-Date/Publication: 2023-04-25
+git_branch: RELEASE_3_22
+git_last_commit: 6b7e2a1
+git_last_commit_date: 2025-10-29
+Repository: Bioconductor 3.22
+Date/Publication: 2025-10-29
 NeedsCompilation: yes
-Packaged: 2023-04-25 23:13:34 UTC; biocbuild
-Built: R 4.3.0; x86_64-pc-linux-gnu; 2023-07-07 13:05:53 UTC; unix
+Packaged: 2025-10-30 07:13:02 UTC; biocbuild
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-03 23:11:33 UTC; unix

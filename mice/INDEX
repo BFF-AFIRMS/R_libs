@@ -1,8 +1,5 @@
 .pmm.match              Finds an imputed value from matches in the
                         predictive metric (deprecated)
-D1                      Compare two nested models using D1-statistic
-D2                      Compare two nested models using D2-statistic
-D3                      Compare two nested models using D3-statistic
 ampute                  Generate missing data for simulation purposes
 anova.mira              Compare several nested models
 appendbreak             Appends specified break to the data
@@ -26,6 +23,9 @@ construct.blocks        Construct blocks from 'formulas' and
                         'predictorMatrix'
 convergence             Computes convergence diagnostics for a 'mids'
                         object
+D1                      Compare two nested models using D1-statistic
+D2                      Compare two nested models using D2-statistic
+D3                      Compare two nested models using D3-statistic
 densityplot.mids        Density plot of observed and imputed data
 employee                Employee selection data
 estimice                Computes least squares parameters
@@ -55,9 +55,10 @@ is.mira                 Check for 'mira' object
 is.mitml.result         Check for 'mitml.result' object
 leiden85                Leiden 85+ study
 lm.mids                 Linear regression for 'mids' object
-mads-class              Multivariate amputed data set ('mads')
+mads                    Multivariate amputed data set ('mads')
 make.blocks             Creates a 'blocks' argument
 make.blots              Creates a 'blots' argument
+make.calltype           Create calltype of the imputation model
 make.formulas           Creates a 'formulas' argument
 make.method             Creates a 'method' argument
 make.post               Creates a 'post' argument
@@ -69,8 +70,6 @@ matchindex              Find index of matched donor units
 md.pairs                Missing data pattern by variable pairs
 md.pattern              Missing data pattern
 mdc                     Graphical parameter for missing data plots
-mice                    'mice': Multivariate Imputation by Chained
-                        Equations
 mice.impute.2l.bin      Imputation by a two-level logistic model using
                         'glmer'
 mice.impute.2l.lmer     Imputation by a two-level normal model using
@@ -140,10 +139,10 @@ mice.mids               Multivariate Imputation by Chained Equations
                         (Iteration Step)
 mice.theme              Set the theme for the plotting Trellis
                         functions
-mids-class              Multiply imputed data set ('mids')
+mids                    Multiply imputed data set ('mids')
 mids2mplus              Export 'mids' object to Mplus
 mids2spss               Export 'mids' object to SPSS
-mira-class              Multiply imputed repeated analyses ('mira')
+mira                    Create an object of class "mira"
 mnar_demo_data          MNAR demo data
 name.blocks             Name imputation blocks
 name.formulas           Name formula list elements
@@ -159,20 +158,21 @@ norm.draw               Draws values of beta and sigma by Bayesian
                         linear regression
 parlmice                Wrapper function that runs MICE in parallel
 pattern                 Datasets with various missing data patterns
-plot.mids               Plot the trace lines of the MICE algorithm
 pool                    Combine estimates by pooling rules
 pool.compare            Compare two nested models fitted to imputed
                         data
 pool.r.squared          Pools R^2 of m models fitted to
                         multiply-imputed data
 pool.scalar             Multiple imputation pooling: univariate version
+pool.table              Combines estimates from a tidy table
 popmis                  Hox pupil popularity data with missing
                         popularity scores
 pops                    Project on preterm and small for gestational
                         age infants (POPS)
 potthoffroy             Potthoff-Roy data
-print.mads              Print a 'mads' object
-print.mids              Print a 'mids' object
+predict_mi              Predict method for linear models with multiply
+                        imputed data
+print.mira              Print a 'mira' object
 quickpred               Quick selection of predictors from the data
 selfreport              Self-reported and measured BMI
 squeeze                 Squeeze the imputed values to be within

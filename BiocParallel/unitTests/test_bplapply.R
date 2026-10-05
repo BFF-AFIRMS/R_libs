@@ -150,3 +150,12 @@ test_bplapply_auto_export <- function(){
     bpexportvariables(p) <- FALSE
     checkException(bplapply(1:2, fun2, BPPARAM = p), silent = TRUE)
 }
+
+
+test_bplapply_null_value_in_input <- function(){
+    p <- SerialParam()
+    FUN <- function(x) x
+    X <- list(a = 1, b = 2, c = NULL, d = 4)
+    result <- bptry(bplapply(X, FUN, BPPARAM = p))
+    checkIdentical(X, result)
+}

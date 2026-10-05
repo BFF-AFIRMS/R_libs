@@ -1,8 +1,8 @@
 ---
-title: "Star Wars films"
+title: "Star Wars films (static HTML)"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Star Wars films}
+  %\VignetteIndexEntry{Star Wars films (static HTML)}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -12,11 +12,10 @@ This vignette contains some data about the Star Wars films for use in rvest exam
 ```{r, echo = FALSE, results = "asis"}
 library(rvest)
 crawl_html <- function(x) {
-  x %>% 
-    gsub("\r", "", .) %>% 
-    gsub("\n\n", "</p><p>", .) %>% 
-    gsub("\n", " ", .) %>% 
-    paste0("<p>", ., "</p>")
+  out <- gsub("\r", "", x)
+  out <- gsub("\n\n", "</p><p>", out)
+  out <- gsub("\n", " ", out) 
+  paste0("<p>", out, "</p>")
 }
 
 film_desc <- function(x) {

@@ -1,3 +1,95 @@
+# Rdpack 2.6.6
+
+- rewrote the function beside Rd macro `\insertFig` defensively and to work harder to locate
+  and/or create the directory for the figures (see issue #39).
+
+
+# Rdpack 2.6.5
+
+- Rdpack's bibstyles are no longer created at load time.
+
+- refactored the bibstyles. Needs `rbibutils > 2.4`, due to a missing
+  export in rbibutils v2.4.
+
+- fixed the name of a subsection in `insert_ref.Rd`. It was wrongly mentioning
+  'insertNoCite`, while actually describing 'insertCiteOnly' (and causing a
+  duplicated html anchor, now caught by recent R checks).
+
+- padded the last table in 'predefined.Rd' so that the last row now has the same
+  number of entries as the rest (pkgdown was omitting it and the R checks started
+  flagged it with a NOTE).
+
+
+# Rdpack 2.6.4
+
+- no user visible changes.
+
+- fixed a couple of tests that were expecting warnings to expect error in things
+  like `structure(NULL, xxx = "something")`, since R-devel circa start of April
+  2025 turned that construct to an error.
+
+
+# Rdpack 2.6.3
+
+- changed the condition in the test fixing the issue in Rdpack v2.6.1 to
+  `getRversion() < "4.5.0"`, which is less likely to need further change for
+  R-4.4.x releases.
+
+- removed 'RdpackTester' from `./inst/examples`. It was meant to provide a
+  convenient way to create bug examples but was left incompletee.
+
+
+# Rdpack 2.6.2
+
+- `RStudio_reprompt` now issues a more informative error message when not called
+  on a suitable file or function. Fixes issue #30, reported by @daattali.
+
+- now the LaTeX macro `\slash` is wrapped in a condition, so that it is passed
+  on for LaTeX related output but converted to `/` for other formats (such as
+  html). Fixes GeoBosh/rbibutils#9, reported by @MLopez-Ibanez.
+
+- fixed the test for the fix in Rdpack v2.6.1 (see below) to work with R-4.4.2,
+  since that R-devel change was not carried on to R-4.4.2.  (Note: the error
+  concerns the test only. The fix in the code of the package works for any R
+  version.) Fixes issue #37, reported by @charles-plessy.
+
+
+# Rdpack 2.6.1
+
+- R-devel c86938 turned to error the warning for a non-existing key in the bib
+  file. Fixed `insert_bib` (and a related test) to handle that.
+  
+
+# Rdpack 2.6
+
+- fixed issues causing 'lost braces' (actually, superfluous braces) NOTEs from
+  checks in R-devel occuring with some accented LaTeX characters. These NOTEs
+  are not yet activated on CRAN but if/when they do, developers using Rd macros
+  `\insertRef` and `\insertCite` can eliminate them by building their packages
+  with Rdpack (>= 2.6) and rbibutils (>= 2.2.16).  Thanks to Sebastian Meyer for
+  tracing down the issues.
+
+- fixed a `Sweave` expression in 'man/predefined.Rd' to not emit unnecessary
+  braces (see the note above).
+
+
+# Rdpack 2.5
+
+- Rd macros `insertCite` and friends were calling `\insert_citeOnly()` with
+  argument `key` instead of `keys`. This was not an error since partial matching
+  is ok here but not good practice. Fixes issue #28 reported by Marcel Ramos.
+
+- changed the saved value in "tests/testthat/dummyArticle.rds" used in
+  'test-bib.R' with a value obtained with R-devel r84896 n previu versins of R
+  there wasasuperfluous final ' .').
+
+- in some cases when square brackets were requested, rather than round ones,
+  `\insertCiteOnly` was using closing round parenthesis.
+
+- in some cases `\insertCiteOnly` was not handling well the last cite when it
+  was followed by free text.
+
+
 # Rdpack 2.4
 
 - new Rd macro `\insertCited{}` works like `\insertAllCited` but empties the
@@ -6,25 +98,25 @@
   since the preceding `\insertCited`. Prompted by issue #27 to allow separate
   references lists for each method and the class in R6 documentation.
 
-- It is no longer necessary to remove backslashes from `\&` in similar in bibtex
-  files (e.g. in "John Wiley \& Sons"). The backslash was appearing in the
-  rendered pdf manual but R-devel's checks started to warn about it recently
+- It is no longer necessary to remove backslashes from `\&` and similar in
+  bibtex files (e.g. in "John Wiley \& Sons"). The backslash was appearing in
+  the rendered pdf manual but R-devel's checks started to warn about it recently
   with something like `checkRd: (-1) pcts-package.Rd:287: Escaped LaTeX
   specials: \&` (starting June 2022). This could be avoided by removing the
   superfluous backslash in the bib file but this is annoying since this is
   proper syntax for the latter. Concerned packages should rebuild the tarball
-  with Rdpack (> 2.3.1) or remove the offending backslashes from their bib
+  with Rdpack (>= 2.4) or remove the offending backslashes from their bib
   files. (addresses issue #26)
   
 
-# Rdpack 2.3.1 (CRAN)
+# Rdpack 2.3.1
 
 - in Rd macro `\insertCite`, two or more accented Latin characters were rendered
   with superfluous curly braces, see issue#25 (reported by Manuel López-Ibáñez)
   and https://stat.ethz.ch/pipermail/r-devel/2022-April/081604.html.
   
 
-# Rdpack 2.3 (CRAN)
+# Rdpack 2.3
 
 - reverted the change in v2.2, since a further fix in R-devel,
   https://stat.ethz.ch/pipermail/r-devel/2022-March/081570.html, made it
@@ -35,14 +127,14 @@
   accidentally with `Rdpack 2.2`.
 
 
-# Rdpack 2.2 (CRAN)
+# Rdpack 2.2
 
 - a change in R-devel (around built r81914, March 2022) in the processing of
   `\doi` Rd macros resulted in warnings from R-devel's checks for packages that
   use Rdpack built with the released versions of R. This fixes it.  (fixes #24)
 
 
-# Rdpack 2.1.4 (CRAN)
+# Rdpack 2.1.4
 
 - Rdmacro `\insertCite` gets a new feature allowing to drop parentheses for
   parenthesised citations, analogous to natbib's `\citealp` in latex. This makes
@@ -54,19 +146,19 @@
 - the pkgdown site now has a `Search` button on the navigation bar.
 
 
-# Rdpack 2.1.3 (CRAN)
+# Rdpack 2.1.3
 
 - fixed a test that was failing with versions of rbibutils before v2.1.1
   (issue reported by Andreas Tille).
 
 - if the version of rbibutils is greater than v2.2.5, parsing bib files with
   `rbibutils::readBib` now uses `texChars = "Rdpack"`. This ensures proper
-  rendering of `\'i' in references (by converting `\'i` to `\'\i` which base R
-  renders correctly).  For detailed discussion of this see issue
+  rendering of `\'i` in references (by converting `\'i` to `\'\i` which base
+  R renders correctly).  For detailed discussion of this see issue
   GeoBosh/bibutils#7 and NEWS.md in rbibutils v2.2.4 and v2.2.5.
 
 
-# Rdpack 2.1.2 (CRAN)
+# Rdpack 2.1.2
 
 - Rdmacros generating references now drop the `URL` field if a `doi` field
   generating the same URL is present. This avoids repetition of the URL since
@@ -87,7 +179,7 @@
   (although that needs fixing also for `direct = FALSE`).
 
 
-# Rdpack 2.1.1 (CRAN)
+# Rdpack 2.1.1
 
 - In `viewRd`, the default for the help type now is `options("help_type")`
   (previously the default was `"text"`).
@@ -103,7 +195,7 @@
   circa February 2021).
 
 
-# Rdpack 2.1 (CRAN)
+# Rdpack 2.1
 
 - dramatic speed up of processing of bibliography references, most noticeable
   for users with large number of help pages and large `REFERENCES.bib`.
@@ -116,26 +208,26 @@
 - corrected wrong citation of `rbibutils`.
 
 
-# Rdpack 2.0 (CRAN)
+# Rdpack 2.0
 
 - removed `bibtex` from `Suggests` and elsewhere.
 
 
-# Rdpack 1.1.0
+# Rdpack 1.1.0 (not on CRAN)
 
 - imported `rbibutils` and made suitable adjustments to the code.
 
 - moved `bibtex` to `Suggests` (since `bibtex` has been orphaned for several years).
 
 
-# Rdpack 1.0.1
+# Rdpack 1.0.1 (not on CRAN)
 
 - removed a documentation link to a function in `gbutils`, which is not among
   the dependencies of `Rdpack`. This was raising a NOTE on one of the CRAN
   testing machines.
 
 
-# Rdpack 1.0.0 (CRAN)
+# Rdpack 1.0.0
 
 - `viewRd()` now loads also Rd macros declared by the package to which the
   rendered Rd file belongs.  Previously only macros from `Rdpack` were loaded
@@ -147,7 +239,7 @@
 - edited some documentation files.
 
 
-# Rdpack 0.11-1 (CRAN)
+# Rdpack 0.11-1
 
 - in documentation of S4 classes, such as `"classname-class.Rd"`, `reprompt()`
   was sometimes inserting entries for slots already listed in the Slots
@@ -177,7 +269,7 @@
   `R CMD check`.
   
 
-# Rdpack 0.11-0 (CRAN)
+# Rdpack 0.11-0
 
 - Updated the vignette about `\insertFig`, `\printExample` and `\runExamples`,
   to reflect the lifting in `R 3.6.0` of some limitations of Rd processing in
@@ -193,14 +285,14 @@
   
   
 
-# Rdpack 0.10-3
+# Rdpack 0.10-3 (not on CRAN)
 
 * fixed issue#9 (reported by by @aravind-j) appearing when a package is built
   with R-devel (since about Oct 2018) causing references by `\insertAllCited{}`
   to appear in a single paragraph in the `html` rendering of the Rd documentation.
   
 
-# Rdpack 0.10-2
+# Rdpack 0.10-2 (not on CRAN)
 
 * added pkgdown site to DESCRIPTION.
 
@@ -218,17 +310,17 @@
 
 * Started moving tests from my local setup to testthat. 
 
-# Rdpack 0.10-1 (CRAN)
+# Rdpack 0.10-1
 
 * removed redundant references from REFERENCES.bib (they were leftovers from
   testing).
 
-# Rdpack 0.10-0 
+# Rdpack 0.10-0 (not on CRAN) 
 
 * updated vignette 'Inserting_bibtex_references'.
 
 
-# Rdpack 0.9-1
+# Rdpack 0.9-1 (not on CRAN)
 
 * now `REFERENCES.bib` is read-in using the declared encoding for the
   corresponding package. If there is no declared encoding, "UTF-8" is assumed. 
@@ -249,8 +341,8 @@
 * Bugfix: now Rd macro `\printExample` evaluates the expressions in the correct
   environment. 
   
-* help page of `get_usage` gets a fairly complete Details section with numerous
-  evaluated examples. 
+* help page of `get_usage()` gets a fairly complete Details section with
+  numerous evaluated examples.
   
 * now `run_examples()` escapes `%` by default, before returning the text. This is
   needed for text that is to be included in an Rd file. It can be turned off by
@@ -268,8 +360,8 @@
   RdpackTester under `./inst/examples` now makes this easier.
 
 * now the help page "predefined.Rd" does not print some tables twice in the pdf
-  manual. (This was due to using `\if{latex}{}{}' instead of
-  `\ifelse{latex}{}{}' for those tables.)
+  manual. (This was due to using `\if{latex}{}{}` instead of
+  `\ifelse{latex}{}{}` for those tables.)
 
 * also in "predefined.Rd", removed illegal use of vertical bars (in column
   specifications of tabular environments) from the pure LaTeX code in the
@@ -282,18 +374,18 @@
   be needed if the symbols are imported by the package.)
 
 
-# Rdpack 0.9-0 (CRAN)
+# Rdpack 0.9-0
 
 * some brush-up of the documentation for the changes since version 0.8-0 of the package.
 
 
-# Rdpack 0.8-4
+# Rdpack 0.8-4 (not on CRAN)
 
 * now simple mathematics in BibTeX entries is rendered natively, no need to replace dollars
   with `\eqn{}`.
 
 
-# Rdpack 0.8-3
+# Rdpack 0.8-3 (not on CRAN)
 
 * new macro `\printExample` for inclusion of example computations in narrative sections, such
   as `Details`. The code is evaluated and printed similarly to `R` sessions but the code is
@@ -323,19 +415,19 @@
 * new vignette gives a brief description of the new macros.
   
 
-# Rdpack 0.8-2
+# Rdpack 0.8-2 (not on CRAN)
 
 * Now text citations use "et al." when there are three or more authors. 
   (Issue#6 reported by Timothy P. Bilton)
   
 
-# Rdpack 0.8-1
+# Rdpack 0.8-1 (not on CRAN)
 
 * in this file, added backticks to `\insertRef` and `\insertAllCited` (see
   below) - in the rendered `News` on CRAN the backslashed words had disappeared.
 
 
-# Rdpack 0.8-0 (CRAN)
+# Rdpack 0.8-0
 
 * `\insertRef` and `\insertAllCited` macros now support `bibstyles` for
   formatting references (feature requested by Jamie Halliday, issue#5). Use
@@ -348,7 +440,7 @@
 
 
 
-# Rdpack 0.7-1
+# Rdpack 0.7-1 (not on CRAN)
 
 * improvements to handling of free form citations in textual mode:
 
@@ -362,7 +454,7 @@
 * fix a bug in `Rdo_locate_core_section()`.
 
 
-# Rdpack 0.7-0 (CRAN)
+# Rdpack 0.7-0
 
 * consolidated the changes introduced since the previous CRAN release of Rdpack
   (it was 0.5-5) in preparation for the next release.  Users of the new macros
@@ -379,7 +471,7 @@
   explaining what was amiss (currently with 'author' A Adummy). 
 
 
-# Rdpack 0.6-x
+# Rdpack 0.6-x (not on CRAN)
 
 * new Rd macros for citations
 
@@ -398,7 +490,7 @@
 * updates to the documentation.
 
 
-# Rdpack 0.5-7
+# Rdpack 0.5-7 (not on CRAN)
 
 * `get_bibentries()` gets a new argument "everywhere". When is is TRUE, the
    default, unescaped percents are escaped in all bibtex fields, otherwise the
@@ -412,7 +504,7 @@
 * cleaned up the imports in NAMESPACE.
 
 
-# Rdpack 0.5-6
+# Rdpack 0.5-6 (not on CRAN)
 
 * `insert_ref()` and Rd macro `\insertRef` should now work ok in the presence
   of percent encoded symbols in URL field of a BibTeX entry.  Closes issue
@@ -434,11 +526,11 @@
    packages.)
 
 
-# Rdpack 0.5-5 (CRAN)
+# Rdpack 0.5-5
 
 * Streamlined the help page of `reprompt()` and `Rdpack-package`.
 
-* new argument, `edit', in `reprompt()` opens the Rd file after updating it.
+* new argument, `edit`, in `reprompt()` opens the Rd file after updating it.
 
 * new function `ereprompt()` (`e' for _edit_)* opens `reprompt()` with suitable
   defaults to replace the original Rd file and open it in an editor, otherwise
@@ -460,17 +552,13 @@
 * `viewRd()` now works also when the file is from a package under devtools'
   development mode on any platform (e.g. RStudio, Emacs/ESS, Rgui).
 
-
-# Rdpack 0.5-4.9000
-
-* new RStudio add-in 'Reprompt`, contributed by Duncan Murdoch.
-
-  If the file being edited in the code editor is an Rd file it calls
+* new RStudio add-in `Reprompt`, contributed by Duncan Murdoch.  If the file
+  being edited in the RStudio's code editor is an Rd file it calls
   `reprompt()`. If the file is as R source file, it looks for the help page of a
   selected object name and works on it if found, otherwise creates one.
 
 
-# Rdpack 0.5-4
+# Rdpack 0.5-4 (not on CRAN)
 
 * added the version of `Rdpack` to the abstract of the vignette.  This seems
   more informative than giving the compilation date.
@@ -484,13 +572,13 @@
   the signature of a function in "Usage" section was empty.
 
 
-# Rdpack 0.5-3 (CRAN)
+# Rdpack 0.5-3
 
 * The warning message about a missing reference key now appears also in the
   respective help page.
 
 
-# Rdpack 0.5-2
+# Rdpack 0.5-2 (not on CRAN)
 
 * added the github url to DESCRIPTION.
 
@@ -498,19 +586,19 @@
   (thanks to Kisung You for suggesting this).
      
 
-# Rdpack 0.5-1 (CRAN)
+# Rdpack 0.5-1
 
 * an example was not restoring the working directory.
 
 
-# Rdpack 0.5-0
+# Rdpack 0.5-0 (not on CRAN)
 
 * moved gbRd from Depends to Imports and adjusted some examples to use
   `tools::parse_Rd()` rather than `parse_Rd()` (before this was not necessary
   since 'gbRd' _depended on_ 'tools').
 
 
-# Rdpack 0.4-23
+# Rdpack 0.4-23 (not on CRAN)
 
 * new function `viewRd()` parses and shows an Rd file in a source package.  
   May be particularly helpful for devtools developers.
@@ -520,7 +608,7 @@
 * new functions `makeVignetteReference()` and `vigbib()` generate Bibtex
   references for vignettes in a package.
 
-# Rdpack 0.4-22 (CRAN)
+# Rdpack 0.4-22
 
 * Added the requirement to **Import Rdpack** to the help page of
      `insert_ref()`.  (It was out of sync with the vignette.)
@@ -532,7 +620,7 @@
      roxygen2 example.
 
 
-# Rdpack 0.4-21 (CRAN)
+# Rdpack 0.4-21
 
 * Edited and amended vignette _"Inserting_bibtex_references"_, including:
    
@@ -545,12 +633,12 @@
 * changed the URL for parse_Rd.pdf in REFERENCES.bib to https.
 
 
-# Rdpack 0.4-20 (CRAN)
+# Rdpack 0.4-20
 
 * cleaned up some minor CRAN issues.
 
 
-# Rdpack 0.4-19
+# Rdpack 0.4-19 (not on CRAN)
 
 * new facility for inserting references from BibTeX files - just put the line:
 
@@ -563,42 +651,42 @@
   details.
 
 
-# Rdpack 0.4-18 (CRAN)
+# Rdpack 0.4-18
 
-* from now on, put (CRAN) next to versions published on CRAN (as above)
+* from now on, put next to versions published on CRAN (as above)
 
 * a minor correction in file NEWS.
 
 
-# Rdpack 0.4-17
+# Rdpack 0.4-17 (not on CRAN)
 
 * In file DESCRIPTION, changed reprompt and rebib to `reprompt()` and
      `rebib()`.
 
 
-# Rdpack 0.4-16
+# Rdpack 0.4-16 (not on CRAN)
 
 * don't export `parse_text`
 
 * corrected bug in reprompt for S4 classes - new slots were not handled
   correctly (see `slots.R` for details).
 
-* reprompt for S4 methods* if the methods documentation describes methods that
-  do not exist, print an informative message for the user. (Such methods are
-  also printed for debugging purposes but in non-user friendly form.)
+* in reprompt for S4 methods: if the methods documentation describes methods
+  that do not exist, print an informative message for the user. (Such methods
+  are also printed for debugging purposes but in non-user friendly form.)
 
 - included `methods` in `Imports:` - around R-devel version 2015-07-01 r68620
   not including it triggers warnings)
 
 
-# Rdpack 0.4-8
+# Rdpack 0.4-8 (not on CRAN)
 
 * new functions `.whichtageq` and `.whichtagin`; replaced most calls to
   `toolsdotdotdotRdTags` with these.
 
 * removed `toolsdotdotdotRdTags`
 
-# Rdpack 0.4-7
+# Rdpack 0.4-7 (not on CRAN)
 
 * removed `:::` calls from code; copied some functions from `tools` to achieve
   this (see "threedots.R"). Renamed the functions replacing `:::` with
@@ -609,7 +697,7 @@
 
 * new functions: `Rdo_get_argument_names`, `Rdo_get_item_labels`
 
-# Rdpack 0.4-5
+# Rdpack 0.4-5 (not on CRAN)
 
 * dependence `bibtex` becomes "Imports".  `tools` and `gbRd` remain (for now)
   "Depends" since functions from them are used in some examples without
@@ -628,7 +716,11 @@
 
 * small changes in the documentation
 
-# Rdpack 0.4-1
+
+# Rdpack 0.4-4
+
+
+# Rdpack 0.4-1 (not on CRAN)
 
 * new major feature: processing references from Bibtex files.  The top user
   level function is `rebib()`, which updates section "references" in an Rd
@@ -644,7 +736,7 @@
 * some gaps in the documentation filled.
 
 
-# Rdpack 0.3-11
+# Rdpack 0.3-11 (not on CRAN)
 
 * `reprompt()` was not handling properly S4 replacement methods. Changed the
    parsing of the arguments to rectify this. Some other functions also needed
@@ -652,9 +744,9 @@
 
 # Rdpack 0.3-10
 
-* `Depends` field in DESCRIPTION file updated to require R 2.15.0 or later.
-   (because of a few uses of `paste0()` in recent code.)
+* `Depends` field in DESCRIPTION file updated to require R 2.15.0 or later
+   (because of a few uses of `paste0()` in recent code).
 
-# Rdpack 0.3-8 (CRAN)
+# Rdpack 0.3-8
 
 * first public version

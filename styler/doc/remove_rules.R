@@ -1,14 +1,14 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 styler::cache_deactivate()
 
-## ---- echo = FALSE, include = FALSE-------------------------------------------
+## ----echo = FALSE, include = FALSE--------------------------------------------
 options(styler.colored_print.vertical = FALSE)
 
-## ---- comment = ""------------------------------------------------------------
+## ----comment = ""-------------------------------------------------------------
 library(styler)
 style_text("string = 'hi there'")
 

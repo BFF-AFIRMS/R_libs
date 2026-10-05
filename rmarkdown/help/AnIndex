@@ -53,6 +53,7 @@ navbar_html	navbar_html
 navbar_links_html	navbar_html
 odt_document	odt_document
 output_format	output_format
+output_format_dependency	output_format_dependency
 output_metadata	output_metadata
 paged_table	paged_table
 pandoc_args	pandoc_args

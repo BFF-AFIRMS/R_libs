@@ -1,0 +1,8 @@
+flags                   Compilation flags for RcppParallel
+isProcessForkedChild    Is the Current Process a Forked Child?
+RcppParallel-package    Parallel programming tools for Rcpp
+RcppParallel.package.skeleton
+                        Create a skeleton for a new package depending
+                        on RcppParallel
+setThreadOptions        Thread options for RcppParallel
+tbbLibraryPath          Get the Path to a TBB Library

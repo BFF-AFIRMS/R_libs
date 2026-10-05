@@ -8,8 +8,11 @@ aovN                    Compute Sample Size Necessary to Achieve
 aovPower                Compute the Power of a One-Way Fixed-Effects
                         Analysis of Variance
 base                    Base b Representation of a Number
+Beal.2010.Pb.df         Lead concentration in soil samples.
 Benthic.df              Benthic Data from Monitoring Program in
                         Chesapeake Bay
+BJC.2000.df             Randomly sampled measurements of an analyte in
+                        soil samples.
 boxcox                  Boxcox Power Transformation
 boxcox.object           S3 Class "boxcox"
 boxcoxCensored          Boxcox Power Transformation for Type I Censored
@@ -103,6 +106,8 @@ enorm                   Estimate Parameters of a Normal (Gaussian)
                         Distribution
 enormCensored           Estimate Parameters for a Normal Distribution
                         Based on Type I Censored Data
+enpar                   Estimate Mean, Standard Deviation, and Standard
+                        Error Nonparametrically
 enparCensored           Estimate Mean, Standard Deviation, and Standard
                         Error Nonparametrically Based on Censored Data
 Environmental           Atmospheric Environmental Conditions in New
@@ -426,7 +431,7 @@ Helsel.Hirsch.02.Mayfly.df
                         Paired Counts of Mayfly Nymphs Above and Below
                         Industrial Outfalls
 HoskingEtAl1985         Abstract: Hosking et al. (1985)
-htest.object            S3 Class "htest"
+htest.object            S3 Classes "htest" and "htestEnvStats"
 htestCensored.object    S3 Class "htestCensored"
 inversePredictCalibrate
                         Predict Concentration Using Calibration
@@ -601,6 +606,7 @@ predIntNparSimultaneousTestPower
                         Observations Violates the Given Rule Based on a
                         Nonparametric Simultaneous Prediction Interval
 predIntPois             Prediction Interval for a Poisson Distribution
+print                   Print Values
 print.boxcox            Print Output of Objective for Box-Cox Power
                         Transformations
 print.boxcoxCensored    Print Output of Objective for Box-Cox Power
@@ -620,9 +626,9 @@ print.gofGroup          Print Output of Group Goodness-of-Fit Tests
 print.gofOutlier        Print Output of Goodness-of-Fit Outlier Tests
 print.gofTwoSample      Print Output of Two-Sample Goodness-of-Fit
                         Tests
+print.htest             Print Output of Hypothesis Tests
 print.htestCensored     Print Output of Hypothesis Tests Based on
                         Censored Data
-print.htestEnvStats     Print Output of Hypothesis Tests
 print.permutationTest   Print Output of Permutation Tests
 print.summaryStats      Print Summary Statistics
 propTestMdd             Minimal Detectable Difference Associated with a
@@ -632,6 +638,7 @@ propTestN               Compute Sample Size Necessary to Achieve a
                         Proportion Test
 propTestPower           Compute the Power of a One- or Two-Sample
                         Proportion Test
+ProUCL.5.2.TRS.df       Real dataset from ProUCL 5.2.0.
 ProUCL.Crit.Vals.for.AD.Test.for.Gamma.array
                         ProUCL Critical Values for Anderson-Darling
                         Goodness-of-Fit Test for Gamma Distribution

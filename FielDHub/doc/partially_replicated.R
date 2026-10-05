@@ -29,11 +29,11 @@ print(B$optim_design)
 print(B$pairwise_distance)
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  FielDHub::run_app()
+# FielDHub::run_app()
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  library(FielDHub)
-#  run_app()
+# library(FielDHub)
+# run_app()
 
 ## ----include=FALSE------------------------------------------------------------
 ENTRY <- 1:12
@@ -63,14 +63,14 @@ prep <- partially_replicated(
 )
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
-#  print(prep)
+# print(prep)
 
 ## ----echo=FALSE, eval=TRUE----------------------------------------------------
 print(prep)
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
-#  field_book <- prep$fieldBook
-#  head(field_book, 10)
+# field_book <- prep$fieldBook
+# head(field_book, 10)
 
 ## ----echo=FALSE, eval=TRUE----------------------------------------------------
 field_book <- prep$fieldBook

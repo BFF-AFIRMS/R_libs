@@ -162,21 +162,21 @@ sum(chr4_peaks)
 ###################################################
 ### code chunk number 21: makeTxDbFromUCSC_1 (eval = FALSE)
 ###################################################
-## library(GenomicFeatures)
+## library(txdbmaker)
 ## ### Internet connection required! Can take several minutes...
 ## txdb <- makeTxDbFromUCSC(genome="sacCer2", tablename="ensGene")
 
 
 ###################################################
-### code chunk number 22: TxDb.Hsapiens.UCSC.hg19.knownGene_1
+### code chunk number 22: TxDb.Hsapiens.UCSC.hg38.knownGene_1
 ###################################################
-library(TxDb.Hsapiens.UCSC.hg19.knownGene)
-txdb <- TxDb.Hsapiens.UCSC.hg19.knownGene
+library(TxDb.Hsapiens.UCSC.hg38.knownGene)
+txdb <- TxDb.Hsapiens.UCSC.hg38.knownGene
 txdb
 
 
 ###################################################
-### code chunk number 23: TxDb.Hsapiens.UCSC.hg19.knownGene_2
+### code chunk number 23: TxDb.Hsapiens.UCSC.hg38.knownGene_2
 ###################################################
 transcripts(txdb)
 
@@ -184,7 +184,7 @@ transcripts(txdb)
 ###################################################
 ### code chunk number 24: makeTxDbFromBiomart_1 (eval = FALSE)
 ###################################################
-## library(GenomicFeatures)
+## library(txdbmaker)
 ## ### Internet connection required! Can take several minutes...
 ## txdb <- makeTxDbFromBiomart(biomart="ensembl",
 ##                             dataset="hsapiens_gene_ensembl")
@@ -207,9 +207,9 @@ exons(txdb)
 ###################################################
 ### code chunk number 27: makeTxDbFromGFF_1
 ###################################################
-library(GenomicFeatures)
+library(txdbmaker)
 gff_file <- system.file("extdata", "GFF3_files", "a.gff3",
-                        package="GenomicFeatures")
+                        package="txdbmaker")
 txdb <- makeTxDbFromGFF(gff_file, format="gff3")
 txdb
 
@@ -338,8 +338,8 @@ trak2 <- "66008"
 ###################################################
 ### code chunk number 44: trak_2
 ###################################################
-library(TxDb.Hsapiens.UCSC.hg19.knownGene)
-txdb <- TxDb.Hsapiens.UCSC.hg19.knownGene
+library(TxDb.Hsapiens.UCSC.hg38.knownGene)
+txdb <- TxDb.Hsapiens.UCSC.hg38.knownGene
 
 
 ###################################################
@@ -374,7 +374,7 @@ elementNROWS(trak2_inbytx)
 ###################################################
 ### code chunk number 49: trak_8
 ###################################################
-library(BSgenome.Hsapiens.UCSC.hg19)
+library(BSgenome.Hsapiens.UCSC.hg38)
 
 
 ###################################################
@@ -424,8 +424,8 @@ head(crgenes)
 ###################################################
 ### code chunk number 55: cancer_4
 ###################################################
-library(TxDb.Hsapiens.UCSC.hg19.knownGene)
-txdb <- TxDb.Hsapiens.UCSC.hg19.knownGene
+library(TxDb.Hsapiens.UCSC.hg38.knownGene)
+txdb <- TxDb.Hsapiens.UCSC.hg38.knownGene
 
 
 ###################################################
@@ -471,8 +471,8 @@ cds
 ###################################################
 ### code chunk number 61: cancer_10
 ###################################################
-library(BSgenome.Hsapiens.UCSC.hg19)
-genome <- BSgenome.Hsapiens.UCSC.hg19
+library(BSgenome.Hsapiens.UCSC.hg38)
+genome <- BSgenome.Hsapiens.UCSC.hg38
 
 
 ###################################################

@@ -12,9 +12,9 @@
 <div style="text-align: center;">
 <a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
 <a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
-</div><h2>Documentation for package &lsquo;epiR&rsquo; version 2.0.62</h2>
+</div><h2>Documentation for package &lsquo;epiR&rsquo; version 2.0.96</h2>
 
-<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+<ul><li><a href="../DESCRIPTION" type="text/plain; charset=utf-8">DESCRIPTION file</a>.</li>
 <li><a href="../doc/index.html">User guides, package vignettes and other documentation.</a></li>
 <li><a href="../NEWS">Package NEWS</a>.</li>
 </ul>
@@ -71,6 +71,10 @@
 <td>Empirical Bayes estimates of observed event counts</td></tr>
 <tr><td style="width: 25%;"><a href="epi.epidural.html">epi.epidural</a></td>
 <td>Rates of use of epidural anaesthesia in trials of caregiver support</td></tr>
+<tr><td style="width: 25%;"><a href="epi.evalue.html">epi.evalue</a></td>
+<td>Compute E-value for risk, rate, odds and hazard ratio estimates</td></tr>
+<tr><td style="width: 25%;"><a href="epi.fpos.html">epi.fpos</a></td>
+<td>Calculate the expected number of false positive and false negative test results</td></tr>
 <tr><td style="width: 25%;"><a href="epi.herdtest.html">epi.herdtest</a></td>
 <td>Estimate the characteristics of diagnostic tests applied at the herd (group) level</td></tr>
 <tr><td style="width: 25%;"><a href="epi.incin.html">epi.incin</a></td>
@@ -87,10 +91,12 @@
 <td>Kappa statistic</td></tr>
 <tr><td style="width: 25%;"><a href="epi.ltd.html">epi.ltd</a></td>
 <td>Lactation to date and standard lactation milk yields</td></tr>
+<tr><td style="width: 25%;"><a href="epi.mbf.html">epi.mbf</a></td>
+<td>Minimum Bayes Factor using the Goodman or Sellke et al. method.</td></tr>
 <tr><td style="width: 25%;"><a href="epi.mh.html">epi.mh</a></td>
 <td>Fixed-effects meta-analysis of binary outcomes using the Mantel-Haenszel method</td></tr>
 <tr><td style="width: 25%;"><a href="epi.nomogram.html">epi.nomogram</a></td>
-<td>Post-test probability of disease given sensitivity and specificity of a test</td></tr>
+<td>Post-test probability of an outcome given diagnostic test sensitivity and specificity</td></tr>
 <tr><td style="width: 25%;"><a href="epi.occc.html">epi.occc</a></td>
 <td>Overall concordance correlation coefficient (OCCC)</td></tr>
 <tr><td style="width: 25%;"><a href="epi.offset.html">epi.offset</a></td>
@@ -102,7 +108,7 @@
 <tr><td style="width: 25%;"><a href="epi.prcc.html">epi.prcc</a></td>
 <td>Partial rank correlation coefficients</td></tr>
 <tr><td style="width: 25%;"><a href="epi.prev.html">epi.prev</a></td>
-<td>Estimate true prevalence and the expected number of false positives</td></tr>
+<td>Estimate true prevalence based on test data and the expected number of false positive and false negative test results</td></tr>
 <tr><td style="width: 25%;"><a href="epi.psi.html">epi.psi</a></td>
 <td>Proportional similarity index</td></tr>
 <tr><td style="width: 25%;"><a href="epi.realrisk.html">epi.realrisk</a></td>
@@ -114,7 +120,7 @@
 <tr><td style="width: 25%;"><a href="epi.smd.html">epi.smd</a></td>
 <td>Fixed-effects meta-analysis of continuous outcomes using the standardised mean difference method</td></tr>
 <tr><td style="width: 25%;"><a href="epi.smr.html">epi.smr</a></td>
-<td>Confidence intervals and tests of significance of the standardised mortality [morbidity] ratio</td></tr>
+<td>Confidence intervals and tests of statistical significance of the standardised mortality [morbidity] ratio</td></tr>
 <tr><td style="width: 25%;"><a href="epi.sscc.html">epi.sscc</a></td>
 <td>Sample size, power or minimum detectable odds ratio for an unmatched or matched case-control study</td></tr>
 <tr><td style="width: 25%;"><a href="epi.ssclus1estb.html">epi.ssclus1estb</a></td>
@@ -130,11 +136,11 @@
 <tr><td style="width: 25%;"><a href="epi.sscohortt.html">epi.sscohortt</a></td>
 <td>Sample size, power or minimum detectable incidence rate ratio for a cohort study using person or animal time data</td></tr>
 <tr><td style="width: 25%;"><a href="epi.sscompb.html">epi.sscompb</a></td>
-<td>Sample size, power and minimum detectable risk ratio when comparing binary outcomes</td></tr>
+<td>Sample size and power when comparing binary outcomes</td></tr>
 <tr><td style="width: 25%;"><a href="epi.sscompc.html">epi.sscompc</a></td>
-<td>Sample size, power and minimum detectable difference when comparing continuous outcomes</td></tr>
+<td>Sample size and power when comparing continuous outcomes</td></tr>
 <tr><td style="width: 25%;"><a href="epi.sscomps.html">epi.sscomps</a></td>
-<td>Sample size, power and minimum detectable hazard when comparing time to event</td></tr>
+<td>Sample size and power when comparing time to event</td></tr>
 <tr><td style="width: 25%;"><a href="epi.ssdetect.html">epi.ssdetect</a></td>
 <td>Sample size to detect an event</td></tr>
 <tr><td style="width: 25%;"><a href="epi.ssdxsesp.html">epi.ssdxsesp</a></td>
@@ -142,9 +148,9 @@
 <tr><td style="width: 25%;"><a href="epi.ssdxtest.html">epi.ssdxtest</a></td>
 <td>Sample size to validate a diagnostic test in the absence of a gold standard</td></tr>
 <tr><td style="width: 25%;"><a href="epi.ssequb.html">epi.ssequb</a></td>
-<td>Sample size for a parallel equivalence trial, binary outcome</td></tr>
+<td>Sample size for a parallel equivalence or equality trial, binary outcome</td></tr>
 <tr><td style="width: 25%;"><a href="epi.ssequc.html">epi.ssequc</a></td>
-<td>Sample size for a parallel equivalence trial, continuous outcome</td></tr>
+<td>Sample size for a parallel equivalence or equality trial, continuous outcome</td></tr>
 <tr><td style="width: 25%;"><a href="epi.ssninfb.html">epi.ssninfb</a></td>
 <td>Sample size for a non-inferiority trial, binary outcome</td></tr>
 <tr><td style="width: 25%;"><a href="epi.ssninfc.html">epi.ssninfc</a></td>

@@ -13,10 +13,6 @@
 #ifndef __BOOST_SORT_COMMON_UTIL_INSERT_HPP
 #define __BOOST_SORT_COMMON_UTIL_INSERT_HPP
 
-//#include <boost/sort/spinsort/util/indirect.hpp>
-#include <boost/sort/common/util/insert.hpp>
-#include <boost/sort/common/util/traits.hpp>
-#include <boost/sort/common/util/algorithm.hpp>
 #include <cstdlib>
 #include <functional>
 #include <iterator>
@@ -24,6 +20,8 @@
 #include <type_traits>
 #include <vector>
 #include <cstddef>
+#include <boost/sort/common/util/traits.hpp>
+#include <boost/sort/common/util/algorithm.hpp>
 
 namespace boost
 {
@@ -91,8 +89,8 @@ static void insert_sorted(Iter1_t first, Iter1_t mid, Iter1_t last,
         mv_first = std::upper_bound(first, mv_last, it_aux[i - 1], comp);
         Iter1_t it1 = here::move_backward(mv_last + i, mv_first, mv_last);
         *(it1 - 1) = std::move(it_aux[i - 1]);
-    };
-};
+    }
+}
 
 template<class Iter1_t, class Iter2_t, typename Compare>
 static void insert_sorted_backward(Iter1_t first, Iter1_t mid, Iter1_t last,
@@ -128,15 +126,15 @@ static void insert_sorted_backward(Iter1_t first, Iter1_t mid, Iter1_t last,
         mv_last = std::lower_bound(mv_first, last, it_aux[i], comp);
         Iter1_t it1 = move_forward(mv_first - (ndata - i), mv_first, mv_last);
         *(it1) = std::move(it_aux[i]);
-    };
+    }
 
-};
+}
 //
 //****************************************************************************
-};//    End namespace util
-};//    End namepspace common
-};//    End namespace sort
-};//    End namepspace boost
+} //    End namespace util
+} //    End namepspace common
+} //    End namespace sort
+} //    End namepspace boost
 //****************************************************************************
 //
 #endif

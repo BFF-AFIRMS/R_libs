@@ -11,6 +11,7 @@
 #define BOOST_PROCESS_v2_START_DIR_HPP
 
 #include <boost/process/v2/detail/config.hpp>
+#include <boost/process/v2/detail/last_error.hpp>
 #include <boost/process/v2/default_launcher.hpp>
 
 BOOST_PROCESS_V2_BEGIN_NAMESPACE
@@ -33,7 +34,7 @@ struct process_start_dir
   };
 
 #else
-  error_code on_exec_setup(posix::default_launcher & launcher, 
+  error_code on_exec_setup(posix::default_launcher & /*launcher*/,
                            const filesystem::path &, const char * const *)
   {
     if (::chdir(start_dir.c_str()) == -1)

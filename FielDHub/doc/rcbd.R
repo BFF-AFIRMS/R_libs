@@ -7,11 +7,11 @@ knitr::opts_chunk$set(
 )
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  FielDHub::run_app()
+# FielDHub::run_app()
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  library(FielDHub)
-#  run_app()
+# library(FielDHub)
+# run_app()
 
 ## ----include=FALSE------------------------------------------------------------
 TREATMENT <- c(paste0("TRT_", LETTERS[1:10]))
@@ -35,14 +35,14 @@ rcbd <- RCBD(
 )
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
-#  print(rcbd)
+# print(rcbd)
 
 ## ----echo=FALSE, eval=TRUE----------------------------------------------------
 print(rcbd)
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
-#  field_book <- rcbd$fieldBook
-#  head(rcbd$fieldBook, 10)
+# field_book <- rcbd$fieldBook
+# head(rcbd$fieldBook, 10)
 
 ## ----echo=FALSE, eval=TRUE----------------------------------------------------
 field_book <- rcbd$fieldBook

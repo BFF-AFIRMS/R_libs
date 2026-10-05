@@ -9,10 +9,14 @@ compact_list            Remove empty elements from lists
 display                 Generic export of data frames into formatted
                         tables
 download_model          Download circus models
+easystats_columns       Easystats columns
+efc_insight             Sample dataset from the EFC Survey
 ellipsis_info           Gather information about objects in ellipsis
                         (dot dot dot)
 export_table            Data frame and Tables Pretty Formatting
 find_algorithm          Find sampling algorithm and optimizers
+find_auxiliary          Find auxiliary (distributional) parameters from
+                        models
 find_formula            Find model formula
 find_interactions       Find interaction terms from models
 find_offset             Find possible offset terms in a model
@@ -44,11 +48,10 @@ find_response           Find name of the response variable
 find_smooth             Find smooth terms from a model object
 find_statistic          Find statistic for model
 find_terms              Find all model terms
-find_transformation     Find possible transformation of response
-                        variables
+find_transformation     Find possible transformation of model variables
 find_variables          Find names of all variables
 find_weights            Find names of model weights
-fish                    Sample data set
+fish                    Sample data set for count models
 format_bf               Bayes Factor formatting
 format_capitalize       Capitalizes the first letter in a string
 format_ci               Confidence/Credible Interval (CI) Formatting
@@ -64,11 +67,15 @@ get_auxiliary           Get auxiliary parameters from models
 get_call                Get the model's function call
 get_data                Get the data that was used to fit the model
 get_datagrid            Create a reference grid
+get_datagrid.emmGrid    Extract a reference grid from objects created
+                        by '{emmeans}' and '{marginaleffects}'
 get_deviance            Model Deviance
 get_df                  Extract degrees of freedom
 get_family              A robust alternative to stats::family
 get_intercept           Get the value at the intercept
-get_loglikelihood       Log-Likelihood
+get_loglikelihood       Log-Likelihood and Log-Likelihood correction
+get_mixed_info          Extract various information from mixed models
+get_model               Get a model objects that is saved as attribute
 get_modelmatrix         Model Matrix
 get_parameters          Get model parameters
 get_parameters.betamfx
@@ -83,7 +90,8 @@ get_parameters.emmGrid
                         means objects
 get_parameters.gamm     Get model parameters from generalized additive
                         models
-get_parameters.glmm     Get model parameters from mixed models
+get_parameters.glmmTMB
+                        Get model parameters from mixed models
 get_parameters.htest    Get model parameters from htest-objects
 get_parameters.zeroinfl
                         Get model parameters from zero-inflated and
@@ -97,6 +105,7 @@ get_random              Get the data from random effects
 get_residuals           Extract model residuals
 get_response            Get the values from the response variable
 get_sigma               Get residual standard deviation from models
+get_simulated           Simulate values from fitted models
 get_statistic           Get statistic associated with estimates
 get_transformation      Return function of transformed response
                         variables
@@ -105,6 +114,8 @@ get_variance            Get variance components from random effects
                         models
 get_weights             Get the values from model weights
 has_intercept           Checks if model has an intercept
+insight-options         Global options from the insight package
+is_bayesian_model       Checks if a model is a Bayesian model
 is_converged            Convergence test for mixed effects models
 is_empty_object         Check if object is empty
 is_gam_model            Checks if a model is a generalized additive
@@ -113,7 +124,7 @@ is_mixed_model          Checks if a model is a mixed effects model
 is_model                Checks if an object is a regression model or
                         statistical test object
 is_model_supported      Checks if a regression model object is
-                        supported in 'insight' package
+                        supported by the insight package
 is_multivariate         Checks if an object stems from a multivariate
                         response model
 is_nested_models        Checks whether a list of models are nested
@@ -139,3 +150,7 @@ standardize_column_order
 standardize_names       Standardize column names
 text_remove_backticks   Remove backticks from a string
 trim_ws                 Small helper functions
+validate_argument       Validate arguments against a given set of
+                        options
+vcovFPC                 Obtain finite-population-adjusted
+                        variance-covariance matrix

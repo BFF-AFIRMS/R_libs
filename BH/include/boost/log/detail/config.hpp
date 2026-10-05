@@ -17,10 +17,8 @@
 #ifndef BOOST_LOG_DETAIL_CONFIG_HPP_INCLUDED_
 #define BOOST_LOG_DETAIL_CONFIG_HPP_INCLUDED_
 
-#include <boost/predef/os.h>
-
 // Try including WinAPI config as soon as possible so that any other headers don't include Windows SDK headers
-#if defined(BOOST_OS_WINDOWS_AVAILABLE)
+#if defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(__TOS_WIN__) || defined(__WINDOWS__)
 #include <boost/winapi/config.hpp>
 #endif
 
@@ -34,10 +32,6 @@
 
 #if defined(_MSC_VER) && _MSC_VER >= 1600
 #   define BOOST_LOG_HAS_PRAGMA_DETECT_MISMATCH
-#endif
-
-#if defined(BOOST_LOG_HAS_PRAGMA_DETECT_MISMATCH)
-#include <boost/preprocessor/stringize.hpp>
 #endif
 
 #if !defined(BOOST_WINDOWS)
@@ -98,18 +92,20 @@
 #   define BOOST_LOG_BROKEN_CONSTANT_EXPRESSIONS
 #endif
 
-#if (defined(BOOST_NO_CXX11_HDR_CODECVT) && BOOST_CXX_VERSION < 201703) || (defined(_MSVC_STL_VERSION) && _MSVC_STL_VERSION < 142)
+#if (defined(BOOST_NO_CXX11_HDR_CODECVT) && BOOST_CXX_VERSION < 201703) || (BOOST_CXX_VERSION >= 202002) || \
+    (defined(_MSVC_STL_VERSION) && _MSVC_STL_VERSION < 142)
     // The compiler does not support std::codecvt<char16_t> and std::codecvt<char32_t> specializations.
     // The BOOST_NO_CXX11_HDR_CODECVT means there's no usable <codecvt>, which is slightly different from this macro.
     // But in order for <codecvt> to be implemented the std::codecvt specializations have to be implemented as well.
     // We need to check the C++ version as well, since <codecvt> is deprecated from C++17 onwards which may cause
     // BOOST_NO_CXX11_HDR_CODECVT to be set, even though std::codecvt in <locale> is just fine.
+    // The std::codecvt<char16_t> and std::codecvt<char32_t> specializations were eventually deprecated in C++20.
 #   define BOOST_LOG_NO_CXX11_CODECVT_FACETS
 #endif
 
-#if defined(__CYGWIN__)
+#if defined(__CYGWIN__) && !defined(BOOST_LOG_WITHOUT_ASIO)
     // Boost.ASIO is broken on Cygwin
-#   define BOOST_LOG_NO_ASIO
+#   define BOOST_LOG_WITHOUT_ASIO
 #endif
 
 #if defined(__VXWORKS__)
@@ -119,13 +115,13 @@
 #   include <vsbConfig.h>
 #endif
 
-#if (!defined(__CRYSTAX__) && defined(__ANDROID__) && (__ANDROID_API__ < 21)) \
-     || (defined(__VXWORKS__) && !defined(_WRS_CONFIG_USER_MANAGEMENT))
+#if (!defined(__CRYSTAX__) && defined(__ANDROID__) && (__ANDROID_API__ < 21)) || \
+     (defined(__VXWORKS__) && !defined(_WRS_CONFIG_USER_MANAGEMENT))
 // Until Android API version 21 Google NDK does not provide getpwuid_r
 #    define BOOST_LOG_NO_GETPWUID_R
 #endif
 
-#if !defined(BOOST_LOG_USE_NATIVE_SYSLOG) && defined(BOOST_LOG_NO_ASIO)
+#if !defined(BOOST_LOG_USE_NATIVE_SYSLOG) && defined(BOOST_LOG_WITHOUT_ASIO)
 #   ifndef BOOST_LOG_WITHOUT_SYSLOG
 #       define BOOST_LOG_WITHOUT_SYSLOG
 #   endif
@@ -414,7 +410,7 @@ namespace log {}
 #endif // !defined(BOOST_LOG_DOXYGEN_PASS)
 
 #if defined(BOOST_LOG_HAS_PRAGMA_DETECT_MISMATCH)
-#pragma detect_mismatch("boost_log_abi", BOOST_PP_STRINGIZE(BOOST_LOG_VERSION_NAMESPACE))
+#pragma detect_mismatch("boost_log_abi", BOOST_STRINGIZE(BOOST_LOG_VERSION_NAMESPACE))
 #endif
 
 } // namespace boost

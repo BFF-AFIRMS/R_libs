@@ -68,6 +68,7 @@ as.data.frame,List-method	List-class
 as.data.frame,Pairs-method	Pairs-class
 as.data.frame,Rle-method	Rle-class
 as.data.frame,Vector-method	Vector-class
+as.data.frame.DataFrame	DataFrame-class
 as.data.frame.Hits	Hits-class
 as.data.frame.Vector	Vector-class
 as.double,Vector-method	Vector-class
@@ -364,8 +365,8 @@ getListElement,DataFrame-method	DataFrame-class
 getListElement,List-method	List-class
 getListElement,list-method	subsetting-utils
 getListElement,TransposedDataFrame-method	TransposedDataFrame-class
-get_showHeadLines	S4Vectors-internals
-get_showTailLines	S4Vectors-internals
+get_showHeadLines	show-utils
+get_showTailLines	show-utils
 gsub,ANY,ANY,Rle-method	Rle-utils
 head	Vector-class
 head,RectangularData-method	RectangularData-class
@@ -470,6 +471,8 @@ matchIntegerPairs	integer-utils
 matchIntegerQuads	integer-utils
 Math,Rle-method	Rle-utils
 Math2,Rle-method	Rle-utils
+max,NSBS-method	subsetting-utils
+max,RangeNSBS-method	subsetting-utils
 mcols	Vector-class
 mcols,Vector-method	Vector-class
 mcols<-	Vector-class
@@ -530,7 +533,7 @@ nrow,TransposedDataFrame-method	TransposedDataFrame-class
 nrun	Rle-class
 nrun,Rle-method	Rle-class
 NSBS	subsetting-utils
-NSBS,array-method	subsetting-utils
+NSBS,ANY-method	subsetting-utils
 NSBS,character-method	subsetting-utils
 NSBS,factor-method	subsetting-utils
 NSBS,logical-method	subsetting-utils
@@ -580,7 +583,7 @@ pmax.int,Rle-method	Rle-utils
 pmin,Rle-method	Rle-utils
 pmin.int,Rle-method	Rle-utils
 Position,List-method	List-utils
-printAtomicVectorInAGrid	S4Vectors-internals
+printAtomicVectorInAGrid	show-utils
 quantile,Rle-method	Rle-utils
 quantile.Rle	Rle-utils
 queryHits	Hits-class
@@ -699,6 +702,8 @@ setListElement,List-method	List-class
 setListElement,list-method	subsetting-utils
 setMethods	S4Vectors-internals
 setValidity2	S4Vectors-internals
+set_showHeadLines	show-utils
+set_showTailLines	show-utils
 shiftApply	shiftApply-methods
 shiftApply,Vector,Vector-method	shiftApply-methods
 shiftApply,vector,vector-method	shiftApply-methods
@@ -727,6 +732,8 @@ showAsCell,List-method	List-class
 showAsCell,list-method	show-utils
 showAsCell,LLint-method	LLint-class
 showAsCell,numeric-method	show-utils
+showHeadLines	show-utils
+showTailLines	show-utils
 SimpleList	SimpleList-class
 SimpleList-class	SimpleList-class
 smoothEnds,Rle-method	Rle-runstat

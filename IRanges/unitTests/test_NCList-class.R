@@ -191,6 +191,27 @@ test_findOverlaps_NCList <- function()
     }
 }
 
+## FWIW the BiocPy equivalent of 'query' and 'subject' used in the test below
+## can be obtained with:
+##   from iranges import IRanges
+##   query = IRanges([1 for i in range(400001)], width=range(400001))
+##   subject = IRanges([790000-i for i in range(400001)], width=range(400001))
+## To find the overlaps (and time the operation):
+##   import time
+##   t0 = time.time(); res = subject.find_overlaps(query); time.time() - t0
+test_findOverlaps_NCList_deeply_nested <- function()
+{
+    query <- IRanges(start=1, width=0:400000)
+    subject <- IRanges(end=789999, width=0:400000)
+    ## Don't try to call NCList() on 'query' or 'subject'. It fails at
+    ## the moment with error: NCList object is too deep!
+    current <- findOverlaps(query, subject)
+    checkTrue(is(current, "Hits"))
+    checkTrue(length(current) == 50015001)
+    checkIdentical(queryHits(current), rep.int(390001:400001, 1:10001))
+    checkIdentical(subjectHits(current), sequence(0:10001, from=400001, by=-1))
+}
+
 test_findOverlaps_NCList_with_filtering <- function()
 {
     query <- IRanges(-3:7, width=3)

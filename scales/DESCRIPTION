@@ -1,32 +1,38 @@
 Package: scales
 Title: Scale Functions for Visualization
-Version: 1.2.1
+Version: 1.4.0
 Authors@R: c(
-    person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
+    person("Hadley", "Wickham", , "hadley@posit.co", role = "aut"),
+    person("Thomas Lin", "Pedersen", , "thomas.pedersen@posit.co", role = c("cre", "aut"),
+           comment = c(ORCID = "0000-0002-5147-4711")),
     person("Dana", "Seidel", role = "aut"),
-    person("RStudio", role = c("cph", "fnd"))
+    person("Posit Software, PBC", role = c("cph", "fnd"),
+           comment = c(ROR = "03wc8by49"))
   )
 Description: Graphical scales map data to aesthetics, and provide methods
     for automatically determining breaks and labels for axes and legends.
 License: MIT + file LICENSE
 URL: https://scales.r-lib.org, https://github.com/r-lib/scales
 BugReports: https://github.com/r-lib/scales/issues
-Depends: R (>= 3.2)
-Imports: farver (>= 2.0.3), labeling, lifecycle, munsell (>= 0.5), R6,
-        RColorBrewer, rlang (>= 1.0.0), viridisLite
+Depends: R (>= 4.1)
+Imports: cli, farver (>= 2.0.3), glue, labeling, lifecycle, R6,
+        RColorBrewer, rlang (>= 1.1.0), viridisLite
 Suggests: bit64, covr, dichromat, ggplot2, hms (>= 0.5.0), stringi,
-        testthat (>= 3.0.0), waldo (>= 0.4.0)
+        testthat (>= 3.0.0)
 Config/Needs/website: tidyverse/tidytemplate
+Config/testthat/edition: 3
+Config/usethis/last-upkeep: 2025-04-23
 Encoding: UTF-8
 LazyLoad: yes
-RoxygenNote: 7.2.1
-Config/testthat/edition: 3
+RoxygenNote: 7.3.2
 NeedsCompilation: no
-Packaged: 2022-08-19 15:35:49 UTC; hadleywickham
-Author: Hadley Wickham [aut, cre],
+Packaged: 2025-04-23 18:27:04 UTC; thomas
+Author: Hadley Wickham [aut],
+  Thomas Lin Pedersen [cre, aut]
+    (<https://orcid.org/0000-0002-5147-4711>),
   Dana Seidel [aut],
-  RStudio [cph, fnd]
-Maintainer: Hadley Wickham <hadley@rstudio.com>
+  Posit Software, PBC [cph, fnd] (03wc8by49)
+Maintainer: Thomas Lin Pedersen <thomas.pedersen@posit.co>
 Repository: CRAN
-Date/Publication: 2022-08-20 00:10:11 UTC
-Built: R 4.3.0; ; 2023-07-07 03:09:04 UTC; unix
+Date/Publication: 2025-04-24 11:00:02 UTC
+Built: R 4.5.0; ; 2026-09-01 21:06:50 UTC; unix

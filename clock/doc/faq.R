@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -13,8 +13,10 @@ x <- year_month_day(2019, 1, 5)
 
 add_months(x, 1)
 
-## ---- error=TRUE--------------------------------------------------------------
+## ----error=TRUE---------------------------------------------------------------
+try({
 add_days(x, 1)
+})
 
 ## -----------------------------------------------------------------------------
 x %>%
@@ -47,10 +49,12 @@ odd_dates %>%
 x <- zoned_time_parse_complete("1970-04-26T01:30:00-05:00[America/New_York]")
 x
 
-## ---- error=TRUE--------------------------------------------------------------
+## ----error=TRUE---------------------------------------------------------------
+try({
 add_days(x, 1)
 
 add_seconds(x, 1)
+})
 
 ## -----------------------------------------------------------------------------
 x
@@ -74,7 +78,8 @@ x %>%
   add_seconds(1) %>%
   as_zoned_time(zoned_time_zone(x))
 
-## ---- error=TRUE--------------------------------------------------------------
+## ----error=TRUE---------------------------------------------------------------
+try({
 # There is a DST gap 1 second after 01:59:59,
 # which jumps us straight to 03:00:00,
 # skipping the 2 o'clock hour entirely
@@ -88,6 +93,7 @@ x %>%
   as_sys_time() %>%
   add_minutes(30) %>%
   as_zoned_time(zoned_time_zone(x))
+})
 
 ## -----------------------------------------------------------------------------
 x
@@ -183,7 +189,7 @@ utc
 
 as.Date(utc, tz = date_time_zone(utc))
 
-## ---- warning=TRUE------------------------------------------------------------
+## ----warning=TRUE-------------------------------------------------------------
 raw <- c(
   "2015-12-31T23:59:59", 
   "2015-12-31T23:59:60", # A real leap second!
@@ -211,12 +217,12 @@ as.POSIXct(x)
 # 2016-12-31 wasn't a leap second date, but it still tries to parse this fake time
 strptime("2016-12-31T23:59:60", format = "%Y-%m-%dT%H:%M:%S", tz = "UTC")
 
-## ---- eval=FALSE--------------------------------------------------------------
-#  library(data.table)
-#  
-#  data.table(x = year_month_day(2019, 1, 1))
-#  #> Error in dimnames(x) <- dn :
-#  #>   length of 'dimnames' [1] not equal to array extent
+## ----eval=FALSE---------------------------------------------------------------
+# library(data.table)
+# 
+# data.table(x = year_month_day(2019, 1, 1))
+# #> Error in dimnames(x) <- dn :
+# #>   length of 'dimnames' [1] not equal to array extent
 
 ## -----------------------------------------------------------------------------
 ymdh <- year_month_day(2019, 1, 1:2, 1)
@@ -234,11 +240,11 @@ unclass(x)
 # POSIXlt is a record type
 unclass(as.POSIXlt(x))
 
-## ---- eval=FALSE--------------------------------------------------------------
-#  data.table(x = as.POSIXlt("2019-01-01", "America/New_York"))
-#  #>             x
-#  #> 1: 2019-01-01
-#  #> Warning message:
-#  #> In as.data.table.list(x, keep.rownames = keep.rownames, check.names = check.names,  :
-#  #>   POSIXlt column type detected and converted to POSIXct. We do not recommend use of POSIXlt at all because it uses 40 bytes to store one date.
+## ----eval=FALSE---------------------------------------------------------------
+# data.table(x = as.POSIXlt("2019-01-01", "America/New_York"))
+# #>             x
+# #> 1: 2019-01-01
+# #> Warning message:
+# #> In as.data.table.list(x, keep.rownames = keep.rownames, check.names = check.names,  :
+# #>   POSIXlt column type detected and converted to POSIXct. We do not recommend use of POSIXlt at all because it uses 40 bytes to store one date.
 

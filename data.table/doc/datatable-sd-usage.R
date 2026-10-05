@@ -1,4 +1,29 @@
-## ---- echo = FALSE, message = FALSE---------------------------------------------------------------
+## ----echo=FALSE, file='_translation_links.R'------------------------------------------------------
+# build a link list of alternative languages (may be character(0))
+# idea is to look like 'Other languages: en | fr | de'
+.write.translation.links <- function(fmt) {
+    url = "https://rdatatable.gitlab.io/data.table/articles"
+    path = dirname(knitr::current_input(TRUE))
+    if (basename(path) == "vignettes") {
+      lang = "en"
+    } else {
+      lang = basename(path)
+      path = dirname(path)
+    }
+    translation = dir(path,
+      recursive = TRUE,
+      pattern = glob2rx(knitr::current_input(FALSE))
+    )
+    transl_lang = ifelse(dirname(translation) == ".", "en", dirname(translation))
+    block = if (!all(transl_lang == lang)) {
+      linked_transl = sprintf("[%s](%s)", transl_lang, file.path(url, sub("(?i)\\.Rmd$", ".html", translation)))
+      linked_transl[transl_lang == lang] = lang
+      sprintf(fmt, paste(linked_transl, collapse = " | "))
+    } else ""
+    knitr::asis_output(block)
+}
+
+## ----echo = FALSE, message = FALSE----------------------------------------------------------------
 require(data.table)
 knitr::opts_chunk$set(
   comment = "#",
@@ -9,6 +34,7 @@ knitr::opts_chunk$set(
   out.width = '100%',
   dpi = 144
 )
+.old.th = setDTthreads(1)
 
 ## ----download_lahman------------------------------------------------------------------------------
 load('Teams.RData')
@@ -35,36 +61,24 @@ Pitching[ , .SD, .SDcols = c('W', 'L', 'G')]
 # teamIDretro: Team ID used by Retrosheet
 fkt = c('teamIDBR', 'teamIDlahman45', 'teamIDretro')
 # confirm that they're stored as `character`
-Teams[ , sapply(.SD, is.character), .SDcols = fkt]
-
-## ----identify_factors_as_df-----------------------------------------------------------------------
-setDF(Teams) # convert to data.frame for illustration
-sapply(Teams[ , fkt], is.character)
-setDT(Teams) # convert back to data.table
+str(Teams[ , ..fkt])
 
 ## ----assign_factors-------------------------------------------------------------------------------
-Teams[ , (fkt) := lapply(.SD, factor), .SDcols = fkt]
+Teams[ , names(.SD) := lapply(.SD, factor), .SDcols = patterns('teamID')]
 # print out the first column to demonstrate success
 head(unique(Teams[[fkt[1L]]]))
 
 ## ----sd_as_logical--------------------------------------------------------------------------------
-# while .SDcols accepts a logical vector,
-#   := does not, so we need to convert to column
-#   positions with which()
-fkt_idx = which(sapply(Teams, is.factor))
-Teams[ , (fkt_idx) := lapply(.SD, as.character), .SDcols = fkt_idx]
-head(unique(Teams[[fkt_idx[1L]]]))
+fct_idx = Teams[, which(sapply(.SD, is.factor))] # column numbers to show the class changing
+str(Teams[[fct_idx[1L]]])
+Teams[ , names(.SD) := lapply(.SD, as.character), .SDcols = is.factor]
+str(Teams[[fct_idx[1L]]])
 
 ## ----sd_patterns----------------------------------------------------------------------------------
 Teams[ , .SD, .SDcols = patterns('team')]
+Teams[ , names(.SD) := lapply(.SD, factor), .SDcols = patterns('team')]
 
-# now convert these columns to factor;
-#   value = TRUE in grep() is for the LHS of := to
-#   get column names instead of positions
-team_idx = grep('team', names(Teams), value = TRUE)
-Teams[ , (team_idx) := lapply(.SD, factor), .SDcols = team_idx]
-
-## ----sd_for_lm, cache = FALSE---------------------------------------------------------------------
+## ----sd_for_lm, cache = FALSE, fig.cap="Fit OLS coefficient on W, various specifications, depicted as bars with distinct colors."----
 # this generates a list of the 2^k possible extra variables
 #   for models of the form ERA ~ G + (...)
 extra_var = c('yearID', 'teamID', 'G', 'L')
@@ -90,7 +104,7 @@ lm_coef = sapply(models, function(rhs) {
 })
 barplot(lm_coef, names.arg = sapply(models, paste, collapse = '/'),
         main = 'Wins Coefficient\nWith Various Covariates',
-        col = col16, las = 2L, cex.names = .8)
+        col = col16, las = 2L, cex.names = 0.8)
 
 ## ----conditional_join-----------------------------------------------------------------------------
 # to exclude pitchers with exceptional performance in a few games,
@@ -100,9 +114,6 @@ Pitching[G > 5, rank_in_team := frank(ERA), by = .(teamID, yearID)]
 Pitching[rank_in_team == 1, team_performance :=
            Teams[.SD, Rank, on = c('teamID', 'yearID')]]
 
-## ----grouping_png, fig.cap = "Grouping, Illustrated", echo = FALSE--------------------------------
-knitr::include_graphics('plots/grouping_illustration.png')
-
 ## ----group_sd_last--------------------------------------------------------------------------------
 # the data is already sorted by year; if it weren't
 #   we could do Teams[order(yearID), .SD[.N], by = teamID]
@@ -111,7 +122,7 @@ Teams[ , .SD[.N], by = teamID]
 ## ----sd_team_best_year----------------------------------------------------------------------------
 Teams[ , .SD[which.max(R)], by = teamID]
 
-## ----group_lm, results = 'hide'-------------------------------------------------------------------
+## ----group_lm, results = 'hide', fig.cap="A histogram depicting the distribution of fitted coefficients. It is vaguely bell-shaped and concentrated around -.2"----
 # Overall coefficient for comparison
 overall_coef = Pitching[ , coef(lm(ERA ~ W))['W']]
 # use the .N > 20 filter to exclude teams with few observations
@@ -121,4 +132,7 @@ Pitching[ , if (.N > 20L) .(w_coef = coef(lm(ERA ~ W))['W']), by = teamID
                     ylab = 'Number of Teams', col = 'darkgreen',
                     main = 'Team-Level Distribution\nWin Coefficients on ERA')]
 abline(v = overall_coef, lty = 2L, col = 'red')
+
+## ----echo=FALSE-----------------------------------------------------------------------------------
+setDTthreads(.old.th)
 

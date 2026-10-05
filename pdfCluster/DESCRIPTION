@@ -28,4 +28,4 @@ Language: en-US
 Author: Menardi Giovanna [aut, cre],
   Azzalini Adelchi [aut],
   Rosolin Tiziana [ctb] (up to version 0.1-13)
-Built: R 4.3.0; x86_64-pc-linux-gnu; 2023-07-07 03:20:45 UTC; unix
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-01 21:18:21 UTC; unix

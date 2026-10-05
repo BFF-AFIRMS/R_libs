@@ -1,5 +1,33 @@
 # Changes to the earth package
 
+## 5.3.6 Aug 10, 2026
+
+  Updated some web addresses in the man pages.
+
+## 5.3.5 Dec 30, 2025
+
+  Updated some web addresses in the man pages.
+
+  We now use the t not the gaussian distribution for calculating certain variances
+  in earth variance models.  The differences should be very small.
+
+## 5.3.4  Oct 1, 2024
+
+   Fixed a bug in format.earth(style="bf") where mis-formatting
+   occurred for variables which enter the model without a hinge.
+
+   Update for R version 4.4.1: We now use allocLang in allowed.c instead of SET_TYPEOF.
+
+## 5.3.3  Feb 16, 2024
+
+    Updates for R version 4.3.2.
+    For example, had to change "sort.unique" to "sort_unique".
+
+    On leaps.f, changed "IF (NBEST .GT. 0)" to "IF (NBEST .GT. -1)" in subroutines
+    FORWRD and BAKWRD in order to match corresponding changes in the leaps package.
+
+    Removed dependency on possibly orphaned package TeachingDemos.
+
 ## 5.3.2  Jan 26, 2023
 
     Modified use of "bool" in the C code to conform to C23 (which predefines "bool").

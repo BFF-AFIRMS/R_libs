@@ -10,7 +10,7 @@ output:
     toc_depth: 2
 bibliography: refs.bib
 vignette: >
-  %\VignetteIndexEntry{The Problem of Spatial Autocorrelation:” forty years on}
+  %\VignetteIndexEntry{"The Problem of Spatial Autocorrelation:” forty years on}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 --- 
@@ -50,9 +50,9 @@ run <- require("sp", quiet=TRUE)
 
 ```{r echo=TRUE,eval=run,results='hide'}
 library(spdep)
-eire <- as(sf::st_read(system.file("shapes/eire.shp", package="spData")[1]), "Spatial")
+eire <- as(sf::st_read(system.file("shapes/eire.gpkg", package="spData")[1]), "Spatial")
 row.names(eire) <- as.character(eire$names)
-proj4string(eire) <- CRS("+proj=utm +zone=30 +ellps=airy +units=km")
+#proj4string(eire) <- CRS("+proj=utm +zone=30 +ellps=airy +units=km")
 ```
 ```{r echo=TRUE,eval=run}
 class(eire)
@@ -189,8 +189,8 @@ The missing link is between Clare and Kerry, perhaps by the
 Tarbert–Killimer ferry, but the counties are not contiguous, as Figure
 \[plot\_nb\] shows:
 
-```{r echo=TRUE,eval=run}
-xx <- diffnb(nb, lw_unstand$neighbours, verbose=TRUE)
+```{r echo=TRUE,eval=run,warning=FALSE}
+xx <- diffnb(nb, lw_unstand$neighbours, legacy=TRUE, verbose=TRUE)
 ```
 ```{r echo=TRUE,eval=FALSE,results='hide'}
 plot(eire_ge1, border="grey60")
@@ -238,7 +238,7 @@ load(system.file("etc/misc/raw_grass_borders_new.RData", package="spdep")[1])
 library(terra)
 v_eire_ge1 <-vect(eire_ge1)
 SG <- rasterize(v_eire_ge1, rast(nrows=70, ncols=50, extent=ext(v_eire_ge1)), field="county")
-library(rgrass7)
+library(rgrass)
 grass_home <- "/home/rsb/topics/grass/g820/grass82"
 initGRASS(grass_home, home=tempdir(), SG=SG, override=TRUE)
 write_VECT(v_eire_ge1, "eire", flags=c("o", "overwrite"))
@@ -657,7 +657,7 @@ to general does make a difference.
 print(formatC(res, format="f", digits=4), quote=FALSE)
 ```
 
-```{r results='asis',eval=run,echo=FALSE, fig.cap="Three contrasted spatial weights definitions"}
+```{r results='asis',eval=FALSE,echo=FALSE, fig.cap="Three contrasted spatial weights definitions"}
 pal <- grey.colors(9, 1, 0.5, 2.2)
 oopar <- par(mfrow=c(1,3), mar=c(1,1,3,1)+0.1)
 z <- t(listw2mat(nb_B))
@@ -679,7 +679,7 @@ par(oopar)
 \caption{Three contrasted spatial weights definitions.}
 \label{plot_wts}
 
-```{r results='asis',eval=run,echo=FALSE}
+```{r results='asis',eval=FALSE,echo=FALSE}
 eire_ge1$nb_B <- sapply(nb_B$weights, sum)
 eire_ge1$lw_unstand <- sapply(lw_unstand$weights, sum)
 library(lattice)

@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
 
 ## ----echo = FALSE-------------------------------------------------------------
 library(FielDHub)
-library(magrittr)
+library(dplyr)
 library(knitr)
 library(kableExtra)
 
@@ -35,11 +35,11 @@ print(B$optim_design)
 print(B$pairwise_distance)
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  FielDHub::run_app()
+# FielDHub::run_app()
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  library(FielDHub)
-#  run_app()
+# library(FielDHub)
+# run_app()
 
 ## ----include=FALSE------------------------------------------------------------
 ENTRY <- 1:10
@@ -47,8 +47,8 @@ NAME <- c(paste0("Genotype", 1:10))
 df <- data.frame(ENTRY,NAME)
 
 ## ----echo = FALSE, results='asis'---------------------------------------------
-df %>%
-  kbl() %>%
+df |>
+  kbl() |>
   kable_styling()
 
 ## ----echo = TRUE--------------------------------------------------------------
@@ -67,31 +67,31 @@ optim_multi_prep <- multi_location_prep(
 )
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
-#  print(head(optim_multi_prep$allocation, 10))
+# print(head(optim_multi_prep$allocation, 10))
 
 ## ----echo=FALSE, eval=TRUE----------------------------------------------------
 print(head(optim_multi_prep$allocation, 10))
 
 ## ----echo=FALSE, eval=TRUE----------------------------------------------------
-optim_multi_prep$allocation %>%
-        dplyr::mutate(
-            Copies = rowSums(.),
-            Avg = Copies / 5
-        ) %>%
-        head(10) %>%
-        `rownames<-`(paste0("Gen-", 1:10)) %>%
-        kbl() %>%
-        kable_styling()
+optim_multi_prep$allocation |>
+  dplyr::mutate(
+    Copies = rowSums(across(everything())),
+    Avg = Copies / 5
+  ) |>
+    head(10) |>
+    `rownames<-`(paste0("Gen-", 1:10)) |>
+    kbl() |>
+    kable_styling()
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
-#  print(optim_multi_prep)
+# print(optim_multi_prep)
 
 ## ----echo=FALSE, eval=TRUE----------------------------------------------------
 print(optim_multi_prep)
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
-#  field_book <- optim_multi_prep$fieldBook
-#  head(field_book, 10)
+# field_book <- optim_multi_prep$fieldBook
+# head(field_book, 10)
 
 ## ----echo=FALSE, eval=TRUE----------------------------------------------------
 field_book <- optim_multi_prep$fieldBook

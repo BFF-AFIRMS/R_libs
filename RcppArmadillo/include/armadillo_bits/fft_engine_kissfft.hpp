@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0 AND BSD-3-Clause
 // 
-// Copyright 2008-2016 Conrad Sanderson (http://conradsanderson.id.au)
+// Copyright 2008-2016 Conrad Sanderson (https://conradsanderson.id.au)
 // Copyright 2008-2016 National ICT Australia (NICTA)
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// http://www.apache.org/licenses/LICENSE-2.0
+// https://www.apache.org/licenses/LICENSE-2.0
 // 
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -56,10 +56,8 @@
 
 
 template<typename cx_type, bool inverse>
-class fft_engine_kissfft
+struct fft_engine_kissfft
   {
-  public:
-  
   typedef typename get_pod_type<cx_type>::result T;
   
   const uword N;
@@ -110,7 +108,7 @@ class fft_engine_kissfft
   fft_engine_kissfft(const uword in_N)
     : N(in_N)
     {
-    arma_extra_debug_sigprint();
+    arma_debug_sigprint();
     
     const uword len = calc_radix<false>();
     
@@ -138,7 +136,7 @@ class fft_engine_kissfft
   void
   butterfly_2(cx_type* Y, const uword stride, const uword m) const
     {
-    // arma_extra_debug_sigprint();
+    // arma_debug_sigprint();
     
     const cx_type* coeffs = coeffs_array.memptr();
     
@@ -158,7 +156,7 @@ class fft_engine_kissfft
   void
   butterfly_3(cx_type* Y, const uword stride, const uword m) const
     {
-    // arma_extra_debug_sigprint();
+    // arma_debug_sigprint();
     
     arma_aligned cx_type tmp[5];
     
@@ -204,7 +202,7 @@ class fft_engine_kissfft
   void
   butterfly_4(cx_type* Y, const uword stride, const uword m) const
     {
-    // arma_extra_debug_sigprint();
+    // arma_debug_sigprint();
     
     arma_aligned cx_type tmp[7];
     
@@ -247,7 +245,7 @@ class fft_engine_kissfft
   void
   butterfly_5(cx_type* Y, const uword stride, const uword m) const
     {
-    // arma_extra_debug_sigprint();
+    // arma_debug_sigprint();
     
     arma_aligned cx_type tmp[13];
     
@@ -311,7 +309,7 @@ class fft_engine_kissfft
   void
   butterfly_N(cx_type* Y, const uword stride, const uword m, const uword r)
     {
-    // arma_extra_debug_sigprint();
+    // arma_debug_sigprint();
     
     const cx_type* coeffs = coeffs_array.memptr();
     
@@ -356,7 +354,7 @@ class fft_engine_kissfft
   void
   run(cx_type* Y, const cx_type* X, const uword stage = 0, const uword stride = 1)
     {
-    arma_extra_debug_sigprint();
+    arma_debug_sigprint();
     
     const uword m = residue[stage];
     const uword r =   radix[stage];
@@ -384,8 +382,6 @@ class fft_engine_kissfft
       default: butterfly_N(Y, stride, m, r);  break;
       }
     }
-
-
   };
 
 

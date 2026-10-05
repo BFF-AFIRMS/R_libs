@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="William Gearty" />
+
+<meta name="date" content="2025-09-02" />
+
+<title>Introduction to rredlist</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Introduction to rredlist</h1>
+<h4 class="author">William Gearty</h4>
+<h4 class="date">2025-09-02</h4>
+
+
+
+<p><code>rredlist</code> is an R client for the <a href="https://api.iucnredlist.org/">IUCN Red List API</a>. The <a href="https://www.iucnredlist.org/">IUCN Red List</a> is the world’s
+most comprehensive information source on the global extinction risk
+status of animal, fungus and plant species. This package provides access
+via R to the various data contained within this database which span
+range details, population size, habitat and ecology, use and/or trade,
+threats, and conservation actions.</p>
+<p>Documentation for the IUCN Red List API is available at <a href="https://api.iucnredlist.org/api-docs" class="uri">https://api.iucnredlist.org/api-docs</a>. <strong>Note that
+use of the web API, and therefore this package, <a href="#authentication">requires authentication</a>.</strong></p>
+<div id="what-rredlist-is-not" class="section level4">
+<h4>What <code>rredlist</code> is not:</h4>
+<ol style="list-style-type: decimal">
+<li><a href="https://cran.r-project.org/package=redlistr"><code>redlistr</code></a>
+is a different package for contributors to the IUCN Red List - not
+working with the IUCN Red List API.</li>
+<li><code>rredlist</code> does not include support for spatial data from
+the IUCN Red List. IUCN Red List Spatial data can be downloaded from the
+<a href="https://www.iucnredlist.org/resources/spatial-data-download">IUCN
+website</a>.</li>
+</ol>
+</div>
+<div id="installation" class="section level2">
+<h2>Installation</h2>
+<p>CRAN</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;rredlist&quot;</span>)</span></code></pre></div>
+<p>Development version</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># From GitHub</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;ropensci/rredlist&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co"># From r-universe</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;rredlist&quot;</span>, <span class="at">repos =</span> <span class="st">&quot;https://ropensci.r-universe.dev/&quot;</span>)</span></code></pre></div>
+</div>
+<div id="authentication" class="section level2">
+<h2>Authentication</h2>
+<p>IUCN requires you to get your own API key, an alphanumeric string
+that you need to send in every request. The rl_use_iucn() function in
+the package can walk you through <a href="https://api.iucnredlist.org/users/sign_up">getting your own
+key</a> and storing it locally. Once you store this key, the functions
+in <code>rredlist</code> will always default to using this key.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>rredlist<span class="sc">::</span><span class="fu">rl_use_iucn</span>()</span></code></pre></div>
+<p><strong>Keep this key private.</strong> You can pass the key in to
+each function via the <code>key</code> parameter, but it’s better to
+store the key either as a environment variable
+(<code>IUCN_REDLIST_KEY</code>) or an R option
+(<code>iucn_redlist_key</code>) - we recommend using the former
+option.</p>
+</div>
+<div id="overview-of-available-features" class="section level2">
+<h2>Overview of available features</h2>
+<ul>
+<li>Query assessments by taxa (e.g., <code>rl_species()</code> and
+<code>rl_family()</code>)</li>
+<li>Query assessments by habitats (e.g., <code>rl_habitats()</code> and
+<code>rl_systems()</code>)</li>
+<li>Query assessments by geography (e.g., <code>rl_countries()</code>
+and <code>rl_realms()</code>)</li>
+<li>Query assessments by actions needed (e.g., <code>rl_actions()</code>
+and <code>rl_research()</code>)</li>
+<li>Query assessments by threat details (e.g., <code>rl_threats()</code>
+and <code>rl_pop_trends()</code>)</li>
+<li>Query assessments for specific sets of taxa (e.g.,
+<code>rl_extinct()</code> and <code>rl_growth_forms()</code>)</li>
+<li>Get all details for a single assessment (e.g.,
+<code>rl_species_latest()</code> and <code>rl_assessment()</code>)</li>
+<li>Red List information and statistics (e.g.,
+<code>rl_sp_count()</code> and <code>rl_version()</code>)</li>
+</ul>
+</div>
+<div id="example-usage" class="section level2">
+<h2>Example usage</h2>
+<div id="loading-the-package" class="section level3">
+<h3>Loading the package</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;rredlist&quot;</span>)</span></code></pre></div>
+</div>
+<div id="search-for-assessments-for-a-particular-species" class="section level3">
+<h3>Search for assessments for a particular species</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">rl_species</span>(<span class="st">&quot;Gorilla&quot;</span>, <span class="st">&quot;gorilla&quot;</span>)<span class="sc">$</span>assessments</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt;    year_published latest possibly_extinct possibly_extinct_in_the_wild sis_taxon_id                                                url</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; 1            2016  FALSE            FALSE                        FALSE         9404  https://www.iucnredlist.org/species/9404/17963949</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; 2            2018   TRUE            FALSE                        FALSE         9404 https://www.iucnredlist.org/species/9404/136250858</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; 3            2016  FALSE            FALSE                        FALSE         9404 https://www.iucnredlist.org/species/9404/102330408</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt; 4            2008  FALSE            FALSE                        FALSE         9404  https://www.iucnredlist.org/species/9404/12983787</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; 5            2007  FALSE            FALSE                        FALSE         9404  https://www.iucnredlist.org/species/9404/12983966</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt; 6            2000  FALSE            FALSE                        FALSE         9404  https://www.iucnredlist.org/species/9404/12983737</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt; 7            1996  FALSE            FALSE                        FALSE         9404  https://www.iucnredlist.org/species/9404/12983764</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; 8            1994  FALSE            FALSE                        FALSE         9404  https://www.iucnredlist.org/species/9404/12984167</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt; 9            1990  FALSE            FALSE                        FALSE         9404  https://www.iucnredlist.org/species/9404/12984186</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>...</span></code></pre></div>
+</div>
+<div id="search-for-assessments-that-recommend-particular-conservation-actions" class="section level3">
+<h3>Search for assessments that recommend particular conservation
+actions</h3>
+<div id="get-a-list-of-all-conservation-actions" class="section level4">
+<h4>Get a list of all conservation actions</h4>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">rl_actions</span>()</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co">#&gt; $conservation_actions</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt;                                              en  code</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt; 1                         Land/water protection     1</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; 2                          Site/area protection   1_1</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt; 3                 Resource &amp; habitat protection   1_2</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; 4                         Land/water management     2</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; 5                          Site/area management   2_1</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt; 6          Invasive/problematic species control   2_2</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt; 7         Habitat &amp; natural process restoration   2_3</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt; 8                            Species management     3</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a>...</span></code></pre></div>
+</div>
+<div id="return-assessments-with-a-particular-conservation-action" class="section level4">
+<h4>Return assessments with a particular conservation action</h4>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">rl_actions</span>(<span class="st">&quot;2_2&quot;</span>, <span class="at">all =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>assessments</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co">#&gt;    year_published latest possibly_extinct possibly_extinct_in_the_wild sis_taxon_id</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co">#&gt; 1            2019   TRUE            FALSE                        FALSE    132523146</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#&gt; 2            2019   TRUE            FALSE                        FALSE        10767</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt; 3            2013   TRUE            FALSE                        FALSE         1078</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; 4            2019   TRUE            FALSE                        FALSE    132521900</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt; 5            2020  FALSE            FALSE                        FALSE         1086</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co">#&gt; 6            2019   TRUE            FALSE                        FALSE         1117</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt; 7            2019  FALSE            FALSE                        FALSE        11797</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt; 8            2021   TRUE            FALSE                        FALSE        12124</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt; 9            2025   TRUE            FALSE                        FALSE    232775771</span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>...</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="advanced-usage" class="section level2">
+<h2>Advanced usage</h2>
+<p>For a more in-depth walkthrough of how to integrate
+<code>rredlist</code> into research workflows, check out <a href="research_workflows.html">the vignette</a>.</p>
+</div>
+<div id="high-level-vs.-low-level-interfaces" class="section level2">
+<h2>High level vs. low level interfaces</h2>
+<div id="high-level-interface" class="section level3">
+<h3>High level interface</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;rredlist&quot;</span>)</span></code></pre></div>
+<p>High level functions do the HTTP request and parse data to a list for
+ease of downstream use. The high level functions have no underscore on
+the end of the function name, e.g., <code>rl_species()</code>. Most of
+them return long lists containing lots of different information:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">rl_species</span>(<span class="st">&quot;Fratercula&quot;</span>, <span class="st">&quot;arctica&quot;</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="co">#&gt; $taxon</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="co">#&gt; $taxon$sis_id</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#&gt; [1] 22694927</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">#&gt; $taxon$scientific_name</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Fratercula arctica&quot;</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt; $taxon$species_taxa</span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt; list()</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>...</span></code></pre></div>
+<p>By default, these high level functions will also parse the data to a
+data.frame, when possible:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">rl_species</span>(<span class="st">&quot;Fratercula&quot;</span>, <span class="st">&quot;arctica&quot;</span>)<span class="sc">$</span>assessments</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="co">#&gt;    year_published latest possibly_extinct possibly_extinct_in_the_wild sis_taxon_id</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">#&gt; 1            2021   TRUE            FALSE                        FALSE     22694927</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co">#&gt; 2            2018   TRUE            FALSE                        FALSE     22694927</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="co">#&gt; 3            2017  FALSE            FALSE                        FALSE     22694927</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co">#&gt; 4            2017  FALSE            FALSE                        FALSE     22694927</span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="co">#&gt; 5            2016  FALSE            FALSE                        FALSE     22694927</span></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#&gt; 6            2015  FALSE            FALSE                        FALSE     22694927</span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="co">#&gt; 7            2015  FALSE            FALSE                        FALSE     22694927</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="co">#&gt; 8            2012  FALSE            FALSE                        FALSE     22694927</span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co">#&gt; 9            2009  FALSE            FALSE                        FALSE     22694927</span></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a>...</span></code></pre></div>
+<p>Likely a bit faster is to parse to a list only, and not take the
+extra data.frame parsing time:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">rl_species</span>(<span class="st">&quot;Fratercula&quot;</span>, <span class="st">&quot;arctica&quot;</span>, <span class="at">parse =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>assessments</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co">#&gt; [[1]]$year_published</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2021&quot;</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#&gt; [[1]]$latest</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; [[1]]$possibly_extinct</span></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a>...</span></code></pre></div>
+<p>For even more speed, you can use the low level package interface
+(although see the <a href="benchmarks.html">benchmarking vignette</a>
+for specifics).</p>
+</div>
+<div id="low-level-interface" class="section level3">
+<h3>Low level interface</h3>
+<p>The parsing to data.frame in the high level functions does take extra
+time. The low level functions only do the HTTP request, and give back
+JSON without doing any more parsing. The low level functions DO have an
+underscore on the end of the function name, e.g.,
+<code>rl_species_()</code>:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">rl_species_</span>(<span class="st">&quot;Fratercula&quot;</span>, <span class="st">&quot;arctica&quot;</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;{\&quot;taxon\&quot;:{\&quot;sis_id\&quot;:22694927,\&quot;scientific_name\&quot;:\&quot;Fratercula arctica\&quot;,\&quot;species_taxa\&quot;:[],\&quot;subpopulation_taxa\&quot;:[],\&quot;infrarank_taxa\&quot;:[],\&quot;kingdom_name\&quot;:\&quot;ANIMALIA\&quot;,\&quot;phylum_name\&quot;:\&quot;CHORDATA\&quot;,\&quot;class_name\&quot;:\&quot;AVES\&quot;,\&quot;order_name\&quot;:\&quot;CHARADRIIFORMES\&quot;,\&quot;family_name\&quot;:\&quot;ALCIDAE\&quot;,\&quot;genus_name\&quot;:\&quot;Fratercula\&quot;,\&quot;species_name\&quot;:\&quot;arctica\&quot;,\&quot;subpopulation_name\&quot;:null,\&quot;infra_name\&quot;:null,\&quot;authority\&quot;:\&quot;(Linnaeus, 1758)\&quot;,\&quot;species\&quot;:true,\&quot;subpopulation\&quot;:false,\&quot;infrarank\&quot;:false,\&quot;ssc_groups\&quot;:[{\&quot;name\&quot;:\&quot;IUCN SSC Bird Red List Authority (BirdLife International)\&quot;,\&quot;url\&quot;:\&quot;https://www.birdlife.org/\&quot;,\&quot;description\&quot;:\&quot;Red List Authority Coordinator: Ian Burfield (ian.burfield@birdlife.org)\&quot;}],\&quot;common_names\&quot;:[{\&quot;main\&quot;:false,\&quot;name\&quot;:\&quot;Puffin\&quot;,\&quot;language\&quot;:\&quot;eng\&quot;},{\&quot;main\&quot;:true,\&quot;name\&quot;:\&quot;Atlantic Puffin\&quot;,\&quot;language\&quot;:\&quot;eng\&quot;}],\&quot;synonyms\&quot;:[]},\&quot;assessments\&quot;:[{\&quot;year_published\&quot;:\&quot;2021\&quot;,\&quot;latest\&quot;:true,\&quot;possibly_extinct\&quot;:false,\&quot;possibly_extinct_in_the_wild\&quot;:false,\&quot;sis_taxon_id\&quot;:22694927,\&quot;url\&quot;:\&quot;https://www.iucnredlist.org/species/22694927/166290968\&quot;,\&quot;taxon_scientific_name\&quot;:\&quot;Fratercula arctica\&quot;,\&quot;red_list_category_code\&quot;:\&quot;EN\&quot;,\&quot;assessment_id\&quot;:166290968,\&quot;scopes\&quot;:[{\&quot;description\&quot;:{\&quot;en\&quot;:\&quot;Europe\&quot;},\&quot;code\&quot;:\&quot;2\&quot;}]},{\&quot;year_published\&quot;:\&quot;2018\&quot;,\&quot;latest\&quot;:true,\&quot;possibly_extinct\&quot;:false,\&quot;possibly_extinct_in_the_wild\&quot;:false,\&quot;sis_taxon_id\&quot;:22694927,\&quot;url\&quot;:\&quot;https://www.iucnredlist.org/species/22694927/132581443\&quot;,\&quot;taxon_scientific_name\&quot;:\&quot;Fratercula arctica\&quot;,\&quot;red_list_category_code\&quot;:\&quot;VU\&quot;,\&quot;assessment_id\&quot;:132581443,\&quot;scopes\&quot;:[{\&quot;description\&quot;:{\&quot;en\&quot;:\&quot;Global\&quot;},\&quot;code\&quot;:\&quot;1\&quot;}]},{\&quot;year_published\&quot;:\&quot;2017\&quot;,\&quot;latest\&quot;:false,\&quot;possibly_extinct\&quot;:false,\&quot;possibly_extinct_in_the_wild\&quot;:false,\&quot;sis_taxon_id\&quot;:22694927,\&quot;url\&quot;:\&quot;https://www.iucnredlist.org/species/22694927/117606911\&quot;,\&quot;taxon_scientific_name\&quot;:\&quot;Fratercula arctica\&quot;,\&quot;red_list_category_code\&quot;:\&quot;VU\&quot;,\&quot;assessment_id\&quot;:117606911,\&quot;scopes\&quot;:[{\&quot;description\&quot;:{\&quot;en\&quot;:\&quot;Global\&quot;},\&quot;code\&quot;:\&quot;1\&quot;}]},{\&quot;year_published\&quot;:\&quot;2017\&quot;,\&quot;latest\&quot;:false,\&quot;possibly_extinct\&quot;:false,\&quot;possibly_extinct_in_the_wild\&quot;:false,\&quot;sis_taxon_id\&quot;:22694927,\&quot;url\&quot;:\&quot;https://www.iucnredlist.org/species/22694927/110638141\&quot;,\&quot;taxon_scientific_name\&quot;:\&quot;Fratercula arctica\&quot;,\&quot;red_list_category_code\&quot;:\&quot;VU\&quot;,\&quot;assessment_id\&quot;:110638141,\&quot;scopes\&quot;:[{\&quot;description\&quot;:{\&quot;en\&quot;:\&quot;Global\&quot;},\&quot;code\&quot;:\&quot;1\&quot;}]},{\&quot;year_published\&quot;:\&quot;2016\&quot;,\&quot;latest\&quot;:false,\&quot;possibly_extinct\&quot;:false,\&quot;possibly_extinct_in_the_wild\&quot;:false,\&quot;sis_taxon_id\&quot;:22694927,\&quot;url\&quot;:\&quot;https://www.iucnredlist.org/species/22694927/93477427\&quot;,\&quot;taxon_scientific_name\&quot;:\&quot;Fratercula arctica\&quot;,\&quot;red_list_category_code\&quot;:\&quot;VU\&quot;,\&quot;assessment_id\&quot;:93477427,\&quot;scopes\&quot;:[{\&quot;description\&quot;:{\&quot;en\&quot;:\&quot;Global\&quot;},\&quot;code\&quot;:\&quot;1\&quot;}]},{\&quot;year_published\&quot;:\&quot;2015\&quot;,\&quot;latest\&quot;:false,\&quot;possibly_extinct\&quot;:false,\&quot;possibly_extinct_in_the_wild\&quot;:false,\&quot;sis_taxon_id\&quot;:22694927,\&quot;url\&quot;:\&quot;https://www.iucnredlist.org/species/22694927/82593109\&quot;,\&quot;taxon_scientific_name\&quot;:\&quot;Fratercula arctica\&quot;,\&quot;red_list_category_code\&quot;:\&quot;VU\&quot;,\&quot;assessment_id\&quot;:82593109,\&quot;scopes\&quot;:[{\&quot;description\&quot;:{\&quot;en\&quot;:\&quot;Global\&quot;},\&quot;code\&quot;:\&quot;1\&quot;}]},{\&quot;year_published\&quot;:\&quot;2015\&quot;,\&quot;latest\&quot;:false,\&quot;possibly_extinct\&quot;:false,\&quot;possibly_extinct_in_the_wild\&quot;:false,\&quot;sis_taxon_id\&quot;:22694927,\&quot;url\&quot;:\&quot;https://www.iucnredlist.org/species/22694927/60110592\&quot;,\&quot;taxon_scientific_name\&quot;:\&quot;Fratercula arctica\&quot;,\&quot;red_list_category_code\&quot;:\&quot;EN\&quot;,\&quot;assessment_id\&quot;:60110592,\&quot;scopes\&quot;:[{\&quot;description\&quot;:{\&quot;en\&quot;:\&quot;Europe\&quot;},\&quot;code\&quot;:\&quot;2\&quot;}]},{\&quot;year_published\&quot;:\&quot;2012\&quot;,\&quot;latest\&quot;:false,\&quot;possibly_extinct\&quot;:false,\&quot;possibly_extinct_in_the_wild\&quot;:false,\&quot;sis_taxon_id\&quot;:22694927,\&quot;url\&quot;:\&quot;https://www.iucnredlist.org/species/22694927/38908739\&quot;,\&quot;taxon_scientific_name\&quot;:\&quot;Fratercula arctica\&quot;,\&quot;red_list_category_code\&quot;:\&quot;LC\&quot;,\&quot;assessment_id\&quot;:38908739,\&quot;scopes\&quot;:[{\&quot;description\&quot;:{\&quot;en\&quot;:\&quot;Global\&quot;},\&quot;code\&quot;:\&quot;1\&quot;}]},{\&quot;year_published\&quot;:\&quot;2009\&quot;,\&quot;latest\&quot;:false,\&quot;possibly_extinct\&quot;:false,\&quot;possibly_extinct_in_the_wild\&quot;:false,\&quot;sis_taxon_id\&quot;:22694927,\&quot;url\&quot;:\&quot;https://www.iucnredlist.org/species/22694927/28178290\&quot;,\&quot;taxon_scientific_name\&quot;:\&quot;Fratercula arctica\&quot;,\&quot;red_list_category_code\&quot;:\&quot;LC\&quot;,\&quot;assessment_id\&quot;:28178290,\&quot;scopes\&quot;:[{\&quot;description\&quot;:{\&quot;en\&quot;:\&quot;Global\&quot;},\&quot;code\&quot;:\&quot;1\&quot;}]},{\&quot;year_published\&quot;:\&quot;2008\&quot;,\&quot;latest\&quot;:false,\&quot;possibly_extinct\&quot;:false,\&quot;possibly_extinct_in_the_wild\&quot;:false,\&quot;sis_taxon_id\&quot;:22694927,\&quot;url\&quot;:\&quot;https://www.iucnredlist.org/species/22694927/28179292\&quot;,\&quot;taxon_scientific_name\&quot;:\&quot;Fratercula arctica\&quot;,\&quot;red_list_category_code\&quot;:\&quot;LC\&quot;,\&quot;assessment_id\&quot;:28179292,\&quot;scopes\&quot;:[{\&quot;description\&quot;:{\&quot;en\&quot;:\&quot;Global\&quot;},\&quot;code\&quot;:\&quot;1\&quot;}]},{\&quot;year_published\&quot;:\&quot;2004\&quot;,\&quot;latest\&quot;:false,\&quot;possibly_extinct\&quot;:false,\&quot;possibly_extinct_in_the_wild\&quot;:false,\&quot;sis_taxon_id\&quot;:22694927,\&quot;url\&quot;:\&quot;https://www.iucnredlist.org/species/22694927/28180639\&quot;,\&quot;taxon_scientific_name\&quot;:\&quot;Fratercula arctica\&quot;,\&quot;red_list_category_code\&quot;:\&quot;LC\&quot;,\&quot;assessment_id\&quot;:28180639,\&quot;scopes\&quot;:[{\&quot;description\&quot;:{\&quot;en\&quot;:\&quot;Global\&quot;},\&quot;code\&quot;:\&quot;1\&quot;}]},{\&quot;year_published\&quot;:\&quot;2000\&quot;,\&quot;latest\&quot;:false,\&quot;possibly_extinct\&quot;:false,\&quot;possibly_extinct_in_the_wild\&quot;:false,\&quot;sis_taxon_id\&quot;:22694927,\&quot;url\&quot;:\&quot;https://www.iucnredlist.org/species/22694927/28181882\&quot;,\&quot;taxon_scientific_name\&quot;:\&quot;Fratercula arctica\&quot;,\&quot;red_list_category_code\&quot;:\&quot;LR/lc\&quot;,\&quot;assessment_id\&quot;:28181882,\&quot;scopes\&quot;:[{\&quot;description\&quot;:{\&quot;en\&quot;:\&quot;Global\&quot;},\&quot;code\&quot;:\&quot;1\&quot;}]},{\&quot;year_published\&quot;:\&quot;1994\&quot;,\&quot;latest\&quot;:false,\&quot;possibly_extinct\&quot;:false,\&quot;possibly_extinct_in_the_wild\&quot;:false,\&quot;sis_taxon_id\&quot;:22694927,\&quot;url\&quot;:\&quot;https://www.iucnredlist.org/species/22694927/28183212\&quot;,\&quot;taxon_scientific_name\&quot;:\&quot;Fratercula arctica\&quot;,\&quot;red_list_category_code\&quot;:\&quot;LR/lc\&quot;,\&quot;assessment_id\&quot;:28183212,\&quot;scopes\&quot;:[{\&quot;description\&quot;:{\&quot;en\&quot;:\&quot;Global\&quot;},\&quot;code\&quot;:\&quot;1\&quot;}]},{\&quot;year_published\&quot;:\&quot;1988\&quot;,\&quot;latest\&quot;:false,\&quot;possibly_extinct\&quot;:false,\&quot;possibly_extinct_in_the_wild\&quot;:false,\&quot;sis_taxon_id\&quot;:22694927,\&quot;url\&quot;:\&quot;https://www.iucnredlist.org/species/22694927/28184380\&quot;,\&quot;taxon_scientific_name\&quot;:\&quot;Fratercula arctica\&quot;,\&quot;red_list_category_code\&quot;:\&quot;LR/lc\&quot;,\&quot;assessment_id\&quot;:28184380,\&quot;scopes\&quot;:[{\&quot;description\&quot;:{\&quot;en\&quot;:\&quot;Global\&quot;},\&quot;code\&quot;:\&quot;1\&quot;}]}],\&quot;params\&quot;:{\&quot;genus_name\&quot;:\&quot;Fratercula\&quot;,\&quot;species_name\&quot;:\&quot;arctica\&quot;}}&quot;</span></span></code></pre></div>
+<p>To consume this JSON, you can use <a href="https://jeroen.r-universe.dev/jsonlite"><code>jsonlite</code></a>:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;jsonlite&quot;</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">fromJSON</span>(<span class="fu">rl_species_</span>(<span class="st">&quot;Fratercula&quot;</span>, <span class="st">&quot;arctica&quot;</span>))</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="co">#&gt; $taxon</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co">#&gt; $taxon$sis_id</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="co">#&gt; [1] 22694927</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="co">#&gt; $taxon$scientific_name</span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Fratercula arctica&quot;</span></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="co">#&gt; $taxon$species_taxa</span></span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="co">#&gt; list()</span></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a>...</span></code></pre></div>
+</div>
+</div>
+<div id="usage-best-practice" class="section level2">
+<h2>Usage best practice</h2>
+<div id="citing-the-iucn-red-list-api" class="section level3">
+<h3>Citing the IUCN Red List API</h3>
+<p>Use the function <code>rl_citation()</code>:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">rl_citation</span>()</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="co">#&gt; To cite the IUCN API in publications, use the following citation:</span></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="co">#&gt;   IUCN (2025). &quot;IUCN Red List of Threatened Species.&quot; &lt;https://www.iucnredlist.org&gt;. Accessed on 02 September 2025.</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a><span class="co">#&gt;   @Misc{IUCN2025,</span></span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a><span class="co">#&gt;     author = {{IUCN}},</span></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="co">#&gt;     title = {IUCN Red List of Threatened Species},</span></span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a><span class="co">#&gt;     year = {2025},</span></span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a><span class="co">#&gt;     edition = {Version 2025-1},</span></span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a><span class="co">#&gt;     howpublished = {\url{https://www.iucnredlist.org}},</span></span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a><span class="co">#&gt;     note = {Accessed on 02 September 2025},</span></span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a><span class="co">#&gt;   }</span></span></code></pre></div>
+<p>We’d also really appreciate it if you could cite your use of this
+package:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">&quot;rredlist&quot;</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="co">#&gt; To cite package &#39;rredlist&#39; in publications use:</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co">#&gt;   Gearty W, Chamberlain S (2025). _rredlist: &#39;IUCN&#39; Red List Client_. doi:10.32614/CRAN.package.rredlist</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="co">#&gt;   &lt;https://doi.org/10.32614/CRAN.package.rredlist&gt;, R package version 1.1.0, &lt;https://docs.ropensci.org/rredlist/&gt;.</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="co">#&gt;   @Manual{rredlist,</span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co">#&gt;     title = {rredlist: &#39;IUCN&#39; Red List Client},</span></span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="co">#&gt;     author = {William Gearty and Scott Chamberlain},</span></span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="co">#&gt;     year = {2025},</span></span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="co">#&gt;     note = {R package version 1.1.0},</span></span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="co">#&gt;     doi = {10.32614/CRAN.package.rredlist},</span></span>
+<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a><span class="co">#&gt;     url = {https://docs.ropensci.org/rredlist/},</span></span>
+<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="co">#&gt;   }</span></span></code></pre></div>
+</div>
+<div id="rate-limiting" class="section level3">
+<h3>Rate Limiting</h3>
+<p>From the IUCN folks: “Too many frequent calls, or too many calls per
+day might get your access blocked temporarily. If you’re a heavy API
+user, the Red List Unit asked that you contact them, as there might be
+better options. They suggest a 2-second delay between your calls if you
+plan to make a lot of calls.”</p>
+</div>
+<div id="api-versioning" class="section level3">
+<h3>API Versioning</h3>
+<p><code>rredlist</code> versions ≤ 0.7.1 tracked the now-defunct
+version 3 of the IUCN Red List API. <code>rredlist</code> versions ≥
+1.0.0 track version 4 of the IUCN Red List API. If you need to use
+version 3 of the API–and it is still functioning–you can install an old
+version of <code>rredlist</code> using the <code>remotes</code>
+package:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co"># From CRAN archive</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_version</span>(<span class="st">&quot;rredlist&quot;</span>, <span class="at">version =</span> <span class="st">&quot;0.7.1&quot;</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="co"># From r-universe</span></span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_version</span>(<span class="st">&quot;rredlist&quot;</span>, <span class="at">version =</span> <span class="st">&quot;0.7.1&quot;</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>                         <span class="at">repos =</span> <span class="st">&quot;https://ropensci.r-universe.dev/&quot;</span>)</span></code></pre></div>
+<p>Note, however, that you can no longer generate a new API key for
+version 3 of the API. See the discussion <a href="https://github.com/ropensci/rredlist/issues/52">here</a> for
+possible solutions if you need to use version 3 of the API.</p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

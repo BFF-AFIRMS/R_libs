@@ -1,3 +1,204 @@
+# version 1.1-2
+
+* remove use of `.Dim` in `structure()`
+
+# version 1.1-1
+
+* use RAII in functions calling GEOS for handling context, based on how terra does this; #2604
+
+* `st_graticule()` simplifies output lines; #1364
+
+* `dplyr::count()` drops geometries if `.drop_geom = TRUE` is set; #2596
+
+* better handle graticules crossing the antemeridian; #2561
+
+* add the option `by_element = TRUE` to binary geometry predicates, measures and transformers; #2594 and #2595 by @rariariari w. help from Claude
+
+* add `MULTISURFACE` and `CURVEPOLYGON` to vctrs methods; #2589 #2601
+￼
+* add argument `include_non_intersected` to `st_interpolate_aw()`
+
+* add argument `weights`, for dasymetric mapping, to `st_interpolate_aw()` (experimental)
+
+* replace magrittr pipe `%>%` with base pipe `|>`, and hence require R >= 4.1.0
+
+# version 1.1-0
+
+* `gdal_compressors()` queries GDAL compressor and decompressor capabilities
+
+* `st_cast.sfc()` deals with zero-length objects; #2584
+
+* rewrite/migrate `vctrs` methods for `sf` and `sfc`; #2568, #2584, w. help from @DavisVaughan
+
+* `st_agr()` and `st_agr<-()` better handle multiple geometry columns
+
+* for an `sfc` object `x`, `x[0]` retains the class of `x`; #2568
+
+* When sampling a degenerate (zero length) line, a warning is raised rather than a message; #2575
+
+# version 1.0-24
+
+* `gdal_write()` handles drivers that only have a `CreateCopy()` option; https://github.com/r-spatial/stars/issues/762 
+
+* if `datum` is missing in a call to `st_graticule()`, a graticule by default will try to use the geographic coordinate reference system of arguments `x` or `crs`; when nothing is found there it falls back to `OGC:CRS84` (WGS84).
+
+* the figure margins parameter `mar` can be specified in a call to `plot.sf()`; #2558
+
+* fix class label setting in `[.sf()`; #2557
+
+# version 1.0-23
+
+* allow tests reading blosc compressed Zarr files to fail
+
+* `st_as_sf.data.frame()` sets `z_range` and `m_range` if needed; https://github.com/geoarrow/geoarrow-r/issues/75
+
+# version 1.0-22
+
+* `st_combine()` on `POINT` geometries ignores empty points; #2551
+
+* handle empty points better in `st_point()`, `st_as_sf.data.frame()` and `st_distance()`; https://github.com/r-spatial/s2/issues/289
+
+* for unprojected lines, `st_line_interpolate()` requires distance values with degree units; #2542
+
+* `unique.sfc()` added; #2546
+
+* for geodetic coordinates, `st_perimeter()` uses ellipsoidal computation if `sf_use_s2()` is `FALSE`; #2541
+
+* `st_as_sf.owin()` and `st_as_sfc.owin()` no longer ignore `crs` argument; #2532
+
+* clarify approximation errors in `st_buffer()` and how they differ for the GEOS or S2 backends, with examples by David Kaplan @dmkaplan2000; #2528
+
+# version 1.0-21
+
+* `st_crs(..., parameters = TRUE)` returns base geographic CRS as `gcs_crs`; #2524
+
+* loading `sf` no longer initializes the RNG state; see https://github.com/r-quantities/units/issues/409
+
+* fix `st_sample()` on geodetic coordinates; #2515
+
+* use `compareVersion()` consistently to compare GDAL versions; #2512
+
+# version 1.0-20
+
+* `st_buffer()` on geodetic coordinates with negative buffer distance now automatically switches to using GEOS, while giving a warning; #1987
+
+* `st_interpolate_aw()` fixes bug when a GEOMETRYCOLLECTION contains multiple POLYGON structures; found by @mtennekes
+
+* `st_buffer()` for geodetic coordinates allows `max_dist` and `min_level` 
+   to be specified by feature; #2488 and https://github.com/r-spatial/s2/pull/264
+
+* `distinct.sf()` allows for comparing exact equality of geometries when `exact = TRUE`; #2484
+
+* `st_minimum_bounding_circle()` returns geometries representing the smallest circle that contains the input; #2473
+
+# version 1.0-19
+
+* fix type checks in C++ GDAL area and length computation functions, anticipating GDAL 3.10.0; #2466, #2468, #2469 by @rsbivand and @rouault
+
+* improve test on empty geometries, which changed in 1.0-18; #2463
+
+* `gdal_utils()` `ogrinfo` has an argument `read_only` which, when `TRUE` (or `options` includes `"-ro"`), opens a datasource in read-only mode (#2460; `sf` did this before 1.0-17); by default a datasource is opened in update (read-write) mode (since sf 1.0-17; #2420)
+
+* the `sf` -> `ppp` conversion `as.ppp.sf()` accepts a data.frame of marks instead of just 1 column #2450, by @agila5
+
+* add flag for preservation of point order in `st_voronoi` #1371 for GEOS >= 3.12
+
+# version 1.0-18
+
+* support  `POLYGON FULL` simple feature geometry, representing the entire Earth surface, as used by `s2geometry`; see also https://r-spatial.org/r/2024/10/11/polygonfull.html for a longer introduction; #2441
+
+* `st_sfc()` has an argument `oriented` which, when set to `TRUE`, adds an attribute `oriented=TRUE` to an `sfc` object, indicating that this object should not be reoriented in conversion to `s2_geography` (avoiding using the global option `s2_oriented`); `st_as_sfc.bbox()` sets this to `TRUE`; #2441
+
+* fix build failure with GDAL < 3.4.0 #2436
+
+* `st_simplify()` now accepts feature-wise tolerance values when `s2` is switched on #2442
+
+# version 1.0-17
+
+* add `st_transform()` method for `bbox` objects; this uses OGRCoordinateTransformation::TransformBounds(), densifying first and antemeridian proof; #2415
+
+* `st_filter.sf()` correctly scopes `x` and `y` arguments using !! operator; #2416
+
+* `[.sfc` and `[<-.sfc` use matrix/array type subsetting for `sfc` objects that have a `dim` attribute
+
+* add `st_exterior_ring()` to extract exterior rings (remove holes); #2406
+
+* add `text.sf()`, `text.sfc()`, `points.sf()`, `points.sfc()` to annotate base plots at geometry centroids; #2399
+
+* `st_sf()` no longer strips `tbl` or `tbl_df` class labels; #2378
+
+* `st_layers()` returns an object of class `c("sf_layers", "data.frame")`, with a dedicated `print` method.
+
+* when `dim` is not `XYZM`, `sf_as_sf.data.frame()` interprets a length 4 `coords` argument to specify the corners of a rectangular polygon; #2357
+
+* `st_interpolate_aw()` gains an `na.rm` argument, for removing features with `NA` attributes before interpolating; #830
+
+* `merge.sf()` no longer renames geometry column; #2334
+
+# version 1.0-16
+
+* `st_join()` no longer renames the geometry column; #2327
+
+* `st_sample()` works when unprojected polygon geometry crosses the antemeridian; #2331
+
+* clean up and modernization of S3 registration of methods and tests; #2285, #2288, #2316, #2341, #2342, by @olivroy
+
+* `[.sfc` works when setting argument `op`; #2320
+
+* `st_sample()` for polygons is sensitive to setting `oriented = TRUE` to prevent wrongly correcting ring directions; #2308
+
+* add support for the GDAL `footprint` utility (requiring GDAL >= 3.8.0) to `gdal_utils`; #2305, by @goergen95
+
+* existing environment variables `PROJ_LIB` and `PROJ_DATA` are (again) ignored on `sf` binary CRAN installations (win + macos), effectively by overwriting them during the R session and restoring them on exit; this does not happen if environment variable `R_SF_USE_PROJ_DATA` is set to `true`. #2298
+
+* add `st_line_project()` to find how far a point is when projected on a line; #2291
+
+* add `st_line_interpolate()` to obtain a point at a certain distance along a line; #2291
+
+# version 1.0-15
+
+* add `st_perimeter()` generic to cover both geographic and projected coordinates; #268, #2279, by @JosiahParry
+
+* add `st_sample()` method for `bbox`, with special provisions for ellipsoidal coordinates; #2283
+
+* documentation clean-up by @olivroy; #2266, #2285
+
+* `st_convex_hull()` uses `s2::s2_convex_hull()` for geodetic coordinates; #2250
+
+* add `directed` argument to `st_line_merge()`; #2264
+
+* `st_union.sfc()` given `x` and `y` works consistently across geodetic and projected objects; #2262
+
+* `st_union.sf()` given `x` and `y` unions pairwise if `by_feature = TRUE`; #2259
+
+* `st_read()` work around issue with GPKG driver if `wkt_filter` is set; #2248
+
+* `st_read()` uses GDAL's stream reading when `use_stream = TRUE`; #2238 by @paleolimbot
+
+* `st_transform()` responds to in-session changes to `sf_proj_network()`; #2166
+
+* `plot.sf()`: `key.width` is sensitive to pointsize graphics parameter `par("ps")`; keys with factor levels suggest a proper size if they won't fit.
+
+* `plot.sf()`: `key.pos` can hold a second value in [0, 1] determining the relative position of the key in the available space 
+
+* `[<-.sf` fixes the `agr` attribute when it is broken; #2211
+
+* if the env. variable `ADD_SF_NAMESPACE` is set to `true`, `sf` objects get a new attribute, `.sf_namespace`, which forces loading the `sf` namespace when it has not been loaded so far, e.g. for proper printing or plotting of an `sf` object; #2212 by Mike Mahoney
+
+* `distinct.sf()` is type-safe for `sf` objects with zero rows; #2204
+
+* `summarise.sf()` raises an error if `.by` is given but no `across()` on the geometry; #2207
+
+* `st_write()` matches fields on name first, than on position; this matters for formats that have pre-defined names, such as GPX; #2202 
+
+# version 1.0-14
+
+* fix `plot.sf()` when using a key for multiple factor variables; #2196, #2195
+
+* fix use of `as.numeric_version` in a test, for upcoming change in r-devel
+
+* code tidy-ing: fix many lintr suggestions, thanks to Michael Chirico (#2181 - #2191)
+
 # version 1.0-13
 
 * `gdal_utils()` adds `"ogrinfo"` utility (requires GDAL >= 3.7.0); #2160
@@ -94,7 +295,7 @@
 
 * `sf_project()` accepts 3- or 4-column matrices, containing z and t values;
 
-* optimizations for `st_sfc()` by @paleolimbot; #1938, #1925
+* optimization for `st_sfc()` by @paleolimbot; #1938, #1925
 
 * `[<-.sfc()` recomputes the bounding box; `st_sfc()` gets parameter `compute_bbox`; #1965
 
@@ -569,7 +770,7 @@
 
 * fix plotting of `sf` objects without attributes; #755
 
-* add reference to the [R Journal article](https://journal.r-project.org/archive/2018/RJ-2018-009/index.html) in CITATION
+* add reference to the [R Journal article](https://journal.r-project.org/articles/RJ-2018-009/index.html) in CITATION
 
 # version 0.6-3
 
@@ -761,7 +962,7 @@
 
 * have `st_graticule` return an empty graticule object when argument `datum` is `NA`; 
 
-* export `as_Spatial`, to make it easer for packages to convert `sfc` objects without importing `sf`
+* export `as_Spatial`, to make it easier for packages to convert `sfc` objects without importing `sf`
 
 * `st_distance` gains a parameter `by_element` to obtain pairwise distances; #437
 
@@ -971,7 +1172,7 @@
 
 * add `st_proj_info`, modelled after `rgdal::projInfo`
 
-* overwriting datasets with `st_write` is no longer allowed; update=TRUE appends to them, permitted the driver supports appending.
+* overwriting datasets with `st_write()` is no longer allowed; `update=TRUE` appends to them, permitted the driver supports appending.
 
 * `st_write` gains an argument, `update`, which when `TRUE` will try to append to existing datasets (#204)
 

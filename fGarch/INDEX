@@ -1,6 +1,7 @@
 absMoments              Absolute moments of GARCH distributions
 coef-methods            GARCH coefficients methods
-fGARCH-class            Class "fGARCH"
+fGARCH-class            Class "fGARCH" - fitted ARMA-GARCH/APARCH
+                        models
 fGarch-package          Modelling heterskedasticity in financial time
                         series
 fGarchData              Time series datasets
@@ -8,8 +9,8 @@ fGARCHSPEC-class        Class "fGARCHSPEC"
 fitted-methods          Extract GARCH model fitted values
 formula-methods         Extract GARCH model formula
 fUGARCHSPEC-class       Class 'fUGARCHSPEC'
-garchFit                Univariate or multivariate GARCH time series
-                        fitting
+garchFit                Fit univariate and multivariate GARCH-type
+                        models
 garchFitControl         Control GARCH fitting algorithms
 garchSim                Simulate univariate GARCH/APARCH time series
 garchSpec               Univariate GARCH/APARCH time series
@@ -17,23 +18,24 @@ garchSpec               Univariate GARCH/APARCH time series
 ged                     Standardized generalized error distribution
 gedFit                  Generalized error distribution parameter
                         estimation
-gedSlider               Generalized error distribution slider
 plot-methods            GARCH plot methods
 predict-methods         GARCH prediction function
 residuals-methods       Extract GARCH model residuals
 sged                    Skew generalized error distribution
 sgedFit                 Skew generalized error distribution parameter
                         estimation
-sgedSlider              Skew GED distribution slider
 snorm                   Skew normal distribution
 snormFit                Skew normal distribution parameter estimation
-snormSlider             Skew normal distribution slider
+snormSlider             Visualise skew normal, (skew) Student-t and
+                        (skew) GED distributions
 sstd                    Skew Student-t distribution
 sstdFit                 Skew Student-t distribution parameter
                         estimation
-sstdSlider              Skew Student-t distribution slider
+stats-tsdiag            Diagnostic plots and statistics for fitted
+                        GARCH models
 std                     Standardized Student-t distribution
 stdFit                  Student-t distribution parameter estimation
-stdSlider               Student-t distribution slider
-summary-methods         GARCH summary methods
+summary-methods         fGARCH method for the summary function
+VaR                     Compute Value-at-Risk (VaR) and expected
+                        shortfall (ES)
 volatility              Extract GARCH model volatility

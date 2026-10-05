@@ -11,7 +11,7 @@
 
 <meta name="author" content="Marc Carlson, Patrick Aboyoun, Hervé Pagès, and Martin Morgan" />
 
-<meta name="date" content="2023-04-25" />
+<meta name="date" content="2025-12-08" />
 
 <title>An Introduction to the GenomicRanges Package</title>
 
@@ -53,7 +53,7 @@ if (!!window.navigator.userAgent.match("MSIE 8")) {
        h5 {font-size: 16px;}
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-</style>
+       </style>
 <script>
 
 /**
@@ -706,7 +706,7 @@ function toggle_visibility(id1) {
 
 <h1 class="title toc-ignore">An Introduction to the GenomicRanges Package</h1>
 <p class="author-name">Marc Carlson, Patrick Aboyoun, Hervé Pagès, and Martin Morgan</p>
-<h4 class="date">April 25, 2023</h4>
+<h4 class="date">December 08, 2025</h4>
 
 </div>
 
@@ -748,22 +748,22 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
-<p>The <em><a href="https://bioconductor.org/packages/3.17/GenomicRanges">GenomicRanges</a></em> package serves as the foundation for
+<p>The <em><a href="https://bioconductor.org/packages/3.22/GenomicRanges">GenomicRanges</a></em> package serves as the foundation for
 representing genomic locations within the Bioconductor project.
 In the Bioconductor package hierarchy, it builds upon the
-<em><a href="https://bioconductor.org/packages/3.17/IRanges">IRanges</a></em> (infrastructure) package and provides
-support for the <em><a href="https://bioconductor.org/packages/3.17/BSgenome">BSgenome</a></em> (infrastructure),
-<em><a href="https://bioconductor.org/packages/3.17/Rsamtools">Rsamtools</a></em> (I/O), <em><a href="https://bioconductor.org/packages/3.17/ShortRead">ShortRead</a></em> (I/O &amp; QA),
-<em><a href="https://bioconductor.org/packages/3.17/rtracklayer">rtracklayer</a></em> (I/O), <em><a href="https://bioconductor.org/packages/3.17/GenomicFeatures">GenomicFeatures</a></em>
-(infrastructure), <em><a href="https://bioconductor.org/packages/3.17/GenomicAlignments">GenomicAlignments</a></em> (sequence reads),
-<em><a href="https://bioconductor.org/packages/3.17/VariantAnnotation">VariantAnnotation</a></em> (called variants), and many other
+<em><a href="https://bioconductor.org/packages/3.22/IRanges">IRanges</a></em> (infrastructure) package and provides
+support for the <em><a href="https://bioconductor.org/packages/3.22/BSgenome">BSgenome</a></em> (infrastructure),
+<em><a href="https://bioconductor.org/packages/3.22/Rsamtools">Rsamtools</a></em> (I/O), <em><a href="https://bioconductor.org/packages/3.22/ShortRead">ShortRead</a></em> (I/O &amp; QA),
+<em><a href="https://bioconductor.org/packages/3.22/rtracklayer">rtracklayer</a></em> (I/O), <em><a href="https://bioconductor.org/packages/3.22/GenomicFeatures">GenomicFeatures</a></em>
+(infrastructure), <em><a href="https://bioconductor.org/packages/3.22/GenomicAlignments">GenomicAlignments</a></em> (sequence reads),
+<em><a href="https://bioconductor.org/packages/3.22/VariantAnnotation">VariantAnnotation</a></em> (called variants), and many other
 Bioconductor packages.</p>
 <p>This package lays a foundation for genomic analysis by introducing
 three classes (<em>GRanges</em>, <em>GPos</em>, and <em>GRangesList</em>),
 which are used to represent genomic ranges, genomic positions, and groups
 of genomic ranges. This vignette focuses on the <em>GRanges</em> and
 <em>GRangesList</em> classes and their associated methods.</p>
-<p>The <em><a href="https://bioconductor.org/packages/3.17/GenomicRanges">GenomicRanges</a></em> package is available at
+<p>The <em><a href="https://bioconductor.org/packages/3.22/GenomicRanges">GenomicRanges</a></em> package is available at
 <a href="https://bioconductor.org">https://bioconductor.org</a> and can be
 installed via <code>BiocManager::install</code>:</p>
 <pre class="r"><code>if (!require(&quot;BiocManager&quot;))
@@ -890,7 +890,7 @@ also been defined.</p>
 <pre><code>## [1] 10</code></pre>
 <div id="splitting-and-combining-granges-objects" class="section level2">
 <h2><span class="header-section-number">2.1</span> Splitting and combining <em>GRanges</em> objects</h2>
-<p><em>GRanges</em> objects can be devided into groups using the
+<p><em>GRanges</em> objects can be divided into groups using the
 <code>split</code> method. This produces a <em>GRangesList</em> object,
 a class that will be discussed in detail in the next section.</p>
 <pre class="r"><code>sp &lt;- split(gr, rep(1:2, each=5))
@@ -1116,7 +1116,7 @@ extend the ranges by a specified width.</p>
 ##   j     chr3    91-120      - |        10  0.000000
 ##   -------
 ##   seqinfo: 3 sequences from an unspecified genome</code></pre>
-<p>The <em><a href="https://bioconductor.org/packages/3.17/GenomicRanges">GenomicRanges</a></em> help page <code>?&quot;intra-range-methods&quot;</code>
+<p>The <em><a href="https://bioconductor.org/packages/3.22/GenomicRanges">GenomicRanges</a></em> help page <code>?&quot;intra-range-methods&quot;</code>
 summarizes these methods.</p>
 <p><em>Inter-range methods</em> involve comparisons between ranges in a
 single <em>GRanges</em> object. For instance, the <code>reduce</code>
@@ -1183,7 +1183,7 @@ the ranges in a <em>GRanges</em> object.</p>
 ## integer-Rle of length 198022430 with 3 runs
 ##   Lengths:       109        11 198022310
 ##   Values :         0         1         0</code></pre>
-<p>See the <em><a href="https://bioconductor.org/packages/3.17/GenomicRanges">GenomicRanges</a></em> help page
+<p>See the <em><a href="https://bioconductor.org/packages/3.22/GenomicRanges">GenomicRanges</a></em> help page
 <code>?&quot;inter-range-methods&quot;</code> for additional help.</p>
 <p><em>Between-range methods</em> involve operations between two
 <em>GRanges</em> objects; some of these are summarized in the next
@@ -1809,7 +1809,7 @@ methods(class=&quot;GRangesList&quot;)   # _partial_ list</code></pre>
 <p>Interval overlapping is the process of comparing the ranges in two
 objects to determine if and when they overlap. As such, it is perhaps
 the most common operation performed on <em>GRanges</em> and
-<em>GRangesList</em> objects. To this end, the <em><a href="https://bioconductor.org/packages/3.17/GenomicRanges">GenomicRanges</a></em>
+<em>GRangesList</em> objects. To this end, the <em><a href="https://bioconductor.org/packages/3.22/GenomicRanges">GenomicRanges</a></em>
 package provides a family of interval overlap functions. The most general
 of these functions is <code>findOverlaps</code>, which takes a query and a
 subject as inputs and returns a <em>Hits</em> object containing
@@ -1855,21 +1855,28 @@ in the query.</p>
 </div>
 <div id="finding-the-nearest-genomic-position-in-granges-objects" class="section level1">
 <h1><span class="header-section-number">5</span> Finding the nearest genomic position in <em>GRanges</em> objects</h1>
-<p>The <em><a href="https://bioconductor.org/packages/3.17/GenomicRanges">GenomicRanges</a></em> package provides multiple functions to
+<p>The <em><a href="https://bioconductor.org/packages/3.22/GenomicRanges">GenomicRanges</a></em> package provides multiple functions to
 facilitate the indentification of neighboring genomic positions.
 For the following examples, we define an arbitrary <em>GRanges</em> object for <code>x</code> and
 we define the <em>GRanges</em> object <code>subject</code> as the collection of genes in
-<em><a href="https://bioconductor.org/packages/3.17/TxDb.Hsapiens.UCSC.hg19.knownGene">TxDb.Hsapiens.UCSC.hg19.knownGene</a></em> extracted using the <code>genes</code>
-method from the <em><a href="https://bioconductor.org/packages/3.17/GenomicFeatures">GenomicFeatures</a></em> package.</p>
-<pre class="r"><code>txdb &lt;- TxDb.Hsapiens.UCSC.hg19.knownGene::TxDb.Hsapiens.UCSC.hg19.knownGene</code></pre>
-<pre><code>## Warning: replacing previous import &#39;utils::findMatches&#39; by
-## &#39;S4Vectors::findMatches&#39; when loading &#39;AnnotationDbi&#39;</code></pre>
-<pre class="r"><code>broads &lt;- GenomicFeatures::genes(txdb)</code></pre>
-<pre><code>##   403 genes were dropped because they have exons located on both strands
-##   of the same reference sequence or on more than one reference sequence,
-##   so cannot be represented by a single genomic range.
-##   Use &#39;single.strand.genes.only=FALSE&#39; to get all the genes in a
-##   GRangesList object, or use suppressMessages() to suppress this message.</code></pre>
+<em><a href="https://bioconductor.org/packages/3.22/TxDb.Hsapiens.UCSC.hg38.knownGene">TxDb.Hsapiens.UCSC.hg38.knownGene</a></em> extracted using the <code>genes</code>
+method from the <em><a href="https://bioconductor.org/packages/3.22/GenomicFeatures">GenomicFeatures</a></em> package.</p>
+<pre class="r"><code>library(TxDb.Hsapiens.UCSC.hg38.knownGene)</code></pre>
+<pre><code>## Loading required package: GenomicFeatures</code></pre>
+<pre><code>## Loading required package: AnnotationDbi</code></pre>
+<pre><code>## Loading required package: Biobase</code></pre>
+<pre><code>## Welcome to Bioconductor
+## 
+##     Vignettes contain introductory material; view with
+##     &#39;browseVignettes()&#39;. To cite Bioconductor, see
+##     &#39;citation(&quot;Biobase&quot;)&#39;, and for packages &#39;citation(&quot;pkgname&quot;)&#39;.</code></pre>
+<pre class="r"><code>txdb &lt;- TxDb.Hsapiens.UCSC.hg38.knownGene
+broads &lt;- GenomicFeatures::genes(txdb)</code></pre>
+<pre><code>##   2169 genes were dropped because they have exons located on both strands of
+##   the same reference sequence or on more than one reference sequence, so cannot
+##   be represented by a single genomic range.
+##   Use &#39;single.strand.genes.only=FALSE&#39; to get all the genes in a GRangesList
+##   object, or use suppressMessages() to suppress this message.</code></pre>
 <pre class="r"><code>x &lt;- GRanges(
     seqnames = Rle(c(&quot;chr1&quot;, &quot;chr2&quot;, &quot;chr1&quot;, &quot;chr3&quot;), c(1, 3, 2, 4)),
     ranges = IRanges(101:110, end = 111:120, names = head(letters, 10)),
@@ -1881,17 +1888,17 @@ finds the nearest neighbor range in <code>subject</code> for each range in <code
 Overlaps are included. If <code>subject</code> is not given as an argument, <code>x</code> will also
 be treated as the <code>subject</code>.</p>
 <pre class="r"><code>nearest(x, subject)</code></pre>
-<pre><code>##  [1] 2898 2224 2224 2765   73   73   NA   NA   NA   NA</code></pre>
+<pre><code>##  [1] 5098 4437 4437 4956   97   97   NA   NA   NA   NA</code></pre>
 <pre class="r"><code>nearest(x)</code></pre>
 <pre><code>##  [1]  5  4  4  3  6  5  8  7 10  9</code></pre>
 <p>The <code>precede</code> method will return the index of the range in <code>subject</code> that is
 preceded by the range in <code>x</code>. Overlaps are excluded.</p>
 <pre class="r"><code>precede(x, subject)</code></pre>
-<pre><code>##  [1]   NA 2224 2224 2224   73   73   NA   NA   NA   NA</code></pre>
+<pre><code>##  [1]   NA 4437 4437 4437   97   97   NA   NA   NA   NA</code></pre>
 <p>The <code>follow</code> method will return the index of the range in <code>subject</code> that is
 followed by the range in <code>x</code>.</p>
 <pre class="r"><code>follow(x, subject)</code></pre>
-<pre><code>##  [1] 2898   NA   NA 2765 2898   NA   NA   NA   NA   NA</code></pre>
+<pre><code>##  [1] 5098   NA   NA 4956 5098   NA   NA   NA   NA   NA</code></pre>
 <p>The <code>nearestKNeighbors</code> method performs conventional k-nearest neighbor finding. For
 each range in <code>x</code>, it will find the index of the k-nearest neighbors in
 <code>subject</code>. The argument <code>k</code> can be specified to identify more than one nearest
@@ -1899,24 +1906,24 @@ neighbor. Overlaps are included. If <code>subject</code> is not given as an argu
 will also be treated as the <code>subject</code>.</p>
 <pre class="r"><code>nearestKNeighbors(x, subject)</code></pre>
 <pre><code>## IntegerList of length 10
-## [[1]] 2898
-## [[2]] 2224
-## [[3]] 2224
-## [[4]] 2765
-## [[5]] 73
-## [[6]] 73
+## [[1]] 5098
+## [[2]] 4437
+## [[3]] 4437
+## [[4]] 4956
+## [[5]] 97
+## [[6]] 97
 ## [[7]] &lt;NA&gt;
 ## [[8]] &lt;NA&gt;
 ## [[9]] &lt;NA&gt;
 ## [[10]] &lt;NA&gt;</code></pre>
 <pre class="r"><code>nearestKNeighbors(x, subject, k=10)</code></pre>
 <pre><code>## IntegerList of length 10
-## [[1]] 2898 3094 80 3240 1441 32 1312 3448 2609 1912
-## [[2]] 2224 2260 3040 3104 2149 177 2695 3165 2468 2926
-## [[3]] 2224 2260 3040 3104 2149 177 2695 3165 2468 2926
-## [[4]] 2765 2224 2260 3040 3104 2149 177 2695 3165 2468
-## [[5]] 73 2898 3191 2783 756 1606 3367 3722 1763 1234
-## [[6]] 73 3191 2783 756 1606 3367 3722 1763 1234 1941
+## [[1]] 5098 814 4999 2256 5294 2315 435 800 2804 2314
+## [[2]] 4437 514 2573 1164 444 524 1165 1166 1208 5232
+## [[3]] 4437 514 2573 1164 444 524 1165 1166 1208 5232
+## [[4]] 4956 4437 514 2573 1164 444 524 1165 1166 1208
+## [[5]] 97 814 1924 131 5394 916 2316 1576 2317 4083
+## [[6]] 97 1924 131 5394 916 2316 1576 2317 4083 4974
 ## [[7]] &lt;NA&gt;
 ## [[8]] &lt;NA&gt;
 ## [[9]] &lt;NA&gt;
@@ -1951,13 +1958,13 @@ will also be treated as the <code>subject</code>.</p>
 <p>All of the output in this vignette was produced under the following
 conditions:</p>
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>## R version 4.3.0 RC (2023-04-13 r84269)
-## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 22.04.2 LTS
+<pre><code>## R version 4.5.2 (2025-10-31)
+## Platform: x86_64-pc-linux-gnu
+## Running under: Ubuntu 24.04.3 LTS
 ## 
 ## Matrix products: default
-## BLAS:   /home/biocbuild/bbs-3.17-bioc/R/lib/libRblas.so 
-## LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0
+## BLAS:   /home/biocbuild/bbs-3.22-bioc/R/lib/libRblas.so 
+## LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.12.0  LAPACK version 3.12.0
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -1975,91 +1982,49 @@ conditions:</p>
 ## [8] base     
 ## 
 ## other attached packages:
-## [1] GenomicRanges_1.52.0 GenomeInfoDb_1.36.0  IRanges_2.34.0      
-## [4] S4Vectors_0.38.0     BiocGenerics_0.46.0  BiocStyle_2.28.0    
+##  [1] TxDb.Hsapiens.UCSC.hg38.knownGene_3.22.0
+##  [2] GenomicFeatures_1.62.0                  
+##  [3] AnnotationDbi_1.72.0                    
+##  [4] Biobase_2.70.0                          
+##  [5] GenomicRanges_1.62.1                    
+##  [6] Seqinfo_1.0.0                           
+##  [7] IRanges_2.44.0                          
+##  [8] S4Vectors_0.48.0                        
+##  [9] BiocGenerics_0.56.0                     
+## [10] generics_0.1.4                          
+## [11] BiocStyle_2.38.0                        
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] tidyselect_1.2.0                       
-##  [2] dplyr_1.1.2                            
-##  [3] blob_1.2.4                             
-##  [4] filelock_1.0.2                         
-##  [5] Biostrings_2.68.0                      
-##  [6] bitops_1.0-7                           
-##  [7] fastmap_1.1.1                          
-##  [8] RCurl_1.98-1.12                        
-##  [9] BiocFileCache_2.8.0                    
-## [10] GenomicAlignments_1.36.0               
-## [11] XML_3.99-0.14                          
-## [12] digest_0.6.31                          
-## [13] lifecycle_1.0.3                        
-## [14] KEGGREST_1.40.0                        
-## [15] RSQLite_2.3.1                          
-## [16] magrittr_2.0.3                         
-## [17] compiler_4.3.0                         
-## [18] rlang_1.1.0                            
-## [19] sass_0.4.5                             
-## [20] progress_1.2.2                         
-## [21] tools_4.3.0                            
-## [22] utf8_1.2.3                             
-## [23] yaml_2.3.7                             
-## [24] rtracklayer_1.60.0                     
-## [25] knitr_1.42                             
-## [26] prettyunits_1.1.1                      
-## [27] bit_4.0.5                              
-## [28] curl_5.0.0                             
-## [29] DelayedArray_0.26.0                    
-## [30] xml2_1.3.3                             
-## [31] BiocParallel_1.34.0                    
-## [32] grid_4.3.0                             
-## [33] fansi_1.0.4                            
-## [34] biomaRt_2.56.0                         
-## [35] SummarizedExperiment_1.30.0            
-## [36] cli_3.6.1                              
-## [37] rmarkdown_2.21                         
-## [38] crayon_1.5.2                           
-## [39] generics_0.1.3                         
-## [40] httr_1.4.5                             
-## [41] rjson_0.2.21                           
-## [42] DBI_1.1.3                              
-## [43] cachem_1.0.7                           
-## [44] stringr_1.5.0                          
-## [45] zlibbioc_1.46.0                        
-## [46] parallel_4.3.0                         
-## [47] AnnotationDbi_1.62.0                   
-## [48] BiocManager_1.30.20                    
-## [49] XVector_0.40.0                         
-## [50] restfulr_0.0.15                        
-## [51] matrixStats_0.63.0                     
-## [52] vctrs_0.6.2                            
-## [53] Matrix_1.5-4                           
-## [54] jsonlite_1.8.4                         
-## [55] bookdown_0.33                          
-## [56] hms_1.1.3                              
-## [57] bit64_4.0.5                            
-## [58] GenomicFeatures_1.52.0                 
-## [59] jquerylib_0.1.4                        
-## [60] glue_1.6.2                             
-## [61] codetools_0.2-19                       
-## [62] stringi_1.7.12                         
-## [63] BiocIO_1.10.0                          
-## [64] tibble_3.2.1                           
-## [65] pillar_1.9.0                           
-## [66] rappdirs_0.3.3                         
-## [67] htmltools_0.5.5                        
-## [68] GenomeInfoDbData_1.2.10                
-## [69] R6_2.5.1                               
-## [70] dbplyr_2.3.2                           
-## [71] evaluate_0.20                          
-## [72] Biobase_2.60.0                         
-## [73] lattice_0.21-8                         
-## [74] png_0.1-8                              
-## [75] Rsamtools_2.16.0                       
-## [76] memoise_2.0.1                          
-## [77] TxDb.Hsapiens.UCSC.hg19.knownGene_3.2.2
-## [78] bslib_0.4.2                            
-## [79] xfun_0.39                              
-## [80] MatrixGenerics_1.12.0                  
-## [81] pkgconfig_2.0.3</code></pre>
+##  [1] KEGGREST_1.50.0             SummarizedExperiment_1.40.0
+##  [3] rjson_0.2.23                xfun_0.54                  
+##  [5] bslib_0.9.0                 lattice_0.22-7             
+##  [7] vctrs_0.6.5                 tools_4.5.2                
+##  [9] bitops_1.0-9                curl_7.0.0                 
+## [11] parallel_4.5.2              RSQLite_2.4.5              
+## [13] blob_1.2.4                  pkgconfig_2.0.3            
+## [15] Matrix_1.7-4                cigarillo_1.0.0            
+## [17] lifecycle_1.0.4             compiler_4.5.2             
+## [19] Rsamtools_2.26.0            Biostrings_2.78.0          
+## [21] codetools_0.2-20            htmltools_0.5.9            
+## [23] sass_0.4.10                 RCurl_1.98-1.17            
+## [25] yaml_2.3.11                 crayon_1.5.3               
+## [27] jquerylib_0.1.4             BiocParallel_1.44.0        
+## [29] cachem_1.1.0                DelayedArray_0.36.0        
+## [31] abind_1.4-8                 digest_0.6.39              
+## [33] restfulr_0.0.16             bookdown_0.46              
+## [35] fastmap_1.2.0               grid_4.5.2                 
+## [37] cli_3.6.5                   SparseArray_1.10.6         
+## [39] S4Arrays_1.10.1             XML_3.99-0.20              
+## [41] bit64_4.6.0-1               rmarkdown_2.30             
+## [43] XVector_0.50.0              httr_1.4.7                 
+## [45] matrixStats_1.5.0           bit_4.6.0                  
+## [47] png_0.1-8                   memoise_2.0.1              
+## [49] evaluate_1.0.5              knitr_1.50                 
+## [51] BiocIO_1.20.0               rtracklayer_1.70.0         
+## [53] rlang_1.1.6                 DBI_1.2.3                  
+## [55] BiocManager_1.30.27         jsonlite_2.0.0             
+## [57] R6_2.6.1                    MatrixGenerics_1.22.0      
+## [59] GenomicAlignments_1.46.0</code></pre>
 </div>
 
 

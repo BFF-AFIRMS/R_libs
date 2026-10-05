@@ -12,6 +12,7 @@ class:FeatureDb	FeatureDb-class
 class:TxDb	TxDb-class
 columns,TxDb-method	select-methods
 coordinate-mapping	coordinate-mapping-methods
+coordinate-mapping-methods	coordinate-mapping-methods
 coverageByTranscript	coverageByTranscript
 distance,GenomicRanges,TxDb-method	nearest-methods
 exonicParts	exonicParts
@@ -41,6 +42,9 @@ getChromInfoFromBiomart	makeTxDbFromBiomart
 getPromoterSeq	getPromoterSeq-methods
 getPromoterSeq,GRanges-method	getPromoterSeq-methods
 getPromoterSeq,GRangesList-method	getPromoterSeq-methods
+getTerminatorSeq	getPromoterSeq-methods
+getTerminatorSeq,GRanges-method	getPromoterSeq-methods
+getTerminatorSeq,GRangesList-method	getPromoterSeq-methods
 id2name	id2name
 intronicParts	exonicParts
 intronsByTranscript	transcriptsBy
@@ -74,8 +78,7 @@ mapToTranscripts	coordinate-mapping-methods
 mapToTranscripts,ANY,TxDb-method	coordinate-mapping-methods
 mapToTranscripts,GenomicRanges,GenomicRanges-method	coordinate-mapping-methods
 mapToTranscripts,GenomicRanges,GRangesList-method	coordinate-mapping-methods
-microRNAs	microRNAs
-microRNAs,TxDb-method	microRNAs
+microRNAs	tRNAs
 nearest-methods	nearest-methods
 organism,TxDb-method	TxDb-class
 pcoverageByTranscript	coverageByTranscript
@@ -93,6 +96,7 @@ promoters,TxDb-method	transcripts
 proteinToGenome	proteinToGenome
 proteinToGenome,ANY-method	proteinToGenome
 proteinToGenome,GRangesList-method	proteinToGenome
+saveRDS,TxDb-method	TxDb-class
 select,TxDb-method	select-methods
 select-methods	select-methods
 seqinfo,TxDb-method	TxDb-class
@@ -103,6 +107,8 @@ supportedMiRBaseBuildValues	makeTxDbPackage
 supportedUCSCFeatureDbTables	makeFeatureDbFromUCSC
 supportedUCSCFeatureDbTracks	makeFeatureDbFromUCSC
 supportedUCSCtables	makeTxDbFromUCSC
+terminators	transcripts
+terminators,TxDb-method	transcripts
 threeUTRsByTranscript	transcriptsBy
 threeUTRsByTranscript,TxDb-method	transcriptsBy
 tidyExons	exonicParts
@@ -117,8 +123,8 @@ transcriptsBy,TxDb-method	transcriptsBy
 transcriptsByOverlaps	transcriptsByOverlaps
 transcriptsByOverlaps,TxDb-method	transcriptsByOverlaps
 transcriptWidths	transcriptLocs2refLocs
-tRNAs	microRNAs
-tRNAs,TxDb-method	microRNAs
+tRNAs	tRNAs
+tRNAs,TxDb-method	tRNAs
 TxDb	TxDb-class
 TxDb-class	TxDb-class
 UCSCFeatureDbTableSchema	makeFeatureDbFromUCSC

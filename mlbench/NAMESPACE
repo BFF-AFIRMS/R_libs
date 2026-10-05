@@ -3,8 +3,26 @@ useDynLib(mlbench)
 importFrom("graphics", "pairs")
 importFrom("stats", "mahalanobis", "rnorm", "runif")
 
-export(bayesclass)
-exportPattern("^mlbench.*")
+export(bayesclass,
+       mlbench.1spiral,
+       mlbench.2dnormals,
+       mlbench.cassini,
+       mlbench.circle,
+       mlbench.cuboids,
+       mlbench.friedman1,
+       mlbench.friedman2,
+       mlbench.friedman3,
+       mlbench.hypercube,
+       mlbench.peak,
+       mlbench.ringnorm,
+       mlbench.shapes,
+       mlbench.simplex,
+       mlbench.smiley,
+       mlbench.spirals,
+       mlbench.threenorm,
+       mlbench.twonorm,
+       mlbench.waveform,
+       mlbench.xor)
 
 S3method(as.data.frame, mlbench)
 S3method(plot, mlbench)

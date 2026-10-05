@@ -8,7 +8,6 @@
 Loading required package: Formula
 Loading required package: plotmo
 Loading required package: plotrix
-Loading required package: TeachingDemos
 > 
 > # the data we will build the models on
 > ncases <- 10

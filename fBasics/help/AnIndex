@@ -119,6 +119,7 @@ Heaviside	utils-Heaviside
 HedgeFund	data-examples
 hgrid	utils-decor
 hilbert	matrix-hilbert
+HistogramPlot	plot-histPlot
 histPlot	plot-histPlot
 hyp	dist-hyp
 hypFit	dist-hypFit
@@ -151,7 +152,6 @@ lcg	utils-randLCG
 lillieTest	test-normalityTests
 linearInterp	stats-interpLinear
 linearInterpp	stats-interpLinear
-listDescription	fBasics-deprecated
 listFunctions	utils-listFunctions
 listIndex	utils-listFunctions
 locationTest	test-locationTest
@@ -301,5 +301,5 @@ varianceTest	test-varianceTest
 vec	matrix-vech
 vech	matrix-vech
 vgrid	utils-decor
-volatility	baseMethods
-volatility.default	baseMethods
+volatility	volatility
+volatility.default	volatility

@@ -1,5 +1,55 @@
 # Revision history for the R/qtl package
 
+## Version 1.74, 2025-12-08
+
+- Removed includes of `R_ext/PrtUtil.h` which began causing warnings on CRAN.
+
+
+## Version 1.72, 2025-11-19
+
+### Minor changes
+
+- Improve error message in cim() if multiple `pheno.col` provided,
+  as well as help file (to emphasize that only a single phenotype can
+  be considered.) (Issue #107)
+
+
+## Version 1.70, 2024-08-21
+
+### Minor changes
+
+- Fixed a typo in the help file for `fitqtl()`.
+
+- Small change to C code in simulate.c for R-devel: change calls to
+  Calloc, Realloc, and Free to R_Calloc, R_Realloc, and R_Free.
+
+- In mqmdatatypes.cpp, changed calls to warning() to calls to Rf_warning()
+  to avoid compile error in R-devel.
+
+- Add Authors@R field in the Description file
+
+
+## Version 1.66, 2023-11-27
+
+### Bug fixes
+
+- Fixed problem in a call to Rprintf() in C++ code, identified by CRAN.
+  (Issue #104.)
+
+- Fixed additional compiler warnings on CRAN (Issue #105).
+
+
+## Version 1.62, 2023-11-17
+
+### Bug fixes
+
+- Fixed bug in `summary.scanone()` for the case `format="onepheno"` but
+  `threshold` has length > 1. (Issue #102.)
+
+- Fixed bug in `read.cross()` for format `"csvs"` when the phenotype
+  file contains only the identifiers. (Issue #103.)
+
+
 ## Version 1.60, 2023-04-18
 
 ### Minor changes

@@ -6,10 +6,10 @@ knitr::opts_chunk$set(
 options(styler.colored_print.vertical = FALSE)
 styler::cache_deactivate()
 
-## ---- message = FALSE---------------------------------------------------------
+## ----message = FALSE----------------------------------------------------------
 library("styler")
+library("magrittr")
 cache_deactivate()
-library("dplyr")
 names(tidyverse_style())
 str(tidyverse_style(), give.attr = FALSE, list.len = 3)
 
@@ -20,12 +20,12 @@ tidyverse_style()$space$remove_space_after_opening_paren
 string_to_format <- "call( 3)"
 pd <- styler:::compute_parse_data_nested(string_to_format) %>%
   styler:::pre_visit_one(default_style_guide_attributes)
-pd$child[[1]] %>%
-  select(token, terminal, text, newlines, spaces)
+
+cols <- c('token', 'terminal', 'text', 'newlines', 'spaces')
+pd$child[[1]][, cols]
 
 ## -----------------------------------------------------------------------------
-styler:::remove_space_after_opening_paren(pd$child[[1]]) %>%
-  select(token, terminal, text, newlines, spaces)
+styler:::remove_space_after_opening_paren(pd$child[[1]])[, cols]
 
 ## -----------------------------------------------------------------------------
 all.equal(
@@ -89,16 +89,16 @@ set_line_break_before_curly_opening_style <- function() {
 ## -----------------------------------------------------------------------------
 style_text(code, style = set_line_break_before_curly_opening_style)
 
-## ---- eval = FALSE------------------------------------------------------------
-#  a <- function() # comments should remain EOL
-#  {
-#    3
-#  }
+## ----eval = FALSE-------------------------------------------------------------
+# a <- function() # comments should remain EOL
+# {
+#   3
+# }
 
-## ---- eval = FALSE------------------------------------------------------------
-#  a <- function() # comments should remain EOL {
-#    3
-#  }
+## ----eval = FALSE-------------------------------------------------------------
+# a <- function() # comments should remain EOL {
+#   3
+# }
 
 ## -----------------------------------------------------------------------------
 styler:::remove_line_break_before_round_closing_after_curly

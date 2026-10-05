@@ -1,3 +1,72 @@
+# xml2 1.6.0
+
+* `xml_add_child()` without `.where` argument is now much faster. The default
+  is now `NULL` and still means "append after the last child".
+
+* `read_html()` now defaults to `encoding = "UTF-8"` to prevent double-encoding
+  of UTF-8 content on Windows with codepage 65001 (#490).
+
+# xml2 1.5.2
+
+* Enable the myExternalEntityLoader also on libxml 2.14.4 for MacOS
+
+# xml2 1.5.1
+
+* Avoid shared libxml2 on MacOS because this reveals bugs in R.app (#471)
+
+# xml2 1.5.0
+
+* Experimental custom myExternalEntityLoader on libxml2 2.15 and up.
+
+# xml2 1.4.1
+
+* Remove a test that broke with libxml2 2.15
+
+# xml2 1.4.0
+
+* read_html() now allows huge elements by default (#455) 
+
+* Workaround for xQuartz/Cocoa on MacOS hitting our global error handler.
+
+* Avoid accessing some struct internals disallowed in libxml2 2.14
+
+# xml2 1.3.8
+
+* Replace new "non-api" call IS_S4_OBJECT with Rf_isS4
+
+* Windows: update fallback libs (for R < 4.3) to libxml2 2.11.5
+
+* Compile with C_VISIBILITY and CXX_VISIBILITY on supported platforms
+
+# xml2 1.3.7
+
+* Windows: use libxml2 from Rtools if found
+
+* Update maintainer
+
+* Minor cleanups 
+
+# xml2 1.3.6
+
+* Now compatible with libxml2 2.12.0 and later (@KNnut).
+
+* Fixed format string issues detected in R-devel.
+
+* Remove unused dependencies on glue, withr and lifecycle (@mgirlich).
+
+* `print()` is faster for very long `xml_nodeset` inputs (#366, @michaelchirico).
+
+* `xml_attr()`, `xml_attrs()`, `xml_double()`, `xml_integer()`, `xml_length()`,
+  `xml_name()`, `xml_path()`, `xml_text()`, and `xml_type()` no longer use
+  S3 dispatch but instead dispatch in C, leading to considerable performance
+  improvements in many cases (@mgirlich, #400).
+
+* `xml_find_int()` analogous to `xml_find_num()` for returning integers 
+  matched by an XPath (#365, @michaelchirico).
+
+* `xml_serialize()` now includes the document type so that `xml_unserialize()` 
+  works also for HTML documents (#407, @HenrikBengtsson).
+
 # xml2 1.3.5
 
 * Small speedup for `xml_find_all()` (@mgirlich, #393).

@@ -15,22 +15,8 @@ st_geometry(nc) <- "geom2"
 plot(st_geometry(nc))
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  i = sf::st_intersects(sf1, sf2)
+# i = sf::st_intersects(sf1, sf2)
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  library(sf)
-
-## -----------------------------------------------------------------------------
-polygon = st_sfc(st_polygon(list(rbind(c(0,80), c(120,80), c(240,80), c(0,80)))), 
-		crs = 4326)
-pole = st_sfc(st_point(c(0,90)), crs = 4326)
-st_intersects(polygon, pole)
-
-## -----------------------------------------------------------------------------
-st_centroid(polygon)[[1]]
-
-## -----------------------------------------------------------------------------
-pt = st_sfc(st_point(c(0,0)), crs = 4326)
-buf = st_buffer(polygon, 1)
-buf = st_buffer(polygon, units::set_units(1, degree))
+# library(sf)
 

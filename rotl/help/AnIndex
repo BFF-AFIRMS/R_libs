@@ -1,3 +1,4 @@
+rotl-package	rotl
 candidate_for_synth	get_study_meta
 candidate_for_synth.study_meta	get_study_meta
 flags	match_names-methods

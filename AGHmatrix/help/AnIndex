@@ -1,13 +1,16 @@
 Amatrix	Amatrix
 AmatrixPolyCross	AmatrixPolyCross
+asciitonumber	asciitonumber
 datatreat	datatreat
 expandAmatrix	expandAmatrix
 filterpedigree	filterpedigree
 formatmatrix	formatmatrix
 Gmatrix	Gmatrix
 Hmatrix	Hmatrix
+H_martini_blocks	H_martini_blocks
 Mcheck	Mcheck
 missingdata	missingdata
+munoz_var_mean_by_Aclass	munoz_var_mean_by_Aclass
 ped.mrode	ped.mrode
 ped.sol	ped.sol
 snp.pine	snp.pine

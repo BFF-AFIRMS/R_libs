@@ -110,8 +110,10 @@ colWeightedSds,matrix_OR_array_OR_table_OR_numeric-method	rowWeightedSds
 colWeightedVars	rowWeightedVars
 colWeightedVars,ANY-method	rowWeightedVars
 colWeightedVars,matrix_OR_array_OR_table_OR_numeric-method	rowWeightedVars
+internal-helpers	internal-helpers
 matrix_OR_array_OR_table_OR_numeric	MatrixGenerics-package
 matrix_OR_array_OR_table_OR_numeric-class	MatrixGenerics-package
+normarg_center	internal-helpers
 rowAlls	rowAlls
 rowAlls,ANY-method	rowAlls
 rowAlls,matrix_OR_array_OR_table_OR_numeric-method	rowAlls

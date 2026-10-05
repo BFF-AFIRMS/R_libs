@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -11,10 +11,10 @@ options(
   "lifecycle_verbosity" = "warning"
 )
 
-## ---- eval = FALSE------------------------------------------------------------
-#  #' `r lifecycle::badge("experimental")`
-#  #' `r lifecycle::badge("deprecated")`
-#  #' `r lifecycle::badge("superseded")`
+## ----eval = FALSE-------------------------------------------------------------
+# #' `r lifecycle::badge("experimental")`
+# #' `r lifecycle::badge("deprecated")`
+# #' `r lifecycle::badge("superseded")`
 
 ## -----------------------------------------------------------------------------
 lifecycle::deprecate_warn("1.0.0", "old_fun()", "new_fun()")
@@ -59,24 +59,24 @@ add_two <- function(x, y) {
 
 add_two(1, 2)
 
-## ---- eval = FALSE------------------------------------------------------------
-#  test_that("add_two is deprecated", {
-#    expect_snapshot({
-#      x <- add_two(1, 1)
-#      expect_equal(x, 2)
-#    })
-#  })
+## ----eval = FALSE-------------------------------------------------------------
+# test_that("add_two is deprecated", {
+#   expect_snapshot({
+#     x <- add_two(1, 1)
+#     expect_equal(x, 2)
+#   })
+# })
 
-## ---- eval = FALSE------------------------------------------------------------
-#  test_that("add_two returns the sum of its inputs", {
-#    withr::local_options(lifecycle_verbosity = "quiet")
-#    expect_equal(add_two(1, 1), 2)
-#  })
+## ----eval = FALSE-------------------------------------------------------------
+# test_that("add_two returns the sum of its inputs", {
+#   withr::local_options(lifecycle_verbosity = "quiet")
+#   expect_equal(add_two(1, 1), 2)
+# })
 
-## ---- eval = FALSE------------------------------------------------------------
-#  test_that("add_two is deprecated", {
-#    expect_snapshot(add_two(1, 1))
-#  })
+## ----eval = FALSE-------------------------------------------------------------
+# test_that("add_two is deprecated", {
+#   expect_snapshot(add_two(1, 1))
+# })
 
 ## -----------------------------------------------------------------------------
 #' Add two numbers
@@ -117,18 +117,8 @@ number_add <- function(x, y) {
 #' See more details in `vignette("pivot")`.
 
 ## -----------------------------------------------------------------------------
-gather <- function(data, key = "key", value = "value", ...) {
-  lifecycle::signal_stage("superseded", "gather()")
-}
-
-## -----------------------------------------------------------------------------
 #' @description
 #' `r lifecycle::badge("experimental")`
-
-## -----------------------------------------------------------------------------
-cool_function <- function() {
-  lifecycle::signal_stage("experimental", "cool_function()")
-}
 
 ## -----------------------------------------------------------------------------
 add_two <- function(x, y, na.rm = TRUE) {
@@ -180,8 +170,10 @@ add_two <- function(x, y, na_rm = TRUE, na.rm = deprecated()) {
     na_rm <- na.rm
   }
   
-  add_two(x, y, na.rm = na_rm)
+  sum(x, y, na.rm = na_rm)
 }
+
+add_two(1, NA, na.rm = TRUE)
 
 ## -----------------------------------------------------------------------------
 add_two <- function(x, y) {

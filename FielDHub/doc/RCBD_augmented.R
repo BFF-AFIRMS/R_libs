@@ -7,11 +7,11 @@ knitr::opts_chunk$set(
 )
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  FielDHub::run_app()
+# FielDHub::run_app()
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  library(FielDHub)
-#  run_app()
+# library(FielDHub)
+# run_app()
 
 ## ----include=FALSE------------------------------------------------------------
 library(FielDHub)
@@ -43,14 +43,14 @@ aug_RCBD <- RCBD_augmented(
 )
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
-#  print(aug_RCBD)
+# print(aug_RCBD)
 
 ## ----echo=FALSE, eval=TRUE----------------------------------------------------
 print(aug_RCBD)
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
-#  field_book <- aug_RCBD$fieldBook
-#  head(field_book, 10)
+# field_book <- aug_RCBD$fieldBook
+# head(field_book, 10)
 
 ## ----echo=FALSE, eval=TRUE----------------------------------------------------
 field_book <- aug_RCBD$fieldBook

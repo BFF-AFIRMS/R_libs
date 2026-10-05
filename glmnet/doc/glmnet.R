@@ -18,8 +18,8 @@ knitr::knit_hooks$set(output = function(x, options) {
   hook_output(x, options)
 })
 
-## ---- eval=FALSE--------------------------------------------------------------
-#  install.packages("glmnet", repos = "https://cran.us.r-project.org")
+## ----eval=FALSE---------------------------------------------------------------
+# install.packages("glmnet", repos = "https://cran.us.r-project.org")
 
 ## -----------------------------------------------------------------------------
 library(glmnet)
@@ -89,23 +89,23 @@ cvfit <- cv.glmnet(x, y, type.measure = "mse", nfolds = 20)
 ## -----------------------------------------------------------------------------
 print(cvfit)
 
-## ---- eval=FALSE--------------------------------------------------------------
-#  library(doMC)
-#  registerDoMC(cores = 2)
-#  X <- matrix(rnorm(1e4 * 200), 1e4, 200)
-#  Y <- rnorm(1e4)
+## ----eval=FALSE---------------------------------------------------------------
+# library(doMC)
+# registerDoMC(cores = 2)
+# X <- matrix(rnorm(1e4 * 200), 1e4, 200)
+# Y <- rnorm(1e4)
 
-## ---- eval=FALSE--------------------------------------------------------------
-#  system.time(cv.glmnet(X, Y))
+## ----eval=FALSE---------------------------------------------------------------
+# system.time(cv.glmnet(X, Y))
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 structure(c(2.44, 0.08, 2.518, 0, 0), class = "proc_time", .Names = c("user.self",
 "sys.self", "elapsed", "user.child", "sys.child"))
 
-## ---- eval=FALSE--------------------------------------------------------------
-#  system.time(cv.glmnet(X, Y, parallel = TRUE))
+## ----eval=FALSE---------------------------------------------------------------
+# system.time(cv.glmnet(X, Y, parallel = TRUE))
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 structure(c(0.508999999999999, 0.057, 1.56699999999999, 1.941,
 0.1), class = "proc_time", .Names = c("user.self", "sys.self",
 "elapsed", "user.child", "sys.child"))
@@ -214,9 +214,9 @@ itrain <- 1:70
 fit <- glmnet(x[itrain, ], y[itrain], family = "binomial", nlambda = 5)
 assess.glmnet(fit, newx = x[-itrain, ], newy = y[-itrain])
 
-## ---- eval=FALSE--------------------------------------------------------------
-#  pred <- predict(fit, newx = x[-itrain, ])
-#  assess.glmnet(pred, newy = y[-itrain], family = "binomial")
+## ----eval=FALSE---------------------------------------------------------------
+# pred <- predict(fit, newx = x[-itrain, ])
+# assess.glmnet(pred, newy = y[-itrain], family = "binomial")
 
 ## -----------------------------------------------------------------------------
 glmnet.measures()
@@ -279,8 +279,8 @@ all.equal(fit.orig, fit.new)
 ## -----------------------------------------------------------------------------
 cvfit.filt <- cv.glmnet(x, y, family = "binomial", exclude = filter)
 
-## ---- eval=FALSE--------------------------------------------------------------
-#  filter <- function(x, y, weights, ...) {}
+## ----eval=FALSE---------------------------------------------------------------
+# filter <- function(x, y, weights, ...) {}
 
 ## -----------------------------------------------------------------------------
 sparsity <- function(fraction = 0.7) {
@@ -328,8 +328,8 @@ ut.test <- function(x, y, s0 = 0) {
 
 tfilter <- function(q = 0.3, s0 = 0) {
   function(x, y, ...) {
-    tstats <- ut.test(x, y, s0 = s0)
-    which(tstats < quantile(tstats, q))
+    abs_tstats <- abs(ut.test(x, y, s0 = s0))
+    which(abs_tstats < quantile(abs_tstats, q))
   }
 }
 
@@ -398,14 +398,14 @@ dftn <- data.frame(Xn, X2n, X3n)
 dftn
 makeX(dfn, dftn, sparse = TRUE)
 
-## ---- eval=FALSE--------------------------------------------------------------
-#  fit <- glmnet(x, y, trace.it = TRUE)
+## ----eval=FALSE---------------------------------------------------------------
+# fit <- glmnet(x, y, trace.it = TRUE)
 
-## ---- eval=FALSE--------------------------------------------------------------
-#  fit <- cv.glmnet(x, y, trace.it = TRUE)
+## ----eval=FALSE---------------------------------------------------------------
+# fit <- cv.glmnet(x, y, trace.it = TRUE)
 
-## ---- eval=FALSE--------------------------------------------------------------
-#  glmnet.control(itrace = 1)
+## ----eval=FALSE---------------------------------------------------------------
+# glmnet.control(itrace = 1)
 
 ## -----------------------------------------------------------------------------
 data(QuickStartExample)
@@ -425,7 +425,7 @@ glmnet.control(factory = TRUE)
 ## ----out.lines = 8------------------------------------------------------------
 glmnet.control()
 
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 data(QuickStartExample)
 x <- QuickStartExample$x
 y <- QuickStartExample$y
@@ -437,7 +437,7 @@ fit <- glmnet(x, y, intercept = F, standardize = F,
               lambda = 8 / (2 * n), thresh = 1e-20)
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  beta_glmnet <- as.matrix(predict(fit, type = "coefficients")[-1,])
+# beta_glmnet <- as.matrix(predict(fit, type = "coefficients")[-1,])
 
 ## -----------------------------------------------------------------------------
 fit <- glmnet(x, y, intercept = F, standardize = F, thresh = 1e-20)
@@ -445,20 +445,20 @@ beta_glmnet <- as.matrix(predict(fit, s = 8 / (2 * n),
                                  type = "coefficients", 
                                  exact = TRUE, x = x, y = y)[-1,])
 
-## ---- eval=FALSE--------------------------------------------------------------
-#  library(CVXR)
-#  beta <- Variable(p)
-#  loss <- sum((y-x%*%beta)^2)/(2*n)
-#  lassoPenalty <- function(beta,lambda)lambda*p_norm(beta,1)
-#  obj <- loss + lassoPenalty(beta, lambda = 8/(2*n))
-#  prob <- Problem(Minimize(obj))
-#  result <- solve(prob)
-#  beta_CVX <- result$getValue(beta)
+## ----eval=FALSE---------------------------------------------------------------
+# library(CVXR)
+# beta <- Variable(p)
+# loss <- sum((y-x%*%beta)^2)/(2*n)
+# lassoPenalty <- function(beta,lambda)lambda*p_norm(beta,1)
+# obj <- loss + lassoPenalty(beta, lambda = 8/(2*n))
+# prob <- Problem(Minimize(obj))
+# result <- solve(prob)
+# beta_CVX <- result$getValue(beta)
 
 ## -----------------------------------------------------------------------------
 data(CVXResults)
 
-## ---- message=FALSE-----------------------------------------------------------
+## ----message=FALSE------------------------------------------------------------
 library(lars)
 fit_lars <- lars(x, y, type = "lasso", intercept = F, normalize = F)
 beta_lars <- predict(fit_lars, s = 8 / 2, type = "coefficients", 

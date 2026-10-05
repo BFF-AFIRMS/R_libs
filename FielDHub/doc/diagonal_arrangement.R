@@ -7,11 +7,11 @@ knitr::opts_chunk$set(
 )
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  FielDHub::run_app()
+# FielDHub::run_app()
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  library(FielDHub)
-#  run_app()
+# library(FielDHub)
+# run_app()
 
 ## ----include=FALSE------------------------------------------------------------
 ENTRY <- 1:12
@@ -39,14 +39,14 @@ single_diag <- diagonal_arrangement(
 )
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
-#  print(single_diag)
+# print(single_diag)
 
 ## ----echo=FALSE, eval=TRUE----------------------------------------------------
 print(single_diag)
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
-#  field_book <- single_diag$fieldBook
-#  head(field_book, 10)
+# field_book <- single_diag$fieldBook
+# head(field_book, 10)
 
 ## ----echo=FALSE, eval=TRUE----------------------------------------------------
 field_book <- single_diag$fieldBook
@@ -80,14 +80,14 @@ multi_diag <- diagonal_arrangement(
 )
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
-#  print(multi_diag)
+# print(multi_diag)
 
 ## ----echo=FALSE, eval=TRUE----------------------------------------------------
 print(multi_diag)
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
-#  field_book <- multi_diag$fieldBook
-#  head(field_book, 10)
+# field_book <- multi_diag$fieldBook
+# head(field_book, 10)
 
 ## ----echo=FALSE, eval=TRUE----------------------------------------------------
 field_book <- multi_diag$fieldBook

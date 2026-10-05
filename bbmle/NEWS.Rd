@@ -4,7 +4,49 @@
 \title{bbmle News}
 \encoding{UTF-8}
 
-\section{Changes in version 1.0.25}{
+\section{Changes in version 1.0.26}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item \code{confint} method gains a \code{std.err} argument, for
+      use when Wald standard errors are unavailable or unreliable
+      \item \code{mle2} gains a \code{hessian.method} argument, which can
+      be set to "optimHess" when the default method (\code{hessian} or
+      \code{jacobian} from the \code{numDeriv} package) is unreliable
+    }
+  }
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item added a \code{nobs} method for \code{mle2} objects; its
+      absence made \code{BICtab}/\code{ICtab(type="BIC")} fail
+      unconditionally, and made \code{AICc}/\code{qAICc} fall back to
+      unreliable heuristics (GH #35)
+      \item \code{ICtab(type="BIC")} now respects an explicit
+      \code{nobs} argument, instead of silently ignoring it (GH #35)
+      \item fixed inconsistent degrees-of-freedom adjustment in
+      \code{qAICc}, which caused \code{qAICc()} on a single object to
+      disagree with \code{qAICc()} on multiple objects (GH #22)
+      \item \code{mle2(optimizer="optimx")} now checks up front that the
+      requested \code{method}(s) are recognized and that any packages
+      they require (e.g. \code{minqa} for \code{"bobyqa"}/\code{"newuoa"},
+      \code{BB} for \code{"spg"}, \code{ucminf} for \code{"ucminf"},
+      \code{dfoptim} for \code{"nmkb"}/\code{"hjkb"}) are installed,
+      instead of silently returning NA parameter estimates; a generic
+      check also now catches NA parameter results from any optimizer
+      (GH #31)
+    }
+  }
+}
+
+  
+\section{Changes in version 1.0.25.1 (2023-12-09)}{
+  \subsection{CRAN COMPATIBILITY}{
+    \itemize{
+      \item remove/ignore spurious .Rout files
+    }
+  }
+}
+
+\section{Changes in version 1.0.25 (2022-05-11)}{
   \subsection{USER-VISIBLE CHANGES}{
     \itemize{
       \item \code{mle2.options()} function is now exported

@@ -1,5 +1,11 @@
 # rstpm2
 
+# Version 1.7.0
+    - aft mixture and non-mixture cure models
+	- aft integrated time effects
+	- Improved initial values for gsm/pstpm2/stpm2
+	- Bug fix for offsets for gsm/pstpm2/stpm2
+
 # Version 1.6.1
     - Experimental: aft\_mixture and aft\_integrated regression models
 

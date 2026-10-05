@@ -257,13 +257,16 @@ expressiveness to an FP language, while allowing you to write code that
 looks and works like R:</p>
 <ul>
 <li><p>Instead of point free (tacit) style, we use the pipe,
-<code>%&gt;%</code>, to write code that can be read from left to
+<code>|&gt;</code>, to write code that can be read from left to
 right.</p></li>
 <li><p>Instead of currying, we use <code>...</code> to pass in extra
 arguments.</p></li>
-<li><p>Before R 4.1, anonymous functions were verbose, so we provide two
-convenient shorthands. For unary functions, <code>~ .x + 1</code> is
-equivalent to <code>function(.x) .x + 1</code>.</p></li>
+<li><p>Before R 4.1, anonymous functions were verbose, so we provided a
+convenient shorthand. For unary functions, <code>~ .x + 1</code> is
+equivalent to <code>function(.x) .x + 1</code>. Now we recommend using
+the function shorthand notation introduced in R 4.1, where
+<code>\(x) x + 1</code> is equivalent to
+<code>function(x) x + 1</code>.</p></li>
 <li><p>R is weakly typed, so we need <code>map</code> variants that
 describe the output type (like <code>map_int()</code>,
 <code>map_dbl()</code>, etc) because we don’t know the return type of

@@ -133,6 +133,8 @@ updateObject,XIntegerViews-method	updateObject-methods
 updateObject,XVector-method	updateObject-methods
 updateObject-methods	updateObject-methods
 view-summarization-methods	view-summarization-methods
+viewApply,XDoubleViews-method	XDoubleViews-class
+viewApply,XIntegerViews-method	XIntegerViews-class
 viewMaxs,XDoubleViews-method	view-summarization-methods
 viewMaxs,XIntegerViews-method	view-summarization-methods
 viewMeans,XDoubleViews-method	view-summarization-methods

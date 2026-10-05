@@ -1,8 +1,111 @@
+% Convert this to NEWS.md:
+%  1. inst/NEWS.Rd to NEWS.html:
+%     tools:::Rd2HTML("inst/NEWS.Rd", "NEWS.html")
+%
+%  2. NEWS.html to NEWS.md (https://www.r-bloggers.com/2018/12/rstudio-pandoc-html-to-markdown/)
+%     rmarkdown::pandoc_convert("NEWS.html", to = "markdown_strict", output = "NEWS.md")
+%
+%  3. Manually remove everything up to the first line containing:
+%              ## CHANGES in fGarch VERSION ...
+%
+%  4. Bring the markdown sections one level up, i.e. remove one '#' from
+%     each section level. For example using regex ^#\(#+\) with replacement value \1
+
 \name{NEWS}
 \title{News for \R Package \pkg{fGarch}}
 \encoding{UTF-8}
 
-\section{CHANGES in fGarch VERSION 4021.89 (2022-??-??, from svn r6316--rXXXX)}{
+\section{CHANGES in fGarch VERSION 4052.93 (2024-12-12, svn r6482--r6544)}{
+  \itemize{
+
+    \item emphasised that the skew normal distribution in fGarch is
+    different from what is usually called skew normal distribution.
+    Similarly for the other skew distributions.
+
+    \item replaced a call to `warnings` (plural) with `warning`
+    (singular) in \code{garchSpec}. The old one was clearly a typo and
+    was not issuing the intended warning about the violation of the
+    stationarity condition for GARCH models.
+    
+    \item improved the layout of the reference section of the pkgdown
+    site.
+
+    \item edited the help page of class \code{"fGARCH"}. In particular,
+    added cross-references to the help pages of the individual methods.
+    
+
+  }
+}
+
+
+\section{CHANGES in fGarch VERSION 4033.92 (2024-03-26, svn r6481--r6481)}{
+  \itemize{
+
+    \item added VaR and ES plots to the \code{plot} method for fitted
+    GARCH models.
+
+    \item documented with examples that argument \code{which} of the
+    plot method for fitted GARCH objects can be of length greater than
+    one.
+
+    \item added a link to the website created with pkgdown to file
+    'DESCRIPTION'.
+
+  }
+}
+
+
+\section{CHANGES in fGarch VERSION 4032.91 (2024-02-02, svn r6436--r6479)}{
+  \itemize{
+
+    \item added computation of Value-at-Risk (VaR) and expected
+    shortfall (ES) for fitted GARCH and APARCH models (in-sample and in
+    the predict method). Just use something like \code{Var(fitted_object)},
+    \code{ES(fitted_object)} or \code{predict(fitted_object, ..., p_loss = 0.05)}.
+
+  }
+}
+
+
+\section{CHANGES in fGarch VERSION 4022.90 (2023-10-15, svn r6333--r6435)}{
+  \itemize{
+
+    \item added \code{"fGARCH"} method for \code{stats::tsdiag}. The
+    method produces diagnostic plot for fitted GARCH/APARCH models and
+    computes some diagnostic tests. The plots can be chosen
+    interactively and/or via arguments. The test results are in the
+    returned value. The method is in development in that more plots may
+    be made available and additional tests included in the returned
+    value.
+
+    \item refactored the \code{"fGARCH"} method for 'summary' to return
+    an object from S3 class 'summary_fGARCH' equipped with a 'print'
+    method. The printout is the same as before, except that now the
+    numbers in the statistics column for the residual diagnostics are
+    aligned on the decimal point (previously they were left-aligned due
+    to a buglet).
+
+    \item the \code{"fGARCH"} method for \code{fitted} was returning the
+    data, not the fitted values. Fixes issue 6789, reported by Kouhei
+    Hashinokuchi (hakoshie).
+
+    \item the help pages for the \code{"fGARCH"} methods for
+    \code{fitted()} and \code{residuals()} were stating that the
+    returned results have the same class as the input time
+    series. Actually, they return numeric vectors. (todo?: to make the
+    returned values as previously documented, \code{garchFit()} would
+    need to put the original data or the necessary information in the
+    fitted object, e.g., \code{object@fit$data}.
+
+    \item some tests were using deprecated \code{fBasics::.distCheck()}
+    (notice the leading dot). Replaced such calls with the equivalent
+    \code{fBasics::distCheck()}.
+
+  }
+}
+
+
+\section{CHANGES in fGarch VERSION 4022.89 (2022-11-05, from svn r6316--r6326)}{
   \itemize{
     
     \item in \code{absMoments}, the absolute moments for the
@@ -11,6 +114,10 @@
     \item in README, linked to the paper by Wuertz et al.
 
     \item substantially revised the documentation and filled gaps in it.
+
+    \item removed the functions with suffix `_orig` which were kept
+    temporarilly after the bug fix in v4021.87 since there were no
+    reported problems with the fix.
 
   }
 }
@@ -32,6 +139,19 @@
   \subsection{NEW MAINTAINER}{
     \itemize{
       \item Georgi N. Boshnakov
+    }
+  }
+  \subsection{VERSION NUMBERS}{
+    \itemize{
+
+      \item We continue to use the traditional Rmetrics scheme for
+      numbering the versions of the package as Mmmr.n, where 'M' is the
+      current major R version at the time of submission of the package
+      to CRAN, 'mm' is the minor one and 'r' is the revision. 'n' is the
+      sequential number of the CRAN submission of the package. For
+      example, this release has version 4021.87 since it was released
+      when R 4.2.1 was current and 'n' in the previous version was 86.
+
     }
   }
   \subsection{BUG FIXES}{
@@ -233,6 +353,7 @@
     }
   }
 }
+
 
 
 %% CRAN-Archive for fGarch  -- older ones

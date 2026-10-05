@@ -1,7 +1,7 @@
 Package: matrixStats
-Version: 1.0.0
-Depends: R (>= 2.12.0)
-Suggests: base64enc, ggplot2, knitr, markdown, microbenchmark,
+Version: 1.5.0
+Depends: R (>= 3.4.0)
+Suggests: utils, base64enc, ggplot2, knitr, markdown, microbenchmark,
         R.devices, R.rsp
 VignetteBuilder: R.rsp
 Title: Functions that Apply to Rows and Columns of Matrices (and to
@@ -44,8 +44,8 @@ NeedsCompilation: yes
 ByteCompile: TRUE
 URL: https://github.com/HenrikBengtsson/matrixStats
 BugReports: https://github.com/HenrikBengtsson/matrixStats/issues
-RoxygenNote: 7.2.3
-Packaged: 2023-06-02 03:42:52 UTC; henrik
+RoxygenNote: 7.3.2
+Packaged: 2025-01-07 17:25:20 UTC; henrik
 Repository: CRAN
-Date/Publication: 2023-06-02 08:40:02 UTC
-Built: R 4.3.0; x86_64-pc-linux-gnu; 2023-07-07 02:25:50 UTC; unix
+Date/Publication: 2025-01-07 19:50:02 UTC
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-01 20:38:40 UTC; unix

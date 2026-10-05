@@ -1,3 +1,82 @@
+# labelled 2.16.1
+
+**Bug fix**
+
+* `value_labels()` works on empty vector, i.e. a logical vector containing
+  only `NA` values (#192)
+* `dictionary_to_value_labels()` now handles value labels with repeated
+  `delim_value_label` (#194)
+* fix in `set_value_labels()` when `.overwrite = FALSE` (#198, @ LeonidasZhak)
+* fix in `update_labelled.labelled()` when importing `na_range` attribute
+  (#198, @LeonidasZhak)
+
+# labelled 2.16.0
+
+**New features**
+
+* new function `to_gt()` for converting the result of `look_for()` into a nicely
+  formatted table (#189)
+* new functions `dictionary_to_variable_labels()` and
+  `dictionary_to_value_labels()` to convert a dictionary data frame into a list
+  of variable / value labels (#183)
+* new `.overwrite` argument for `set_variable_labels()` and
+  `set_value_labels()` (#183)
+* new `sep` argument for `names_prefixed_by_values()`
+* new arguments (`sep_value_labels` and `sep_other`) for
+  `convert_list_columns_to_character()` and `lookfor_to_long_format()`
+
+**Bug fix**
+
+* `copy_labels()` is now less restrictive and accept tibble with list
+  columns (#187)
+
+
+# labelled 2.15.0
+
+**New features**
+
+* `{labelled}` functions are now compatible with survey design objects created
+  with the `{survey}` package (#174)
+* argument `user_na_to_na` has been added to `to_factor.data.frame()` (#178)
+
+# labelled 2.14.1
+
+**Bug fix**
+
+* fix a bug introduced in 2.14.0 in `set_variable_labels()` when using `.labels`
+  argument (#171)
+
+
+# labelled 2.14.0
+
+**New features**
+
+* in `update_variable_labels_with()`, it is now possible to access the variable
+  name inside `.fn` by using `names()` (#163)
+* `var_label()` gets new options `"na"` and `"empty"` for `null_action`
+
+**Improvements**
+
+* systematic use of `{cli}` for errors, warnings and messages (#167)
+
+# labelled 2.13.0
+
+**New features**
+
+* add a `null_action` argument to `val_labels()`, `val_label()` and a 
+  `.null_action` argument to `set_value_labels()`, `add_value_labels()` and
+  `remove_value_labels()` (#145)
+* new functions `update_variable_labels_with()` and `update_value_labels_with()`
+  allowing to update variable/value labels with a custom function (#153)
+
+**Bug fix**
+
+* avoid an error with `print.look_for()` when console pane is physically shrunk
+  too small (#148)
+* fix in `recode.haven_labelled()` when `.x` contains `NA` and
+  `.combine_value_labels = TRUE` (#151)
+* produce an error when trying to assign value labels to a Date vector (#156)
+
 # labelled 2.12.0
 
 **New features**

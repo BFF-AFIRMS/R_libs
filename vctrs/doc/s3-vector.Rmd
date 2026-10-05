@@ -59,7 +59,7 @@ They're collectively demonstrated with a number of simple S3 classes:
 -   Meter: a numeric vector with meter units.
     This is the simplest possible class with interesting algebraic properties.
 
--   Period and frequency: a pair of classes represent a period, or it's inverse, frequency.
+-   Period and frequency: a pair of classes represent a period, or its inverse, frequency.
     This allows us to explore more arithmetic operators.
 
 ## Basics
@@ -147,7 +147,7 @@ format.vctrs_percent <- function(x, ...) {
 
 ```{r, include = FALSE}
 # As of R 3.5, print.vctr can not find format.percent since it's not in
-# it's lexical environment. We fix that problem by manually registering.
+# its lexical environment. We fix that problem by manually registering.
 s3_register("base::format", "vctrs_percent")
 ```
 
@@ -1329,7 +1329,7 @@ Specific recommendations:
 
 -   Use `testthat::verify_output()` to test your format method.
     Customised printing is often a primary motivation for creating your own S3 class in the first place, so this will alert you to unexpected changes in your printed output.
-    Read more about `verify_output()` in the [testthat v2.3.0 blog post](https://www.tidyverse.org/blog/2019/11/testthat-2-3-0/); it's an example of a so-called [golden test](https://ro-che.info/articles/2017-12-04-golden-tests).
+    Read more about `verify_output()` in the [testthat v2.3.0 blog post](https://tidyverse.org/blog/2019/11/testthat-2-3-0/); it's an example of a so-called [golden test](https://ro-che.info/articles/2017-12-04-golden-tests).
 
 -   Check for method symmetry; use `expect_s3_class()`, probably with `exact = TRUE`, to ensure that `vec_c(x, y)` and `vec_c(y, x)` return the same type of output for the important `x`s and `y`s in your domain.
 

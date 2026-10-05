@@ -1,8 +1,9 @@
-//
+
 // RcppArmadilloForward.h: Rcpp/Armadillo glue
 //
-// Copyright (C)  2010 - 2023  Dirk Eddelbuettel, Romain Francois and Douglas Bates
-// Copyright (C)  2019 - 2023  Conrad Sanderson
+// Copyright (C)  2010 - 2014  Dirk Eddelbuettel, Romain Francois and Douglas Bates
+// Copyright (C)  2015 - 2026  Dirk Eddelbuettel
+// Copyright (C)  2019 - 2026  Conrad Sanderson
 //
 // This file is part of RcppArmadillo.
 //
@@ -46,14 +47,7 @@
 // installation of Armadillo
 #define ARMA_DONT_USE_WRAPPER
 
-// Unless 'RCPPARMADILLO_FORCE_DEPRECATE' is defined to force deprecation, we define the
-// setting to ignored deprecation (used at bottom of compiler_setup.hpp). This allows an
-// opt-out of the (hopefully temporary) suppression of deprecation warning we need while a
-// number of CRAN packages are affected as discussed and detailed in issues #391 and #402.
-#if !defined(RCPPARMADILLO_FORCE_DEPRECATE)
-#define ARMA_IGNORE_DEPRECATED_MARKER
-#endif
-
+// Armadillo 15.0.1 or later
 #include "armadillo"
 
 /* forward declarations */

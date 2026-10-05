@@ -1,5 +1,5 @@
 Package: SummarizedExperiment
-Title: SummarizedExperiment container
+Title: A container (S4 class) for matrix-like assays
 Description: The SummarizedExperiment container contains one or more assays,
 	each represented by a matrix-like object of numeric or other mode.
 	The rows typically represent genomic ranges of interest and the columns
@@ -8,7 +8,7 @@ biocViews: Genetics, Infrastructure, Sequencing, Annotation, Coverage,
         GenomeAnnotation
 URL: https://bioconductor.org/packages/SummarizedExperiment
 BugReports: https://github.com/Bioconductor/SummarizedExperiment/issues
-Version: 1.30.2
+Version: 1.40.0
 License: Artistic-2.0
 Encoding: UTF-8
 Authors@R: c(
@@ -18,14 +18,15 @@ Authors@R: c(
 	person("Hervé", "Pagès", role=c("aut", "cre"),
 		email="hpages.on.github@gmail.com"))
 Depends: R (>= 4.0.0), methods, MatrixGenerics (>= 1.1.3),
-        GenomicRanges (>= 1.41.5), Biobase
-Imports: utils, stats, tools, Matrix, BiocGenerics (>= 0.37.0),
-        S4Vectors (>= 0.33.7), IRanges (>= 2.23.9), GenomeInfoDb (>=
-        1.13.1), S4Arrays (>= 1.0.1), DelayedArray (>= 0.26.3)
-Suggests: HDF5Array (>= 1.7.5), annotate, AnnotationDbi, hgu95av2.db,
-        GenomicFeatures, TxDb.Hsapiens.UCSC.hg19.knownGene, jsonlite,
-        rhdf5, airway (>= 1.15.1), BiocStyle, knitr, rmarkdown, RUnit,
-        testthat, digest
+        GenomicRanges (>= 1.61.4), Biobase
+Imports: utils, stats, tools, Matrix, BiocGenerics (>= 0.51.3),
+        S4Vectors (>= 0.33.7), IRanges (>= 2.23.9), Seqinfo, S4Arrays
+        (>= 1.1.1), DelayedArray (>= 0.31.12)
+Suggests: GenomeInfoDb (>= 1.45.5), rhdf5, HDF5Array (>= 1.7.5),
+        annotate, AnnotationDbi, GenomicFeatures, SparseArray,
+        SingleCellExperiment, TxDb.Hsapiens.UCSC.hg19.knownGene,
+        hgu95av2.db, airway (>= 1.15.1), BiocStyle, knitr, rmarkdown,
+        RUnit, testthat, digest
 VignetteBuilder: knitr
 Collate: Assays-class.R SummarizedExperiment-class.R
         RangedSummarizedExperiment-class.R intra-range-methods.R
@@ -35,15 +36,16 @@ Collate: Assays-class.R SummarizedExperiment-class.R
         makeSummarizedExperimentFromDataFrame.R
         makeSummarizedExperimentFromLoom.R zzz.R
 git_url: https://git.bioconductor.org/packages/SummarizedExperiment
-git_branch: RELEASE_3_17
-git_last_commit: 5d6a020
-git_last_commit_date: 2023-06-05
-Date/Publication: 2023-06-06
+git_branch: RELEASE_3_22
+git_last_commit: 469a2de
+git_last_commit_date: 2025-10-29
+Repository: Bioconductor 3.22
+Date/Publication: 2025-10-29
 NeedsCompilation: no
-Packaged: 2023-06-06 22:43:33 UTC; biocbuild
+Packaged: 2025-10-30 06:49:42 UTC; biocbuild
 Author: Martin Morgan [aut],
   Valerie Obenchain [aut],
   Jim Hester [aut],
   Hervé Pagès [aut, cre]
 Maintainer: Hervé Pagès <hpages.on.github@gmail.com>
-Built: R 4.3.0; ; 2023-07-07 13:07:44 UTC; unix
+Built: R 4.5.0; ; 2026-09-03 23:13:23 UTC; unix

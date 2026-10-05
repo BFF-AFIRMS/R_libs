@@ -25,5 +25,5 @@ GithubUsername: jamesthomson
 GithubRef: HEAD
 GithubSHA1: be84f424ebc3f78b3eb88db4eecdd0dbbe900856
 NeedsCompilation: no
-Packaged: 2024-01-08 10:02:01 UTC; root
-Built: R 4.3.2; ; 2024-01-08 10:02:01 UTC; unix
+Packaged: 2026-09-03 23:38:27 UTC; sgn
+Built: R 4.5.0; ; 2026-09-03 23:38:27 UTC; unix

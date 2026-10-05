@@ -663,7 +663,7 @@ legend("topright", legend = Stages, lty = 1:6, col = 1:6)
 
 
 ###################################################
-### code chunk number 71: deSolve.Rnw:1291-1295
+### code chunk number 71: deSolve.Rnw:1292-1296
 ###################################################
 library(deSolve)
 
@@ -672,14 +672,14 @@ combustion <- function (t, y, parms)
 
 
 ###################################################
-### code chunk number 72: deSolve.Rnw:1297-1299
+### code chunk number 72: deSolve.Rnw:1298-1300
 ###################################################
 yini  <- 0.01
 times <- 0 : 200
 
 
 ###################################################
-### code chunk number 73: deSolve.Rnw:1301-1305
+### code chunk number 73: deSolve.Rnw:1302-1306
 ###################################################
 out  <- ode(times = times, y = yini,   parms = 0, func = combustion)
 out2 <- ode(times = times, y = yini*2, parms = 0, func = combustion)
@@ -702,13 +702,13 @@ legend("bottomright", lty = 1:4, col = 1:4, legend = 1:4, title = "yini*i")
 
 
 ###################################################
-### code chunk number 76: deSolve.Rnw:1335-1336
+### code chunk number 76: deSolve.Rnw:1336-1337
 ###################################################
 head(ccl4data)
 
 
 ###################################################
-### code chunk number 77: deSolve.Rnw:1339-1342
+### code chunk number 77: deSolve.Rnw:1340-1343
 ###################################################
 obs <- subset (ccl4data, animal == "A", c(time, ChamberConc))
 names(obs) <- c("time", "CP")
@@ -716,7 +716,7 @@ head(obs)
 
 
 ###################################################
-### code chunk number 78: deSolve.Rnw:1348-1362
+### code chunk number 78: deSolve.Rnw:1349-1363
 ###################################################
 parms <- c(0.182, 4.0, 4.0, 0.08, 0.04, 0.74, 0.05, 0.15, 0.32, 16.17,
             281.48, 13.3, 16.17, 5.487, 153.8, 0.04321671,
@@ -757,7 +757,7 @@ legend("topright", lty = c(1,2,3,NA), pch = c(NA, NA, NA, 18),
 
 
 ###################################################
-### code chunk number 81: deSolve.Rnw:1388-1390
+### code chunk number 81: deSolve.Rnw:1389-1391
 ###################################################
 obs2 <- data.frame(time = 6, MASS = 12)
 obs2
@@ -796,14 +796,14 @@ hist(out, col = grey(seq(0, 1, by = 0.1)), mfrow = c(3, 4))
 
 
 ###################################################
-### code chunk number 86: deSolve.Rnw:1449-1451
+### code chunk number 86: deSolve.Rnw:1450-1452
 ###################################################
 options(prompt = " ")
 options(continue = " ")
 
 
 ###################################################
-### code chunk number 87: deSolve.Rnw:1454-1478
+### code chunk number 87: deSolve.Rnw:1455-1479
 ###################################################
 lvmod <- function (time, state, parms, N, rr, ri, dr, dri) {
   with (as.list(parms), {
@@ -832,14 +832,14 @@ lvmod <- function (time, state, parms, N, rr, ri, dr, dri) {
 
 
 ###################################################
-### code chunk number 88: deSolve.Rnw:1480-1482
+### code chunk number 88: deSolve.Rnw:1481-1483
 ###################################################
 options(prompt = " ")
 options(continue = " ")
 
 
 ###################################################
-### code chunk number 89: deSolve.Rnw:1485-1499
+### code chunk number 89: deSolve.Rnw:1486-1500
 ###################################################
 R  <- 20                        # total radius of surface, m
 N  <- 100                       # 100 concentric circles
@@ -858,7 +858,7 @@ parms <- c(Da     = 0.05,       # m2/d, dispersion coefficient
 
 
 ###################################################
-### code chunk number 90: deSolve.Rnw:1502-1512
+### code chunk number 90: deSolve.Rnw:1503-1513
 ###################################################
 state    <- rep(0, 2 * N)
 state[1] <- state[N + 1] <- 10
@@ -873,20 +873,20 @@ print(system.time(
 
 
 ###################################################
-### code chunk number 91: deSolve.Rnw:1515-1516
+### code chunk number 91: deSolve.Rnw:1516-1517
 ###################################################
 summary(out)
 
 
 ###################################################
-### code chunk number 92: deSolve.Rnw:1520-1522
+### code chunk number 92: deSolve.Rnw:1521-1523
 ###################################################
 p10 <- subset(out, select = "PREY", subset = time == 10)
 head(p10, n = 5)
 
 
 ###################################################
-### code chunk number 93: deSolve.Rnw:1568-1573
+### code chunk number 93: deSolve.Rnw:1569-1574
 ###################################################
 Simple2D <- function(t, Y, par) {
   y  <- matrix(nrow = nx, ncol = ny, data = Y)  # vector to 2-D matrix
@@ -896,7 +896,7 @@ Simple2D <- function(t, Y, par) {
 
 
 ###################################################
-### code chunk number 94: deSolve.Rnw:1577-1584
+### code chunk number 94: deSolve.Rnw:1578-1585
 ###################################################
 dy <- dx <- 1  # grid size
 nx <- ny <- 100
@@ -908,7 +908,7 @@ r_x2y2 <- outer(x, y, FUN=function(x,y) ((x-50)^2 + (y-50)^2)*1e-4)
 
 
 ###################################################
-### code chunk number 95: deSolve.Rnw:1588-1591
+### code chunk number 95: deSolve.Rnw:1589-1592
 ###################################################
 C <- matrix(nrow = nx, ncol = ny, 1)
 ODE3 <- ode.2D(y = C, times = 1:100, func = Simple2D, parms = NULL,
@@ -916,7 +916,7 @@ ODE3 <- ode.2D(y = C, times = 1:100, func = Simple2D, parms = NULL,
 
 
 ###################################################
-### code chunk number 96: deSolve.Rnw:1594-1597
+### code chunk number 96: deSolve.Rnw:1595-1598
 ###################################################
 summary(ODE3)
 t50 <-  matrix(nrow = nx, ncol = ny,
@@ -940,7 +940,7 @@ contour(x, y, t50, main = "Y(t = 50)")
 
 
 ###################################################
-### code chunk number 99: deSolve.Rnw:1627-1635
+### code chunk number 99: deSolve.Rnw:1628-1636
 ###################################################
 PCmod <- function(t, x, parms)  {
   with(as.list(c(parms, x)), {
@@ -953,13 +953,13 @@ PCmod <- function(t, x, parms)  {
 
 
 ###################################################
-### code chunk number 100: deSolve.Rnw:1642-1643
+### code chunk number 100: deSolve.Rnw:1643-1644
 ###################################################
 parms  <- c(c = 10, d = 0.1, e = 0.1, f = 0.1)
 
 
 ###################################################
-### code chunk number 101: deSolve.Rnw:1649-1655
+### code chunk number 101: deSolve.Rnw:1650-1656
 ###################################################
 xstart <- c(P = 0.5, C = 1)
 times  <- seq(0, 200, 0.1)
@@ -970,7 +970,7 @@ tail(out)
 
 
 ###################################################
-### code chunk number 102: deSolve.Rnw:1676-1680
+### code chunk number 102: deSolve.Rnw:1677-1681
 ###################################################
 out <- ode(y = xstart,times = times, func = PCmod,
                          parms = parms, atol = 0)
@@ -979,7 +979,7 @@ matplot(out[,1], out[,2:3], type = "l",
 
 
 ###################################################
-### code chunk number 103: deSolve.Rnw:1736-1760
+### code chunk number 103: deSolve.Rnw:1737-1761
 ###################################################
 LVmod <- function(Time, State, Pars) {
   with(as.list(c(State, Pars)), {
@@ -1008,7 +1008,7 @@ out     <- ode(func = LVmod, y = yini,
 
 
 ###################################################
-### code chunk number 104: deSolve.Rnw:1772-1775
+### code chunk number 104: deSolve.Rnw:1773-1776
 ###################################################
 pars["rIng"] <- 100
 out2 <- ode(func = LVmod, y = yini,
@@ -1022,7 +1022,7 @@ plot(out2, type = "l", lwd = 2, main = "corrupt Lotka-Volterra model")
 
 
 ###################################################
-### code chunk number 106: deSolve.Rnw:1824-1827
+### code chunk number 106: deSolve.Rnw:1825-1828
 ###################################################
 pars["rIng"] <- 100
 out3 <- ode(func = LVmod, y = yini, parms = pars,

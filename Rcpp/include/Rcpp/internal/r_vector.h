@@ -3,7 +3,8 @@
 //
 // r_vector.h: Rcpp R/C++ interface class library -- information about R vectors
 //
-// Copyright (C) 2010 - 2017  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025  Dirk Eddelbuettel and Romain François
+// Copyright (C) 2026         Dirk Eddelbuettel, Romain François and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //

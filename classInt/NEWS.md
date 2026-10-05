@@ -1,3 +1,13 @@
+## Version 0.4-11
+
+- #49 explicitly forbid use of `"quantile"` style `probs=` argument; should really use `n=`, as `probs` is set internally to `seq(0, 1, 1/n)`. Similarly, forbid `centers=` argument in `"kmeans"` and `"bclust"` styles as it is set internally to `n`.
+
+## Version 0.4-10
+
+- #46 limiting use of `nsamp=`.
+
+- #44 correcting logic in `largeN=` handling.
+
 ## Version 0.4-9
 
 - #41 issues. The maximum and minimum breaks are set to \code{+Inf} and \code{-Inf} to avoid errors induced in the earlier version where breaks could cease to be strictly ascending. The \code{legacy=} argument with value \code{TRUE} may be used to revert to the previous behaviour.

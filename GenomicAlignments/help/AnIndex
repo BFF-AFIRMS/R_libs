@@ -44,6 +44,7 @@ coerce,GAlignmentsList,IntegerRanges-method	GAlignmentsList-class
 coerce,GAlignmentsList,IntegerRangesList-method	GAlignmentsList-class
 coerce,GenomicRanges,GAlignments-method	GAlignments-class
 coerce,list,GAlignmentsList-method	GAlignmentsList-class
+coordinate-mapping	coordinate-mapping-methods
 coordinate-mapping-methods	coordinate-mapping-methods
 countCompatibleOverlaps	findCompatibleOverlaps-methods
 countDumpedAlignments	findMateAlignment
@@ -200,8 +201,6 @@ qnarrow,GAlignmentsList-method	intra-range-methods
 qnarrow,GappedReads-method	intra-range-methods
 qseq	GappedReads-class
 qseq,GappedReads-method	GappedReads-class
-queryLoc2refLoc	cigar-utils
-queryLocs2refLocs	cigar-utils
 qwidth	GAlignments-class
 qwidth,GAlignments-method	GAlignments-class
 qwidth,GAlignmentsList-method	GAlignmentsList-class

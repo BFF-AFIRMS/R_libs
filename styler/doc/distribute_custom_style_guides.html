@@ -49,7 +49,7 @@ overflow: visible;
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -60,7 +60,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -349,16 +349,21 @@ understand how to create a style guide with
 <p>There are a few packages that implement a third-party style guide
 that are maintained by styler contributors:</p>
 <ul>
-<li><a href="https://github.com/lorenzwalthert/styler.nocomments">lorenzwalthert/styler.nocomments</a></li>
-<li><a href="https://github.com/lorenzwalthert/semicoloner">lorenzwalthert/semicoloner</a></li>
-<li><a href="https://github.com/lorenzwalthert/oneliner">lorenzwalthert/oneliner</a></li>
-<li><a href="https://github.com/mlr-org/styler.mlr">mlr-org/styler.mlr</a></li>
+<li><a href="https://github.com/lorenzwalthert/styler.nocomments">lorenzwalthert/styler.nocomments</a>:
+Drops comments.</li>
+<li><a href="https://github.com/lorenzwalthert/semicoloner">lorenzwalthert/semicoloner</a>:
+Puts <code>;</code> at the end of lines.</li>
+<li><a href="https://github.com/lorenzwalthert/oneliner">lorenzwalthert/oneliner</a>:
+Puts all code on one line.</li>
+<li><a href="https://github.com/mlr-org/styler.mlr">mlr-org/styler.mlr</a>:
+Implements mlr’s style guide.</li>
 </ul>
-<p>Other available style guides include:</p>
-<ul>
-<li><a href="https://github.com/ropensci-review-tools/spaceout">ropensci-review-tools/spaceout</a></li>
-<li><a href="https://github.com/gadenbuie/grkstyle">gadenbuie/grkstyle</a></li>
-</ul>
+<p>Other available style guides include: - <a href="https://github.com/Robinlovelace/styler.equals">Robinlovelace/styler.equals</a>:
+Tidyverse style but <code>=</code> instead of <code>&lt;-</code> for
+assignment. - <a href="https://github.com/ropensci-review-tools/spaceout">ropensci-review-tools/spaceout</a>:
+More spaces around braces. - <a href="https://github.com/gadenbuie/grkstyle">gadenbuie/grkstyle</a>:
+Styles indention differently and allows to use tabs for it instead of
+spaces.</p>
 <p>To start out, you can use the <a href="https://github.com/lorenzwalthert/styler.yours">GitHub
 Template</a> for third-party style guides that has already the right
 directory structure and patterns described below in place.</p>
@@ -409,24 +414,24 @@ a line break, it is only required if the code to style contains this
 token. Since this will hardly be the case for people who adhere to the
 tidyverse style guide, we formulate such a rule like this</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>styler<span class="sc">::</span><span class="fu">specify_transformers_drop</span>(</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">spaces =</span> <span class="fu">list</span>(<span class="at">style_space_around_tilde =</span> <span class="st">&quot;&#39;~&#39;&quot;</span>),</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">tokens =</span> <span class="fu">list</span>(<span class="at">resolve_semicolon =</span> <span class="st">&quot;&#39;;&#39;&quot;</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $space</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $space$style_space_around_tilde</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;&#39;~&#39;&quot;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $indention</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; NULL</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $line_break</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; NULL</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $token</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $token$resolve_semicolon</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;&#39;;&#39;&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>styler<span class="sc">::</span><span class="fu">specify_transformers_drop</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="at">spaces =</span> <span class="fu">list</span>(<span class="at">style_space_around_tilde =</span> <span class="st">&quot;&#39;~&#39;&quot;</span>),</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="at">tokens =</span> <span class="fu">list</span>(<span class="at">resolve_semicolon =</span> <span class="st">&quot;&#39;;&#39;&quot;</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co">#&gt; $space</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co">#&gt; $space$style_space_around_tilde</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co">#&gt; [1] &quot;&#39;~&#39;&quot;</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co">#&gt; $indention</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co">#&gt; NULL</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co">#&gt; $line_break</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="co">#&gt; NULL</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="co">#&gt; $token</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="co">#&gt; $token$resolve_semicolon</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="co">#&gt; [1] &quot;&#39;;&#39;&quot;</span></span></code></pre></div>
 <p>Where the name must correspond to the transformer function in
 question and the value is the token that must be absent in order to drop
 the transformer.</p>

@@ -1,3 +1,39 @@
+# CHANGES IN markdown VERSION 2.0
+
+- The core function `mark()` is a thin wrapper of `litedown::mark()` now. Users are recommended to call **litedown** directly instead of through the wrapper.
+
+# CHANGES IN markdown VERSION 1.13
+
+- Cleaned `sourcepos` records when they come from metadata (thanks, @dmurdoch, #111).
+
+- The **markdown** package is in the maintenance-only mode now. It is feature-complete, and will receive no updates except for fixing CRAN problems. New development will continue only in **litedown**: <https://github.com/yihui/litedown>.
+
+# CHANGES IN markdown VERSION 1.12
+
+- Provided three internal functions `html_document`, `html_vignette`, and `pdf_document` as compatibility layers to functions of the same names in the **rmarkdown** package (thanks, @jangorecki, #108).
+
+- The default HTML template no longer wraps meta variables `include-before` and `include-after` inside `<div></div>`, because their values may contain incomplete HTML tags, e.g., `include-before = '<div>'` and `include-after = '</div>'`.
+
+# CHANGES IN markdown VERSION 1.11
+
+- Verbatim code blocks of the form ```` ```{lang attr1 attr2 ...} ```` were not correctly rendered.
+
+# CHANGES IN markdown VERSION 1.10
+
+- Raw blocks (```` ```{=lang} ````) were broken in the previous version when the support for code block attributes was added.
+
+# CHANGES IN markdown VERSION 1.9
+
+- Added support for attributes on fenced code blocks, e.g., ```` ```{.lang .class2 #id attr="value"}```` (thanks, @thothal, #106).
+
+- Fixed the bug that the option `number_sections: true` doesn't work for HTML output when then input contains certain Unicode characters (thanks, @fyuniv, #104).
+
+- Added support for rendering HTML Widgets such as **ggplotly** (thanks, @fyuniv, #105).
+
+# CHANGES IN markdown VERSION 1.8
+
+- Fixed the superfluous warning about path lengths in `mark_html()` (thanks, @kenjisato, #103).
+
 # CHANGES IN markdown VERSION 1.7
 
 - The `file` argument of `mark()` will be treated as a file path only if the file exists and the value is not wrapped in `I()`. Previously, it would be treated as a file path when it has a file extension, which could lead to confusing errors like #100 (thanks, @LukasWallrich).
@@ -232,7 +268,7 @@
 
 ## MAJOR CHANGES
 
-- the markdown extension 'ingore_math' was replaced with 'latex_math'.
+- the markdown extension 'ignore_math' was replaced with 'latex_math'.
 
 - users can now use the markdown.HTML.stylesheet option to override the package default stylesheet.
 

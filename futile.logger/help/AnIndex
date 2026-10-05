@@ -1,6 +1,10 @@
 futile.logger-package	futile.logger-package
 appender.console	flog.appender
 appender.file	flog.appender
+appender.file2	flog.appender
+appender.graylog	flog.appender
+appender.modulo	flog.appender
+appender.syslog	flog.appender
 appender.tee	flog.appender
 DEBUG	logger.options
 ERROR	logger.options
@@ -21,11 +25,16 @@ flog.warn	flog.logger
 ftry	ftry
 futile.logger	futile.logger-package
 INFO	logger.options
+layout.colored	flog.layout
 layout.format	flog.layout
+layout.glue	flog.layout
+layout.graylog	flog.layout
 layout.json	flog.layout
 layout.simple	flog.layout
+layout.simple.parallel	flog.layout
 layout.tracearg	flog.layout
 logger.options	logger.options
+prepare_arg	prepare_arg
 scat	scat
 TRACE	logger.options
 WARN	logger.options

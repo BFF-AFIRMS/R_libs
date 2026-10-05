@@ -1,4 +1,6 @@
 AtomicList              Lists of Atomic Vectors in Natural and Rle Form
+AtomicList-summarization
+                        AtomicList summarization methods
 AtomicList-utils        Common operations on AtomicList objects
 CompressedHitsList-class
                         CompressedHitsList objects
@@ -28,6 +30,9 @@ IRanges-constructor     The IRanges constructor and supporting
                         functions
 IRanges-utils           IRanges utility functions
 IRangesList-class       List of IRanges and NormalIRanges
+makeIRangesFromDataFrame
+                        Make a IRanges object from a data.frame or
+                        DataFrame
 MaskCollection-class    MaskCollection objects
 multisplit              Split elements belonging to multiple groups
 NCList-class            Nested Containment List objects

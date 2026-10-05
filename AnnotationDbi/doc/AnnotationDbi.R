@@ -31,7 +31,7 @@ qcdata = capture.output(hgu95av2())
 head(qcdata, 20)
 
 ## ----mapcounts, eval=FALSE--------------------------------------------
-#  hgu95av2MAPCOUNTS
+# hgu95av2MAPCOUNTS
 
 ## ----envApiDemo1------------------------------------------------------
 all_probes <- ls(hgu95av2ENTREZID)
@@ -49,17 +49,17 @@ syms <- unlist(mget(probes, hgu95av2SYMBOL))
 syms
 
 ## ----helpDemo, eval= FALSE, results='hide'----------------------------
-#  ?hgu95av2CHRLOC
+# ?hgu95av2CHRLOC
 
 ## ----Question #2, echo=FALSE, results='hide'--------------------------
 mget(probes, hgu95av2CHRLOC, ifnotfound=NA)[1:2]
 
 ## ----as.list, eval=FALSE----------------------------------------------
-#  system.time(as.list(hgu95av2SYMBOL)[1:10])
-#  
-#  ## vs:
-#  
-#  system.time(as.list(hgu95av2SYMBOL[1:10]))
+# system.time(as.list(hgu95av2SYMBOL)[1:10])
+# 
+# ## vs:
+# 
+# system.time(as.list(hgu95av2SYMBOL[1:10]))
 
 ## ----show.revmap------------------------------------------------------
 unlist(mget(syms, revmap(hgu95av2SYMBOL)))
@@ -217,33 +217,33 @@ dbGetQuery(org.Hs.eg_dbconn(),sql)[1:10,]
 toTable(org.Hs.egCHR)[1:10,]
 
 ## ----complexEnv, eval=FALSE-------------------------------------------
-#  ## Obtain SYMBOLS with at least one GO BP
-#  ## annotation with evidence IMP, IGI, IPI, or IDA.
-#  system.time({
-#  bpids <- eapply(hgu95av2GO, function(x) {
-#      if (length(x) == 1 && is.na(x))
-#        NA
-#      else {
-#          sapply(x, function(z) {
-#              if (z$Ontology == "BP")
-#                z$GOID
-#              else
-#                NA
-#              })
-#      }
-#  })
-#  bpids <- unlist(bpids)
-#  bpids <- unique(bpids[!is.na(bpids)])
-#  g2p <- mget(bpids, hgu95av2GO2PROBE)
-#  wantedp <- lapply(g2p, function(x) {
-#      x[names(x) %in% c("IMP", "IGI", "IPI", "IDA")]
-#  })
-#  wantedp <- wantedp[sapply(wantedp, length) > 0]
-#  wantedp <- unique(unlist(wantedp))
-#  ans <- unlist(mget(wantedp, hgu95av2SYMBOL))
-#  })
-#  length(ans)
-#  ans[1:10]
+# ## Obtain SYMBOLS with at least one GO BP
+# ## annotation with evidence IMP, IGI, IPI, or IDA.
+# system.time({
+# bpids <- eapply(hgu95av2GO, function(x) {
+#     if (length(x) == 1 && is.na(x))
+#       NA
+#     else {
+#         sapply(x, function(z) {
+#             if (z$Ontology == "BP")
+#               z$GOID
+#             else
+#               NA
+#             })
+#     }
+# })
+# bpids <- unlist(bpids)
+# bpids <- unique(bpids[!is.na(bpids)])
+# g2p <- mget(bpids, hgu95av2GO2PROBE)
+# wantedp <- lapply(g2p, function(x) {
+#     x[names(x) %in% c("IMP", "IGI", "IPI", "IDA")]
+# })
+# wantedp <- wantedp[sapply(wantedp, length) > 0]
+# wantedp <- unique(unlist(wantedp))
+# ans <- unlist(mget(wantedp, hgu95av2SYMBOL))
+# })
+# length(ans)
+# ans[1:10]
 
 ## ----schema, results='hide'-------------------------------------------
 hgu95av2_dbschema()

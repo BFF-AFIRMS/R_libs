@@ -16,3 +16,5 @@ pretreat_spectra        Pretreat spectral data according to
 save_model              Save spectral prediction model and model
                         performance statistics
 test_spectra            Test the performance of spectral models
+train_spectra           Train a model based predict reference values
+                        with spectral data

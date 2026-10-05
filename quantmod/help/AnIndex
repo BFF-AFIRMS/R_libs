@@ -44,6 +44,7 @@ addWMA	addMA
 addWPR	addWPR
 addZigZag	TA
 addZLEMA	addMA
+add_ADX	chart_Series
 add_axis	chart_Series
 add_BBands	chart_Series
 add_DEMA	addMA
@@ -56,7 +57,6 @@ add_Series	chart_Series
 add_SMA	addMA
 add_SMI	chart_Series
 add_TA	chart_Series
-add_VMA	addMA
 add_Vo	chart_Series
 add_VWAP	addMA
 add_WMA	addMA
@@ -83,6 +83,7 @@ chob-class	chob-class
 chobTA-class	chobTA-class
 Cl	OHLC.Transformations
 ClCl	OHLC.Transformations
+ClOp	OHLC.Transformations
 coef.quantmod	fittedModel
 coefficients.quantmod	fittedModel
 create.binding	create.binding

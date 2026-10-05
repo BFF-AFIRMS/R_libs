@@ -277,15 +277,15 @@ f.args2str <- function(args)
 
   lst <- list()
   lst$psi <- if (!is.null(args$weight)) args$weight[2]
-  else if (!is.null(args$weight2)) args$weight2
-  else args$psi
+             else if (!is.null(args$weight2)) args$weight2
+             else args$psi
 
   lst$c.psi <- if (!is.null(args$efficiency))
-    round(f.eff2c.psi(args$efficiency, lst$psi),2)
-  else f.c.psi2str(args$tuning.psi)
+                   round(f.eff2c.psi(args$efficiency, lst$psi),2)
+               else f.c.psi2str(args$tuning.psi)
 
   if (!is.null(args$method) && grepl("D",args$method)) {
-    lst$D <- if (!is.null(args$D.type)) args$D.type else NULL
+    lst$D <- args$D.type # possibly  NULL
     lst$tau <- args$tau
   }
 
@@ -449,7 +449,7 @@ f.sim <- function(estlist,
   lestlist <- estlist
   ## 'evaluate' estlist$procedure list
   lprocs <- c()
-  for (i in 1:length(estlist$procedures)) {
+  for (i in seq_len(estlist$procedures)) {
     ## generate lprocstr (identification string)
     lprocs[i] <- estlist[['procedures']][[i]][['lprocstr']] <-
       f.list2str(estlist[['procedures']][[i]])
@@ -459,7 +459,7 @@ f.sim <- function(estlist,
   ## walk estlist$output to create output column names vector
   ## store result into lnames, it is used in f.sim.process
   lnames <- c()
-  for (i in 1:length(estlist$output)) {
+  for (i in seq_len(estlist$output)) {
     llnames <- estlist[['output']][[i]][['lnames']] <-
       eval(estlist[['output']][[i]][['names']])
     lnames <- c(lnames, llnames)
@@ -997,7 +997,7 @@ f.calculate.many <- function(expr, arr, dimname = dims, dims)
   ## ----------------------------------------------------------------------
   ## Author: Manuel Koller, Date: 14 Oct 2009, 10:11
 
-  for (i in 1:length(dims)) {
+  for (i in seq_len(dims)) {
     lexpr <- gsub("#",dims[i],expr)
     ldimname <-
       if (length(dimname) > 1) dimname[i] else gsub("#",dims[i],dimname)
@@ -1040,7 +1040,7 @@ f.errs <- function(estlist, err, rep, gen = NULL, nobs, npar)
   ## to get to the same seed state as f.sim(.default)
   ## generate also the additional errors
   ## calculate additional number of errors
-  for (i in 1:length(estlist$output)) {
+  for (i in seq_len(estlist$output)) {
     if (!is.null(estlist[['output']][[i]][['nlerrs']]))
       nlerrs <- nlerrs + eval(estlist[['output']][[i]][['nlerrs']])
   }
@@ -1237,14 +1237,14 @@ f.prediction.points <- function(design, type = c('pc', 'grid'),
              ## calculate distances to boundaries and take the minimal one
              lmin <- which.min(sapply(lfct, function(x) sum((rpc$loadings[,id] * x)^2)))
              ## create sequence of multiplicands
-             lmult <- seq(0,lfct[lmin],length.out=length.out/NCOL(rpc$loadings))
+             lmult <- seq(0,lfct[lmin], length.out=length.out/NCOL(rpc$loadings))
              rdf <- rbind(rdf, rep(rob$center,each=length(lmult)-1) +
                           direction*lmult[-1] %*% t(rpc$loadings[,id]))
            }
          },
          grid = {
            ## generate sequences for every dimension
-           lval <- as.data.frame(apply(lrange,2,f.seq,
+           lval <- as.data.frame(apply(lrange, 2L, f.seq,
                                        length.out = round(length.out^(1/NCOL(design))) ))
            ## return if 1 dimension, otherwise create all combinations
            rdf <- if (NCOL(design) > 1)

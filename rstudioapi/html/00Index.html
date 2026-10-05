@@ -12,11 +12,11 @@
 <div style="text-align: center;">
 <a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
 <a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
-</div><h2>Documentation for package &lsquo;rstudioapi&rsquo; version 0.14</h2>
+</div><h2>Documentation for package &lsquo;rstudioapi&rsquo; version 0.19.0</h2>
 
-<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+<ul><li><a href="../DESCRIPTION" type="text/plain; charset=utf-8">DESCRIPTION file</a>.</li>
 <li><a href="../doc/index.html">User guides, package vignettes and other documentation.</a></li>
-<li><a href="../NEWS">Package NEWS</a>.</li>
+<li><a href="../NEWS.md">Package NEWS</a>.</li>
 </ul>
 
 <h2>Help Pages</h2>
@@ -135,6 +135,8 @@
 <td>Navigate to a Directory in the Files Pane</td></tr>
 <tr><td style="width: 25%;"><a href="hasFun.html">findFun</a></td>
 <td>Exists/get for RStudio functions</td></tr>
+<tr><td style="width: 25%;"><a href="findOAuthIntegration.html">findOAuthIntegration</a></td>
+<td>Find OAuth Integration by Criteria</td></tr>
 </table>
 
 <h2><a id="G">-- G --</a></h2>
@@ -146,6 +148,18 @@
 <td>Retrieve path to active RStudio project</td></tr>
 <tr><td style="width: 25%;"><a href="rstudio-editors.html">getConsoleEditorContext</a></td>
 <td>Retrieve Information about an RStudio Editor</td></tr>
+<tr><td style="width: 25%;"><a href="getDelegatedAzureToken.html">getDelegatedAzureToken</a></td>
+<td>OAuth2 Tokens for Delegated Azure Resources</td></tr>
+<tr><td style="width: 25%;"><a href="getIdentityToken.html">getIdentityToken</a></td>
+<td>Get the User's Identity Token</td></tr>
+<tr><td style="width: 25%;"><a href="getMode.html">getMode</a></td>
+<td>Report whether RStudio Desktop or RStudio Server is in use</td></tr>
+<tr><td style="width: 25%;"><a href="getOAuthCredentials.html">getOAuthCredentials</a></td>
+<td>Retrieve OAuth Credentials for Integrations</td></tr>
+<tr><td style="width: 25%;"><a href="getOAuthIntegration.html">getOAuthIntegration</a></td>
+<td>Get a Specific OAuth Integration</td></tr>
+<tr><td style="width: 25%;"><a href="getOAuthIntegrations.html">getOAuthIntegrations</a></td>
+<td>Get OAuth Integrations</td></tr>
 <tr><td style="width: 25%;"><a href="persistent-values.html">getPersistentValue</a></td>
 <td>Persistent keys and values</td></tr>
 <tr><td style="width: 25%;"><a href="getRStudioPackageDependencies.html">getRStudioPackageDependencies</a></td>
@@ -157,7 +171,7 @@
 <tr><td style="width: 25%;"><a href="getThemes.html">getThemes</a></td>
 <td>Get Theme List</td></tr>
 <tr><td style="width: 25%;"><a href="getVersion.html">getVersion</a></td>
-<td>Return the current version of the RStudio API</td></tr>
+<td>Determine the version of RStudio</td></tr>
 </table>
 
 <h2><a id="H">-- H --</a></h2>
@@ -184,7 +198,11 @@
 <td>Create a Range</td></tr>
 <tr><td style="width: 25%;"><a href="isAvailable.html">isAvailable</a></td>
 <td>Check if RStudio is running</td></tr>
+<tr><td style="width: 25%;"><a href="isJob.html">isBackgroundJob</a></td>
+<td>Detect RStudio Jobs</td></tr>
 <tr><td style="width: 25%;"><a href="isJob.html">isJob</a></td>
+<td>Detect RStudio Jobs</td></tr>
+<tr><td style="width: 25%;"><a href="isJob.html">isWorkbenchJob</a></td>
 <td>Detect RStudio Jobs</td></tr>
 </table>
 
@@ -197,6 +215,10 @@
 <td>Add Background Job Output</td></tr>
 <tr><td style="width: 25%;"><a href="jobAddProgress.html">jobAddProgress</a></td>
 <td>Add Background Job Progress</td></tr>
+<tr><td style="width: 25%;"><a href="jobGetState.html">jobGetState</a></td>
+<td>Get Background Job State</td></tr>
+<tr><td style="width: 25%;"><a href="jobList.html">jobList</a></td>
+<td>List Background Jobs</td></tr>
 <tr><td style="width: 25%;"><a href="jobRemove.html">jobRemove</a></td>
 <td>Remove a Background Job</td></tr>
 <tr><td style="width: 25%;"><a href="jobRunScript.html">jobRunScript</a></td>
@@ -320,12 +342,16 @@
 <td>Interact with Documents open in RStudio</td></tr>
 <tr><td style="width: 25%;"><a href="rstudio-documents.html">setDocumentContents</a></td>
 <td>Interact with Documents open in RStudio</td></tr>
+<tr><td style="width: 25%;"><a href="setGhostText.html">setGhostText</a></td>
+<td>Set ghost text</td></tr>
 <tr><td style="width: 25%;"><a href="persistent-values.html">setPersistentValue</a></td>
 <td>Persistent keys and values</td></tr>
 <tr><td style="width: 25%;"><a href="rstudio-documents.html">setSelectionRanges</a></td>
 <td>Interact with Documents open in RStudio</td></tr>
 <tr><td style="width: 25%;"><a href="showDialog.html">showDialog</a></td>
 <td>Show Dialog Box</td></tr>
+<tr><td style="width: 25%;"><a href="showEditSuggestion.html">showEditSuggestion</a></td>
+<td>Show an Edit Suggestion in RStudio</td></tr>
 <tr><td style="width: 25%;"><a href="showPrompt.html">showPrompt</a></td>
 <td>Show Prompt Dialog Box</td></tr>
 <tr><td style="width: 25%;"><a href="showQuestion.html">showQuestion</a></td>

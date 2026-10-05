@@ -1,44 +1,28 @@
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<html>
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
 
-<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta charset="utf-8" />
-<meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
-
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-
-
+<meta name="description" content="The order in which recipe steps are specified matters, and this vignette gives some general suggestions that you should consider.">
 
 <title>Ordering of steps</title>
+<style>
 
-<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
-// be compatible with the behavior of Pandoc < 2.8).
-document.addEventListener('DOMContentLoaded', function(e) {
-  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
-  var i, h, a;
-  for (i = 0; i < hs.length; i++) {
-    h = hs[i];
-    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
-    a = h.attributes;
-    while (a.length > 0) h.removeAttribute(a[0].name);
-  }
-});
-</script>
-
-<style type="text/css">
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+width: 0.8em;
+margin: 0 0.8em 0.2em -1em;  vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
 </style>
-
-
-
 
 
 
@@ -53,34 +37,6 @@ padding-right: 2em;
 font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 1.35;
-}
-#TOC {
-clear: both;
-margin: 0 0 10px 10px;
-padding: 4px;
-width: 400px;
-border: 1px solid #CCCCCC;
-border-radius: 5px;
-background-color: #f6f6f6;
-font-size: 13px;
-line-height: 1.3;
-}
-#TOC .toctitle {
-font-weight: bold;
-font-size: 15px;
-margin-left: 5px;
-}
-#TOC ul {
-padding-left: 40px;
-margin-left: -1.5em;
-margin-top: 5px;
-margin-bottom: 5px;
-}
-#TOC ul ul {
-margin-left: -2em;
-}
-#TOC li {
-line-height: 16px;
 }
 table {
 margin: 1em auto;
@@ -210,87 +166,40 @@ a[href^="http:"] {
 text-decoration: underline; }
 a[href^="https:"] {
 text-decoration: underline; }
-
-code > span.kw { color: #555; font-weight: bold; } 
-code > span.dt { color: #902000; } 
-code > span.dv { color: #40a070; } 
-code > span.bn { color: #d14; } 
-code > span.fl { color: #d14; } 
-code > span.ch { color: #d14; } 
-code > span.st { color: #d14; } 
-code > span.co { color: #888888; font-style: italic; } 
-code > span.ot { color: #007020; } 
-code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; } 
-code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
-
-
-
-
 </head>
 
 <body>
 
 
+<header id="title-block-header">
+<h1 class="title">Ordering of steps</h1>
+
+</header>
 
 
-<h1 class="title toc-ignore">Ordering of steps</h1>
-
-
-
-<p>In the recipes package, there are no constraints on the order in
-which steps are added to the recipe; you as a user are free to apply
-steps in the order appropriate to your data preprocessing needs.
-However, the <strong>order of steps matters</strong> and there are some
-general suggestions that you should consider.</p>
-<div id="transforming-a-variable" class="section level2">
-<h2>Transforming a variable</h2>
+<p>In the recipes package, there are no constraints on the order in which steps are added to the recipe; you as a user are free to apply steps in the order appropriate to your data preprocessing needs. However, the <strong>order of steps matters</strong> and there are some general suggestions that you should consider.</p>
+<h2 id="transforming-a-variable">Transforming a variable</h2>
 <ul>
-<li>If using a Box-Cox transformation, don’t center the data first or do
-any operations that might make the data non-positive.</li>
-<li>Alternatively, use the Yeo-Johnson transformation so you don’t have
-to worry about this.</li>
+<li>If using a Box-Cox transformation, don’t center the data first or do any operations that might make the data non-positive.</li>
+<li>Alternatively, use the Yeo-Johnson transformation so you don’t have to worry about this.</li>
 </ul>
-</div>
-<div id="handling-levels-in-categorical-data" class="section level2">
-<h2>Handling levels in categorical data</h2>
-<p>The order of steps for handling categorical levels is important,
-because each step sets levels for the next step to use as input. These
-steps create <em>factor</em> output, even if the input is of character
-type.</p>
+<h2 id="handling-levels-in-categorical-data">Handling levels in categorical data</h2>
+<p>The order of steps for handling categorical levels is important, because each step sets levels for the next step to use as input. These steps create <em>factor</em> output, even if the input is of character type.</p>
 <ul>
-<li>Typically use <code>step_novel()</code> before other steps for
-changing factor levels, so that the new factor level can be set as you
-desire rather than coerced to <code>NA</code> by other factor handling
-steps.</li>
-<li>Use steps like <code>step_unknown()</code> and
-<code>step_other()</code> after other steps for changing factor
-levels.</li>
-<li>If you are creating dummy variables from a categorical variable (see
-below), complete handling of the categorical variable’s levels
-<em>before</em> <code>step_dummy()</code>.</li>
+<li>Typically use <code>step_novel()</code> before other steps for changing factor levels, so that the new factor level can be set as you desire rather than coerced to <code>NA</code> by other factor handling steps.</li>
+<li>Use steps like <code>step_unknown()</code> and <code>step_other()</code> after other steps for changing factor levels.</li>
+<li>If you are creating dummy variables from a categorical variable (see below), complete handling of the categorical variable’s levels <em>before</em> <code>step_dummy()</code>.</li>
 </ul>
-</div>
-<div id="dummy-variables" class="section level2">
-<h2>Dummy variables</h2>
-<p>Recipes do not automatically create dummy variables (unlike
-<em>most</em> formula methods).</p>
+<h2 id="dummy-variables">Dummy variables</h2>
+<p>Recipes do not automatically create dummy variables (unlike <em>most</em> formula methods).</p>
 <ul>
-<li>If you want to center, scale, or do any other operations on
-<em>all</em> of the predictors, run <code>step_dummy()</code> first so
-that numeric columns are in the data set instead of factors.</li>
-<li>As noted in the <a href="https://recipes.tidymodels.org/reference/step_interact.html">help
-file for <code>step_interact()</code></a>, you should make dummy
-variables <em>before</em> creating the interactions.</li>
+<li>If you want to center, scale, or do any other operations on <em>all</em> of the predictors, run <code>step_dummy()</code> first so that numeric columns are in the data set instead of factors.</li>
+<li>As noted in the <a href="https://recipes.tidymodels.org/reference/step_interact.html">help file for <code>step_interact()</code></a>, you should make dummy variables <em>before</em> creating the interactions.</li>
 </ul>
-</div>
-<div id="recommended-preprocessing-outline" class="section level2">
-<h2>Recommended preprocessing outline</h2>
-<p>While every individual project’s needs are different, here is a
-suggested order of <em>potential</em> steps that should work for most
-problems:</p>
-<ol style="list-style-type: decimal">
+<h2 id="recommended-preprocessing-outline">Recommended preprocessing outline</h2>
+<p>While every individual project’s needs are different, here is a suggested order of <em>potential</em> steps that should work for most problems:</p>
+<ol type="1">
 <li>Impute</li>
 <li>Handle factor levels</li>
 <li>Individual transformations for skewness and other issues</li>
@@ -301,22 +210,9 @@ problems:</p>
 <li>Multivariate transformation (e.g. PCA, spatial sign, etc)</li>
 </ol>
 <p>Again, your mileage may vary for your particular problem.</p>
-</div>
 
 
 
-<!-- code folding -->
 
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
-
-</body>
-</html>
+</body></html>

@@ -7,6 +7,10 @@ future_.mapply	future_mapply
 future_apply	future_apply
 future_by	future_by
 future_eapply	future_lapply
+future_Filter	future_mapply
+future_kernapply	future_kernapply
+future_kernapply.default	future_kernapply
+future_kernapply.ts	future_kernapply
 future_lapply	future_lapply
 future_Map	future_mapply
 future_mapply	future_mapply

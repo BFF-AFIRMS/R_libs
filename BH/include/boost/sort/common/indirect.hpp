@@ -13,7 +13,7 @@
 #ifndef __BOOST_SORT_PARALLEL_COMMON_INDIRECT_HPP
 #define __BOOST_SORT_PARALLEL_COMMON_INDIRECT_HPP
 
-//#include <boost/sort/common/atomic.hpp>
+
 #include <boost/sort/common/util/traits.hpp>
 #include <functional>
 #include <iterator>
@@ -72,14 +72,15 @@ struct less_ptr_no_null
 /// @param index : vector where store the iterators
 //-----------------------------------------------------------------------------
 template<class Iter_t>
-static void create_index(Iter_t first, Iter_t last, std::vector<Iter_t> &index)
+void create_index(Iter_t first, Iter_t last, std::vector<Iter_t> &index)
 {
     auto nelem = last - first;
     assert(nelem >= 0);
     index.clear();
     index.reserve(nelem);
     for (; first != last; ++first) index.push_back(first);
-};
+}
+
 //
 //-----------------------------------------------------------------------------
 //  function : sort_index
@@ -90,7 +91,7 @@ static void create_index(Iter_t first, Iter_t last, std::vector<Iter_t> &index)
 /// @param [in] index : vector of the iterators
 //-----------------------------------------------------------------------------
 template<class Iter_t>
-static void sort_index(Iter_t global_first, std::vector<Iter_t> &index)
+void sort_index(Iter_t global_first, std::vector<Iter_t> &index)
 {
     typedef util::value_iter<Iter_t> value_t;
 
@@ -102,11 +103,11 @@ static void sort_index(Iter_t global_first, std::vector<Iter_t> &index)
 
     while (pos_in_vector < nelem)
     {
-        while (pos_in_vector < nelem and
+        while (pos_in_vector < nelem &&
                (size_t(index[pos_in_vector] - global_first)) == pos_in_vector)
         {
             ++pos_in_vector;
-        };
+        }
 
         if (pos_in_vector == nelem) return;
         pos_dest = pos_src = pos_in_vector;
@@ -121,16 +122,16 @@ static void sort_index(Iter_t global_first, std::vector<Iter_t> &index)
             *it_dest = std::move(*it_src);
             it_dest = it_src;
             pos_dest = pos_src;
-        };
+        }
 
         *it_dest = std::move(Aux);
         index[pos_dest] = it_dest;
         ++pos_in_vector;
-    };
-};
+    }
+}
 
-template<class func, class Iter_t, class Compare = compare_iter<Iter_t> >
-static void indirect_sort(func method, Iter_t first, Iter_t last, Compare comp)
+template<class func, class Iter_t, class Compare = util::compare_iter<Iter_t> >
+void indirect_sort(func method, Iter_t first, Iter_t last, Compare comp)
 {
     auto nelem = (last - first);
     assert(nelem >= 0);
@@ -141,13 +142,13 @@ static void indirect_sort(func method, Iter_t first, Iter_t last, Compare comp)
     less_ptr_no_null<Iter_t, Compare> index_comp(comp);
     method(index.begin(), index.end(), index_comp);
     sort_index(first, index);
-};
+}
 
 //
 //****************************************************************************
-};//    End namespace common
-};//    End namespace sort
-};//    End namespace boost
+}//    End namespace common
+}//    End namespace sort
+}//    End namespace boost
 //****************************************************************************
 //
 #endif

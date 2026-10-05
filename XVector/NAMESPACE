@@ -2,9 +2,9 @@ useDynLib(XVector)
 
 import(methods)
 importFrom(utils, relist, download.file)
+importFrom(stats, setNames)
 importFrom(tools, file_path_as_absolute)
 
-import(zlibbioc)
 import(BiocGenerics)
 import(S4Vectors)
 import(IRanges)
@@ -79,6 +79,7 @@ exportMethods(
 
     ## Methods for generics defined in the IRanges package:
     Views,
+    viewApply,
     viewMins, viewMaxs, viewSums, viewMeans,
     viewWhichMins, viewWhichMaxs,
     extractList,

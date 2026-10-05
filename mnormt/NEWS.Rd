@@ -1,11 +1,22 @@
 \name{NEWS}
 \title{News (Changelog) for Package \pkg{mnormt}}
 \encoding{UTF-8}
+
+\section{Changes in mnormt version 2.1.2 (2026-01-25)}{
+ \itemize{    
+   \item Some declarations of variables, notably \code{DOUBLE PRECISION TVTMFN} 
+     in \code{tvpack.f}, have been inserted in Fortran source files, as pointed
+     out by the CRAN group. 
+ \item Fixing some syntax glitches in the Rd documentation files, pointed
+    out by the CRAN group.     
+  }
+}
+
 \section{Changes in mnormt version 2.1.1 (2022-09-26)}{
   \itemize{
     \item When \code{sadmvn, pmnorm, sadmvt, pmt} are called with dimension 
        larger than 20, the returned value is now \code{NA},
-        instead of a 0 with \code{attr(,"status")="oversize"}.
+       instead of 0, with \code{attr(,"status")="oversize"}.
     \item The NEWS file is now in Rd format.  
   }
 }
@@ -13,7 +24,7 @@
   \itemize{
     \item Function \code{dmtruncnorm} is now based on Fortran coding of a Gibbs
         sampling, removing an incorrect dependence on package \pkg{tmvnsim}. 
-    \item Function \code{plot_fxy}  is introduced. 
+    \item Function \code{plot_fxy} is introduced. 
     \item Now \code{\{d,p,r\}mtruncnorm} can be called with parameters 
         which actually represent a univariate distribution. 
     \item In \code{recintab}, \code{biv.nt.prob} is used instead of \code{sadmvn} 
@@ -54,8 +65,9 @@
 }
 \section{Changes in mnormt version 1.5-6 (2020-02-02)}{
   \itemize{
-    \item Fixed problem connected to use of 'unintialized' variable in Fortan 77 code, 
-       as claimed by valgrind.
+    \item Fixed problem connected to use of 'unintialized' variable in Fortan 77 
+      code, as claimed by valgrind, with thanks to Professor Brian Ripley for 
+      sorting out this issue;
     \item Replaced \code{is.matrix(.)} with code compliant with \R 4.0.0 
   }
 }

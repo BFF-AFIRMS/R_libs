@@ -1,7 +1,7 @@
 
 // RcppArmadillo.h: Rcpp/Armadillo glue
 //
-// Copyright (C)  2010 - 2021  Dirk Eddelbuettel, Romain Francois and Douglas Bates
+// Copyright (C)  2010-2026  Dirk Eddelbuettel, Romain Francois and Douglas Bates
 //
 // This file is part of RcppArmadillo.
 //

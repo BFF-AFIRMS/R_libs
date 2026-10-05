@@ -4,7 +4,389 @@
 \title{lme4 News}
 \encoding{UTF-8}
 
-\section{CHANGES IN VERSION 1.1-34}{
+\section{CHANGES IN VERSION 2.0-6}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item fixed \code{compDev=FALSE} (R-level PIRLS, used for debugging):
+      the \code{uOnly} flag was inverted relative to the C++ implementation.
+      \code{getME(*, "devfun")} for GLMMs now correctly propagates
+      \code{compDev} (and \code{tolPwrss}) from the fitted model to the
+      reconstructed deviance function environment.
+      \item \code{profile()} no longer emits spurious \dQuote{unused control
+      arguments ignored} warnings when profiling with an \code{optimizer}
+      different from the one used for the original fit (GH #913)
+      \item \code{lmList} would fail when some groups have rank-deficient model matrices;
+      in particular, it used to report the incorrect degrees of freedom (GH #377)
+      \item likelihood profiling no longer gets stuck when a deviance value less
+      than the original fitted deviance (but greater than
+      \code{mindev-devtol}) is encountered
+      \item fixed bug where \code{glmer} with structured covariance models
+      would return incorrect fixed effect coefficients (zero values, or wrong
+      number of values) (GH #962).
+      \item \code{refit()} on a GLMM with multiple random effects no longer
+      gives a spurious \dQuote{longer object length is not a multiple of
+      shorter object length} warning (GH #975)
+      \item fixed the case where a Gamma GLMM performs poorly for
+      data with small shape parameters by changing the starting
+      parameter values for Gamma families (GH #290)
+      \item fixed parameter-counting bug for structured covariance
+      matrices (internal \code{npar.merMod} function, results exposed in
+      \code{logLik}, \code{anova}, \code{df.residual} ...) (GH #943,
+      Henrik Singmann)
+      \item fixed ordering bug for models with multiple structured
+      covariances of different types (\code{mkReTrms} sorts random effects
+      in decreasing order of number of grouping variable levels, this
+      ordering was not applied consistently) (GH #945, Henrik Singmann)
+      \item fixed the case where \code{lme4::lmList} prints grouping variable 
+      as \code{NULL} (GH #958)
+      \item fixed some edge cases where \code{splom} would fail due to
+      bad spline fits in profiles: these cases are now dropped, with
+      a warning (Michael Chirico, GH #979)
+      \item \code{simulate()} with \code{re.form=NULL} now works when
+      a predictor is a one-column matrix (e.g. from \code{scale()}) used
+      inside \code{poly()}; \code{poly()} with pre-specified coefficients
+      (stored in \code{predvars}) rejected matrix input even though it
+      accepted it during initial model fitting (GH #948)
+      \item \code{allFit()} could fail or emit spurious warnings when
+      refitting a model whose original \code{control} argument specified
+      a non-default \code{optimizer} or \code{optCtrl} (GH #985)
+      \item fixed a heap-use-after-free bug in \code{merPredD} construction.
+      This caused intermittent (GC-timing-dependent) \dQuote{Downdated VtV
+      is not positive definite} errors and other spurious failures in
+      \code{glmer()} fits, most visible under memory pressure (e.g. during
+      \code{R CMD check}) or under AddressSanitizer.
+      \item fixed a second, unrelated heap-use-after-free with the same
+      symptoms, triggered by an interaction between R's ALTREP-wrapped
+      vectors and Rcpp's data-pointer accessors (exposed by the Rcpp 1.1.2
+      upgrade; invaluable help from Ivan Krylov).
+    } % itemize
+  } % bug fixes
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item a new vignette (\code{vignette("glmer", package = "lme4")})
+      describes the details of \code{glmer} implementation
+      \item parallelization via the \code{future} framework is available
+      by setting argument \code{parallel} to \code{"future"}.
+    } % itemize
+  } % new features
+  \subsection{USER-VISIBLE CHANGES}{
+    \itemize{
+      \item \code{getData()} now gives more informative error messages
+      when the original data cannot be retrieved: if the object is not
+      found, the message names the object and suggests re-loading it;
+      if an object of the wrong type is found (e.g. the name \code{data}
+      resolving to \code{utils::data}), the message reports the type and
+      location of what was found and notes the likely masking (GH #808)
+      \item the Gauss-Hermite quadrature (GH) nodes and weights used when
+      \code{nAGQ > 1} are now symmetrized (nodes averaged with their
+      negatives in reverse order; weights averaged in forward and reverse
+      order), matching the convention in
+      \href{https://github.com/JuliaStats/MixedModels.jl}{MixedModels.jl}
+      (GH #968).
+      This will produce small changes to numerical results for any
+      \code{glmer()} fit with \code{nAGQ > 1}.
+      \item exported covariance methods documented in
+      \code{help("Covariance-class")} (\code{getPar}, \code{getTheta},
+      etc.)
+      \item the dependency on \pkg{rlang} has been removed; the
+      once-per-session deprecation warnings for formula-processing
+      functions that moved to \pkg{reformulas} are now implemented
+      internally.
+      \item performing \emph{de novo} simulation (i.e., calling
+      \code{simulate()} with a one-sided formula rather than a fitted
+      model or a two-sided formula) without specifying \code{family}
+      or \code{newparams} now gives a more informative error. This
+      only affects the one-sided-formula dispatch path that is
+      internal to \pkg{lme4}; the two-sided
+      \code{simulate.formula}/\code{simulate.formula_lhs} dispatch
+      mechanism shared with \pkg{ergm} (see GH #566) is unchanged, so
+      \pkg{ergm}'s behavior should not be affected.
+      \item \emph{de novo} simulation (see previous item) for a
+      family with an estimated scale parameter (e.g. Gaussian, Gamma)
+      without specifying \code{sigma} as part of \code{newparams}
+      now gives an error (it previously gave a bogus result based on
+      the residual dispersion from a \code{merMod} object with default
+      \code{beta} and \code{theta} values)
+    } % itemize
+  } % user-visible changes
+} % 2.0-2
+
+\section{CHANGES IN VERSION 2.0-1 (2026-03-05)}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item variances and standard deviations for GLMMs with estimated
+      scale parameters (Gamma etc.) are now printed correctly (the
+      internal estimates were previously, incorrectly, scaled
+      by the estimated dispersion parameters)
+      \item parametric bootstrap confidence intervals for random-effect
+      SDs of GLMMs with estimated scale parameters are now correctly
+      scaled
+      \item \code{weights.merMod} now properly accounts for \code{na.action} choices
+    } % itemize
+  } % bug fixes
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item by longstanding request, \code{lme4} now allows users to
+      specify structured covariance matrices, by tagging the covariance
+      term (e.g. \code{cs(1 + f | g)} fits a compound symmetric covariance
+      matrix, \code{diag(...)} fits a diagonal covariance matrix). See
+      \code{?"Covariance-class"} or
+      \code{vignette("covariance_structures", package = "lme4")} for
+      more detail
+      \item Using \code{diag()} (see previous item) now allows properly
+      specified varying-factor terms with zero correlations (as in
+      \code{afex::mixed()}). The default behaviour for double-bar notation
+      is still to split the term semantically (e.g. \code{(1+f||g)} becomes
+      \code{(1|g) + (0 + f|g)}), but setting
+      \code{options(lme4.doublevert.default = "diag_special")} will tell
+      \code{lme4} to transform double-barred terms into \code{diag(...)}
+      terms, so the behaviour will match \code{afex::mixed} or
+      \code{glmmTMB} (see \code{\link{getDoublevertDefault}}). We
+      recommend using \code{diag(.)} explicitly (rather than relying on \code{||}
+      expansion), since defaults may change in the future.
+      \item the \code{merMod} class gains a \code{na.action} method
+      (for compatibility with recent changes in \code{stats::weighted.residuals})
+      \item \code{weights.merMod} now allows \code{type = "working"} for
+      LMMs (for compatibility with the updated \code{stats::weighted.residuals()} in R-devel)
+      \item \code{influence.merMod} now supports arguments \code{parallel},
+      \code{ncpus}, and \code{cl} analogously to \code{allFit()},
+      \code{bootMer()}, and \code{profile.merMod}. Argument \code{ncores} is
+      deprecated and corresponds to \code{parallel = "snow"} and
+      \code{ncpus = ncores}.
+      \item When using a custom parallel "snow" cluster, it is now sufficient
+      to specify argument \code{cl}. Previously one had to also specify
+      arguments \code{parallel} and \code{ncpus}.
+    } % itemize
+  } % new features
+  \subsection{USER-VISIBLE CHANGES}{
+    \itemize{
+      \item \code{isSingular()} is now an S3 generic and supports
+      fitted models (\code{isSingular.merMod}) as before as well as
+      all of the new covariance structures: \code{isSingular.Covariance.us},
+      \code{isSingular.Covariance.diag}, \code{isSingular.Covariance.cs}, 
+      \code{isSingular.Covariance.ar1}
+      \item code for pretty-printing covariance matrices, especially
+      structured covariance matrices, has moved to the \code{reformulas}
+      package (so functionality can be shared with the \code{glmmTMB}
+      package)
+      \item results from \code{confint} are presented in a different
+      order, with all standard deviation/variance values first,
+      followed by correlation/covariance values (these were
+      previously presented in "lower-triangular columnwise" order, with
+      standard-deviation and correlation values interspersed)
+      \item added \code{theta}, \code{profpar} and, if applicable, \code{rho} 
+      attributes to the output of \code{VarCorr()}
+      \item \code{simulate} can now take a \code{par} vector (i.e.,
+      parameters for structured covariance matrices
+      expressed at the level of standard deviations and covariances)
+      instead of a \code{theta} vector (i.e. elements of the
+      Cholesky factor of the covariance matrix); these are
+      equivalent for (default) unstructured covariance matrices
+      \item results from \code{rstudent()} methods have changed to match
+      upstream changes/corrections in base R
+    } % itemize
+  } % user-visible changes
+} % 2.0-1
+
+\section{CHANGES IN VERSION 1.1-38 (2025-12-02)}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item \code{$se.fit} component of predictions from GLMMs when
+      \code{type = "response"} is now transformed from the link scale to
+      the response scale (GH #847, @leorjorge)
+      \item predictions with
+      \code{se.fit=TRUE}/\code{allow.new.levels=TRUE} work for a wider range of cases (GH #691, GH #753)
+    } % itemize
+  } % bug fixes
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item the \code{start} argument to \code{[g]lmer} now allows
+      'beta' as a synonym for 'fixef'
+      \item \code{confint.merMod} now allows \code{signames} as an
+      argument instead of \code{oldNames}, for consistency with
+      \code{profile.merMod}; \code{oldNames} is deprecated
+      \item added six publically available datasets: 
+      \itemize{
+        \item \code{cbpp2} (contagious bovine pleuropneumonia 
+        (extended version of \code{cbpp})), 
+        \item \code{culcitalogreg} (coral-eating seastar
+        \emph{Culcita novaeguineae}). Also added the alternative version,
+        \code{culcitavolume},
+        \item \code{gopherdat2} (gopher tortoises shell remains), 
+        \item \code{salamander} (mountain dusky salamander mating), 
+        \item \code{schizophrenia} (National Institute of Mental Health 
+        schizophrenia collaborative study),
+        \item \code{toenail} (toenail onychomycosis data from dermatophyte 
+        infections)
+	    } % data sets
+	    \item \code{allFit(..., start_from_mle = TRUE)} now specifies that models should be refitted
+	    using starting parameter values from the original model fit,
+	    which should increase efficiency
+	    \item Predictor variables can be now automatically scaled and centered via
+	    \code{(g)lmerControl(..., autoscale = TRUE)}, with results
+	    reported on the original data scale. See
+	    \code{vignette("autoscale", package = "lme4")}
+	    for details (wish of GH #227, although at present only predictor
+	    variables can be scaled)
+    } % itemize
+  } % new features
+  \subsection{USER-VISIBLE CHANGES}{
+    \itemize{
+      \item \code{lme4} now depends on the \code{reformulas}
+      package for formula processing etc.; the corresponding functions
+      (\code{expandDoubleVerts}, \code{subbars}, \code{findbars},
+      \code{nobars}, etc.) are still (re-)exported from the package,
+      but throw a warning if called directly
+      (use e.g. \code{reformulas::findbars(...)} to avoid the warning)
+      \item derivative-based convergence checks are now skipped for
+      models with large data (number of observations greater than
+      the \code{check.conv.nobsmax} component of
+      \code{[g]lmerControl()}); default threshold is 1e4 observations.
+      If desired, derivatives can be calculated (but not checked)
+      by explicitly setting \code{calc.derivs} to TRUE.
+      \item Derivative calculations are now skipped for models with
+      singular random effects components (unless \code{calc.derivs} is
+      explicitly set to TRUE in \code{[g]lmerControl})
+    } % itemize
+  } % user-visible changes
+} % devel
+
+\section{CHANGES IN VERSION 1.1-37 (2025-03-26)}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item \code{simulate.merMod} and \code{.simulateFun} gain the
+      \code{cluster.rand} argument to allow specifying non-Normal
+      cluster random effects in simulations.
+      \item \code{simulation.Rmd}, and derived .md and .html files in
+      \code{misc/notes/}, trace the flow of the simulation just before
+      this change.  Likely of interest only to developers.
+    }
+  }  % new features
+  \subsection{USER-VISIBLE CHANGES}{
+    \itemize{
+      \item headline of \code{print} and \code{summary} output for
+      \code{glmer} fits now labels the minimum of the objective function
+      (correctly) as "-2*log(L)" rather than "deviance" (inspired by
+      \code{glmmTMB} GH #1156)
+    } % itemize
+  } % user-visible changes
+} % 1.1-37
+
+\section{CHANGES IN VERSION 1.1-36 (2025-1-11)}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item The full (joint) conditional covariance matrix of fixed
+      effects and conditional modes is now available via
+      \code{vcov(fitted_model, full = TRUE)}
+      \item Random effects formulas are now processed by code from
+      the \code{reformulas} package, meaning that some
+      extended random effects formulas (such as \code{(1|f*g)} for
+      crossed random effects) will now work
+    }
+  }  % new features
+  \subsection{USER-VISIBLE CHANGES}{
+    \itemize{
+      \item \code{simulate} with \code{newparams} no longer prints
+      a message if the individual parameter vectors are unnamed
+    }
+  } % user-visible changes
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item floating-point errors leading to slightly negative deviances
+      could lead to NaN deviance residuals (Wolfgang Viechtbauer, GH #812)
+    }
+  } % bug fixes
+
+} % version 1.1-36
+
+\section{CHANGES IN VERSION 1.1-35.5 (2024-07-03)}{
+  \subsection{USER-VISIBLE CHANGES}{
+    \itemize{
+	    \item in \code{predict}, the synonyms \code{ReForm}, \code{REForm}, and
+	    \code{REform} of \code{re.form} are now hard-deprecated,
+	    giving an error (after 10 years of soft deprecation)
+    } % itemize
+  } % user-visible changes
+  \subsection{OTHER CHANGES}{
+    \itemize{
+	    \item minor adjustments in test tolerances
+	    \item correct Matrix dependency to >= 1.2-3
+    } % itemize
+  } % other changes
+} % 1.1-35.5
+
+\section{CHANGES IN VERSION 1.1-35.4 (2024-06-19)}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item \code{predict(., re.form=...)} works in a wider range of
+      cases (GH #691)
+      \item Gamma simulation now uses correct shape parameter (GH #782)
+      \item Avoid triggering RcppEigen UBSAN bug(?) in the case of
+      profiling fixed effects in  a \code{merMod} object with
+      a single fixed effect parameter (GH #794: lots of help from
+      Dirk Eddelbuettel and Mikael Jagan)
+      \item fix bug in plot methods (cbind'ing zero-length objects)
+    }
+  } % bug fixes
+} % 1.1-35.4
+
+\section{CHANGES IN VERSION 1.1-35.3 (2024-04-16)}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item bug-fix for ASAN/memory access problem in CholmodDecomposition
+      (Mikael Jagan)
+    }
+  } % bug fixes
+} % 1.1-35.3
+
+\section{CHANGES IN VERSION 1.1-35.2 (2024-03-28)}{
+  \itemize{
+    \item This is primarily a 'bump' release to ensure that package
+    repositories rebuild binaries with the latest version of the
+    \code{Matrix} package.
+  } % general
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item \code{simulate} works (again) with \code{re.form=NULL} when
+      \code{NA} values are present in the data (GH #737, @frousseu)
+    } % itemize
+  } % bug fixes
+  \subsection{USER-VISIBLE CHANGES}{
+    \itemize{
+      \item updated tests of upstream \code{Matrix} version; should
+	      now warn only on ABI incompatibility, not on package version
+	      mismatch alone
+    } % itemize
+  } % user-visible changes
+} % 1.1-35.2
+
+\section{CHANGES IN VERSION 1.1-35.1 (2023-11-05)}{
+  \subsection{USER-VISIBLE CHANGES}{
+    \itemize{
+      \item \code{lFormula} and \code{glFormula} once again \emph{do}
+      allow matrix-valued responses (for use in downstream packages like \code{galamm})
+    } % itemize
+  } % user-visible changes
+} % 1.1-35.1
+
+\section{CHANGES IN VERSION 1.1-35 (2023-11-03)}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item \code{predict.merMod} now has a \code{se.fit} method, which
+      computes the standard errors of the predictions, conditional on the
+      estimated \code{theta} (variance-covariance) parameters
+    }
+  } % new features
+  \subsection{USER-VISIBLE CHANGES}{
+    \itemize{
+      \item using \code{lmer} with a matrix-valued response now throws
+      a more informative error message, directing the user to
+      \code{?refit}
+    }
+  } % user-visible changes
+} % 1.1-35
+
+\section{CHANGES IN VERSION 1.1-34 (2023-07-04)}{
   \subsection{BUG FIXES}{
     \itemize{
       \item \code{summary(<merMod>)} now records if \code{correlation} was
@@ -66,7 +448,7 @@
   \subsection{BUG FIXES}{
     \itemize{
       \item \code{nobars} now retains the environment of its formula
-  argument (GH #713, Mikael Jagan)
+      argument (GH #713, Mikael Jagan)
     }
   }
 } % 1.1-32
@@ -114,23 +496,23 @@
   \subsection{USER-VISIBLE CHANGES}{
     \itemize{
       \item prediction with new levels (when not allowed) returns a more
-  informative error message (displays a list of unobserved levels)
+      informative error message (displays a list of unobserved levels)
     }
   }
   \subsection{BUG FIXES}{
     \itemize{
       \item \code{glmer.nb} now works when \code{lme4} is not loaded (GH #658, @brgew)
       \item tests for singularity (\code{check.conv.singular}) now run
-  independently of derivative computation (e.g., when
-  \code{calc.derivs=FALSE}) (GH #660, @palday)
-  \item \code{influence.merMod} now works when data were originally
-  specified as a tibble
-  \item fixed bug in \code{cooks.distance} method for
-  \code{influence.merMod} (i.e., objects created via
-  \code{influence(fitted_model)}) (John Fox) (GH #672)
-  \item \code{predict} works for formulas containing . when
-  \code{newdata} is specified (GH #653)
-  \item \code{bootMer} now correctly inherits control settings from original fit
+      independently of derivative computation (e.g., when
+      \code{calc.derivs=FALSE}) (GH #660, @palday)
+      \item \code{influence.merMod} now works when data were originally
+      specified as a tibble
+      \item fixed bug in \code{cooks.distance} method for
+      \code{influence.merMod} (i.e., objects created via
+      \code{influence(fitted_model)}) (John Fox) (GH #672)
+      \item \code{predict} works for formulas containing . when
+      \code{newdata} is specified (GH #653)
+      \item \code{bootMer} now correctly inherits control settings from original fit
     } % itemize
   } % bug fixes
 } % 1.1-29
@@ -145,7 +527,7 @@
       \code{f2}) (GH #635 and #636)
       \item \code{mkNewReTrms} is exported
       \item singular-fit message now refers to \code{help("isSingular")}
-  rather than \code{?isSingular}
+      rather than \code{?isSingular}
     }
   } %% user-visible changes
   \subsection{TESTS}{
@@ -161,19 +543,19 @@
       \item backward-compatibility hooks changed to evaluate at run-time
       (i.e., in \code{.onLoad()}) rather than at build time (GH #649)
       \item \code{lmList} no longer warns when \code{data} is a tibble
-  (GH #645)
+      (GH #645)
     }
   } %% bug fixes
 } %% version 1.1-28
 
 \section{CHANGES IN VERSION 1.1-27.1 (2021-06-22)}{
- \subsection{USER-VISIBLE CHANGES}{
+  \subsection{USER-VISIBLE CHANGES}{
     \itemize{
       \item \code{influence.merMod} allows user-specified starting parameters
       \item cleaned up performance vignette
     }
- }
- \subsection{BUG FIXES}{
+  }
+  \subsection{BUG FIXES}{
     \itemize{
       \item \code{cooks.distance} now works with objects computed
       by \code{influence} method
@@ -222,7 +604,7 @@
   \subsection{NEW FEATURES}{
     \itemize{
       \item \code{thpr} method for \code{densityplot()} (for plotting
-  profiles scaled as densities) gets new arguments
+      profiles scaled as densities) gets new arguments
     }
   }
 }
@@ -277,14 +659,14 @@
 }
 \section{CHANGES IN VERSION 1.1-22 (never on CRAN)}{
   \subsection{USER-VISIBLE CHANGES}{
-  \itemize{
+    \itemize{
 
-    \item prediction now works better for factors with many levels
-    (GH#467, solution by @sihoward)
+      \item prediction now works better for factors with many levels
+      (GH#467, solution by @sihoward)
 
-    \item minor changes to argument order in \code{[g]lmerControl};
-    default tolerance for convergence checks increased from 0.001 to 0.002
-    for \code{glmerControl} (now consistent with \code{lmerControl})
+      \item minor changes to argument order in \code{[g]lmerControl};
+      default tolerance for convergence checks increased from 0.001 to 0.002
+      for \code{glmerControl} (now consistent with \code{lmerControl})
 
       \item \code{lmer(*, family="<fam>")} is no longer valid; it had been
       deprecated since 2013-06.
@@ -313,7 +695,7 @@
       tightened (\code{xtol_abs} and \code{ftol_abs} were 1e-6,
       now 1e-8). (To revert to former tolerances, use
       \code{control=lmerControl(optimizer="nloptwrap",
-	optCtrl=list(xtol_abs=1e-6, ftol_abs=1e-6))}.)
+	      optCtrl=list(xtol_abs=1e-6, ftol_abs=1e-6))}.)
     }
   }
   \subsection{BUG FIXES}{
@@ -351,13 +733,13 @@
 } % version 1.1-22
 
 \section{CHANGES IN VERSION 1.1-21 (2019-03-05)}{
-    \subsection{USER-VISIBLE CHANGES}{
-      \itemize{
-	\item \code{bootMer} now traps and stores messages, warnings, and errors
-	\item \code{bootMer} returns an object of class \code{c("bootMer","boot")}; new \code{print} and \code{confint} methods for class \code{bootMer}
-	\item small changes to wording of singular-fit messages
-      }
+  \subsection{USER-VISIBLE CHANGES}{
+    \itemize{
+	    \item \code{bootMer} now traps and stores messages, warnings, and errors
+	    \item \code{bootMer} returns an object of class \code{c("bootMer","boot")}; new \code{print} and \code{confint} methods for class \code{bootMer}
+	    \item small changes to wording of singular-fit messages
     }
+  }
 }
 
 \section{CHANGES IN VERSION 1.1-20 (2019-02-04)}{
@@ -367,7 +749,7 @@
       as part of the \code{ranef.merMod} object) is now \code{TRUE}
       \item changed default optimizer to "nloptwrap" (BOBYQA
       implementation from the \code{nloptr} package) for \code{lmer}
-    models. To revert to the old default, use \code{control=lmerControl(optimizer="bobyqa")}
+      models. To revert to the old default, use \code{control=lmerControl(optimizer="bobyqa")}
     }
   }
   \subsection{BUG FIXES}{
@@ -414,9 +796,9 @@
 }
 
 \section{CHANGES IN VERSION 1.1-18-1 (2018-08-17)}{
- \itemize{
- \item This is a minor release; the only change is to roll back (unexport) the \code{influence.merMod} method, pending resolution of conflicts with the car package
- }
+  \itemize{
+    \item This is a minor release; the only change is to roll back (unexport) the \code{influence.merMod} method, pending resolution of conflicts with the car package
+  }
 }
 
 \section{CHANGES IN VERSION 1.1-18 ((2018-08-16)}{
@@ -430,7 +812,7 @@
     \itemize{
       \item \code{rstudent} and \code{influence} methods are available
       for \code{merMod} objects
-    \item \code{devfun2} function (for generating a deviance
+      \item \code{devfun2} function (for generating a deviance
       function that works on the standard deviation/correlation scale)
       is now exported
     }
@@ -478,25 +860,25 @@
 
 \section{CHANGES IN VERSION 1.1-15 (2017-12-21)}{
   \subsection{BUG FIXES}{
-     \itemize{
-	\item \code{model.frame(., fixed.only=TRUE)} now handles models with
-	"non-syntactic" (e.g. space-containing/backtick-delimited)
-        variables in the formula.
+    \itemize{
+	    \item \code{model.frame(., fixed.only=TRUE)} now handles models with
+	    "non-syntactic" (e.g. space-containing/backtick-delimited)
+      variables in the formula.
 
-	\item \code{confint(<merMod>)} now works again for the default
-	method \code{"profile"}.
-      }
+	    \item \code{confint(<merMod>)} now works again for the default
+	    method \code{"profile"}.
     }
-    \subsection{USER-VISIBLE CHANGES}{
-      \itemize{
-	\item exported \code{dotplot.ranef.mer}
-      }
+  }
+  \subsection{USER-VISIBLE CHANGES}{
+    \itemize{
+	    \item exported \code{dotplot.ranef.mer}
     }
+  }
 }
 
 \section{CHANGES IN VERSION 1.1-14 (2017-09-27)}{
   \itemize{
-     \item Primarily an R-devel/CRAN-compatibility release.
+    \item Primarily an R-devel/CRAN-compatibility release.
   }
 
   \subsection{NEW FEATURES}{
@@ -560,10 +942,10 @@
     }
   }
   \subsection{CRAN-COMPATIBILITY UPDATES}{
-        \itemize{
-	  \item fixed time stamps on compiled versions of vignettes
-	}
-      }
+    \itemize{
+	    \item fixed time stamps on compiled versions of vignettes
+	  }
+  }
 }
 
 \section{CHANGES IN VERSION 1.1-12 (2016-04-15)}{
@@ -660,7 +1042,7 @@
       \item \code{lmList} handles offsets and weights better
       \item lots of fixes to \code{glmer.nb} (Github #176, #266, #287,
       #318). \strong{Please note that glmer.nb is still somewhat
-	unstable/under construction.}
+	      unstable/under construction.}
     }
   }
   \subsection{CRAN-COMPATIBILITY UPDATES}{

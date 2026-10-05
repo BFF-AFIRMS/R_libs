@@ -8,7 +8,7 @@ cat(mark(mkd, options = "+number_sections+toc"))
 
 # hard_wrap example
 cat(mark("foo\nbar\n"))
-cat(mark("foo\nbar\n", options = "hard_wrap"))
+cat(mark("foo\nbar\n", options = "hardbreaks"))
 
 # latex math example
 mkd <- c(
@@ -51,6 +51,18 @@ cat(mark("2^10^"))
 cat(mark("2^10^", options = "-superscript"))
 cat(mark("H~2~O"))
 cat(mark("H~2~O", options = "-subscript"))
+
+# code blocks
+cat(mark('```r\n1 + 1;\n```'))
+cat(mark('```{.r}\n1 + 1;\n```'))
+cat(mark('```{.r .js}\n1 + 1;\n```'))
+cat(mark('```{.r .js #foo}\n1 + 1;\n```'))
+cat(mark('```{.r .js #foo style="color:red;"}\n1 + 1;\n```'))
+cat(mark('````\n```{r, echo=TRUE}\n1 + 1;\n```\n````'))
+
+# raw blocks
+cat(mark('```{=html}\n<p>raw HTML</p>\n```'))
+cat(mark('```{=latex}\n<p>raw HTML</p>\n```'))
 
 # skip_html tags
 mkd = '<style>a {}</style><script type="text/javascript">console.log("No!");</script>\n[Hello](#)'

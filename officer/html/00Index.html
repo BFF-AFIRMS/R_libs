@@ -12,10 +12,10 @@
 <div style="text-align: center;">
 <a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
 <a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
-</div><h2>Documentation for package &lsquo;officer&rsquo; version 0.6.2</h2>
+</div><h2>Documentation for package &lsquo;officer&rsquo; version 0.7.6</h2>
 
-<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
-<li><a href="../NEWS">Package NEWS</a>.</li>
+<ul><li><a href="../DESCRIPTION" type="text/plain; charset=utf-8">DESCRIPTION file</a>.</li>
+<li><a href="../NEWS.md">Package NEWS</a>.</li>
 </ul>
 
 <h2>Help Pages</h2>
@@ -39,6 +39,7 @@
 <a href="#S">S</a>
 <a href="#T">T</a>
 <a href="#U">U</a>
+<a href="#W">W</a>
 </p>
 
 <table style="width: 100%;">
@@ -64,8 +65,12 @@
 <table style="width: 100%;">
 <tr><td style="width: 25%;"><a href="block_caption.html">block_caption</a></td>
 <td>Caption block</td></tr>
+<tr><td style="width: 25%;"><a href="block_gg.html">block_gg</a></td>
+<td>'ggplot' block</td></tr>
 <tr><td style="width: 25%;"><a href="block_list.html">block_list</a></td>
 <td>List of blocks</td></tr>
+<tr><td style="width: 25%;"><a href="block_list_items.html">block_list_items</a></td>
+<td>List of items for Word and PowerPoint</td></tr>
 <tr><td style="width: 25%;"><a href="block_pour_docx.html">block_pour_docx</a></td>
 <td>External Word document placeholder</td></tr>
 <tr><td style="width: 25%;"><a href="block_section.html">block_section</a></td>
@@ -88,6 +93,8 @@
 <td>Add a 'ggplot' in a 'Word' document</td></tr>
 <tr><td style="width: 25%;"><a href="body_add_img.html">body_add_img</a></td>
 <td>Add an image in a 'Word' document</td></tr>
+<tr><td style="width: 25%;"><a href="body_add_list.html">body_add_list</a></td>
+<td>Add a list of items into a 'Word' document</td></tr>
 <tr><td style="width: 25%;"><a href="body_add_par.html">body_add_par</a></td>
 <td>Add paragraphs of text in a 'Word' document</td></tr>
 <tr><td style="width: 25%;"><a href="body_add_plot.html">body_add_plot</a></td>
@@ -96,8 +103,14 @@
 <td>Add table in a 'Word' document</td></tr>
 <tr><td style="width: 25%;"><a href="body_add_toc.html">body_add_toc</a></td>
 <td>Add table of content in a 'Word' document</td></tr>
+<tr><td style="width: 25%;"><a href="body_append_context.html">body_append_start_context</a></td>
+<td>Fast Append context to a Word document</td></tr>
+<tr><td style="width: 25%;"><a href="body_append_context.html">body_append_stop_context</a></td>
+<td>Fast Append context to a Word document</td></tr>
 <tr><td style="width: 25%;"><a href="body_bookmark.html">body_bookmark</a></td>
 <td>Add bookmark in a 'Word' document</td></tr>
+<tr><td style="width: 25%;"><a href="body_comment.html">body_comment</a></td>
+<td>Add comment in a 'Word' document</td></tr>
 <tr><td style="width: 25%;"><a href="body_end_block_section.html">body_end_block_section</a></td>
 <td>Add any section</td></tr>
 <tr><td style="width: 25%;"><a href="body_end_section_columns.html">body_end_section_columns</a></td>
@@ -110,12 +123,18 @@
 <td>Add landscape section</td></tr>
 <tr><td style="width: 25%;"><a href="body_end_section_portrait.html">body_end_section_portrait</a></td>
 <td>Add portrait section</td></tr>
+<tr><td style="width: 25%;"><a href="body_import_docx.html">body_import_docx</a></td>
+<td>Import an external docx in a 'Word' document</td></tr>
 <tr><td style="width: 25%;"><a href="body_remove.html">body_remove</a></td>
 <td>Remove an element in a 'Word' document</td></tr>
 <tr><td style="width: 25%;"><a href="body_replace_all_text.html">body_replace_all_text</a></td>
 <td>Replace text anywhere in the document</td></tr>
+<tr><td style="width: 25%;"><a href="body_replace_gg_at_bkm.html">body_replace_gg_at_bkm</a></td>
+<td>Add plots at bookmark location in a 'Word' document</td></tr>
 <tr><td style="width: 25%;"><a href="body_replace_text_at_bkm.html">body_replace_img_at_bkm</a></td>
 <td>Replace text at a bookmark location</td></tr>
+<tr><td style="width: 25%;"><a href="body_replace_gg_at_bkm.html">body_replace_plot_at_bkm</a></td>
+<td>Add plots at bookmark location in a 'Word' document</td></tr>
 <tr><td style="width: 25%;"><a href="body_replace_text_at_bkm.html">body_replace_text_at_bkm</a></td>
 <td>Replace text at a bookmark location</td></tr>
 <tr><td style="width: 25%;"><a href="body_set_default_section.html">body_set_default_section</a></td>
@@ -141,6 +160,8 @@
 <td>Set cursor in a 'Word' document</td></tr>
 <tr><td style="width: 25%;"><a href="cursor.html">cursor_reach</a></td>
 <td>Set cursor in a 'Word' document</td></tr>
+<tr><td style="width: 25%;"><a href="cursor.html">cursor_reach_index</a></td>
+<td>Set cursor in a 'Word' document</td></tr>
 <tr><td style="width: 25%;"><a href="cursor.html">cursor_reach_test</a></td>
 <td>Set cursor in a 'Word' document</td></tr>
 </table>
@@ -150,12 +171,18 @@
 <table style="width: 100%;">
 <tr><td style="width: 25%;"><a href="docx_bookmarks.html">docx_bookmarks</a></td>
 <td>List Word bookmarks</td></tr>
+<tr><td style="width: 25%;"><a href="docx_comments.html">docx_comments</a></td>
+<td>Get comments in a Word document as a data.frame</td></tr>
 <tr><td style="width: 25%;"><a href="docx_dim.html">docx_dim</a></td>
 <td>'Word' page layout</td></tr>
+<tr><td style="width: 25%;"><a href="docx_embed_font.html">docx_embed_font</a></td>
+<td>Embed Fonts in a Word Document</td></tr>
 <tr><td style="width: 25%;"><a href="docx_set_character_style.html">docx_set_character_style</a></td>
 <td>Add character style in a Word document</td></tr>
 <tr><td style="width: 25%;"><a href="docx_set_paragraph_style.html">docx_set_paragraph_style</a></td>
 <td>Add or replace paragraph style in a Word document</td></tr>
+<tr><td style="width: 25%;"><a href="docx_set_settings.html">docx_set_settings</a></td>
+<td>Set 'Microsoft Word' Document Settings</td></tr>
 <tr><td style="width: 25%;"><a href="docx_show_chunk.html">docx_show_chunk</a></td>
 <td>Show underlying text tag structure</td></tr>
 <tr><td style="width: 25%;"><a href="docx_summary.html">docx_summary</a></td>
@@ -176,6 +203,8 @@
 <h2><a id="F">-- F --</a></h2>
 
 <table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="floating_external_img.html">floating_external_img</a></td>
+<td>Floating external image</td></tr>
 <tr><td style="width: 25%;"><a href="body_replace_all_text.html">footers_replace_all_text</a></td>
 <td>Replace text anywhere in the document</td></tr>
 <tr><td style="width: 25%;"><a href="body_replace_text_at_bkm.html">footers_replace_img_at_bkm</a></td>
@@ -194,6 +223,12 @@
 <td>Cell formatting properties</td></tr>
 <tr><td style="width: 25%;"><a href="fp_par.html">fp_par</a></td>
 <td>Paragraph formatting properties</td></tr>
+<tr><td style="width: 25%;"><a href="fp_par.html">fp_par_lite</a></td>
+<td>Paragraph formatting properties</td></tr>
+<tr><td style="width: 25%;"><a href="fp_tab.html">fp_tab</a></td>
+<td>Tabulation mark properties object</td></tr>
+<tr><td style="width: 25%;"><a href="fp_tabs.html">fp_tabs</a></td>
+<td>Tabs properties object</td></tr>
 <tr><td style="width: 25%;"><a href="fp_text.html">fp_text</a></td>
 <td>Text formatting properties</td></tr>
 <tr><td style="width: 25%;"><a href="fp_text.html">fp_text_lite</a></td>
@@ -218,8 +253,16 @@
 <h2><a id="L">-- L --</a></h2>
 
 <table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="layout_dedupe_ph_labels.html">layout_dedupe_ph_labels</a></td>
+<td>Detect and handle duplicate placeholder labels</td></tr>
+<tr><td style="width: 25%;"><a href="layout_default.html">layout_default</a></td>
+<td>Default layout for new slides</td></tr>
 <tr><td style="width: 25%;"><a href="layout_properties.html">layout_properties</a></td>
 <td>Slide layout properties</td></tr>
+<tr><td style="width: 25%;"><a href="layout_rename_ph_labels.html">layout_rename_ph_labels</a></td>
+<td>Change ph labels in a layout</td></tr>
+<tr><td style="width: 25%;"><a href="layout_rename_ph_labels.html">layout_rename_ph_labels&lt;-</a></td>
+<td>Change ph labels in a layout</td></tr>
 <tr><td style="width: 25%;"><a href="layout_summary.html">layout_summary</a></td>
 <td>Presentation layouts summary</td></tr>
 <tr><td style="width: 25%;"><a href="length.rdocx.html">length.rdocx</a></td>
@@ -228,6 +271,8 @@
 <td>Number of slides</td></tr>
 <tr><td style="width: 25%;"><a href="read_xlsx.html">length.rxlsx</a></td>
 <td>Create an 'Excel' document object</td></tr>
+<tr><td style="width: 25%;"><a href="list_item.html">list_item</a></td>
+<td>Create a list item</td></tr>
 </table>
 
 <h2><a id="M">-- M --</a></h2>
@@ -253,10 +298,10 @@
 <table style="width: 100%;">
 <tr><td style="width: 25%;"><a href="officer.html">officer</a></td>
 <td>Manipulate Microsoft Word and PowerPoint Documents with 'officer'</td></tr>
-<tr><td style="width: 25%;"><a href="officer-defunct.html">officer-defunct</a></td>
-<td>Defunct Functions in Package officer</td></tr>
 <tr><td style="width: 25%;"><a href="on_slide.html">on_slide</a></td>
 <td>Change current slide</td></tr>
+<tr><td style="width: 25%;"><a href="open_file.html">open_file</a></td>
+<td>Opens a file locally</td></tr>
 </table>
 
 <h2><a id="P">-- P --</a></h2>
@@ -266,12 +311,16 @@
 <td>Page margins object</td></tr>
 <tr><td style="width: 25%;"><a href="page_size.html">page_size</a></td>
 <td>Page size object</td></tr>
+<tr><td style="width: 25%;"><a href="phs_with.html">phs_with</a></td>
+<td>Fill multiple placeholders using key value syntax</td></tr>
 <tr><td style="width: 25%;"><a href="ph_hyperlink.html">ph_hyperlink</a></td>
 <td>Hyperlink a placeholder</td></tr>
 <tr><td style="width: 25%;"><a href="ph_location.html">ph_location</a></td>
 <td>Location for a placeholder from scratch</td></tr>
 <tr><td style="width: 25%;"><a href="ph_location_fullsize.html">ph_location_fullsize</a></td>
 <td>Location of a full size element</td></tr>
+<tr><td style="width: 25%;"><a href="ph_location_id.html">ph_location_id</a></td>
+<td>Location of a placeholder based on its id</td></tr>
 <tr><td style="width: 25%;"><a href="ph_location_label.html">ph_location_label</a></td>
 <td>Location of a named placeholder</td></tr>
 <tr><td style="width: 25%;"><a href="ph_location_left.html">ph_location_left</a></td>
@@ -290,9 +339,13 @@
 <td>Add objects on the current slide</td></tr>
 <tr><td style="width: 25%;"><a href="ph_with.html">ph_with.block_list</a></td>
 <td>Add objects on the current slide</td></tr>
+<tr><td style="width: 25%;"><a href="ph_with.html">ph_with.block_list_items</a></td>
+<td>Add objects on the current slide</td></tr>
 <tr><td style="width: 25%;"><a href="ph_with.html">ph_with.character</a></td>
 <td>Add objects on the current slide</td></tr>
 <tr><td style="width: 25%;"><a href="ph_with.html">ph_with.data.frame</a></td>
+<td>Add objects on the current slide</td></tr>
+<tr><td style="width: 25%;"><a href="ph_with.html">ph_with.Date</a></td>
 <td>Add objects on the current slide</td></tr>
 <tr><td style="width: 25%;"><a href="ph_with.html">ph_with.empty_content</a></td>
 <td>Add objects on the current slide</td></tr>
@@ -326,12 +379,12 @@
 <td>Paragraph formatting properties</td></tr>
 <tr><td style="width: 25%;"><a href="fp_text.html">print.fp_text</a></td>
 <td>Text formatting properties</td></tr>
-<tr><td style="width: 25%;"><a href="read_docx.html">print.rdocx</a></td>
-<td>Create a 'Word' document object</td></tr>
+<tr><td style="width: 25%;"><a href="print.rdocx.html">print.rdocx</a></td>
+<td>Write a 'Word' File</td></tr>
 <tr><td style="width: 25%;"><a href="print.rpptx.html">print.rpptx</a></td>
 <td>Write a 'PowerPoint' file.</td></tr>
 <tr><td style="width: 25%;"><a href="print.rtf.html">print.rtf</a></td>
-<td>Write an 'RTF' document to a file</td></tr>
+<td>Write an 'RTF' File</td></tr>
 <tr><td style="width: 25%;"><a href="read_xlsx.html">print.rxlsx</a></td>
 <td>Create an 'Excel' document object</td></tr>
 <tr><td style="width: 25%;"><a href="sp_line.html">print.sp_line</a></td>
@@ -354,12 +407,14 @@
 <tr><td style="width: 25%;"><a href="read_xlsx.html">read_xlsx</a></td>
 <td>Create an 'Excel' document object</td></tr>
 <tr><td style="width: 25%;"><a href="remove_slide.html">remove_slide</a></td>
-<td>Remove a slide</td></tr>
+<td>Remove slide(s)</td></tr>
 <tr><td style="width: 25%;"><a href="rtf_add.html">rtf_add</a></td>
 <td>Add content into an RTF document</td></tr>
 <tr><td style="width: 25%;"><a href="rtf_add.html">rtf_add.block_list</a></td>
 <td>Add content into an RTF document</td></tr>
 <tr><td style="width: 25%;"><a href="rtf_add.html">rtf_add.block_section</a></td>
+<td>Add content into an RTF document</td></tr>
+<tr><td style="width: 25%;"><a href="rtf_add.html">rtf_add.block_toc</a></td>
 <td>Add content into an RTF document</td></tr>
 <tr><td style="width: 25%;"><a href="rtf_add.html">rtf_add.character</a></td>
 <td>Add content into an RTF document</td></tr>
@@ -375,12 +430,18 @@
 <td>Add content into an RTF document</td></tr>
 <tr><td style="width: 25%;"><a href="rtf_doc.html">rtf_doc</a></td>
 <td>Create an RTF document object</td></tr>
+<tr><td style="width: 25%;"><a href="rtf_set_paragraph_style.html">rtf_set_paragraph_style</a></td>
+<td>Add or replace a paragraph style in an RTF document</td></tr>
+<tr><td style="width: 25%;"><a href="rtf_styles_info.html">rtf_styles_info</a></td>
+<td>Read paragraph styles defined on an RTF document</td></tr>
 <tr><td style="width: 25%;"><a href="run_autonum.html">run_autonum</a></td>
 <td>Auto number</td></tr>
 <tr><td style="width: 25%;"><a href="run_bookmark.html">run_bookmark</a></td>
 <td>Bookmark for 'Word'</td></tr>
 <tr><td style="width: 25%;"><a href="run_columnbreak.html">run_columnbreak</a></td>
 <td>Column break for 'Word'</td></tr>
+<tr><td style="width: 25%;"><a href="run_comment.html">run_comment</a></td>
+<td>Comment for 'Word'</td></tr>
 <tr><td style="width: 25%;"><a href="run_footnote.html">run_footnote</a></td>
 <td>Footnote for 'Word'</td></tr>
 <tr><td style="width: 25%;"><a href="run_footnoteref.html">run_footnoteref</a></td>
@@ -391,8 +452,8 @@
 <td>Page break for 'Word'</td></tr>
 <tr><td style="width: 25%;"><a href="run_reference.html">run_reference</a></td>
 <td>Cross reference</td></tr>
-<tr><td style="width: 25%;"><a href="run_word_field.html">run_seqfield</a></td>
-<td>'Word' computed field</td></tr>
+<tr><td style="width: 25%;"><a href="run_tab.html">run_tab</a></td>
+<td>Tab for 'Word'</td></tr>
 <tr><td style="width: 25%;"><a href="run_wordtext.html">run_wordtext</a></td>
 <td>Word chunk of text with a style</td></tr>
 <tr><td style="width: 25%;"><a href="run_word_field.html">run_word_field</a></td>
@@ -414,24 +475,26 @@
 <td>Set notes for current slide</td></tr>
 <tr><td style="width: 25%;"><a href="set_notes.html">set_notes.character</a></td>
 <td>Set notes for current slide</td></tr>
+<tr><td style="width: 25%;"><a href="sheet_add_drawing.html">sheet_add_drawing</a></td>
+<td>Add a drawing to an Excel sheet</td></tr>
+<tr><td style="width: 25%;"><a href="sheet_names.html">sheet_names</a></td>
+<td>Sheet names of an xlsx workbook</td></tr>
+<tr><td style="width: 25%;"><a href="sheet_remove.html">sheet_remove</a></td>
+<td>Remove a sheet</td></tr>
 <tr><td style="width: 25%;"><a href="sheet_select.html">sheet_select</a></td>
 <td>Select sheet</td></tr>
+<tr><td style="width: 25%;"><a href="sheet_write_data.html">sheet_write_data</a></td>
+<td>Write data to a sheet</td></tr>
 <tr><td style="width: 25%;"><a href="shortcuts.html">shortcuts</a></td>
 <td>shortcuts for formatting properties</td></tr>
 <tr><td style="width: 25%;"><a href="slide_size.html">slide_size</a></td>
 <td>Slides width and height</td></tr>
 <tr><td style="width: 25%;"><a href="slide_summary.html">slide_summary</a></td>
 <td>Slide content in a data.frame</td></tr>
-<tr><td style="width: 25%;"><a href="officer-defunct.html">slip_in_column_break</a></td>
-<td>Defunct Functions in Package officer</td></tr>
-<tr><td style="width: 25%;"><a href="officer-defunct.html">slip_in_footnote</a></td>
-<td>Defunct Functions in Package officer</td></tr>
-<tr><td style="width: 25%;"><a href="officer-defunct.html">slip_in_seqfield</a></td>
-<td>Defunct Functions in Package officer</td></tr>
-<tr><td style="width: 25%;"><a href="officer-defunct.html">slip_in_text</a></td>
-<td>Defunct Functions in Package officer</td></tr>
-<tr><td style="width: 25%;"><a href="officer-defunct.html">slip_in_xml</a></td>
-<td>Defunct Functions in Package officer</td></tr>
+<tr><td style="width: 25%;"><a href="slide-visible.html">slide_visible</a></td>
+<td>Get or set slide visibility</td></tr>
+<tr><td style="width: 25%;"><a href="slide-visible.html">slide_visible&lt;-</a></td>
+<td>Get or set slide visibility</td></tr>
 <tr><td style="width: 25%;"><a href="sp_line.html">sp_line</a></td>
 <td>Line properties</td></tr>
 <tr><td style="width: 25%;"><a href="sp_lineend.html">sp_lineend</a></td>
@@ -453,6 +516,8 @@
 <td>Paragraph styles for columns</td></tr>
 <tr><td style="width: 25%;"><a href="table_width.html">table_width</a></td>
 <td>Preferred width for a table</td></tr>
+<tr><td style="width: 25%;"><a href="sp_line.html">to_pml.sp_line</a></td>
+<td>Line properties</td></tr>
 </table>
 
 <h2><a id="U">-- U --</a></h2>
@@ -474,5 +539,12 @@
 <td>Line properties</td></tr>
 <tr><td style="width: 25%;"><a href="sp_lineend.html">update.sp_lineend</a></td>
 <td>Line end properties</td></tr>
+</table>
+
+<h2><a id="W">-- W --</a></h2>
+
+<table style="width: 100%;">
+<tr><td style="width: 25%;"><a href="body_append_context.html">write_elements_to_context</a></td>
+<td>Fast Append context to a Word document</td></tr>
 </table>
 </div></body></html>

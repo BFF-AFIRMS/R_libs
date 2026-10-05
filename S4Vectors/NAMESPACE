@@ -48,6 +48,7 @@ S3method(anyDuplicated, Rle)
 
 S3method(as.character, LLint)
 
+S3method(as.data.frame, DataFrame)
 S3method(as.data.frame, Vector)
 S3method(as.data.frame, Hits)
 
@@ -145,6 +146,7 @@ export(
 
     as.character.LLint,
 
+    as.data.frame.DataFrame,
     as.data.frame.Vector,
     as.data.frame.Hits,
 
@@ -302,6 +304,9 @@ export(
 
     ## show-utils.R:
     coolcat,
+    get_showHeadLines, set_showHeadLines,
+    get_showTailLines, set_showTailLines,
+    printAtomicVectorInAGrid,
     cbind_mcols_for_display,
     makePrettyMatrixForCompactPrinting,
     makeClassinfoRowForCompactPrinting,
@@ -309,8 +314,6 @@ export(
     ## utils.R:
     wmsg,
     .Call2,
-    get_showHeadLines, get_showTailLines,
-    printAtomicVectorInAGrid,
 
     ## normarg-utils.R:
     isTRUEorFALSE, isSingleInteger, isSingleNumber, isSingleString,

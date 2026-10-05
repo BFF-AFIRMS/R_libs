@@ -13,8 +13,8 @@ Description: Contains some functions catching all messages, 'stdout' and other
     resulting) complex 'pandoc' documents to e.g. HTML, 'PDF', 'docx' or 'odt'. This
     latter reporting feature is supported in brew syntax or with a custom reference
     class with a smarty caching 'backend'.
-Version: 0.6.5
-Date: 2022-03-17
+Version: 0.6.6
+Date: 2025-03-01
 URL: https://rapporter.github.io/pander/
 BugReports: https://github.com/rapporter/pander/issues
 License: AGPL-3 | file LICENSE
@@ -29,12 +29,12 @@ SystemRequirements: pandoc (https://johnmacfarlane.net/pandoc) for
         exporting markdown files to other formats.
 LinkingTo: Rcpp
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.3.2
 NeedsCompilation: yes
-Packaged: 2022-03-18 08:57:22 UTC; daroczig
+Packaged: 2025-03-01 00:02:44 UTC; daroczig
 Author: Gergely Daróczi [aut, cre] (<https://orcid.org/0000-0003-3149-8537>),
   Roman Tsegelskyi [aut]
 Maintainer: Gergely Daróczi <daroczig@rapporter.net>
 Repository: CRAN
-Date/Publication: 2022-03-18 09:20:02 UTC
-Built: R 4.3.0; x86_64-pc-linux-gnu; 2023-07-07 02:38:41 UTC; unix
+Date/Publication: 2025-03-01 01:30:02 UTC
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-01 20:53:17 UTC; unix

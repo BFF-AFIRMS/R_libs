@@ -2,6 +2,7 @@ bconv	keggConv
 color.pathway.by.objects	mark.pathway.by.objects
 conv	keggConv
 info	keggInfo
+keggCompounds	keggCompounds
 keggConv	keggConv
 keggFind	keggFind
 keggGet	keggGet

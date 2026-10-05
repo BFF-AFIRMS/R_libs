@@ -74,6 +74,7 @@ cumcategory	summary.formula
 curveRep	curveRep
 curveSmooth	curveRep
 cut2	cut2
+cutGn	cut2
 data.frame.create.modify.check	data.frame.create.modify.check
 data.frame.labelled	label
 datadensity	scat1d
@@ -97,6 +98,7 @@ dotchartp	dotchart3
 dotchartpl	dotchartpl
 Dotplot	xYplot
 drawPlot	labcurve
+dualSD	dualSD
 dvi	latex
 dvi.latex	latex
 dvigv	latex
@@ -123,6 +125,7 @@ event.convert	event.convert
 event.history	event.history
 expr.tree	Hmisc-internal
 extractlabs	extractlabs
+Fdebug	Fdebug
 fillin	Hmisc-internal
 fImport	fImport
 find.matches	find.matches
@@ -149,6 +152,7 @@ F_cidxcn	Hmisc-internal
 F_cidxcp	Hmisc-internal
 F_do_mchoice_match	Hmisc-internal
 F_do_nstr	Hmisc-internal
+F_hlqest	Hmisc-internal
 F_hoeffd	Hmisc-internal
 F_jacklins	Hmisc-internal
 F_largrec	Hmisc-internal
@@ -163,6 +167,7 @@ gbayesMixPost	gbayes
 gbayesMixPowerNP	gbayes
 gbayesMixPredNoData	gbayes
 gbayesSeqSim	gbayesSeqSim
+geom_stepconfint	geom_stepconfint
 get2rowHeads	Hmisc-internal
 getabd	getabd
 getHdata	getHdata
@@ -172,6 +177,7 @@ getRs	getRs
 getZip	getZip
 ggfreqScatter	ggfreqScatter
 ggplot.summaryP	summaryP
+ggplot.transace	transace
 ggplot.transcan	transcan
 ggplotlyr	ggplotlyr
 GiniMd	GiniMd
@@ -340,6 +346,7 @@ oPar	Hmisc-internal
 Ops.mChoice	mChoice
 optionsCmds	Hmisc-internal
 ordGridFun	Hmisc-internal
+ordGroupBoot	ordGroupBoot
 ordTestpo	summary.formula
 outerText	Misc
 pairUpDiff	pairUpDiff
@@ -363,6 +370,7 @@ plot.curveRep	curveRep
 plot.describe	describe
 plot.drawPlot	labcurve
 plot.gbayes	gbayes
+plot.princmp	plot.princmp
 plot.Quantile2	spower
 plot.rm.boot	rm.boot
 plot.summary.formula.response	summary.formula
@@ -383,6 +391,7 @@ plotp	Misc
 plotp.summaryS	summaryS
 plotpsummaryM	Hmisc-internal
 plsmo	plsmo
+pMedian	pMedian
 pngNeedle	latexTherm
 pomodm	popower
 popower	popower
@@ -424,6 +433,7 @@ print.mhgr	epi
 print.popower	popower
 print.posamsize	popower
 print.predict.dataRep	dataRep
+print.princmp	print.princmp
 print.Quantile2	spower
 print.rcorr	rcorr
 print.redun	redun
@@ -439,8 +449,10 @@ print.summary.mChoice	mChoice
 print.summaryM	summaryM
 print.t.test.cluster	t.test.cluster
 print.timePOSIXt	Hmisc-internal
+print.transace	transace
 print.transcan	transcan
 print.varclus	varclus
+printL	printL
 printsummaryM	summaryM
 prList	label
 prn	prnz
@@ -453,9 +465,12 @@ putHcap	label
 putHfig	label
 putKey	labcurve
 putKeyEmpty	labcurve
+qcrypt	qcrypt
+qrxcenter	qrxcenter
 Quantile	transace
 Quantile.areg.boot	transace
 Quantile2	spower
+r2describe	r2describe
 R2Measures	R2Measures
 rcorr	rcorr
 rcorr.cens	rcorr.cens
@@ -480,6 +495,7 @@ restoreHattrib	Misc
 rlegend	rlegend
 rlegendg	rlegend
 rm.boot	rm.boot
+rmClose	rmClose
 rMultinom	rMultinom
 roundN	dataRep
 roundPOSIXt	trunc.POSIXt

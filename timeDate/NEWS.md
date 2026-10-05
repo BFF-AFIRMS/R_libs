@@ -1,10 +1,205 @@
+# timeDate 4052.112
+
+- streamlined `holidayNYSE()`.
+
+- fixed a minor bug in `holidayTSX()` and streamlined it a bit.
+
+- removed the deprecated (in v4032.109) `timeDate` method for `cut`, use
+  `window` instead.
+
+- modified the `timeDate` method for `window` to return a 0-length `timeDate`
+  object when the window is empty. Previously it was returning a length-1 object
+  with a data value `NA`.
+
+- removed the S4 timeDate method for `frequency` (the S3 method suffices). Also,
+  `frequency` is no longer turned into an S4 generic and not exported.
+
+- removed `getRmetricsOption`, use `getRmetricsOptions` (i.e., plural) instead.
+
+
+# timeDate 4051.111
+
+- new class `"timeInterval"` represents time intervals. Methods are defined for
+  computing union, intersection, complement and set difference of
+  `"timeInterval"` objects, as well as checking whether dates and time intervals
+  are contained in such objects. See `?timeInterval`, `class ? timeInterval`,
+  `?in_int`. Not systematically tested yet.
+
+- the prototype of class `"timeDate"` now sets admissible values for the
+  slots. The previous defaults (e.g., `character(0)` for slots `format` and
+  `FinCenter`) were causing minor problems in rare cases.
+
+- streamlined the initialisation method of `"timeDate"`. This changes slot
+  `format` in some inconsequential cases involving `Inf` (e.g.,
+  `timeDate(.POSIXct(-Inf))@format` was `"%Y-%m-%d"` but now is `"%Y-%m-%d
+  %H:%M:%S"`, which even seems more appropriate).
+
+- the `"timeDate"` methods for `trunc` and `round` now support also units
+  "secs", "months" and "years". Previously only "days", "hours", "mins" were
+  supported.
+
+- The functions `timeLastDayInMonth`, `timeFirstDayInMonth`,
+  `timeLastDayInQuarter`, `timeFirstDayInQuarter` `timeNthNdayInMonth`,
+  `timeLastNdayInMonth`, `timeNdayOnOrAfter` and `timeNdayOnOrBefore` are now
+  documented to accept `timeDate`, `POSIXlt`and other time-date objects (and
+  take into account their time zone). Previously, the first argument of these
+  functions was documented to be a character vector but they were silently
+  accepting time-date without checking the associated time zone. This could lead
+  to wrong results in some cases.
+
+- new function `pasteMat`, like `paste` but doesn't convert `NA`s to the string
+  `"NA"` and keeps `NA`s in the output. Also, argument `sep` can be a
+  vector. Can be useful when creating date-times from individual pieces which
+  may contain `NA`s, see examples for `timeDate()`.
+
+- fixed a bug in the internal function `.formatFinCenterNum()`, which sometimes
+  was causing `timeDate()` to throw error when there were `NA` date-times.
+
+- removed the deprecated `GBBankHoliday`, use `GBSpringBankHoliday` instead.
+
+- removed the deprecated `GBMayDay`, use `GBEarlyMayBankHoliday` instead.
+
+- removed the deprecated `GBMilleniumDay`, use `specialHolidayGB(1999)` instead.
+
+- removed the deprecated `JPKeirouNOhi`, use ``JPKeirouNoHi` instead.
+
+
+# timeDate 4041.110
+
+- new `timeDate` method for `$` for extraction of components of timeDate
+  objects.  For example, given a timeDate object `td`, numeric vectors
+  containing the components 'year', 'month' and 'sec' can be obtained by
+  `td$year`, `td$month`, and `td$sec`, respectively. In interactive sessions
+  completion is supported, usually by hitting the 'TAB' key.
+
+- new` timeDate` methods for the base R functions `quarters` and `weekdays`
+  (they return character vectors of names).
+
+- new `timeDate` method for `months` returning a character vector. For now, a
+  character vector will be returned only if argument 'abbreviate' is set
+  explicitly (to `TRUE` or `FALSE`). If 'abbreviate' is missing, the numeric
+  values are returned, see the deprecation note below.
+
+  **Deprecation Warning:** a `timeDate` method for `months` has existed for a
+  long time but it was returning a numeric vector, which is inconsistent with
+  the other methods for months in base R (they return names of
+  months). Returning a numeric vector when 'abbreviate' is missing is a
+  temporary compromise, to avoid breaking old code, but this should be
+  considered deprecated. Use `td$month` to get the numbers.
+
+- now `timeDate(character(0))` returns a 0-length "timeDate" object.  Previously
+  it was returning an `NA` "timeDate" object of length 1 if argument 'format'
+  was missing and a 0-length object otherwise.
+
+- changed the "timeDate" method for `show` to print something like 'timeDate of
+  length 0' along with the FinCenter, which seems better than the previous
+  output for this case.
+
+- new function `InternationalWomensDay` (suggested by Alexander Bartel with
+  code), fixes R-forge issue #6855). It's also included in the list returned by
+  `listHolidays`.
+
+
+# timeDate 4032.109
+
+- new function `earlyCloseNYSE` gives datetimes of early closings of NYSE,
+  including scheduled and unscheduled ones.  The information is incomplete. This
+  answers issue [#6757], see also the related issue [#1356] mentioned below in
+  the news for a previous version.
+
+- all functions returning public and eclessiastical holidays get new arguments
+  `value`, `na_drop`, and `...`, controlling the type of the return value and
+  the handling of missing values. Argument `...` is for things like 'format'
+  when applicable. Not all honour the new arguments though, see below.
+
+- all functions returning public and eclessiastical holidays now honour the new
+  argument `value`.
+
+- some holiday functions were amended or rewritten to honour the new argument
+  `na_drop`. These include the England holidays ('GBxxx'), some Japan holidays
+  (JPxxx), and a number of other functions (e.g., `CAFamilyDay). Contributions
+  and/or information needed to have them do so is wellcome (e.g. dates when a
+  holiday was introduced and/or moved).
+
+
+- `midnightStandard2()` (and hence `timeDate()`) was throwing a puzzling error
+  when the input character vector contained one or more `NA`s mixed with
+  non-NA's.
+
+- `whichFormat()` was throwing error when the _first_ element of the input
+  vector was `NA`. This could be considered a feature but that's inconsistent
+  since `NA`s at other positions were not causing trouble. Now fixed.
+
+- the 'character' method for `timeDate()` was passing only the first element of
+  the input vector to `whichFormat()`. This was preventing it from inferring the
+  format when argument 'format' was missing.
+
+
+- new function `specialHolidayGB` gives the special UK one-off holidays for
+  the requested years.
+
+- `MilleniumDay` is now deprecated, use `specialHolidayGB(1999)`.
+
+
+- fixed omissions in `holidayLONDON` and refactored it completely.  It became
+  easier to maintain and orders of magnitude faster.
+
+- fixed a bug in an internal function which was throwing errors from
+  `holidayLONDON` for some ranges including years before 1916.
+
+
+- `GBEarlyMayBankHoliday`, `GBSpringBankHoliday` and `GBSummerBankHoliday` now
+  give dates according to historical rules, not simply according to current
+  ones. See the remarks above about the new arguments of holiday functions.
+
+
+- major overhaul and update of the Japan's holidays. Previously fixed dates were
+  returned for each holiday. Now moving holidays are calculated (e.g., second
+  month of January) and some exceptions handled (like holidays moved due to the
+  Olympics in 2020 and 2021). Historical changes are (partially) taken into
+  account. Further corrections and historical amendments are welcome.
+
+  Thanks to Sylvie Lachaud for reporting the issues with Japan holiday
+  functions, as well as providing current correct definitions and extensive list
+  of links.
+
+- new function `JPMountainDay` gives the relatively recently introduced Japan
+  holiday 'Mountain Day'.
+
+- `JPKeirouNoHi` replaces `JPKeirouNOhi`. The latter is an aberration from all
+  other `xxxNoHi` Japanese holiday functions and a source of difficult to spot
+  errors. The old one is now deprecated and will be removed in the future.
+
+
+- modified the 'timeDate' method for `summary` to return an object from class
+  "timeDate_summary" (rather than print directly) and created a print method for
+  the latter.
+
+- deprecated the `timeDate` method for `cut`, see deprecation note for v4021.105
+  below.
+
+- stopped exporting all but one (`.endpoints`) functions starting with a
+  '.'. They all seem for internal purposes and/or have similarly named functions
+  with normal names.
+
+- removed `.whichFormat` and `.midnightStandard`, not officially deprecated but
+  had been renamed to `whichFormat()` and `midnightStandard()`, respectively, a
+  long time ago.
+
+- removed several internal functions that are no longer used anywhere in the
+  package.
+
+- removed file 'namespace-tags.R' as it had not been updated recently, see
+  revision r83578 or earlier if you need it.
+
+
 # timeDate 4022.108
 
 - added the 2023 UK Bank holiday for the coronation of King Charles III.
 
 - `axis.timeDate` was not handling properly the case when `x` was missing,
   leading to errors from R-devel check (2023-01-07 r83578). Fix suggested by Uwe
-  Liege.
+  Lieges.
 
 - refactored file NAMESPACE to facilitate maintenance (that revealed the
   two omissions listed below).

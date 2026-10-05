@@ -1,3 +1,872 @@
+# insight 1.5.3
+
+## Changes
+
+* `get_df()` now supports the `df_per_obs` argument for models of class `mmrm`,
+  returning one degree of freedom per row of `data` instead of one per
+  coefficient, using the method chosen when fitting the model.
+
+* `model_info()` and `get_predicted()` now recognize the `ddm()`, `lba()` and
+  `rdm()` custom *brms* families from package *cogmod* as reaction-time and
+  choice models (`is_rtchoice`), alongside the already supported `lnr()`. Their
+  predictions are hence split into the `"rt"` and `"response"` components,
+  instead of being returned as a single interleaved vector.
+
+* `get_datagrid()` gains a `weighted` argument, to create a smaller representation
+  of large data grids, where multiple unique combinations of predictors are
+  included only once, and a new `Weight` column indicates how often each
+  combination appears in the original data. The related `n_bins` argument
+  indicates how numeric values are represented in the reduced data grid.
+
+* `format_ci()` gains a `separator` argument, to customize the separator for
+  lower and upper CI values.
+
+* `find_response()`, `find_predictors()`, and `find_variables()` now also work
+  for objects from package *marginaleffects*.
+
+* Preliminary support in `find_parameters()` for objects from package
+  *marginaleffects*.
+
+* `get_variances()` now passes `...` down to `VarCorr()`, which might be useful
+  for Bayesian models (e.g. to return robust estimates using `robust = TRUE`).
+
+* Added a documentation page for available `options`.
+
+* Updated test-files for `htest` objects and fixed deprecated names.
+
+## Bug fixes
+
+* `null_model()` no longer fails for models whose offset is written inline in
+  the formula with a nested-parenthesis expression followed by further terms
+  (e.g. `y ~ x + offset(log(exposure)) + factor(year)`). The offset term is now
+  extracted from the formula's language tree instead of by a paren-blind regex.
+
+# insight 1.5.2
+
+## Changes
+
+* Major performance improvement for `compact_list` on very large, nested list
+  objects.
+
+* `get_varcov()` now explicitly works for `lavaan` objects.
+
+## Bug fixes
+
+* `get_modelmatrix()` now correctly handles *brms* models fitted with
+  `0 + Intercept` formulas.
+
+* `get_priors()` did not return degrees of freedom for Student's t-distribution
+  for *rstanarm* models.
+
+* Fixed issue in `get_variance()` for *brms* intercept-only models.
+
+# insight 1.5.1
+
+## Changes
+
+* New support for `CmdStanFit` models from the *cmdstanr* package -
+  `find_algorithm()`, `find_parameters()`, and `get_parameters()` now work with
+  these models.
+
+* `model_info()` now correctly detects t- and z-tests from package *BSDA*.
+
+* `format_bf()` gains a `digits` argument.
+
+* More informative error message when the response variable in `get_response()`
+  is not present in the data.
+
+* `format_table()` now also formats columns for tail and bulk ESS from Bayesian
+  models.
+
+* `get_data()` now supports objects of class `mira` from package *mice*.
+
+* `get_varcov()` now supports the option `"fpc"` to apply finite population
+  correction (Lai et al. 2018).
+
+* Added a new function, `vcovFPC()`, to calculate finite-population-adjusted
+  variance-covariance matrices.
+
+## Bug fixes
+
+* `has_intercept()` now correctly detects whether models from packages *fixest*
+  and *lfe* have intercepts or not.
+
+* The `vcov` argument in `get_varcov()` was ignored when `vcov` was of class
+  `"dpoMatrix"` and did not return `TRUE` to `is.matrix()`.
+
+# insight 1.5.0
+
+## Changes
+
+* New function, `get_simulated()`, to return simulated values from the response
+  of regression models, which is comparable to posterior predictions from a
+  model.
+
+* Improved performance of `find_parameters()` for models from package *mgcv*
+  that include random effects.
+
+* Improved performance of `find_parameters()` and `get_statistic()` for models
+  from package *mgcv* that include random effects.
+
+* `get_predicted()` supports models from package *nestedLogit*.
+
+* Added support for `aft`, `stpm2`, and `pstpm2` models from package *rstpm2*.
+  `find_formula()`, `find_variables()`, `get_data()`, and `model_info()` now
+  work with these flexible parametric survival models.
+
+## Bug fixes
+
+* Fixed issue with duplicated `link_inverse()` and missing `link_function()` for
+  `phyloglm` models.
+
+# insight 1.4.6
+
+## Breaking Changes
+
+* Revised weighted residuals (`get_residuals(weighted = TRUE)`) to be in line
+  with R 4.6.0, which now returns weighted working residuals for `glm` objects.
+
+# insight 1.4.5
+
+## Changes
+
+* `find_predictors()`, `find_variables()`, and `get_data()` now work with
+  tidymodels workflow objects (#1161).
+
+* Improve performance for `is_empty_object()` for large data frames (which, in
+  turn, should improve performance of many other functions relying on this
+  helper-function, including from other packages).
+
+## Bug fixes
+
+* Disabled test for the *feisr* package, which currently seems to be broken.
+
+* Fixes issue where `get_datagrid()` failed on random effects with tokens in `by`.
+
+# insight 1.4.4
+
+## Bug fixes
+
+* Fixed issue with `is_converged()` due to changes in *lme4* package.
+
+* Fixed issue in `get_data(source = "mf")` for models from package *fixest*
+  when `lean` was set to `TRUE` in the model call.
+
+# insight 1.4.3
+
+## Changes
+
+* Added support for models from package *lcmm* (`lcmm`, `externVar`).
+
+* Support for objects from the *modelbased* package. This includes methods for
+  `get_parameters()`, `get_statistic()`, `get_df()`, `get_varcov()`,
+  `find_formula()`, `find_parameters()`, `find_statistic()`, and `get_call()`.
+
+* Better formatting for p-values-columns from equivalence tests from other
+  packages.
+
+* `format_value()`, `format_number()`, and `export_table()` gain a `big_mark`
+  argument to format numbers with thousands separators (e.g., `1,234,567.89` or
+  `1 234 567.89`). This makes large numbers more readable in tables and formatted
+  output. When `big_mark` is provided, scientific notation is suppressed for
+  large numbers to show the full value with separators.
+
+* Improved support for models from package *survey*. This includes a dedicated
+  `source` argument for methods such as `get_data()`, `get_weights()`,
+  `find_weights()`, or `get_response()`, to specify whether the data should be
+  extracted from the model frame of the survey design object (`"mf"`), which is
+  usually equivalent to the original data, or from the data that can be extracted
+  from the model-object in the environment (`"environment"`) , which usually
+  includes processed variables (like the `"(weights)"` variable for weights).
+
+* `get_df()` now supports Kenward-Roger and Satterthwaite degrees of freedom
+  for models from package *glmmTMB*. This requires package version 1.1.3.
+
+## Bug fixes
+
+* Fix CRAN check failures.
+
+* Fixed issue in `get_data()` for models from package *survey*.
+
+* Fixed issue in `get_modelmatrix()` when the `data` argument was provided
+  and contained columns with only missing values.
+
+# insight 1.4.2
+
+## Bug fixes
+
+* Fix CRAN failures for Mac OS R-old-release.
+
+# insight 1.4.1
+
+## Changes
+
+* `get_varcov()` now supports robust variance-covariance matrices for models
+  of class `glmmTMB` (package *glmmTMB*). The argument `vcov` can be used to
+  specify the robust variance-covariance matrix function. Furthermore, the
+  `component` argument gains the `"full"` option, to return the full
+  variance-covariance matrix, including the random effects (theta parameters).
+
+* `format_table()` now also formats ROPE columns for superiority and inferiority.
+
+* `format_table()` protects integer columns for non-specific column types.
+
+* The `numerics` argument in `get_datagrid()` gains two new options, `"integer"`
+  and `"mode"`, to either return the rounded mean or the most frequent value of
+  a numeric vector.
+
+* Modified code base to address changes in the *marginaleffects* package from
+  version 0.29.0 onwards.
+
+## Bug fixes
+
+* Fixed issue with `find_formula()` with *mhurdle* models.
+
+# insight 1.4.0
+
+## Breaking changes
+
+* `apply_table_theme()` was removed, since it was an experimental feature that
+  is no longer used in any package.
+
+## Changes
+
+* `display()`, `print_md()` and `print_html()` get a `.table` method.
+
+* `get_predicted()` now supports `chisq.test()`, and returns the expected
+  frequencies.
+
+* `export_table()` gains better support for the _tinytable_ package. Use
+  `format = "tt"` to export tables into the tinytable-format. This can also
+  be used with grouped tables, i.e. `by = "group"`.
+
+* `export_table()` gains arguments `row_groups` and `column_groups`, to
+  group rows and columns in the exported table. Column groups currently only
+  work for `format = "tt"`.
+
+* If arguments `title`, `subtitle` and `footer` in `export_table()` are set to
+  an empty string `""`, no titles/subtitles/footers are printed, even if present
+  as attributes.
+
+* Added a `.lavaan` method for `is_converged()`.
+
+* The formerly internal function to extract various information about mixed
+  models is now exported as `get_mixed_info()`.
+
+## Bug fixes
+
+* Fixed issue with models of class `selection` with multiple response
+  variables.
+
+* Fixed issue in `get_datagrid()` for factors with `=` in their levels.
+
+* Fixed issue in `find_random()` for multivariate response models of class `brms`
+  with special response options.
+
+* Fixed issue in several functions for certain betareg-models that contained
+  a `"mu"` component instead of `"mean"`.
+
+* Fixed CRAN check issues on M1 Macs.
+
+# insight 1.3.1
+
+## Changes
+
+* New function `get_model()` to extract the model object from an arbitrary
+  object, if the model object is stored as attribute of the parent object.
+
+* The `range` argument in `get_datagrid()` gets a new option, `"pretty"`, to
+  create a range of pretty values.
+
+* `get_predicted()` now supports models of class `glmtoolbox::glmee`.
+
+* `get_predicted()` supports predicting the class membership for models from
+  package *brms* with `mixture()` family, using `predict = "classificaton"`.
+
+* `get_predicted()` supports predicting the outcome by class membership for
+  models from package *brms* with `mixture()` family, using `predict = "link"`.
+
+* `get_residuals()` gets a method for objects from `parameters::factor_analysis()`,
+  `psych::fa()`, `psych::omega()` and `psych::principal()`.
+
+* `model_info()` returns `$is_mixture` to identify finite mixture models.
+
+* Better support for models of class `sdmTMB`.
+
+* Improve efficiency of `clean_parameters()` for more complex *brms* models.
+
+## Bug fixes
+
+* Fixed issue in `get_df()` for models from package *afex*.
+
+* Fixed issue in `clean_names()` for *brms* models with `mm()` in formula.
+
+* Fixed issue in `get_data()` for *brms* models with `mmc()` in formula.
+
+* Fixed issue in `get_statistic()` for objects of class `aov`.
+
+# insight 1.3.0
+
+## Breaking Changes
+
+* The default option `"all"` for the `effects` argument of `find_parameters()`
+  and `get_parameters()` for models from package *brms* and *rstanarm* has a new
+  behaviour and only returns fixed effects and random effects variance components,
+  but no longer the group level estimates. Use `effects = "full"` to return
+  all parameters. This change is mainly to be more flexible and gain more
+  efficiency for models with many parameters and / or many posterior draws.
+
+## New functions
+
+* `is_bayesian_model()` as a convenient shortcut to check whether a model is
+  Bayesian or not.
+
+## Changes
+
+* Revised wording for alerts from `get_variance()`.
+
+* The `effects` argument of `find_parameters()` and `get_parameters()` for
+  models from package *brms* and *rstanarm* get two new options, `"grouplevel"`
+  and `"random_variances"`, to return only random effects variance components, or
+  group level effects. This is more efficient especially for models with many
+  samples and many parameters. Additionally, a `variable` argument can be passed
+  to `get_parameters()`, which is in turn passed to `as.data.frame()`, to
+  extract parameters more efficiently.
+
+* The `by` argument in `export_table()` now also splits tables when format is
+  not `"html"`.
+
+## Bug fixes
+
+* Fixed issue in `find_formula()` for models of class `barts` (package *dbarts*),
+  when formula was abbreviated using `y ~ .`.
+
+# insight 1.2.0
+
+## Breaking Changes
+
+* The handling of `brms` models in `find_parameters()`, `find_formula()` or
+  `clean_parameters()` (and other functions) should now systematically take
+  the many possible distributional parameters into account, identifying the
+  different types of them, and assigning them to own values in the
+  `Component` columns. *insight* should now be flexible enough to also cope
+  with user-defined variables that have been modelled as distributional
+  parameters.
+
+* To be consistent with the naming pattern from package `brms`, all elements
+  related to distributional parameters now returns exactly that "dpar" name.
+  This means that, for instance, `find_formula()` no longer returns an element
+  named `$zero_inflated`, but instead `$zi`. This only applies to models from
+  `brms`! All other packages are not affected by this breaking change.
+
+## Changes
+
+* `find_random()` and `find_random_slopes()` now also extract random effects
+  names from auxiliary components.
+
+* `find_random()` and `find_random_slopes()` now include random effects from the
+  dispersion component for models from package *glmmTMB*.
+
+* `clean_parameters()` for brms-models now assigns auxiliary parameters to their
+  related `Component` and overwrites former assignments to `"conditional"`.
+
+* `format_table()` now includes more effect sizes when formatting column names.
+
+* `get_datagrid()` now allows named vectors for arguments `length` and `range`,
+  to match values with target variables defined in `by`.
+
+* `get_datagrid()` gets a `protect_integer` argument, to allow a spread of
+  values from minimum to maximum of length `length`, also for integer values.
+
+* `export_table()` gets an argument `column_names`, to change the column names
+  of the exported table.
+
+* `model_info()` gains a `response` argument for classes that can be multivariate
+  response models that return multiple lists of model information (currently,
+  Stan models from *rstanarm* and *brms*). If not `NULL`, only the information
+  for one of the response variables is returned.
+
+* Creating a range of values in a `get_datagrid()` using `by` was now simplified
+  and works like regular R syntax, e.g. `by = "mpg = 20:50"`.
+
+* `get_predicted()` for models of class `brmsfit` now supports Wiener models
+  or similar so called "decision models", that simultaneously model, e.g.,
+  reaction times and (discrete) choices.
+
+* `get_predicted()` no longer throws warnings for models of class `brmsfit`
+  when distributional are predicted.
+
+* `find_offset()` gets an `as_term` argument, which returns the offset as term,
+  including possible transformations.
+
+* Token-option `"quartiles2"` was removed and option `"quartiles"` now produces
+  the three quartile values (lower hinge, median, upper hinge). The former
+  option of `"quartiles"` that included minimum and maximum was identical to the
+  already existing `"fivenum"` option.
+
+* New function `find_auxiliary()`, which is a small helper to extract all
+  distributional parameters that were used in models from package *brms*.
+
+* `display()`, `print_md()` and `print_html()` get methods for matrix- and
+  array objects.
+
+* Cleaning / revising package documentation.
+
+## Bug fixes
+
+* `null_model()` now correctly calculates the null-model based on the data that
+  was used to fit the model (model frame), which can lead to different results
+  when the original data contained missing values.
+
+* Fixed issue for `get_predicted()` with multivariate response models.
+
+# insight 1.1.0
+
+## Breaking Changes
+
+* `get_datagrid()` no longer creates fractional parts when creating a range of
+  values for numeric variables that are integers.
+
+## Changes
+
+* `get_datagrid()` now includes a dummy column for model weights (values `NA`),
+  to work with models that used weights.
+
+* `get_datagrid()` gets a `digits` argument, to round numeric representative
+  values.
+
+* Argument `ci_digits` defaults to `digits` in `format_table()`.
+
+* `format_table()` gets a `select` argument, which can be used to select columns
+  and column layout in a glue-like style.
+
+* `find_response()` now also works for _tidymodels_ workflows.
+
+* `get_transformation()` and `find_transformation()` now also detect
+  log-transformation with logarithmic base.
+
+## Bug fixes
+
+* Fixed issue in `find_formula()`, `find_response()` and `find_predictors()` for
+  multinomial `gam` models from package *mgcv*.
+
+# insight 1.0.2
+
+## Changes
+
+* `get_datagrid()` gives a more informative error message when a variable
+  specified in `by` was not found in the data.
+
+* The `by` argument in `get_datagrid()` gets a new token-option, `"[sample <number>]"`,
+  to draw a random sample of values.
+
+## Bug fixes
+
+* Option `"terciles"` and `"terciles2"` in `get_datagrid()` were swapped, i.e.
+  `"terciles"` was doing what was documented for `"terciles2"` and vice versa.
+  This has been fixed.
+
+* `include_random` in `get_datagrid()` now works for nested random effects, i.e.
+  for more than one group level factor in the random effects.
+
+* Fixed issue in `get_varcov()` for models of class `brmsfit` that included
+  monotonic effects.
+
+# insight 1.0.1
+
+## General
+
+* Support for models of class `oohbchoice` (package *DCchoice*).
+
+* `format_table()` gets a `stars_only` argument, to format p-value columns to
+  contain only significance stars.
+
+* `get_predicted()` for brms-models with categorical family now includes the
+  data of the data grid in the returned predictions, for better orientation.
+
+## Bug fixes
+
+* Fixed issues due to latest *mice* updates.
+
+* Fixed typo in `get_parameters.glmmadmb()`, which was erroneously renamed into
+  `get_parameters.glmmTMBadmb()`.
+
+* Fixed issues in `find_predictors()` and `has_intercept()` for *brms* models
+  with `0 + Intercept` formula notation.
+
+* Fixed issues in `get_statistic()` for models of class `fixest` from
+  negative-binomial families.
+
+* Fixed issue with `as.numeric()` method for `get_sigma()`.
+
+* `get_datagrid()` now only returns valid levels when `include_random = TRUE`
+  and group-level factor in random effects is numeric.
+
+# insight 1.0.0
+
+## Breaking changes
+
+* All deprecated arguments have been removed.
+
+* The `table_width` argument in `export_table()` now defaults to `"auto"`.
+
+## General
+
+* `get_transformation()` can now deal with any power-transformation, and also
+  returns results for divisions (scaled response) and Box-Cox transformations.
+
+* `find_transformation()` and `get_transformation()` now also detects use of
+  divisions, like `x/3` or Box-Cox transformations (like `(x^lambda - 1) / lambda`).
+
+* `find_transformation()` and `get_transformation()` get a `include_all` argument,
+  to check all model terms for transformations.
+
+* `get_dispersion()` is now an exported function.
+
+* Updated `get_varcov()` (and related documentation) to support new covariance
+  matrix estimation methods from the **sandwich** package.
+
+* New function `validate_argument()` as a replacement for `match.arg()` with
+  more informative error message.
+
+* The function to calculate the corrections for likelihood-values when the
+  response-variable is transformed is now exported as `get_likelihood_adjustment()`.
+
+* `export_table()` can now split tables into more than three tables when
+  `table_width` is used (formerly, the maximum number of split tables was three).
+
+* Changed (improved) formatting for parameter tables in `export_table()`, when
+  `format = "html"`. Rows are indented, and group headers are emphasized in
+  italic.
+
+* `formula_ok()` now also checks for syntactically invalid variable names.
+  Furthermore, argument `checks` now allows to specify for which possibly
+  problematic formula notation should be checked.
+
+* `format_value()` gains a `decimal_point` argument, to change the decimal point
+  in output conversion.
+
+* `format_bf()` with `stars = TRUE` uses the `°` symbol for inferiority
+  (evidence *against* the comparison).
+
+* Added support for `coxph.panel` models.
+
+* Added support for models of class `asym` (package *panelr*).
+
+* Overhaul of documentation for the package-functions.
+
+## Bug fix
+
+* `clean_parameters()` now uses the correct labels for the random effects
+  variances (`"SD/Cor"` has changed to `"Var/Cov"`).
+
+* When `get_data()` could not properly evaluate the subset of a data set, it
+  now returns an informative warning and no longer errors.
+
+* Fixed inaccuracy in `get_sigma()` for models of class *brmsfit*.
+
+* Fixed issues in `get_variance()`  for models of class *brmsfit* when the
+  sigma-parameter was directly modeled.
+
+* Fixed issue in `compact_character()` and `compact_list()` for date-variables.
+
+* Fixed edge case in `find_transformation()` for simple log-transformation of
+  the response variable.
+
+* Fixed issue for `model_info.averaging()`.
+
+# insight 0.20.5
+
+## General
+
+* `get_datagrid()` can now be used to extract the "grid" information from
+  `{emmeans}` and `{marginaleffects}` outputs.
+
+* Arguments `na.rm` and `na_rm` are deprecated throughout the package's functions.
+  Instead, use `remove_na`.
+
+## Bug fixes
+
+* Fixed rendering issue of the example in `?insight::display`.
+
+* Fixed issues due to recent changes in the *glmmTMB* package.
+
+# insight 0.20.4
+
+## New supported models
+
+* Support for models of classes `glm_weighit`, `multinom_weightit` and
+  `ordinal_weightit` (package *WeightIt*).
+
+## Changes
+
+* `null_model()` and `formula_ok()` now warn when indexed data frames, such as
+  `df[, 5]`, are used as response variable in the formula, as this can lead to
+  unexpected results.
+
+* Minor improvements to `link_function()` and `link_inverse()`.
+
+## Bug fixes
+
+* Fixed regression from latest fix related to `get_variance()` for *brms* models.
+
+* Fixed issue in `link_function()` and `link_inverse()` for models of class
+  *cglm* with `"identity"` link, which was not correctly recognized due to a
+  typo.
+
+# insight 0.20.3
+
+## Changes
+
+* `get_df()` now supports more model classes.
+
+* `get_variance()` gives an informative error if no mixed model is provided.
+
+## Bug fixes
+
+* Fixed issue in `find_formula()`, `find_predictors()` and `find_variables()`
+  for models from package *brms* with custom formulas.
+
+* Fixed issues in `find_response()` for *brms* models with `mi()` function in
+  the response variable.
+
+* Fixed issue in `get_variance()` that could lead to recursive calls for
+  *brms* models, resulting in "infinite" resampling of the model.
+
+* Fixed issue in `check_if_installed()` that erroneously tried to guess the
+  minimum required package version based on the SUGGEST field of the _insight_
+  package, instead of the package that was calling the function.
+
+* Fixed issue in `get_modelmatrix()` for models from package *brms* with
+  special functions in the formula (like `mo()`).
+
+* Fixed issue in `ellipses_info()` when this function was called from `do.call()`.
+
+* Fixed issue with formatting unicode-symbols, where a wrong unicode-character
+  was used for "Omega". Furthermore, Omega2 and Eta2 are now correctly converted.
+
+# insight 0.20.2
+
+## New supported models
+
+* Support for models of class `glmgee` (package *glmtoolbox*).
+
+* Support for models of class `svy2lme` (package *svylme*).
+
+## General
+
+* Massive overhaul of `get_variance()`. The function should be now more
+  accurate for different distributional families, in particular for
+  mixed regression models with Beta family.
+
+* Improved accuracy of singularity-checks in `get_variance()`.
+
+* `get_variance()` gets a few new arguments:
+
+  * `null_model`, to provide a null-model to be used for the calculation of
+    random effect variances. If `NULL`, the null-model is computed internally.
+    This argument is optional, but may be useful to save time, or when the
+    null-model cannot be calculated internally.
+
+  * `approximation`, indicating the approximation method for the
+    distribution-specific (observation level, or residual) variance.
+
+  * `model_component`, for models that can have a zero-inflation component,
+    specify for which component variances should be returned. By default, both
+    the conditional and the zero-inflation component are taken into account.
+
+* `format_alert()` and `format_warning()` get an `immediate` argument, to output
+  warnings immediately.
+
+* `find_terms()` and `find_transformation()` now better cope with inverse
+  transformations of the response value, such as `1/y`.
+
+* `get_transformation()` now returns more transformations for power-transformed
+  response variables.
+
+* `model_info()` for `MixMod` objects from package *GLMMadaptive* now recognize
+  zero-inflation and hurdle models for custom families.
+
+## Bug fixes
+
+* `null_model()` now correctly handles zero-inflated models from package
+  *glmmTMB*.
+
+* Fixed issue in `null_model()` for models from package *GLMMadaptive*.
+
+* Fixed issues in `link_inverse()` and `link_function()` for models of class
+  `gamlss` from `LOGNO()` family.
+
+# insight 0.20.1
+
+## Bug fixes
+
+* Fixed possible memory allocation issues when the deprecated argument `at` was
+  used in `get_datagrid()`.
+
+# insight 0.20.0
+
+## Breaking
+
+* Arguments named `group`, `at`, `group_by` and `split_by` will be deprecated
+  in future releases of _easystats_ packages. Please use `by` instead. This
+  affects following functions in *insight*:
+
+  * `export_table()`
+  * `get_datagrid()`
+  * `print_parameters()`
+
+## Bug fixes
+
+* Fixed errors in CRAN checks.
+
+# insight 0.19.11
+
+## General
+
+* More informative error message for `get_varcov()` when the requested
+  `vcov`-function failed.
+
+## Bug fixes
+
+* Fixed issue with `get_data()` for `coxme` models when `source` was set to
+  `"modelframe"`.
+
+# insight 0.19.10
+
+## Bug fixes
+
+* Functions like `find_variables()` or `clean_names()` now support multi-membership
+  formulas for models from *brms*.
+
+* Updated tests to work with the latest changes in *glmmTMB 1.1.9*.
+
+# insight 0.19.9
+
+## New supported models
+
+* Support for models of class `serp` (package *serp*).
+
+## General
+
+* `standardize_names()` now also recognizes column `s.value` from objects of
+  package *marginaleffects*.
+
+## Bug fixes
+
+* Fixed issue in `find_predictors()` for models with splines (`s()`), where
+  number of dimensions was indicated with a variable, not a number.
+
+* `format_ci()` now works for factors and character vectors again.
+
+* Fixed issues with latest release of _tinytable_.
+
+* Fixed issues with latest release of _PROreg_.
+
+# insight 0.19.8
+
+## General
+
+* Removed deprecated arguments in `get_data.mmrm()`.
+
+* Improved support for models of class `rqs` (package *quantreg*).
+
+* Revised test to address forthcoming changes in the *pscl* package.
+
+## Bug fixes
+
+* Fixed issue in `get_loglikelihood()` for glm-models with binary outcome, where
+  levels were defined in reversed order.
+
+* Fixed issue in `find_formula()` for models of class `glmmPQL` (package *MASS*).
+
+* Fixed issue in `find_formula()` for models of class `gam` (package *mgcv*) for
+  the `"gaulss"` family.
+
+* Fixed issue in `get_variance()` for *glmmTMB* models with `family = "ordbeta"`.
+
+* Fixed issue in `model_info()` with correctly detecting multivariate vgam/vglm
+  models.
+
+# insight 0.19.7
+
+## General
+
+* Support for objects of class `ggcomparisons` from `ggeffects::hypothesis_test()`.
+
+* `brms::gr()` is now supported, meaning that functions like `get_data()` or
+  `find_predictors()` now also work for models with group-specific random effects.
+
+* Fix CRAN check issues due to the last *fixest* update.
+
+## Changes to functions
+
+* `get_varcov()` for models of class `pgmm` (package *plm*) now also supported
+  robust variance-covariance matrices (i.e. argument `vcov`).
+
+## Bug fixes
+
+* Fixed issue in `find_predictors()` for survival models with `strata()`,
+  containing more that one variable.
+
+* Fixed issue in `model_info()`, where in some cases logistic regression models
+  were erroneously considered as `"bernoulli"` models.
+
+* Fixed issue in `find_formula()` for models of class `gamlss` when the `random()`
+  function was used with namespace in the formula (i.e. `... + gamlss::random()`).
+
+* `model_info()` now detects models with zero-inflation part from package
+  *glmmTMB* when models have truncated-families but no `ziformula`.
+
+# insight 0.19.6
+
+## General
+
+* Improved documentation for `get_predicted_ci()`.
+
+## Changes to functions
+
+* `model_info()` now recognized ordered beta families.
+
+* `find_formula` and `get_response` for `nestedLogit` models gain a `dichotomies`
+  argument, to return values for the dichotomies used to fit the model.
+
+## Bug fixes
+
+* `find_transformation()` better detects power-transformation of the response
+  variable.
+
+* Corrected return value from `find_statistic` for `nnet::multinom()` models.
+
+* `clean_parameters()` did not return the `"clean_parameters"` class attributes
+  for some object. This caused issued in upstream packages.
+
+* Fixed issue in `model_info()`, which did not correctly detect "Bernoulli"
+  property for some models classes (like `glmmTMB` or `glmerMod`).
+
+# insight 0.19.5
+
+## Bug fixes
+
+* Fixed critical issue with `check_if_installed()` for old R releases.
+
+# insight 0.19.4
+
+## Changes to functions
+
+* `get_predicted()` now accepts `predict = "link"` for gaussian models with
+  log-link (i.e. `glm(..., family = gaussian("log"))`), to return predictions
+  on the link scale.
+
+* `check_if_installed()` now automatically checks the package DESCRIPTION file to
+  determine the correct minimum version required.
+
+## Bug fixes
+
+* Fixed issue with invalid multibyte strings in `trim_ws()`.
+
+* Fixed issue in `find_statistic()` for models from package *fixest*.
+
 # insight 0.19.3
 
 ## Breaking changes
@@ -137,7 +1006,7 @@
 
 * Fixes issue in `compact_list()`.
 
-* `has_single_value()` now returns `FALSE` when the object only has `NA` and 
+* `has_single_value()` now returns `FALSE` when the object only has `NA` and
   `na.rm = TRUE`.
 
 * Fixed issue in `get_parameters()` for gam-models without smooth terms, or with
@@ -155,7 +1024,7 @@
 
 * Minor revisions to `get_predicted.glmmTMB()` due to changes in behaviour
   of `predict.glmmTMB()` for truncated-family models since _glmmTMB_ 1.1.5.
-  
+
 * New function `has_single_value()` that is equivalent to `length(unique()) == 1`
   (or `n_unique() == 1`) but faster.
 
@@ -229,12 +1098,12 @@
 * Fixed issue in `get_data()` for models of class `plm`, which accidentally
   converted factors into character vectors.
 
-* Fixed issue with column alignment in `export_table()` when the data frame 
+* Fixed issue with column alignment in `export_table()` when the data frame
   to print contained unicode-characters longer than 1 byte.
 
-* Correctly extract predictors for `fixest::i(f1, i.f2)` interactions (#649 by 
+* Correctly extract predictors for `fixest::i(f1, i.f2)` interactions (#649 by
   @grantmcdermott).
-  
+
 # insight 0.18.4
 
 ## Changes to functions
@@ -294,13 +1163,13 @@
 * Fixed issue (resp. implemented workaround) in `get_data.iv_robust()`, which
   failed due to a bug in the _estimatr_ package.
 
-* Fixed issue where `get_predicted()` failed when data contains factors with 
+* Fixed issue where `get_predicted()` failed when data contains factors with
   only one or incomplete levels.
 
 * Fixed issue in `get_predicted()` for models of class `mlm`.
 
 * Fixed issue where `get_predicted()` failed to compute confidence intervals
-  of predictions when model contained matrix-alike response columns, e.g. a 
+  of predictions when model contained matrix-alike response columns, e.g. a
   response variable created with `cbind()`.
 
 # insight 0.18.2
@@ -319,7 +1188,7 @@
 * `get_predicted()` gets a method for models of class `gamlss` (and thereby,
   `get_loglikelihood()` now also works for those model classes).
 
-* `get_predicted()` now better handles models of class `polr`, `multinom` and 
+* `get_predicted()` now better handles models of class `polr`, `multinom` and
   `rlm`.
 
 ## Bug fixes
@@ -333,10 +1202,10 @@
 ## Breaking changes
 
 * The `ci` argument in `get_predicted()` now defaults to `NULL`. One reason was
-  to make the function faster if confidence intervals are not required, which 
-  was the case for many downstream usages of that function. Please set `ci` 
+  to make the function faster if confidence intervals are not required, which
+  was the case for many downstream usages of that function. Please set `ci`
   explicitly to compute confidence intervals for predictions.
-  
+
 * `get_data()` no longer returns logical types for numeric variables that have
   been converted to logicals on-the-fly within formulas (like `y ~ as.logical(x)`).
   Instead, for each numeric variable that was coerced to logical within a formula
@@ -347,14 +1216,14 @@
 
 ## Changes to functions
 
-* `find_transformation()` and `get_transformation()` now also work for models 
+* `find_transformation()` and `get_transformation()` now also work for models
   where the response was transformed using `log2()` or `log10()`.
 
 ## Bug fixes
 
 * `get_sigma()` for models from package _VGAM_ returned wrong sigma-parameter.
 
-* `find_predictors()` for models from package _fixest_ that contained 
+* `find_predictors()` for models from package _fixest_ that contained
   interaction terms in the endogenous formula part did not correctly return
   all instruments.
 
@@ -368,10 +1237,10 @@
 * `null_model()` did not consider offset-terms if these were specified inside
   formulas.
 
-* Argument `allow.new.levels` was not passed to `predict()` for 
+* Argument `allow.new.levels` was not passed to `predict()` for
   `get_predicted.glmmTMB()`.
-  
-* `clean_names()` now works correctly when several variables are specified in 
+
+* `clean_names()` now works correctly when several variables are specified in
   `s()` (#573, @etiennebacher).
 
 # insight 0.17.1
@@ -385,12 +1254,12 @@
 
 * `get_predicted()` now supports models of class `iv_robust` and `ivreg`.
 
-* For `get_predicted()`, when both `type` and `predict` are given, `type` 
-  will overwrite `predict`. Note that this will print a message, because 
+* For `get_predicted()`, when both `type` and `predict` are given, `type`
+  will overwrite `predict`. Note that this will print a message, because
   `predict` is the preferred argument.
 
 * `get_varcov()` gains `vcov` and `vcov_args` arguments, to specify the
-  variance-covariance matrix used to compute uncertainty estimates (e.g., for 
+  variance-covariance matrix used to compute uncertainty estimates (e.g., for
   robust standard errors).
 
 * `get_loglikehood()` improved handling of models from package *estimator*.
@@ -401,17 +1270,17 @@
   from the environment, and where the data name was a reserved word (e.g., named
   like an R function).
 
-* The matrix returned by `get_varcov()` for models of class *bife* now returns 
+* The matrix returned by `get_varcov()` for models of class *bife* now returns
   row and column names.
-  
-* `find_offset()` did not find offset-terms for `merMod` objects when the 
+
+* `find_offset()` did not find offset-terms for `merMod` objects when the
   offset was specified as `offset` argument in the function call.
 
 # insight 0.17.0
 
 ## Breaking changes
 
-* Arguments `vcov_estimation` and `vcov_type` in `get_predicted()`, 
+* Arguments `vcov_estimation` and `vcov_type` in `get_predicted()`,
   `get_predicted_se()` and `get_predicted_ci()` are replaced by `vcov` and
   `vcov_args`, to have a more simplified and common interface to control
   robust covariance matrix estimation.
@@ -436,14 +1305,14 @@
 * `export_table()` now better checks for invalid values of caption and footer
   for tables in HTML format, and silently removes, e.g., ansi-colour codes that
   only work for text-format.
-  
-* `get_data.coxph()` returns the original data frame instead of data with type 
+
+* `get_data.coxph()` returns the original data frame instead of data with type
    coercion.
 
 * `get_loglikelihood()` gets a `check_response` argument, to check if a model
-  has a transformed response variable (like `log()` or `sqrt()` transformation), 
+  has a transformed response variable (like `log()` or `sqrt()` transformation),
   and if so, returns a corrected log-likelihood.
-  
+
 * `get_modelmatrix()` now supports *BayesFactor* models.
 
 * `get_loglikelihood()` and `get_df()` now support more model classes.
@@ -456,11 +1325,11 @@
 * `get_data()` now includes variables in the returned data frame that were
   used in the `subset` argument of regression functions (like `lm()`).
 
-* In some edge cases, where `get_data()` is unable to retrieve the data that 
+* In some edge cases, where `get_data()` is unable to retrieve the data that
   was used to fit the model, now a more informative error is printed.
 
 * `ellipses_info()` now also accepts a list of model objects, is more stable
-  and returns more information about the provided models (like if all fixed 
+  and returns more information about the provided models (like if all fixed
   or random effects are the same across models, if all models are mixed models
   or null-models, etc.)
 
@@ -479,7 +1348,7 @@
 * Fixed issue in `find_formula()` when argument `correlation` was defined
   outside of `lme()` and `gls()` (@etiennebacher, #525).
 
-* Fixed issue with `get_data()` when back-transforming data from predictors 
+* Fixed issue with `get_data()` when back-transforming data from predictors
   that used `cos()`, `sin()` or `tan()` transformations.
 
 # insight 0.16.0
@@ -497,7 +1366,7 @@
   argument, it is now also possible to use any value that is valid for the
   model's `predict()` method's `type` argument.
 
-* `get_predicted()` now supports more models (e.g., from packages like 
+* `get_predicted()` now supports more models (e.g., from packages like
   _GLMMadaptive_ or _survival_).
 
 * `get_predicted()` is now more robust when calculating standard errors of
@@ -1263,4 +2132,3 @@
   matrix-like variables in the model frame (e.g. when using `poly()`).
 
 * Fixed issues with `PROreg::BBmm()`, due to changes in latest package update.
-

@@ -12,10 +12,10 @@
 <div style="text-align: center;">
 <a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
 <a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
-</div><h2>Documentation for package &lsquo;fGarch&rsquo; version 4022.89</h2>
+</div><h2>Documentation for package &lsquo;fGarch&rsquo; version 4052.93</h2>
 
-<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
-<li><a href="../NEWS">Package NEWS</a>.</li>
+<ul><li><a href="../DESCRIPTION" type="text/plain">DESCRIPTION file</a>.</li>
+<li><a href="../NEWS.Rd">Package NEWS</a>.</li>
 </ul>
 
 <h2>Help Pages</h2>
@@ -25,7 +25,11 @@
 <tr><td style="width: 25%;"><a href="00fGarch-package.html">fGarch-package</a></td>
 <td>Modelling heterskedasticity in financial time series</td></tr>
 <tr><td style="width: 25%;"><a href="garchFit.html">.gogarchFit</a></td>
-<td>Univariate or multivariate GARCH time series fitting</td></tr>
+<td>Fit univariate and multivariate GARCH-type models</td></tr>
+<tr><td style="width: 25%;"><a href="class-fUGARCHSPEC.html">.ugarchFit</a></td>
+<td>Class 'fUGARCHSPEC'</td></tr>
+<tr><td style="width: 25%;"><a href="class-fUGARCHSPEC.html">.ugarchSpec</a></td>
+<td>Class 'fUGARCHSPEC'</td></tr>
 <tr><td style="width: 25%;"><a href="dist-absMoments.html">absMoments</a></td>
 <td>Absolute moments of GARCH distributions</td></tr>
 <tr><td style="width: 25%;"><a href="methods-coef.html">coef</a></td>
@@ -46,10 +50,14 @@
 <td>Skew Student-t distribution</td></tr>
 <tr><td style="width: 25%;"><a href="dist-std.html">dstd</a></td>
 <td>Standardized Student-t distribution</td></tr>
+<tr><td style="width: 25%;"><a href="VaR.html">ES</a></td>
+<td>Compute Value-at-Risk (VaR) and expected shortfall (ES)</td></tr>
+<tr><td style="width: 25%;"><a href="VaR.html">ES.fGARCH</a></td>
+<td>Compute Value-at-Risk (VaR) and expected shortfall (ES)</td></tr>
 <tr><td style="width: 25%;"><a href="00fGarch-package.html">fGarch</a></td>
 <td>Modelling heterskedasticity in financial time series</td></tr>
 <tr><td style="width: 25%;"><a href="class-fGARCH.html">fGARCH-class</a></td>
-<td>Class "fGARCH"</td></tr>
+<td>Class "fGARCH" - fitted ARMA-GARCH/APARCH models</td></tr>
 <tr><td style="width: 25%;"><a href="fGarchData.html">fGarchData</a></td>
 <td>Time series datasets</td></tr>
 <tr><td style="width: 25%;"><a href="class-fGARCHSPEC.html">fGARCHSPEC-class</a></td>
@@ -66,14 +74,14 @@
 <td>Extract GARCH model formula</td></tr>
 <tr><td style="width: 25%;"><a href="methods-formula.html">formula-methods</a></td>
 <td>Extract GARCH model formula</td></tr>
-<tr><td style="width: 25%;"><a href="fUGARCHSPEC-class.html">fUGARCHSPEC-class</a></td>
+<tr><td style="width: 25%;"><a href="class-fUGARCHSPEC.html">fUGARCHSPEC-class</a></td>
 <td>Class 'fUGARCHSPEC'</td></tr>
 <tr><td style="width: 25%;"><a href="garchFit.html">garchFit</a></td>
-<td>Univariate or multivariate GARCH time series fitting</td></tr>
+<td>Fit univariate and multivariate GARCH-type models</td></tr>
 <tr><td style="width: 25%;"><a href="garchFitControl.html">garchFitControl</a></td>
 <td>Control GARCH fitting algorithms</td></tr>
 <tr><td style="width: 25%;"><a href="garchFit.html">garchKappa</a></td>
-<td>Univariate or multivariate GARCH time series fitting</td></tr>
+<td>Fit univariate and multivariate GARCH-type models</td></tr>
 <tr><td style="width: 25%;"><a href="garchSim.html">garchSim</a></td>
 <td>Simulate univariate GARCH/APARCH time series</td></tr>
 <tr><td style="width: 25%;"><a href="garchSpec.html">garchSpec</a></td>
@@ -82,8 +90,8 @@
 <td>Standardized generalized error distribution</td></tr>
 <tr><td style="width: 25%;"><a href="dist-gedFit.html">gedFit</a></td>
 <td>Generalized error distribution parameter estimation</td></tr>
-<tr><td style="width: 25%;"><a href="dist-gedSlider.html">gedSlider</a></td>
-<td>Generalized error distribution slider</td></tr>
+<tr><td style="width: 25%;"><a href="dist-Slider.html">gedSlider</a></td>
+<td>Visualise skew normal, (skew) Student-t and (skew) GED distributions</td></tr>
 <tr><td style="width: 25%;"><a href="dist-ged.html">pged</a></td>
 <td>Standardized generalized error distribution</td></tr>
 <tr><td style="width: 25%;"><a href="methods-plot.html">plot</a></td>
@@ -136,42 +144,52 @@
 <td>Skew generalized error distribution</td></tr>
 <tr><td style="width: 25%;"><a href="dist-sgedFit.html">sgedFit</a></td>
 <td>Skew generalized error distribution parameter estimation</td></tr>
-<tr><td style="width: 25%;"><a href="dist-sgedSlider.html">sgedSlider</a></td>
-<td>Skew GED distribution slider</td></tr>
+<tr><td style="width: 25%;"><a href="dist-Slider.html">sgedSlider</a></td>
+<td>Visualise skew normal, (skew) Student-t and (skew) GED distributions</td></tr>
 <tr><td style="width: 25%;"><a href="class-fGARCH.html">show-method</a></td>
-<td>Class "fGARCH"</td></tr>
+<td>Class "fGARCH" - fitted ARMA-GARCH/APARCH models</td></tr>
 <tr><td style="width: 25%;"><a href="class-fGARCHSPEC.html">show-method</a></td>
 <td>Class "fGARCHSPEC"</td></tr>
 <tr><td style="width: 25%;"><a href="dist-snorm.html">snorm</a></td>
 <td>Skew normal distribution</td></tr>
 <tr><td style="width: 25%;"><a href="dist-snormFit.html">snormFit</a></td>
 <td>Skew normal distribution parameter estimation</td></tr>
-<tr><td style="width: 25%;"><a href="dist-snormSlider.html">snormSlider</a></td>
-<td>Skew normal distribution slider</td></tr>
+<tr><td style="width: 25%;"><a href="dist-Slider.html">snormSlider</a></td>
+<td>Visualise skew normal, (skew) Student-t and (skew) GED distributions</td></tr>
 <tr><td style="width: 25%;"><a href="fGarchData.html">sp500dge</a></td>
 <td>Time series datasets</td></tr>
 <tr><td style="width: 25%;"><a href="dist-sstd.html">sstd</a></td>
 <td>Skew Student-t distribution</td></tr>
 <tr><td style="width: 25%;"><a href="dist-sstdFit.html">sstdFit</a></td>
 <td>Skew Student-t distribution parameter estimation</td></tr>
-<tr><td style="width: 25%;"><a href="dist-sstdSlider.html">sstdSlider</a></td>
-<td>Skew Student-t distribution slider</td></tr>
+<tr><td style="width: 25%;"><a href="dist-Slider.html">sstdSlider</a></td>
+<td>Visualise skew normal, (skew) Student-t and (skew) GED distributions</td></tr>
+<tr><td style="width: 25%;"><a href="stats-tsdiag.html">stats-tsdiag</a></td>
+<td>Diagnostic plots and statistics for fitted GARCH models</td></tr>
 <tr><td style="width: 25%;"><a href="dist-std.html">std</a></td>
 <td>Standardized Student-t distribution</td></tr>
 <tr><td style="width: 25%;"><a href="dist-stdFit.html">stdFit</a></td>
 <td>Student-t distribution parameter estimation</td></tr>
-<tr><td style="width: 25%;"><a href="dist-stdSlider.html">stdSlider</a></td>
-<td>Student-t distribution slider</td></tr>
+<tr><td style="width: 25%;"><a href="dist-Slider.html">stdSlider</a></td>
+<td>Visualise skew normal, (skew) Student-t and (skew) GED distributions</td></tr>
 <tr><td style="width: 25%;"><a href="methods-summary.html">summary</a></td>
-<td>GARCH summary methods</td></tr>
+<td>fGARCH method for the summary function</td></tr>
 <tr><td style="width: 25%;"><a href="methods-summary.html">summary-method</a></td>
-<td>GARCH summary methods</td></tr>
+<td>fGARCH method for the summary function</td></tr>
 <tr><td style="width: 25%;"><a href="methods-summary.html">summary-methods</a></td>
-<td>GARCH summary methods</td></tr>
+<td>fGARCH method for the summary function</td></tr>
+<tr><td style="width: 25%;"><a href="stats-tsdiag.html">tsdiag</a></td>
+<td>Diagnostic plots and statistics for fitted GARCH models</td></tr>
+<tr><td style="width: 25%;"><a href="stats-tsdiag.html">tsdiag.fGARCH</a></td>
+<td>Diagnostic plots and statistics for fitted GARCH models</td></tr>
 <tr><td style="width: 25%;"><a href="class-fGARCH.html">update-method</a></td>
-<td>Class "fGARCH"</td></tr>
+<td>Class "fGARCH" - fitted ARMA-GARCH/APARCH models</td></tr>
 <tr><td style="width: 25%;"><a href="class-fGARCHSPEC.html">update-method</a></td>
 <td>Class "fGARCHSPEC"</td></tr>
+<tr><td style="width: 25%;"><a href="VaR.html">VaR</a></td>
+<td>Compute Value-at-Risk (VaR) and expected shortfall (ES)</td></tr>
+<tr><td style="width: 25%;"><a href="VaR.html">VaR.fGARCH</a></td>
+<td>Compute Value-at-Risk (VaR) and expected shortfall (ES)</td></tr>
 <tr><td style="width: 25%;"><a href="methods-volatility.html">volatility</a></td>
 <td>Extract GARCH model volatility</td></tr>
 <tr><td style="width: 25%;"><a href="methods-volatility.html">volatility.fGARCH</a></td>

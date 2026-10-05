@@ -1,41 +1,31 @@
-### R code from vignette source 'S4QuickOverview.Rnw'
-
-###################################################
-### code chunk number 1: setup
-###################################################
+## ----setup, echo=FALSE, results='hide'--------------------
 options(width=60)
-library(Matrix)
-library(IRanges)
-library(ShortRead)
-library(graph)
+suppressPackageStartupMessages({
+    library(Matrix)
+    library(IRanges)
+    library(ShortRead)
+    library(graph)
+})
 
-
-###################################################
-### code chunk number 2: S4_object_in_dataset
-###################################################
+## ----S4_object_in_dataset---------------------------------
 library(graph)
 data(apopGraph)
 apopGraph
 
-
-###################################################
-### code chunk number 3: S4_object_from_constructor
-###################################################
+## ----S4_object_from_constructor---------------------------
 library(IRanges)
 IRanges(start=c(101, 25), end=c(110, 80))
 
-
-###################################################
-### code chunk number 4: S4_object_from_ceorcion
-###################################################
+## ----S4_object_from_ceorcion------------------------------
 library(Matrix)
 m <- matrix(3:-4, nrow=2)
 as(m, "Matrix")
 
+## ----eval=FALSE-------------------------------------------
+# library(GenomicFeatures)
+# makeTxDbFromUCSC("sacCer2", tablename="ensGene")
 
-###################################################
-### code chunk number 5: S4_object_from_high_level_IO_function
-###################################################
+## ----S4_object_from_high_level_IO_function----------------
 library(ShortRead)
 path_to_my_data <- system.file(
     package="ShortRead",
@@ -43,45 +33,27 @@ path_to_my_data <- system.file(
 lane1 <- readFastq(path_to_my_data, pattern="s_1_sequence.txt")
 lane1
 
-
-###################################################
-### code chunk number 6: S4_object_inside_another_object
-###################################################
+## ----S4_object_inside_another_object----------------------
 sread(lane1)
 
-
-###################################################
-### code chunk number 7: getters_and_setters
-###################################################
+## ----getters_and_setters----------------------------------
 ir <- IRanges(start=c(101, 25), end=c(110, 80))
 width(ir)
 width(ir) <- width(ir) - 5
 ir
 
-
-###################################################
-### code chunk number 8: specialized_methods
-###################################################
+## ----specialized_methods----------------------------------
 qa1 <- qa(lane1, lane="lane1")
 class(qa1)
 
-
-###################################################
-### code chunk number 9: showMethods
-###################################################
+## ----showMethods------------------------------------------
 showMethods("qa")
 
-
-###################################################
-### code chunk number 10: showClass
-###################################################
+## ----showClass, R.options=list(width=60)------------------
 class(lane1)
 showClass("ShortReadQ")
 
-
-###################################################
-### code chunk number 11: setClass
-###################################################
+## ----setClass---------------------------------------------
 setClass("SNPLocations",
     slots=c(
       genome="character",  # a single string
@@ -91,89 +63,53 @@ setClass("SNPLocations",
     )
 )
 
-
-###################################################
-### code chunk number 12: SNPLocations
-###################################################
+## ----SNPLocations-----------------------------------------
 SNPLocations <- function(genome, snpid, chrom, pos)
     new("SNPLocations", genome=genome, snpid=snpid, chrom=chrom, pos=pos)
 
-
-###################################################
-### code chunk number 13: test_SNPLocations
-###################################################
+## ----test_SNPLocations------------------------------------
 snplocs <- SNPLocations("hg19",
              c("rs0001", "rs0002"),
              c("chr1", "chrX"),
              c(224033L, 1266886L))
 
-
-###################################################
-### code chunk number 14: length
-###################################################
+## ----length, results='hide'-------------------------------
 setMethod("length", "SNPLocations", function(x) length(x@snpid))
 
-
-###################################################
-### code chunk number 15: test_length
-###################################################
+## ----test_length------------------------------------------
 length(snplocs)  # just testing
 
-
-###################################################
-### code chunk number 16: genome
-###################################################
+## ----genome, results='hide'-------------------------------
 setGeneric("genome", function(x) standardGeneric("genome"))
 setMethod("genome", "SNPLocations", function(x) x@genome)
 
-
-###################################################
-### code chunk number 17: snpid
-###################################################
+## ----snpid, results='hide'--------------------------------
 setGeneric("snpid", function(x) standardGeneric("snpid"))
 setMethod("snpid", "SNPLocations", function(x) x@snpid)
 
-
-###################################################
-### code chunk number 18: chrom
-###################################################
+## ----chrom, results='hide'--------------------------------
 setGeneric("chrom", function(x) standardGeneric("chrom"))
 setMethod("chrom", "SNPLocations", function(x) x@chrom)
 
-
-###################################################
-### code chunk number 19: pos
-###################################################
+## ----pos, results='hide'----------------------------------
 setGeneric("pos", function(x) standardGeneric("pos"))
 setMethod("pos", "SNPLocations", function(x) x@pos)
 
-
-###################################################
-### code chunk number 20: test_slot_getters
-###################################################
+## ----test_slot_getters------------------------------------
 genome(snplocs)  # just testing
 snpid(snplocs)   # just testing
 
-
-###################################################
-### code chunk number 21: show
-###################################################
+## ----show, results='hide'---------------------------------
 setMethod("show", "SNPLocations",
     function(object)
         cat(class(object), "instance with", length(object),
             "SNPs on genome", genome(object), "\n")
 )
 
-
-###################################################
-### code chunk number 22: S4QuickOverview.Rnw:383-384
-###################################################
+## ---------------------------------------------------------
 snplocs  # just testing
 
-
-###################################################
-### code chunk number 23: validity
-###################################################
+## ----validity, results='hide'-----------------------------
 setValidity("SNPLocations",
     function(object) {
         if (!is.character(genome(object)) ||
@@ -188,39 +124,35 @@ setValidity("SNPLocations",
     }
 )
 
+## ----error=TRUE-------------------------------------------
+try({
+snplocs@chrom <- LETTERS[1:3]  # a very bad idea!
+validObject(snplocs)
+})
 
-###################################################
-### code chunk number 24: set_chrom
-###################################################
+## ----set_chrom, results='hide'----------------------------
 setGeneric("chrom<-", function(x, value) standardGeneric("chrom<-"))
 setReplaceMethod("chrom", "SNPLocations",
     function(x, value) {x@chrom <- value; validObject(x); x})
 
-
-###################################################
-### code chunk number 25: test_slot_setters
-###################################################
+## ----test_slot_setters------------------------------------
 chrom(snplocs) <- LETTERS[1:2]  # repair currently broken object
 
+## ----error=TRUE-------------------------------------------
+try({
+chrom(snplocs) <- LETTERS[1:3]  # try to break it again
+})
 
-###################################################
-### code chunk number 26: setAs
-###################################################
+## ----setAs, results='hide'--------------------------------
 setAs("SNPLocations", "data.frame",
     function(from)
         data.frame(snpid=snpid(from), chrom=chrom(from), pos=pos(from))
 )
 
-
-###################################################
-### code chunk number 27: test_coercion
-###################################################
+## ----test_coercion----------------------------------------
 as(snplocs, "data.frame")  # testing
 
-
-###################################################
-### code chunk number 28: AnnotatedSNPs
-###################################################
+## ----AnnotatedSNPs----------------------------------------
 setClass("AnnotatedSNPs",
     contains="SNPLocations",
     slots=c(
@@ -228,16 +160,10 @@ setClass("AnnotatedSNPs",
     )
 )
 
-
-###################################################
-### code chunk number 29: slot_inheritance
-###################################################
+## ----slot_inheritance-------------------------------------
 showClass("AnnotatedSNPs")
 
-
-###################################################
-### code chunk number 30: AnnotatedSNPs
-###################################################
+## ----AnnotatedSNPs_constructor----------------------------
 AnnotatedSNPs <- function(genome, snpid, chrom, pos, geneid)
 {
     new("AnnotatedSNPs",
@@ -245,46 +171,28 @@ AnnotatedSNPs <- function(genome, snpid, chrom, pos, geneid)
         geneid=geneid)
 }
 
-
-###################################################
-### code chunk number 31: method_inheritance
-###################################################
+## ----method_inheritance-----------------------------------
 snps <- AnnotatedSNPs("hg19",
              c("rs0001", "rs0002"),
              c("chr1", "chrX"),
              c(224033L, 1266886L),
              c("AAU1", "SXW-23"))
 
-
-###################################################
-### code chunk number 32: method_inheritance
-###################################################
+## ----method_inheritance_2---------------------------------
 snps
 
-
-###################################################
-### code chunk number 33: as_data_frame_is_not_right
-###################################################
+## ----as_data_frame_is_not_right---------------------------
 as(snps, "data.frame")  # the 'geneid' slot is ignored
 
-
-###################################################
-### code chunk number 34: S4QuickOverview.Rnw:536-539
-###################################################
+## ---------------------------------------------------------
 is(snps, "AnnotatedSNPs")     # 'snps' is an AnnotatedSNPs object
 is(snps, "SNPLocations")      # and is also a SNPLocations object
 class(snps)                   # but is *not* a SNPLocations *instance*
 
-
-###################################################
-### code chunk number 35: automatic_coercion_method
-###################################################
+## ----automatic_coercion_method----------------------------
 as(snps, "SNPLocations")
 
-
-###################################################
-### code chunk number 36: incremental_validity_method
-###################################################
+## ----incremental_validity_method, results='hide'----------
 setValidity("AnnotatedSNPs",
     function(object) {
         if (length(object@geneid) != length(object))
@@ -292,5 +200,4 @@ setValidity("AnnotatedSNPs",
         TRUE
     }
 )
-
 

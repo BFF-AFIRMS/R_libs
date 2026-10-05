@@ -1,8 +1,32 @@
+# gargle 1.6.1
+
+* `gargle_last_response()` and `gargle_last_content()` are newly exported.
+
+* `response_process(error_class =)` is a new optional argument to add a subclass to any error thrown while processing a response.
+
+# gargle 1.6.0
+
+* When retrying a request, the messaging reveals more detail about the failed
+  request and counts down until the retry happens (part of #64).
+* Fixed some bugs around surfacing the details of a request failure:
+  - Better handling when the error details include a localized message (#293)
+  - Defensive escaping of `{..}` in Google-provided error messages, to prevent
+    `cli::cli_abort()` from trying (and failing) to do string interpolation
+    (https://github.com/tidyverse/googlesheets4/issues/319)
+* gargle is better able to detect when it's running on Posit Workbench, but not
+  necessarily in RStudio, such as in Positron or VS Code (#291).
+
+# gargle 1.5.2
+
+* Fixed a bug in an internal helper that validates input specifying a service
+  account. The helper targets a common mistake where the JSON for an OAuth
+  client is provided to an argument that is meant for a service account (#270).
+
 # gargle 1.5.1
 
 * Completed some overlooked, unfinished work around the OAuth "app" to "client"
-  transition that affected out-of-bound auth (#263, #264).
-  
+  transition that affected out-of-band auth (#263, #264).
+
 * The `secret_*()` functions are more discoverable via documentation.
 
 # gargle 1.5.0
@@ -16,7 +40,7 @@
   - `secret_write_rds()` / `secret_read_rds()`, `secret_make_key()`, and
     `secret_had_key()` are basically copies of their httr2 counterparts.
   - Legacy functions to move away from: `secret_pw_name()`, `secret_pw_gen()`,
-    `secret_pw_exists()`, `secret_pw_get()`, `secret_can_decypt()`,
+    `secret_pw_exists()`, `secret_pw_get()`, `secret_can_decrypt()`,
     `secret_read()`, `secret_write()`.
   - The new approach makes it much easier to use gargle functions to encrypt and
     decrypt credentials in a project that is *not* necessarily an R package.
@@ -27,14 +51,14 @@
   implemented to preserve backwards compatibility for some time. In this
   release, function, argument, and field names are all updated to the "client"
   terminology:
-  
+
   - `init_AuthState(client =)` instead of `init_AuthState(app =)`
   - `AuthState$client` instead of `AuthState$app`
   - `AuthState$set_client()` instead of `AuthState$set_app()`
-  - `gargle2.0_token(client =)` instead of `gargle2.0_token(app =)` 
+  - `gargle2.0_token(client =)` instead of `gargle2.0_token(app =)`
   - `credentials_user_oauth2(client =)` instead of
     `credentials_user_oauth2(app =)`
-    
+
   A new `vignette("oauth-client-not-app")` explains how a wrapper package should
   adapt.
 
@@ -134,7 +158,7 @@ There are two motivations:
     look more toward `httr2:oauth_client()` than to `httr::oauth_app()`.
     gargle's vocabulary is generally shifting towards "client" and away from
     "app".
-  
+
 `oauth_app_from_json()` has therefore been (soft) deprecated, in favor of a new function `gargle_oauth_client_from_json()`, which is the preferred way to instantiate an OAuth client, since the downloaded JSON conveys the client type and redirect URI(s).
 As a bridging measure, `gargle_oauth_client` currently inherits from httr's `oauth_app`, but this probably won't be true in the long-term.
 
@@ -171,18 +195,18 @@ This is especially likely to come up with gmailr / the Gmail API.
 
 * Every registered credential function must have a unique name now.
   This is newly enforced by `cred_funs_add()` and `cred_funs_set()` (#224).
-  
+
 * `cred_funs_list_default()` is a new function that returns gargle's default
   list of credential functions (#226).
-  
+
 * `cred_funs_add(cred_fun = NULL)` is now available to remove a credential
   function from the registry (#224).
-  
+
 * `with_cred_funs()` and `local_cred_funs()` are new helpers for making narrowly
   scoped changes to the registry (#226).
-  
+
 * The `ls` argument of `cred_funs_set()` has been renamed to `funs` (#226).
-  
+
 * In general, credential registry functions now return the current registry,
   invisibly (#224).
 
@@ -244,7 +268,7 @@ Two changes affect stored user OAuth tokens:
   app could be disabled at any time.
   - Nickname of previous tidyverse OAuth app: `tidyverse-calliope`
   - Nickname of tidyverse OAuth app as of gargle v1.0.0: `tidyverse-clio`
-  
+
 For users who accept all default behaviour around OAuth, these changes just mean you will see some messages about cleaning and moving the token cache.
 These users can also expect to go through interactive auth (approximately once per package / API), to obtain fresh tokens made with the current tidyverse OAuth app.
 
@@ -274,7 +298,7 @@ The new "gargle_verbosity" option is more expressive and has three levels:
   little to say and only emits messages that end users really need to see.
 * "silent", no previous equivalent and of little practical significance. But it
   can be used to suppress all gargle messages.
-  
+
 The helpers `with_gargle_verbosity()` and `local_gargle_verbosity()` make it easy to temporarily modify the verbosity level, in the spirit of the [withr package](https://withr.r-lib.org).
 
 ## Other changes
@@ -312,7 +336,7 @@ mockr is new in Suggests, since `testthat::use_mock()` is superseded.
 
 * `oauth_app_from_json` now supports JSON files from the "Web application"
   client type (#155).
-  
+
 * `request_retry()` is a drop-in substitute for `request_make()` that uses (modified) exponential backoff to retry requests that fail with error `429 RESOURCE_EXHAUSTED` (#63).
 
 * Credentials used in selected client packages have been rolled. Users of bigrquery, googledrive, and googlesheets4 can expect a prompt to re-authorize the "Tidyverse API Packages" when using an OAuth user token. This has no impact on users who use their own OAuth app (i.e. client ID and secret) or those who use service account tokens.
@@ -326,10 +350,10 @@ mockr is new in Suggests, since `testthat::use_mock()` is superseded.
   rlang 0.4.2) prints to standard output in interactive sessions and to
   standard error in non-interactive sessions (#133). Messaging remains under
   the control of the `"gargle_quiet"` option, which defaults to `TRUE`.
-  
+
 * The `Gargle2.0` class gains its own `$refresh()` method, which removes a
   token from gargle's cache when it cannot be refreshed (#79).
-  
+
 * `credentials_service_account()` and `credentials_app_default()` gain an
   optional `subject` argument, which can be used to pass a subject claim along
   to `httr::oauth_service_token()` (#131, @samterfa).
@@ -349,13 +373,13 @@ mockr is new in Suggests, since `testthat::use_mock()` is superseded.
 
 * The application default credentials path is fixed on non-Windows platforms
   (#115, @acroz).
-  
+
 * `request_develop()` can accept a parameter that appears in both the path and
   the body (#123).
 
 * `response_process()` explicitly declares the UTF-8 encoding of the content in
   Google API responses [tidyverse/googlesheets4#26](https://github.com/tidyverse/googlesheets4/issues/26).
-  
+
 * `response_process()` is able to expose details for a wider set of errors.
 
 # gargle 0.4.0
@@ -364,7 +388,7 @@ mockr is new in Suggests, since `testthat::use_mock()` is superseded.
 
 * In a non-interactive context, gargle will use a cached OAuth token, if it discovers (at least) one, even if the user has not given explicit instructions. We emit a recommendation that the user make their intent unambiguous and link to the vignette on non-interactive auth (#92).
 
-* gargle consults the option `"httr_oob_default"`, if the option `"gargle_oob_default"` is unset. This is part of an effort to automatically detect the need for out-of-bound auth in more situations (#102).
+* gargle consults the option `"httr_oob_default"`, if the option `"gargle_oob_default"` is unset. This is part of an effort to automatically detect the need for out-of-band auth in more situations (#102).
 
 * `credentials_service_account()` checks explicitly that `type` is `"service_account"`. This makes it easier to detect a common mistake, where the JSON for an OAuth client is provided instead of the JSON representing a service account (#93).
 
@@ -388,7 +412,7 @@ mockr is new in Suggests, since `testthat::use_mock()` is superseded.
 
 * The unexported functions available for generating standardized docs for
   `PKG_auth` functions in client packages have been updated.
-  
+
 * `token_userinfo()`, `token_email()`, and `token_tokeninfo()` are newly
   exported helpers that retrieve information for a token.
 
@@ -399,7 +423,7 @@ mockr is new in Suggests, since `testthat::use_mock()` is superseded.
 
 # gargle 0.2.0
 
-* All built-in API credentials have been rotated and are stored internally in a way that reinforces appropriate use. There is a new [Privacy policy](https://www.tidyverse.org/google_privacy_policy/) as well as a [policy for authors of packages or other applications](https://www.tidyverse.org/google_privacy_policy/#policies-for-authors-of-packages-or-other-applications). This is related to a process to get the gargle project verified, which affects the OAuth2 capabilities and the consent screen.
+* All built-in API credentials have been rotated and are stored internally in a way that reinforces appropriate use. There is a new [Privacy policy](https://tidyverse.org/google_privacy_policy/) as well as a [policy for authors of packages or other applications](https://tidyverse.org/google_privacy_policy/#policies-for-authors-of-packages-or-other-applications). This is related to a process to get the gargle project verified, which affects the OAuth2 capabilities and the consent screen.
 
 * New vignette on "How to get your own API credentials", to help other package authors or users obtain their own API key or OAuth client ID and secret.
 

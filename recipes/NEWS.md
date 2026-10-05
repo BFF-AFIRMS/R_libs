@@ -1,3 +1,301 @@
+# recipes 1.4.0
+
+## Improvements
+
+* `bake()` gained a `stop_at` argument, which takes a step number or step id and applies only the steps up to and including that step. This is useful for diagnostics such as visualizing the effect of each step. (#1551)
+
+* The following steps are now dramatically faster when baking data with many columns, as they no longer copy the whole data set once per column: `check_new_values()`, `check_range()`, `step_bin2factor()`, `step_BoxCox()`, `step_bs()`, `step_center()`, `step_cut()`, `step_discretize()`, `step_dummy()`, `step_factor2string()`, `step_harmonic()`, `step_holiday()`, `step_hyperbolic()`, `step_impute_bag()`, `step_impute_knn()`, `step_impute_linear()`, `step_impute_lower()`, `step_impute_mean()`, `step_impute_median()`, `step_impute_mode()`, `step_impute_roll()`, `step_integer()`, `step_inverse()`, `step_invlogit()`, `step_lag()`, `step_log()`, `step_logit()`, `step_normalize()`, `step_novel()`, `step_ns()`, `step_num2factor()`, `step_ordinalscore()`, `step_other()`, `step_percentile()`, `step_range()`, `step_relevel()`, `step_scale()`, `step_shuffle()`, `step_sqrt()`, `step_string2factor()`, `step_unknown()`, `step_unorder()`, `step_window()`, and `step_YeoJohnson()`. (#1543)
+
+* `prep()` is now faster on recipes with many columns or many steps. (#1543)
+
+* `step_count()` and `step_regex()` now accepts selectors that resolve to more than one column. When more than one column is selected, the new columns are named `{column}_{result}`. (#1384)
+
+## Bug Fixes
+
+* `step_impute_bag()`, `step_impute_knn()`, and `step_impute_linear()` no longer error with "C stack usage is too close to the limit" when the data contains a survival outcome column. (#1517, #1542)
+
+* `step_num2factor()` no longer errors when more than one column is selected. (#1543)
+
+## Developer
+
+* New `recipes_map_cols()` helper for use in `bake()` methods of steps that transform columns in place. It applies a function to the selected columns and assigns the results in bulk, avoiding the quadratic cost of assigning one column at a time. (#1543)
+
+# recipes 1.3.3
+
+* Specify mixOmics as a suggested package. (#1544)
+
+# recipes 1.3.2
+
+* `step_nnmf()` is deprecated. Use `step_nnmf_sparse()` instead. (#1497)
+
+* Fixed bug in `step_pls()` where `bake()` would error when `scale = FALSE` was passed via `options`. (#1512)
+
+# recipes 1.3.1
+
+* Fixed bug where `tune_args()` would error if argument to step had a parsnip object with tuned arguments. (#1506)
+
+# recipes 1.3.0
+
+## Deprecation
+
+* `step_select()` has started its deprecation process. See `?step_select()` for alternatives. (#1488)
+
+* The `strings_as_factors` argument of `prep.recipe()` has been soft-deprecated in favor of `recipe(strings_as_factors)`. If both are provided, the value in `recipe()` takes precedence. This allows control of recipe behavior within a workflow, which wasn't previously possible. (@smingerson, #331, #287)
+
+* `step_mutate_at()` has been superceded in favor of `step_mutate()` when used with `across()`. (#662)
+
+## Improvements
+
+* `step_num2factor()` has gotten improved documentation to avoid getting NAs as output. (#575)
+
+* `step_impute_bag()` now has a much smaller memory footprint when prepped. (#638)
+
+* The following arguments in steps can now take bare names as input instead of strings, calls to `vars()`, `imp_vars()`, and `denom_vars()`. (#1225)
+    - `step_classdist_shrunken(class)`
+    - `step_classdist(class)`
+    - `step_depth(class)`
+    - `step_impute_bag(impute_with)`
+    - `step_impute_knn(impute_with)`
+    - `step_impute_linear(impute_with)`
+    - `step_pls(outcome)`
+    - `step_profile(profile)`
+    - `step_ratio(denom)`
+
+* More informative error for some failures of `step_impute_bag()`. (#209)
+
+* `step_impute_bag()` and `step_impute_knn()` now gives more informative warnings when `impute_with` data contains all NAs. (#1385)
+
+* `step_spline_b()`, `step_spline_convex()`, `step_spline_monotone()`, `step_spline_natural()`, and `step_spline_nonnegative()` now gives informative errors when applied to zero variance predictors. (#1455)
+
+* `step_dummy()` has gained `contrasts` argument. This change soft deprecates the use of `getOption("contrasts")` with `step_dummy()`. (##1349)
+
+## Bug Fixes
+
+* Fixed printing for `step_geodist()` when no variables are selected. (#1423)
+
+* Fixed bug where `extract_fit_time()` would throw warning for when recipe didn't have any steps. (#1475)
+
+* `step_interact()` now works with empty selections instead of erroring. (#1417)
+
+* fixed bug where `step_nnmf_sparse()` required that the Matrix package was loaded. (#1141)
+
+* Fixed bug where `recipe()` would error on sf objects. (#1393)
+
+* `step_cut()` not longer errors on NA values in `bake()`. (#1304)
+
+* Fixed bug in `step_impute_knn()` would error on character vectors when `strings_as_factors = TRUE`. (#926)
+
+* Make it so `recipe.formula()` can't take table objects as input, in accordance with documentation. (#1416)
+
+* Fixed bug where `step_lincomb()` would remove both variables if they were identical. (#1357)
+
+* Fixed bugs in `step_bs()`, `step_depth()`, `step_harmonic()`, `step_invlogit()`, `step_isomap()`, `step_logit()`, `check_range()`, `step_poly_bernstein()`, `step_spline_b()`, `step_spline_convex()`, `step_monotone()`, `step_natural()`, `step_nonnegative()` would error in `bake()` with zero-row data. (#1219)
+
+* fixed bug where `bake.step_discretize()` would error if applied to predictor only containing `NA`s. (#1350)
+
+## Developer
+
+* Added developer function `check_options()`. (#1269)
+
+* Officially deprecate `printer()` in favor of `print_step()`. (#1243)
+
+# recipes 1.2.1
+
+## Bug Fixes
+
+* Fixed bug where sparsity creation steps error if applied to variables created by other steps. (#1448)
+
+# recipes 1.2.0
+
+## Improvements
+
+* `recipe()`, `prep()`, and `bake()` now work with sparse tibbles. (#1364, #1366)
+
+* `recipe()`, `prep()`, and `bake()` now work with sparse matrices. (#1364, #1368, #1369)
+
+* The following steps has gained the argument `sparse`. When set to `"yes"`, they will produce sparse vectors. (#1392)
+    - `step_count()`
+    - `step_dummy_extract()`
+    - `step_dummy_multi_choice()`
+    - `step_dummy()`
+    - `step_dummy()`
+    - `step_holiday()`
+    - `step_indicate_na()`
+    - `step_regex()`
+
+* The following steps have been modified to preserve sparsity in its input. (#1395)
+    - `step_arrange()`
+    - `step_filter_missing()`
+    - `step_filter()`
+    - `step_impute_mean()`
+    - `step_impute_median()`
+    - `step_lag()`
+    - `step_lag()`
+    - `step_rename_at()`
+    - `step_rename()`
+    - `step_rm()`
+    - `step_sample()`
+    - `step_scale()`
+    - `step_select()`
+    - `step_shuffle()`
+    - `step_slice()`
+    - `step_sqrt()`
+    - `step_zv()`
+
+* All steps and checks now require arguments `trained`, `skip`, `role`, and `id` at all times. (#1387)
+
+## Bug Fixes
+
+* Fixed bug where name repaired column names would get changed when baked for some steps. (#1347)
+
+# recipes 1.1.1
+
+## Improvements
+
+* Example for `step_novel()` now better illustrates how it works. (@Edgar-Zamora, #1248)
+
+* `prep.recipe(..., strings_as_factors = TRUE)` now only converts string variables that have role "predictor" or "outcome". (@dajmcdon, #1358, #1376)
+
+# recipes 1.1.0
+
+## Improvements
+
+* Improved error message for misspelled argument in step functions. (#1318)
+
+* `recipe()` can now take data.frames with list-columns or sf data.frames as input to `data`. (#1283)
+
+* `recipe()` will now show better error when columns are misspelled in formula (#1283).
+
+* `add_role()` now errors if a column would simultaneously have roles `"outcome"` and `"predictor"`. (#935)
+
+* `prep()` will now error if the ptype of the data doesn't match which was used to define the recipe. (#793)
+
+* Added more documentation in `?selections` about how `tidyselect::everything()` works in recipes. (#1259)
+
+* New `extract_fit_time()` method has been added that returns the time it took to train the recipe. (#1071)
+
+* `step_spline_b()`, `step_spline_convex()`, `step_spline_monotone()`, and `step_spline_nonnegative()` now throws informative errors if the`degree`, `deg_free`, and `complete_set` arguments causes an error. (#1170)
+
+* `step_mutate()` gained `.pkgs` argument to specify what packages need to be loaded for step to work. (#1282)
+
+* `step_interact()` now gives better error if `terms` isn't a formula. (#1299)
+
+* The `prefix` argument of `step_dummy_multi_choice()` is now properly documented. (#1298)
+
+* Significant speedup in `step_dummy()` when applied to many columns. (#1305)
+
+* `step_dummy()` now gives an informative error on attempt to generate too many columns to fit in memory. (#828)
+
+* `step_dummy()` and `step_unknown()` now throw more informative warnings for unseen levels. (#450)
+
+* `step_dummy()` now throws more informative warnings for `NA` values. (#450)
+
+* `step_date()` now accepts `"mday"` as a possible feature. (@Edgar-Zamora, #1211)
+
+## Bug Fixes
+
+* `NA` levels in factors aren't dropped when passed to `recipe()`. (#1291)
+
+* `recipe()` no longer crashes when given long formula expression (#1283).
+
+* Fixed bug in `step_ns()` and `step_bs()` where `knots` field in `options` argument wasn't correctly used. (#1297)
+
+* Bug fixed in `step_interact()` where long formulas were used. (#1231, #1289)
+
+* Fixed documentation mistake where default value of `keep_original_cols` argument were wrong. (#1314)
+
+## Developer
+
+* Developer helper function `recipes_ptype()` has been added, returning expected input data for `prep()` and `bake()` for a given recipe object. (#1329)
+
+* Developer helper function `recipes_ptype_validate()` has been added, to validate new data is compatible with recipe ptype. (#793)
+
+* Developer helper functions `recipes_names_predictors()` and `recipes_names_outcomes()` have been added to aid variable selection in steps. (#1026)
+
+# recipes 1.0.10
+
+## Bug Fixes
+
+* Fixed bug where `step_log()` breaks legacy recipe objects by indexing `names(object)` in `bake()`. (@stufield, #1284)
+
+# recipes 1.0.9
+
+## Improvements
+
+* Minor speed-up and reduced memory consumption for `step_pca()` in the `bake()` stage by reducing unused multiplications (@jkennel, #1265)
+
+* Document that `update_role()`, `add_role()` and `remove_role()` are applied before steps and checks. (#778)
+
+* Documentation for tidy methods for all steps has been added when missing and improved to describe the return value more accurately. (#936)
+
+* `step_dummy()` will now error if passed character instead of loudly ignoring them. Only applicable when setting `strings_as_factors = FALSE`. (#1233)
+
+* It is now documented that `step_spline_b()` can be made periodic. (#1223)
+
+* `prep()` now correctly throws a warning when `training` argument is set when prepping a prepped recipe, telling the user that it will be ignored. (#1244)
+
+* When errors are thrown about wrongly typed input to steps, the offending variables and their types are now listed. (#1217)
+
+* All warnings and errors have been updated to use the cli package for increased clarity and consistency. (#1237)
+
+* Added warnings when `step_scale()`, `step_normalise()`, `step_center()` or `step_range()` result in `NaN` columns. (@mastoffel, #1221)
+
+## Bug Fixes
+
+* Fixed bug where `step_factor2string()` if `strings_as_factors = TRUE` is set in `prep()`. (#317)
+
+* Fixed bug where `tidy.step_cut()` always returned zero row tibbles for trained recipes. (#1229)
+
+# recipes 1.0.8
+
+## Improvements
+
+* Minor speed-up and reduced memory consumption for spline steps that rely on `spline2_apply` (#1200)
+
+## Bug Fixes
+
+* Fixed bugs where spline steps (`step_ns()`, `step_bs()`, `step_spline_b()`, `step_spline_convex()`, `step_spline_monotone()`, `step_spline_natural()`, `step_spline_nonnegative()`) would error if baked with 1 row. (#1191)
+
+# recipes 1.0.7
+
+## New Steps
+
+* `step_classdist_shrunken()`, a regularized version of `step_classdist()`, was added. (#1185)
+
+## Improvements
+
+* `step_bs()` and `step_ns()` have gained `keep_original_cols` argument. (#1164)
+
+* The `keep_original_cols` argument has been added to `step_classdist()`, `step_count()`, `step_depth()`, `step_geodist()`, `step_indicate_na()`, `step_interact()`, `step_lag()`, `step_poly()`, `step_regex()`, `step_window()`. The default for each step is set to preserve past behavior. This change should mean that every step that produces new columns has the `keep_original_cols` argument. (#1167)
+
+## Bug Fixes
+
+* Fixed bugs where `step_classdist()`, `step_count()`, `step_depth()`,  `step_geodist()`,  `step_interact()`, `step_nnmf_sparse()`, and  `step_regex()` didn't work with empty selection. All steps now leave data unmodified when having empty selections. (#1142)
+
+* `step_classdist()`, `step_count()` and `step_depth()` no longer returns a column with all `NA`s with empty selections. (#1142)
+
+* `step_regex()` no longer returns a column with all 0s with empty selections. (#1142)
+
+* The `tidy()` methods for `step_geodist()`, `step_nnmf_sparse()`, and `step_sample()` now correctly return zero-row tibbles when used with empty selections. (#1144)
+
+* `step_poly_bernstein()`, `step_profile()`, `step_spline_b()`, `step_spline_convex()`, `step_spline_monotone()`, `step_spline_natural()`, and `step_spline_nonnegative()` now correctly return a zero row tibble when used with empty selection. (#1133)
+
+* Fixed bug where the `tidy()` method for `step_sample()` didn't return an `id` column. (#1144)
+
+* `check_class()`, `check_missing()`, `check_new_values()`, `check_range()`, `step_naomit()`, `step_poly_bernstein()`, `step_spline_b()`, `step_spline_convex()`, `step_spline_monotone()`, `step_spline_natural()`, `step_spline_nonnegative()`, and `step_string2factor()` now throw an informative error if needed non-standard role columns are missing during `bake()`. (#1145)
+
+## Breaking Changes
+
+* `step_window()` now throws an error instead of silently overwriting if `names` argument overlaps with existing columns. (#1172)
+
+* `step_regex()` and `step_count()` will now informatively error if name collision occurs. (#1169)
+
+## Developer
+
+* Added developer function `remove_original_cols()` to help remove original columns that are no longer needed. (#1149)
+
+* Added developer function `recipes_remove_cols()` to provide standardized way to remove columns by column names. (#1155)
+
 # recipes 1.0.6
 
 ## Improvements
@@ -60,6 +358,7 @@
 
 * `step_range()` has gained a argument `clipping` that when set to `FALSE` no longer clips the data to be between `min` and `max`.
 
+* Added documentation regarding developer functions `?developer_functions`. (#1163)
 
 # recipes 1.0.2
 

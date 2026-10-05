@@ -7,14 +7,16 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r}
+#| include: false
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 ```
 
-```{r setup}
+```{r}
+#| label: setup
 library(gh)
 ```
 
@@ -29,6 +31,7 @@ This article describes how to store your PAT, so that gh can find it (automatica
 More resources on PAT management:
 
   * GitHub documentation on [Creating a personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
+    - Important: a PAT can expire, the default expiration date is 30 days. 
   * In the [usethis package](https://usethis.r-lib.org):
     - Vignette: [Managing Git(Hub) Credentials](https://usethis.r-lib.org/articles/articles/git-credentials.html) 
     - `usethis::gh_token_help()` and `usethis::git_sitrep()` help you check if
@@ -44,7 +47,8 @@ More resources on PAT management:
 `gh::gh()` allows the user to provide a PAT via the `.token` argument and to specify a host other than "github.com" via the `.api_url` argument.
 (Some companies and universities run their own instance of GitHub Enterprise.)
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 gh(endpoint, ..., .token = NULL, ..., .api_url = NULL, ...)
 ```
 

@@ -15,6 +15,7 @@ chars8bit	AsciiToInt
 code2n	n.code
 col01scale	col01scale
 colcenter	col01scale
+compact01	compact01
 compresid2way	compresid2way
 cum.Vert.funkt	cum.Vert.funkt
 D1D2	D1D2
@@ -33,7 +34,9 @@ empty.dimnames	empty.dimnames
 errbar	errbar
 f.robftest	f.robftest
 factorize	factorize
+formatN	formatN
 funEnv	funEnv
+GCD	gcd
 hatMat	hatMat
 helppdf	helppdf
 histBxp	histBxp
@@ -45,6 +48,7 @@ isRshared	sessionInfoX
 iterate.lin.recursion	iterate.lin.recursion
 KSd	KSd
 last	last
+LCM	gcd
 linesHyperb.lm	linesHyberb.lm
 list2mat	sfsmisc-defunct
 list_	list_named

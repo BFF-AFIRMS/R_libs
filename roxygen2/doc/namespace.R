@@ -1,21 +1,14 @@
-## ---- include = FALSE---------------------------------------------------------
+## -----------------------------------------------------------------------------
 knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
 
 ## -----------------------------------------------------------------------------
-#' @exportS3Method pkg::generic
-generic.foo <- function(x, ...) {
-}
+# From dplyr:
+#' @rawNamespace import(vctrs, except = data_frame)
+NULL
 
-## ---- eval = FALSE------------------------------------------------------------
-#  my_function <- function(x, y) {
-#    pkg::fun(x) * y
-#  }
-
-## -----------------------------------------------------------------------------
-#' @importFrom pkg fun 
-my_function <- function(x, y) {
-  fun(x) * y
-}
+# From backports:
+#' @rawNamespace if (getRversion() < "4.0.0") export(stopifnot)
+NULL
 
 ## -----------------------------------------------------------------------------
 #' @importFrom pkg fun1 fun2

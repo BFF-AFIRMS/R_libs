@@ -2,6 +2,8 @@ flowerSize              Flower size of 25 Euphorbiaceae species
 flowerTree              Phylogenetic tree of 25 Euphorbiaceae species
 guidetree               Binary population tree within Arabidopsis
                         thaliana
+mace                    Multi-task learning for ancestral state
+                        estimation.
 OU1d.loglik             Log likelihood of an one-dimensional
                         Ornstein-Uhlenbeck model
 OUshifts                Detections of shifts in the OU process along a

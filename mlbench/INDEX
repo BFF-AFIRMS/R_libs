@@ -26,13 +26,13 @@ mlbench.twonorm         Twonorm Benchmark Problem
 mlbench.waveform        Waveform Database Generator
 mlbench.xor             Continuous XOR Benchmark Problem
 Ozone                   Los Angeles ozone pollution data, 1976
-PimaIndiansDiabetes     Pima Indians Diabetes Database
 plot.mlbench            Plot mlbench objects
 Satellite               Landsat Multi-Spectral Scanner Image Data
 Servo                   Servo Data
 Shuttle                 Shuttle Dataset (Statlog version)
 Sonar                   Sonar, Mines vs. Rocks
 Soybean                 Soybean Database
+SynthDiabetes           Synthetic Diabetes Database
 Vehicle                 Vehicle Silhouettes
 Vowel                   Vowel Recognition (Deterding data)
 Zoo                     Zoo Data

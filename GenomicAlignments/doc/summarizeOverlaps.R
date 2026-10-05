@@ -39,8 +39,7 @@ edger <- DGEList(assay(olap), group=rownames(colData(olap)))
 ###################################################
 ### code chunk number 4: simple
 ###################################################
-rd <- GAlignments("a", seqnames = Rle("chr1"), pos = as.integer(100),
-    cigar = "300M", strand = strand("+"))
+rd <- GAlignments(names="a", seqnames="chr1", pos=100, cigar="300M", strand="+")
 
 gr1 <- GRanges("chr1", IRanges(start=50, width=150), strand="+")
 gr2 <- GRanges("chr1", IRanges(start=350, width=150), strand="+")
@@ -73,9 +72,9 @@ data.frame(union = assay(summarizeOverlaps(grl, rd)),
 ###################################################
 group_id <- c("A", "B", "C", "C", "D", "D", "E", "F", "G", "G", "H", "H")
 features <- GRanges(
-    seqnames = Rle(c("chr1", "chr2", "chr1", "chr1", "chr2", "chr2",
-        "chr1", "chr1", "chr2", "chr2", "chr1", "chr1")),
-    strand = strand(rep("+", length(group_id))),
+    seqnames = c("chr1", "chr2", "chr1", "chr1", "chr2", "chr2",
+        "chr1", "chr1", "chr2", "chr2", "chr1", "chr1"),
+    strand = Rle(strand("+"), length(group_id)),
     ranges = IRanges(
         start=c(1000, 2000, 3000, 3600, 7000, 7500, 4000, 4000, 3000, 3350, 5000, 5400),
         width=c(500, 900, 500, 300, 600, 300, 500, 900, 150, 200, 500, 500)),
@@ -85,9 +84,9 @@ features <- GRanges(
 reads <- GAlignments(
     names = c("a","b","c","d","e","f","g"),
     seqnames = Rle(c(rep(c("chr1", "chr2"), 3), "chr1")),
-    pos = as.integer(c(1400, 2700, 3400, 7100, 4000, 3100, 5200)),
+    pos = c(1400, 2700, 3400, 7100, 4000, 3100, 5200),
     cigar = c("500M", "100M", "300M", "500M", "300M", "50M200N50M", "50M150N50M"),
-    strand = strand(rep.int("+", 7L)))
+    strand = Rle(strand("+"), 7))
 
 
 

@@ -1,3 +1,5 @@
+ggthemes-package	ggthemes-package
+bank_plot	bank_plot
 bank_slopes	bank_slopes
 calc_pal	calc_pal
 calc_shape_pal	calc_shape_pal
@@ -6,6 +8,7 @@ canva_palettes	canva_palettes
 circlefill_shape_pal	circlefill_shape_pal
 cleveland_shape_pal	cleveland_shape_pal
 colorblind_pal	colorblind
+colourblind_pal	colorblind
 economist_pal	economist_pal
 excel_new_pal	excel_new_pal
 excel_pal	excel_pal
@@ -19,7 +22,7 @@ GeomRangeFrame	geom_rangeframe
 GeomTufteboxplot	geom_tufteboxplot
 geom_rangeframe	geom_rangeframe
 geom_tufteboxplot	geom_tufteboxplot
-ggthemes	ggthemes
+ggthemes	ggthemes-package
 ggthemes_data	ggthemes_data
 hc_pal	hc_pal
 palette_pander	palette_pander
@@ -46,6 +49,7 @@ scale_color_wsj	scale_wsj
 scale_colour_calc	scale_calc
 scale_colour_canva	scale_colour_canva
 scale_colour_colorblind	colorblind
+scale_colour_colourblind	colorblind
 scale_colour_economist	scale_economist
 scale_colour_excel	scale_excel
 scale_colour_excel_new	scale_excel_new
@@ -64,6 +68,7 @@ scale_colour_wsj	scale_wsj
 scale_fill_calc	scale_calc
 scale_fill_canva	scale_colour_canva
 scale_fill_colorblind	colorblind
+scale_fill_colourblind	colorblind
 scale_fill_continuous_tableau	scale_colour_gradient_tableau
 scale_fill_economist	scale_economist
 scale_fill_excel	scale_excel

@@ -22,8 +22,8 @@ for (j in 1:4)
          beta0=fit[[j]]$beta[,1],beta1=fit[[j]]$beta[,2])
   BETA=rbind(BETA,s)
   }
-library(lattice)
-with(BETA,xyplot(beta1~beta0|Prior,type=c("p","g"),col="black"))
+
+with(BETA,lattice::xyplot(beta1~beta0|Prior,type=c("p","g"),col="black"))
 
 S=readline(prompt="Type  <Return>   to continue : ")
 

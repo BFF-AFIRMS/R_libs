@@ -1,3 +1,8 @@
+color.pathway.by.objects
+                        Client-side interface to obtain an url for a
+                        KEGG pathway diagram with a given set of genes
+                        marked
+keggCompounds           Get list of compounds IDs for pathway
 keggConv                Convert KEGG identifiers to/from outside
                         identifiers
 keggFind                Finds entries with matching query keywords or
@@ -11,7 +16,3 @@ keggList                Returns a list of entry identifiers and
                         associated definition for a given database or a
                         given set of database entries.
 listDatabases           Lists the KEGG databases which may be searched.
-mark.pathway.by.objects
-                        Client-side interface to obtain an url for a
-                        KEGG pathway diagram with a given set of genes
-                        marked

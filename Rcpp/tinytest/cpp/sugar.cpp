@@ -1,7 +1,8 @@
 
 // sugar.cpp: Rcpp R/C++ interface class library -- sugar unit tests
 //
-// Copyright (C) 2012 - 2022  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2024  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2025 - 2026  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -22,12 +23,7 @@
 using namespace Rcpp ;
 
 template <typename T>
-
-#if __cplusplus < 201103L
-class square : public std::unary_function<T,T> {
-#else
 class square : public std::function<T(T)> {
-#endif
 public:
 	T operator()( T t) const { return t*t ; }
 } ;
@@ -226,8 +222,55 @@ NumericVector runit_na_omit( NumericVector xx ){
 }
 
 // [[Rcpp::export]]
-List runit_lapply( IntegerVector xx){
+List runit_lapply( NumericVector xx ){
+    List res = lapply( xx, square<double>() );
+    return res ;
+}
+
+// [[Rcpp::export]]
+List runit_lapply_rawfun( NumericVector xx){
+    List res = lapply( xx, raw_square );
+    return res ;
+}
+
+// [[Rcpp::export]]
+List runit_lapply_lambda(NumericVector xx){
+    List res = lapply(xx, [](double x) { return x*x; });
+    return res;
+}
+
+// [[Rcpp::export]]
+List runit_lapply_seq( IntegerVector xx){
     List res = lapply( xx, seq_len );
+    return res ;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_mapply2(NumericVector xx, NumericVector yy){
+    NumericVector res = mapply(xx, yy, std::plus<double>());
+    return res;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_mapply2_lambda(NumericVector xx, NumericVector yy){
+    NumericVector res = mapply(xx, yy, [](double x, double y) { return x+y; });
+    return res;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_mapply3_lambda(NumericVector xx, NumericVector yy, NumericVector zz){
+    NumericVector res = mapply(xx, yy, zz, [](double x, double y, double z) { return x+y+z; });
+    return res;
+}
+
+// [[Rcpp::export]]
+LogicalVector runit_mapply2_logical(NumericVector xx, NumericVector yy){
+    return all(mapply(xx, yy, std::plus<double>()) < 100.0);
+}
+
+// [[Rcpp::export]]
+List runit_mapply2_list(IntegerVector xx, IntegerVector yy){
+    List res = mapply(xx, yy, seq);
     return res ;
 }
 
@@ -240,6 +283,21 @@ List runit_minus( IntegerVector xx ){
     	noNA( xx ) - 10,
     	10 - noNA( xx )
     	) ;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_minus_ivv( IntegerVector x, IntegerVector y ){
+    return x - y;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_minus_ivp( IntegerVector x, int y ){
+    return x - y;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_minus_ipv( int x, IntegerVector y ){
+    return x - y;
 }
 
 // [[Rcpp::export]]
@@ -258,12 +316,51 @@ List runit_plus( IntegerVector xx ){
 }
 
 // [[Rcpp::export]]
-List runit_plus_seqlen(){
+IntegerVector runit_plus_ivv( IntegerVector x, IntegerVector y ){
+    return x + y;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_plus_ivp( IntegerVector x, int y ){
+    return x + y;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_plus_ipv( int x, IntegerVector y ){
+    return x + y;
+}
+
+// [[Rcpp::export]]
+List runit_plus_seqlen(IntegerVector xx){
     return List::create(
 	    seq_len(10) + 10,
 	    10 + seq_len(10),
-	    seq_len(10) + seq_len(10)
+	    seq_len(10) + seq_len(10),
+	    seq_len(10) + xx,
+	    xx + seq_len(10)
 	    ) ;
+}
+
+// [[Rcpp::export]]
+List runit_minus_seqlen(IntegerVector xx){
+    return List::create(
+        seq_len(10) - 10,
+        10 - seq_len(10),
+        seq_len(10) - seq_len(10),
+        seq_len(10) - xx,
+        xx - seq_len(10)
+    ) ;
+}
+
+// [[Rcpp::export]]
+List runit_times_seqlen(IntegerVector xx){
+    return List::create(
+        seq_len(10) * 10,
+        10 * seq_len(10),
+        seq_len(10) * seq_len(10),
+        seq_len(10) * xx,
+        xx * seq_len(10)
+    ) ;
 }
 
 // [[Rcpp::export]]
@@ -332,6 +429,12 @@ NumericVector runit_sapply_rawfun( NumericVector xx){
 }
 
 // [[Rcpp::export]]
+NumericVector runit_sapply_lambda(NumericVector xx){
+    NumericVector res = sapply(xx, [](double x) { return x*x; });
+    return res;
+}
+
+// [[Rcpp::export]]
 LogicalVector runit_sapply_square( NumericVector xx){
     return all( sapply( xx * xx , square<double>() ) < 10.0 );
 }
@@ -377,6 +480,21 @@ List runit_times( IntegerVector xx ){
         10 * yy,
         NA_INTEGER * xx
     ) ;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_times_ivv( IntegerVector x, IntegerVector y ){
+    return x * y;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_times_ivp( IntegerVector x, int y ){
+    return x * y;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_times_ipv( int x, IntegerVector y ){
+    return x * y;
 }
 
 // [[Rcpp::export]]
@@ -445,6 +563,12 @@ IntegerVector runit_rev( IntegerVector xx ){
 // [[Rcpp::export]]
 NumericMatrix runit_outer( NumericVector xx, NumericVector yy){
     NumericMatrix m = outer( xx, yy, std::plus<double>() ) ;
+    return m ;
+}
+
+// [[Rcpp::export]]
+NumericMatrix runit_outer_lambda(NumericVector xx, NumericVector yy){
+    NumericMatrix m = outer(xx, yy, [](double x, double y) { return x + y; });
     return m ;
 }
 
@@ -549,13 +673,24 @@ List runit_log1p( NumericVector xx){
 }
 
 // [[Rcpp::export]]
-double runit_sum( NumericVector xx){
+double runit_sum_nv( NumericVector xx){
     return sum( xx ) ;
 }
 
 // [[Rcpp::export]]
-NumericVector runit_cumsum( NumericVector xx ){
+int runit_sum_iv( IntegerVector xx){
+    return sum( xx ) ;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_cumsum_nv( NumericVector xx ){
     NumericVector res = cumsum( xx ) ;
+    return res ;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_cumsum_iv( IntegerVector xx ){
+    IntegerVector res = cumsum( xx ) ;
     return res ;
 }
 

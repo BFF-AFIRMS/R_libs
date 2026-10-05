@@ -37,6 +37,8 @@ makePoly                Add vertices to a polygon or line
 mercator                Mercator projection
 midPoint                Mid-point
 onGreatCircle           Is a point on a given great circle?
+OSGB                    Ordnance Survey for Great Britain grid
+                        reference system
 perimeter               Compute the perimeter of a longitude/latitude
                         polygon
 plotArrows              Plot

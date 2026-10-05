@@ -15,6 +15,12 @@ knit_hooks$set(output = function(x, options) {
   hook_output(x, options)
 })
 
+## ----install,eval=FALSE-------------------------------------------------------
+# if (!require("BiocManager", quietly=TRUE))
+#     install.packages("BiocManager")
+# 
+# BiocManager::install("KEGGREST")
+
 ## ----listDatabases------------------------------------------------------------
 library(KEGGREST)
 listDatabases()
@@ -27,7 +33,7 @@ head(org)
 queryables <- c(listDatabases(), org[,1], org[,2])
 
 ## ----query_hsa, eval=FALSE----------------------------------------------------
-#  keggList("hsa")
+# keggList("hsa")
 
 ## ----keggGet------------------------------------------------------------------
 query <- keggGet(c("hsa:10458", "ece:Z5100"))

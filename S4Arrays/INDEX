@@ -1,8 +1,13 @@
 aperm2                  Generalized permutation of the dimensions of an
                         array
+arep                    Replicate array elements
 array selection         Manipulation of array selections
+array_recycling         Multidimensional array recycling
+Array-class             Array objects
+Array-kronecker-methods
+                        Kronecker products on Array objects
 ArrayGrid-class         ArrayGrid and ArrayViewport objects
-bind-arrays             Bind arrays along their rows or columns
+bind-arrays             Combine multidimensional array-like objects
 is_sparse               Check for sparse representation
 read_block              Read array blocks
 rowsum                  Compute column/row sums of a matrix-like

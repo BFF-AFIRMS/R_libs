@@ -9,10 +9,8 @@ dbDataType,PostgreSQLConnection,sf-method
 dbWriteTable,PostgreSQLConnection,character,sf-method
                         Write 'sf' object to Database
 extension_map           Map extension to driver
-gdal                    functions to interact with gdal not meant to be
-                        called directly by users (but e.g. by
-                        stars::read_stars)
-gdal_addo               add or remove overviews to/from a raster image
+gdal_addo               Add or remove overviews to/from a raster image
+gdal_compressors        List GDAL compressors and decompressors
 gdal_utils              Native interface to gdal utils
 geos_binary_ops         Geometric operations on pairs of simple feature
                         geometry sets
@@ -24,16 +22,16 @@ geos_query              Dimension, simplicity, validity or is_empty
                         queries on simple feature geometries
 geos_unary              Geometric unary operations on simple feature
                         geometry sets
-internal                Internal functions
-interpolate_aw          Areal-weighted interpolation of polygon data
+interpolate_aw          Area-weighted interpolation or dasymetric
+                        mapping of polygon data
 is_driver_available     Check if driver is available
 is_driver_can           Check if a driver can perform an action
 is_geometry_column      Check if the columns could be of a coercable
                         type for sf
 merge.sf                merge method for sf and data.frame object
 nc                      North Carolina SIDS data
-Ops                     S3 Ops Group Generic Functions for simple
-                        feature geometries
+Ops                     Arithmetic operators for simple feature
+                        geometries
 plot                    plot sf object
 prefix_map              Map prefix to driver
 proj_tools              Manage PROJ settings
@@ -45,7 +43,6 @@ sf                      Create sf object
 sf_extSoftVersion       Provide the external dependencies versions of
                         the libraries linked to sf
 sf_project              directly transform a set of coordinates
-sf-defunct              Deprecated functions in 'sf'
 sfc                     Create simple feature geometry list column
 sgbp                    Methods for dealing with sparse geometry binary
                         predicate lists
@@ -82,11 +79,15 @@ st_geometry_type        Return geometry type of an object
 st_graticule            Compute graticules and their parameters
 st_is                   test equality between the geometry type and a
                         class or set of classes
+st_is_full              predicate whether a geometry is equal to a
+                        POLYGON FULL
 st_is_longlat           Assert whether simple feature coordinates are
                         longlat degrees
 st_jitter               jitter geometries
 st_join                 spatial join, spatial filter
 st_layers               Return properties of layers in a datasource
+st_line_project_point   Project point on linestring, interpolate along
+                        a linestring
 st_line_sample          Sample points on a linear geometry
 st_m_range              Return 'm' range of a simple feature or simple
                         feature set
@@ -113,13 +114,9 @@ st_z_range              Return 'z' range of a simple feature or simple
                         feature set
 st_zm                   Drop or add Z and/or M dimensions from feature
                         geometries
-stars                   functions only exported to be used internally
-                        by stars
 summary.sfc             Summarize simple feature column
 tibble                  Summarize simple feature type for tibble
-tidyverse               Tidyverse methods for sf objects (remove .sf
-                        suffix!)
+tidyverse               Tidyverse methods for sf objects
 transform.sf            transform method for sf objects
 valid                   Check validity or make an invalid geometry
                         valid
-vctrs                   vctrs methods for sf objects

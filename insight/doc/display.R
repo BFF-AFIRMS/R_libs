@@ -1,18 +1,19 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 
-if (!requireNamespace("poorman", quietly = TRUE) ||
-  !requireNamespace("gt", quietly = TRUE)) {
+
+pkgs <- c("datawizard", "gt", "tinytable")
+if (!all(insight::check_if_installed(pkgs, quietly = TRUE))) {
   knitr::opts_chunk$set(eval = FALSE)
-} else {
-  library(poorman)
-  library(gt)
+}
+if (getRversion() < "4.1.0") {
+  knitr::opts_chunk$set(eval = FALSE)
 }
 
-## ---- warning=FALSE, message=FALSE--------------------------------------------
+## ----warning=FALSE, message=FALSE---------------------------------------------
 library(insight)
 
 df <- data.frame(
@@ -26,18 +27,19 @@ df <- data.frame(
 
 df
 
-## ---- eval=FALSE--------------------------------------------------------------
-#  knitr::kable(df, format = "markdown")
+## ----eval=FALSE---------------------------------------------------------------
+# knitr::kable(df, format = "markdown")
 
-## ---- results='asis'----------------------------------------------------------
+## ----results='asis'-----------------------------------------------------------
 knitr::kable(df, format = "html")
 
 ## -----------------------------------------------------------------------------
 format_table(df)
 
 ## -----------------------------------------------------------------------------
-df %>%
-  mutate(p = format_p(p, stars = TRUE)) %>%
+library(datawizard) # for data_modify()
+df |>
+  data_modify(p = format_p(p, stars = TRUE)) |>
   format_table()
 
 ## ----eval=.Platform$OS.type == "windows"--------------------------------------
@@ -67,7 +69,20 @@ export_table(df, format = "md")
 export_table(df, format = "html")
 
 ## -----------------------------------------------------------------------------
-df %>%
-  format_table(ci_brackets = c("(", ")")) %>%
+df |>
+  format_table(ci_brackets = c("(", ")")) |>
   export_table(format = "html")
+
+## -----------------------------------------------------------------------------
+# By default, display() creates a markdown table
+display(df)
+
+## ----results='asis'-----------------------------------------------------------
+display(df, format = "html")
+
+## -----------------------------------------------------------------------------
+display(df, format = "tt")
+
+## -----------------------------------------------------------------------------
+display(df, format = "tt", by = "Group")
 

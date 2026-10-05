@@ -6,7 +6,7 @@ as.SpatialPolygons.GridTopology
                         object
 as.SpatialPolygons.PolygonsList
                         Making SpatialPolygons objects
-bbox,Spatial-method     retrieve bbox from spatial data
+bbox-methods            retrieve bbox from spatial data
 bpy.colors              blue-pink-yellow color scheme, which also
                         prints well on black/white printers
 bubble                  Create a bubble plot of spatial data
@@ -42,6 +42,7 @@ gridIndex2nb            create neighbourhood (nb) object from grid
                         geometry
 gridlines               Create N-S and E-W grid lines over a geographic
                         region
+GridsDatums             Grids and Datums PE&RS listing
 GridTopology-class      Class "GridTopology"
 image.SpatialGridDataFrame
                         Image or contour method for gridded spatial
@@ -49,8 +50,8 @@ image.SpatialGridDataFrame
 is.projected            Sets or retrieves projection attributes on
                         classes extending SpatialData
 Line                    create objects of class Line or Lines
-Line-class              Class "Line"
-Lines-class             Class "Lines"
+Line-class              Class '"Line"'
+Lines-class             Class '"Lines"'
 loadMeuse               deprecated function to load the Meuse data set
 mapasp                  Calculate aspect ratio for plotting geographic
                         maps; create nice degree axis labels
@@ -77,6 +78,7 @@ Rlogo                   Rlogo jpeg image
 select.spatial          select points spatially
 sp                      A package providing classes and methods for
                         spatial data: points, lines, polygons and grids
+sp2Mondrian             write map data for Mondrian
 Spatial-class           Class "Spatial"
 SpatialGrid-class       Class "SpatialGrid"
 SpatialGridDataFrame-class

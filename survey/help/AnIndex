@@ -61,6 +61,8 @@ cv.svrepratio	surveysummary
 cv.svrepstat	surveysummary
 cv.svyratio	surveysummary
 cv.svystat	surveysummary
+DatA	phoneframes
+DatB	phoneframes
 deff	surveysummary
 deff.default	surveysummary
 deff.svyby	svyby
@@ -68,6 +70,7 @@ degf	svychisq
 degf.survey.design2	svychisq
 degf.svyrep.design	svychisq
 degf.twophase	svychisq
+degf<-	svrepdesign
 dim.DBIsvydesign	dimnames.DBIsvydesign
 dim.repweights_compressed	compressWeights
 dim.survey.design	dimnames.DBIsvydesign
@@ -121,8 +124,11 @@ model.frame.svyrep.design	svrepdesign
 model.frame.twophase	twophase
 mrbweights	bootweights
 mu284	mu284
+multiframe	multiframe
+multiphase	multiphase
 multistage	svyrecvar
 multistage.phase1	twophase
+multistage_rcpp	svyrecvar
 myco	myco
 na.exclude.survey.design	svydesign
 na.exclude.twophase	twophase
@@ -144,6 +150,10 @@ open.DBIsvydesign	open.DBIsvydesign
 paley	paley
 pchisqsum	pchisqsum
 pFsum	pchisqsum
+phoneframes	phoneframes
+PiklA	phoneframes
+PiklB	phoneframes
+plot.dualframe_with_rewt	reweight
 plot.svycdf	svycdf
 plot.svykm	svykm
 plot.svykmlist	svykm
@@ -182,6 +192,8 @@ rake	rake
 regTermTest	regTermTest
 residuals.svrepglm	svyglm
 residuals.svyglm	svyglm
+reweight	reweight
+reweight.dualframe	reweight
 salamander	salamander
 scd	scd
 SE	SE
@@ -209,12 +221,14 @@ survey.lonely.psu	surveyoptions
 survey.multicore	surveyoptions
 survey.replicates.mse	surveyoptions
 survey.ultimate.cluster	surveyoptions
+survey.use_rcpp	surveyoptions
 survey.want.obsolete	surveyoptions
 surveyoptions	surveyoptions
 svrepdesign	svrepdesign
 svrepdesign.character	svrepdesign
 svrepdesign.default	svrepdesign
 svrepdesign.imputationList	svrepdesign
+svrepstat	surveysummary
 svreptable	svychisq
 svrVar	svrVar
 svy.varcoef	svy.varcoef
@@ -282,7 +296,10 @@ svyscoretest	svyscoretest
 svyscoretest.svyglm	svyscoretest
 svysmooth	svysmooth
 svysmooth.default	svysmooth
+svysmoothArea	smoothArea
+svysmoothUnit	smoothUnit
 svystandardize	svystandardize
+svystat	surveysummary
 svysurvreg	svysurvreg
 svysurvreg.survey.design	svysurvreg
 svytable	svychisq
@@ -319,6 +336,7 @@ weights.survey.design	weights.survey.design
 weights.survey_fpc	weights.survey.design
 weights.svyrep.design	weights.survey.design
 with.svyimputationList	with.svyimputationList
+withCrossval	withCrossval
 withPV.survey.design	withPV.survey.design
 withReplicates	withReplicates
 withReplicates.svrepstat	withReplicates

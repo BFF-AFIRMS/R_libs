@@ -1,4 +1,4 @@
-## ---- echo=FALSE--------------------------------------------------------------
+## ----echo=FALSE---------------------------------------------------------------
 knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
 
 ## -----------------------------------------------------------------------------
@@ -25,10 +25,10 @@ html <- minimal_html("
 ")
 
 ## -----------------------------------------------------------------------------
-html %>% html_element("h1")
-html %>% html_elements("p")
-html %>% html_elements(".important")
-html %>% html_elements("#first")
+html |> html_element("h1")
+html |> html_elements("p")
+html |> html_elements(".important")
+html |> html_elements("#first")
 
 ## -----------------------------------------------------------------------------
 html <- minimal_html("
@@ -38,13 +38,13 @@ html <- minimal_html("
     <li>pineapple</li>
   </ol>
 ")
-html %>% 
-  html_elements("li") %>% 
+html |> 
+  html_elements("li") |> 
   html_text2()
 
 ## -----------------------------------------------------------------------------
-html %>% 
-  html_elements("li") %>% 
+html |> 
+  html_elements("li") |> 
   html_text()
 
 ## -----------------------------------------------------------------------------
@@ -59,15 +59,15 @@ html <- minimal_html("<body>
 
 
 ## -----------------------------------------------------------------------------
-html %>% 
-  html_element("body") %>% 
-  html_text2() %>% 
+html |> 
+  html_element("body") |> 
+  html_text2() |> 
   cat()
 
 ## -----------------------------------------------------------------------------
-html %>% 
-  html_element("body") %>% 
-  html_text() %>% 
+html |> 
+  html_element("body") |> 
+  html_text() |> 
   cat()
 
 ## -----------------------------------------------------------------------------
@@ -78,22 +78,22 @@ html <- minimal_html("
 
 
 ## -----------------------------------------------------------------------------
-html %>% 
-  html_elements("a") %>% 
+html |> 
+  html_elements("a") |> 
   html_attr("href")
 
-html %>% 
-  html_elements("img") %>% 
+html |> 
+  html_elements("img") |> 
   html_attr("src")
 
 ## -----------------------------------------------------------------------------
-html %>% 
-  html_elements("img") %>% 
+html |> 
+  html_elements("img") |> 
   html_attr("width")
 
-html %>% 
-  html_elements("img") %>% 
-  html_attr("width") %>% 
+html |> 
+  html_elements("img") |> 
+  html_attr("width") |> 
   as.integer()
 
 ## -----------------------------------------------------------------------------
@@ -119,8 +119,8 @@ html <- minimal_html("
   ")
 
 ## -----------------------------------------------------------------------------
-html %>% 
-  html_node("table") %>% 
+html |> 
+  html_node("table") |> 
   html_table()
 
 ## -----------------------------------------------------------------------------
@@ -134,21 +134,21 @@ html <- minimal_html("
   ")
 
 ## -----------------------------------------------------------------------------
-html %>% html_elements("b") %>% html_text2()
-html %>% html_elements("i") %>% html_text2()
-html %>% html_elements(".weight") %>% html_text2()
+html |> html_elements("b") |> html_text2()
+html |> html_elements("i") |> html_text2()
+html |> html_elements(".weight") |> html_text2()
 
 ## -----------------------------------------------------------------------------
-characters <- html %>% html_elements("li")
+characters <- html |> html_elements("li")
 
-characters %>% html_element("b") %>% html_text2()
-characters %>% html_element("i") %>% html_text2()
-characters %>% html_element(".weight") %>% html_text2()
+characters |> html_element("b") |> html_text2()
+characters |> html_element("i") |> html_text2()
+characters |> html_element(".weight") |> html_text2()
 
 ## -----------------------------------------------------------------------------
 data.frame(
-  name = characters %>% html_element("b") %>% html_text2(),
-  species = characters %>% html_element("i") %>% html_text2(),
-  weight = characters %>% html_element(".weight") %>% html_text2()
+  name = characters |> html_element("b") |> html_text2(),
+  species = characters |> html_element("i") |> html_text2(),
+  weight = characters |> html_element(".weight") |> html_text2()
 )
 

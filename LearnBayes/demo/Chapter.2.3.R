@@ -15,7 +15,6 @@ S=readline(prompt="Type  <Return>   to continue : ")
  post = pdisc(p, prior, data)
  round(cbind(p, prior, post),2)
 
- library(lattice)
  PRIOR=data.frame("prior",p,prior)
  POST=data.frame("posterior",p,post)
  names(PRIOR)=c("Type","P","Probability")
@@ -23,5 +22,5 @@ S=readline(prompt="Type  <Return>   to continue : ")
  data=rbind(PRIOR,POST)
 
  windows()
- xyplot(Probability~P|Type,data=data,layout=c(1,2),type="h",lwd=3,col="black")
+ lattice::xyplot(Probability~P|Type,data=data,layout=c(1,2),type="h",lwd=3,col="black")
 

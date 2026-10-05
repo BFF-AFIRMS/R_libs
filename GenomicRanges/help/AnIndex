@@ -39,7 +39,9 @@ coerce,character,GRanges-method	GRanges-class
 coerce,CompressedGRangesList,CompressedIRangesList-method	GRangesList-class
 coerce,CompressedGRangesList,IntegerRangesList-method	GRangesList-class
 coerce,CompressedGRangesList,IRangesList-method	GRangesList-class
+coerce,data.frame,GPos-method	makeGRangesFromDataFrame
 coerce,data.frame,GRanges-method	makeGRangesFromDataFrame
+coerce,DataFrame,GPos-method	makeGRangesFromDataFrame
 coerce,DataFrame,GRanges-method	makeGRangesFromDataFrame
 coerce,Factor,GRanges-method	GRangesFactor-class
 coerce,factor,GRanges-method	GRanges-class
@@ -180,6 +182,7 @@ isSmallGenome	absoluteRanges
 length,GenomicRanges-method	GRanges-class
 length,GenomicRangesList-method	GenomicRangesList-class
 length,GNCList-method	GNCList-class
+makeGPosFromDataFrame	makeGRangesFromDataFrame
 makeGRangesFromDataFrame	makeGRangesFromDataFrame
 makeGRangesListFromDataFrame	makeGRangesListFromDataFrame
 makeGRangesListFromFeatureFragments	GRangesList-class
@@ -190,6 +193,7 @@ names,GenomicRangesList-method	GenomicRangesList-class
 names,GNCList-method	GNCList-class
 names<-,GenomicRanges-method	GRanges-class
 names<-,GenomicRangesList-method	GenomicRangesList-class
+narrow	intra-range-methods
 narrow,GenomicRanges-method	intra-range-methods
 nearest	nearest-methods
 nearest,GenomicRanges,GenomicRanges-method	nearest-methods
@@ -273,6 +277,7 @@ setdiff,GenomicRanges,Vector-method	setops-methods
 setdiff,GRangesList,GRangesList-method	setops-methods
 setdiff,Vector,GenomicRanges-method	setops-methods
 setops-methods	setops-methods
+shift	intra-range-methods
 shift,GenomicRanges-method	intra-range-methods
 show,GenomicRanges-method	GRanges-class
 show,GenomicRangesList-method	GenomicRangesList-class
@@ -323,6 +328,8 @@ summary,GenomicRanges-method	GRanges-class
 summary,GPos-method	GPos-class
 summary.GenomicRanges	GRanges-class
 summary.GPos	GPos-class
+terminators	intra-range-methods
+terminators,GenomicRanges-method	intra-range-methods
 tile	tile-methods
 tile,GenomicRanges-method	tile-methods
 tile-methods	tile-methods

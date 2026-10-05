@@ -1,20 +1,30 @@
-AddHealth               Adolescent Health Data
+AddHealth               Adolescent Mental Health Data
 Adopted                 Adopted Children
 arrow3d                 Draw a 3D Arrow in an RGL Scene
 bartlettTests           Bartlett Tests of Homogeneity of Variances
+bbox3d                  Find the bounding box of a 'rgl::mesh3d' or
+                        'rgl::qmesh3d' object
 Bees                    Captive and maltreated bees
-boxM                    Box's M-test
+boxM                    Box's M-test for Homogeneity of Covariance
+                        Matrices
 coefplot                Coefficient plots for Multivariate Linear
                         Models
 colDevs                 Calculate column deviations from central values
-covEllipses             Draw classical and robust covariance ellipses
+covEllipses             Draw classical and Robust Covariance Ellipses
                         for one or more groups
 cqplot                  Chi Square Quantile-Quantile plots
 cross3d                 Draw a 3D cross in an rgl scene
+df.terms                Find degrees of freedom for model terms
 Diabetes                Diabetes Dataset
+distancePlot            Distance Plot for Multivariate Model Diagnosis
+dogfood                 Dogfood Preferences
+ellipse.axes            Draw Axes of a 2D Covariance Ellipse
+ellipse.box             Draw Conjugate Axes and Parallelogram
+                        Surrounding a Covariance Ellipse
 ellipse3d.axes          Draw axes of a 3D ellipsoid
-etasq                   Measures of Partial Association (Eta-squared)
-                        for Linear Models
+Ellipsoid               Draw an Ellipsoid in an rgl Scene
+etasq                   Measures of Partial Association (eta^2) for
+                        Linear Models
 FootHead                Head measurements of football players
 glance.mlm              Glance at an mlm object
 gsorth                  Orthogonalize successive columns of a data
@@ -30,7 +40,7 @@ Hernior                 Recovery from Elective Herniorrhaphy
 interpPlot              Plot an Interpolation Between Two Related Data
                         Sets
 Iwasaki_Big_Five        Personality Traits of Cultural Groups
-label.ellipse           Label an ellipse
+label.ellipse           Label an Ellipse in a Plot
 leveneTests             Levene Tests of Homogeneity of Variances
 logdetCI                Calculate confidence interval for log
                         determinant of covariance matrices
@@ -41,9 +51,15 @@ MockJury                Effects Of Physical Attractiveness Upon Mock
                         Jury Decisions
 NeuroCog                Neurocognitive Measures in Psychiatric Groups
 NLSY                    National Longitudinal Survey of Youth Data
+noteworthy              Find noteworthy (unusual) points in a 2D plot
+oral                    Effect of Delay in Oral Practice in Second
+                        Language Learning
 Oslo                    Oslo Transect Subset Data
+Overdose                Overdose of Amitriptyline
 pairs.mlm               Pairwise HE Plots
 Parenting               Father Parenting Competence
+peng                    Size measurements for penguins near Palmer
+                        Station, Antarctica
 Plastic                 Plastic Film Data
 plot.boxM               Plot for Box's M test and generalizations
 plot.robmlm             Plot observation weights from a robust
@@ -53,19 +69,26 @@ Probe                   Response Speed in a Probe Experiment
 RatWeight               Weight Gain in Rats Exposed to Thiouracil and
                         Thyroxin
 ReactTime               Reaction Time Data
+rel_diff                Relative Difference between two Arrays or Data
+                        Frames
 robmlm                  Robust Fitting of Multivariate Linear Models
 Rohwer                  Rohwer Data Set
 RootStock               Growth of Apple Trees from Different Root
                         Stocks
 Sake                    Taste Ratings of Japanese Rice Wine (Sake)
 schooldata              School Data
+schoolsites             Schooldata Sites
 Skulls                  Egyptian Skulls
 SocGrades               Grades in a Sociology Course
 SocialCog               Social Cognitive Measures in Psychiatric Groups
 statList                Calculate statistics for levels of factors
 termMeans               Calculate Means for a Term in a Multivariate
                         Linear Model
+text_usr                Add Text to a Plot at Normalized Device
+                        Coordinates
 TIPI                    Data on the Ten Item Personality Inventory
 trans.colors            Make Colors Transparent
+uniStats                Univariate Test Statistics for a Multivariate
+                        Linear Model
 VocabGrowth             Vocabulary growth data
 WeightLoss              Weight Loss Data

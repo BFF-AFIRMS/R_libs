@@ -11,7 +11,6 @@ drop1.lmerModLmerTest   Drop Marginal Terms from Model
 ham                     Conjoint Study of Dry Cured Ham
 lmer                    Fit Linear Mixed-Effects Models
 lmerModLmerTest-class   Represent Linear Mixed-Effects Models
-lmerTest-package        lmerTest: Tests in Linear Mixed Effects Models
 ls_means.lmerModLmerTest
                         LS-means for lmerTest Model Fits
 ranova                  ANOVA-Like Table for Random-Effects

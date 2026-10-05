@@ -1,4 +1,5 @@
 R.utils-package	R.utils-package
+.Last.lib	000.Last.lib
 addFinalizerToLast	addFinalizerToLast
 addFinalizerToLast.default	addFinalizerToLast
 Arguments	Arguments

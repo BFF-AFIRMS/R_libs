@@ -48,6 +48,7 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -340,7 +341,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gh)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(gh)</span></code></pre></div>
 <!-- This vignette uses a convention of "one sentence per line" in prose. -->
 <p>gh generally sends a Personal Access Token (PAT) with its requests.
 Some endpoints of the GitHub API can be accessed without authenticating
@@ -353,7 +354,11 @@ endpoints.</p>
 <p>More resources on PAT management:</p>
 <ul>
 <li>GitHub documentation on <a href="https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token">Creating
-a personal access token</a></li>
+a personal access token</a>
+<ul>
+<li>Important: a PAT can expire, the default expiration date is 30
+days.</li>
+</ul></li>
 <li>In the <a href="https://usethis.r-lib.org">usethis package</a>:
 <ul>
 <li>Vignette: <a href="https://usethis.r-lib.org/articles/articles/git-credentials.html">Managing
@@ -376,7 +381,7 @@ PAT into the Git credential store</li>
 <code>.token</code> argument and to specify a host other than
 “github.com” via the <code>.api_url</code> argument. (Some companies and
 universities run their own instance of GitHub Enterprise.)</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gh</span>(endpoint, ..., <span class="at">.token =</span> <span class="cn">NULL</span>, ..., <span class="at">.api_url =</span> <span class="cn">NULL</span>, ...)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">gh</span>(endpoint, ..., <span class="at">.token =</span> <span class="cn">NULL</span>, ..., <span class="at">.api_url =</span> <span class="cn">NULL</span>, ...)</span></code></pre></div>
 <p>However, it’s annoying to always provide your PAT or host and it’s
 unsafe for your PAT to appear explicitly in your R code. It’s important
 to make it <em>possible</em> for the user to provide the PAT and/or API
@@ -405,13 +410,13 @@ Therefore, if you have previously used a PAT with, e.g., command line
 Git, gh may retrieve and re-use it. You can call
 <code>gitcreds::gitcreds_get()</code> directly, yourself, if you want to
 see what is found for a specific URL.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>gitcreds<span class="sc">::</span><span class="fu">gitcreds_get</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>gitcreds<span class="sc">::</span><span class="fu">gitcreds_get</span>()</span></code></pre></div>
 <p>If you see something like this:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;gitcreds&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   protocol: https</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   host    : github.com</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   username: PersonalAccessToken</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   password: &lt;-- hidden --&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co">#&gt; &lt;gitcreds&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#&gt;   protocol: https</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt;   host    : github.com</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt;   username: PersonalAccessToken</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt;   password: &lt;-- hidden --&gt;</span></span></code></pre></div>
 <p>that means that gitcreds could get the PAT from the Git credential
 store. You can call <code>gitcreds_get()$password</code> to see the
 actual PAT.</p>
@@ -427,8 +432,8 @@ environment variable. For <code>github.com</code> you can set the
 For a different GitHub host, call
 <code>gitcreds::gitcreds_cache_envvar()</code> with the API URL to see
 the environment variable you need to set. For example:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>gitcreds<span class="sc">::</span><span class="fu">gitcreds_cache_envvar</span>(<span class="st">&quot;https://github.acme.com&quot;</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;GITHUB_PAT_GITHUB_ACME_COM&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>gitcreds<span class="sc">::</span><span class="fu">gitcreds_cache_envvar</span>(<span class="st">&quot;https://github.acme.com&quot;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;GITHUB_PAT_GITHUB_ACME_COM&quot;</span></span></code></pre></div>
 </div>
 <div id="recommendations" class="section level2">
 <h2>Recommendations</h2>
@@ -459,8 +464,8 @@ all environment variables to a log file.</p>
 <a href="https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token">automatically
 available to the workflow</a> as the <code>GITHUB_TOKEN</code> secret.
 That is why many workflows in the R community contain this snippet:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">env</span><span class="kw">:</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">GITHUB_PAT</span><span class="kw">:</span><span class="at"> ${{ secrets.GITHUB_TOKEN }}</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">env</span><span class="kw">:</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="at">  </span><span class="fu">GITHUB_PAT</span><span class="kw">:</span><span class="at"> ${{ secrets.GITHUB_TOKEN }}</span></span></code></pre></div>
 <p>This makes the automatic PAT available as the <code>GITHUB_PAT</code>
 environment variable. If that PAT doesn’t have the right permissions,
 then you’ll need to explicitly provide one that does (see link above for

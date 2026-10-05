@@ -1,4 +1,122 @@
-# Version 1.2-8 (development)
+# Version 1.4-2 (development)
+
+* robustness checks on `licd_multi`, update `hotspot` method for `licd_multi` output
+
+* add `hotspot` method for `local_joincount_uni`
+
+# Version 1.4-1 (2025-08-31)
+
+* add data argument to `SD.RStests` for formula Durbin case
+
+# Version 1-3-13 (2025-06-10)
+
+* Adds Bavaud's multivariate `spatialdelta`  with support functions and methods
+
+* Add note on changes to output from tests for error autocorrelation if contrast codings are set to non-default values
+
+# Version 1.3-11 (2025-04-24)
+
+* introduce warnings for factors (categorical variables) in Durbin models (`SD.RStests`)
+
+* remove |> in vignette to avoid R >= 4.1 dependency https://stat.ethz.ch/pipermail/r-devel/2025-January/083768.html
+
+* update reference to Koley (2024) in man/SD.RStests.Rd
+
+* add warnings to Durbin terms including categorical variables in `SD.RStests`
+
+# Version 1.3-10 (2025-01-20)
+
+* `R_NO_REMAP` problem with R < 4.4.1 fixed by replacing `COPY_TO_USER_STRING` by `Rf_mkChar`, because include/Rdefines.h before revision 86416 set `COPY_TO_USER_STRING` as `mkChar` which is not defined as `Rf_mkChar` when `R_NO_REMAP` is defined, #176, thanks to Edzer Pebesma
+
+* disambiguate which `skater` in examples to satisfy `pkgdown`, which used `rgeoda::skater`; other patches to examples to satisfy `pkgdown`
+
+* use `inherits` in `skater`
+
+# Version 1.3-9 (2025-01-16)
+
+* revisit `diffnb` and set operations like `union.nb` and `setdiff.nb` following up #175; `diffnb` largely rewritten and should no longer generate deformed output; set operations modified to match base functions actions
+
+* convert `error` to `Rf_error`, `length` to `Rf_length` etc. to accommodate `R_NO_REMAP`, see https://github.com/r-spatial/spdep/commit/b61f6b17be09383c94b45e912f9213735aa62212 for R 4.5
+
+* re-instate **rgeoda** references
+
+# Version 1.3-8 (2024-12-02)
+
+* Remove remaining `spData` ESRI shapefile use
+
+# Version 1.3-7 (2024-11-25)
+
+* (temporarily) remove **rgeoda** references until it is successfully re-submitted to CRAN
+
+* add `write.swmdbf` #171 to complement #163
+
+* modify defaults for `licd_multi`
+
+# Version 1.3-6 (2024-09-13)
+
+* adding vignette describing recent changes in `poly2nb` from #162, subgraph and no-neighbour (island) handling
+
+* adding prototype of LICD ESDA function `licd_multi` and `hotspot` method
+
+* add `read.swmdbf2listw` #163 for reading DBF files exported from ArcGIS representing SWM objects; note that there will be problems when the observation IDs are not known, see help file
+
+* #162 add option for no-neighbour checking for `poly2nb` - default report whether no-neighbour observations are present
+
+* #162 change the default `snap=` argument to `poly2nb` to 10mm 
+
+* Condition on forthcoming `tmap` 4
+
+* #160 handle `n.comp.nb` delay in `print.nb` and elsewhere when the total number of neighbours is large
+
+# Version 1.3-5 (2024-06-10)
+
+* #157 migrate ESRI Shapefile to GPKG files; convert bhicv.shp to GPKG 
+
+* #155 Throw error if `hotspot` despatched on object without a `"quadr"` attribute
+
+* #154 turn on `s2` in vignette
+
+# Version 1.3-4 (2024-05-31)
+
+* add `scale` argument to `geary.test`, `geary.mc` and `geary` #151, and appropriate tests
+
+* Introduce error in `knearneigh` for `k` less than the largest count of identical points; if encountered, increase `k`
+
+* remove spurious warning in `knearneigh` for longlat geometries
+
+* fix https://github.com/edzer/sdsr/issues/121, wrong assignment of old test names in `lmRStests`
+
+* fix #144 in `plot.nb` and `nb2lines`
+
+# Version 1.3-3 (2024-02-07)
+
+* change `lm.LMtests` to `lm.RStests` and re-name Lagrange multiplier to Rao's score; add `GNM_` prefix to test names if the input object inherits from `SlX` created by `spatialreg::lmSLX` (Koley, forthcoming)
+
+* add `SD.RStests` implementation of Rao's score tests for spatial Durbin models (Koley and Bera, 2024) and for SDEM models (Koley, forthcoming)
+ 
+* #143 `row.names` pass-through in `poly2nb` corrected, harmonised `row.names` pass-through also in `nbdists` and `dnearneigh`
+
+* #139 add `na.action` argument to `geary.test`, `geary.mc` and `globalG.test`
+
+* add `style` to `sn2listw` use in `tri2nb`
+
+# Version 1.3-1 (2023-11-23)
+
+* functions creating `nb` objects now warn if the object has a sub-graph count of > 1 and  `get.SubgraphOption` is `TRUE` (default `FALSE`): `complement.nb`, `diffnb`, `dnearneigh`, `droplinks`, `edit.nb`, `graph2nb`, `knn2nb`, `nb2blocknb`, `nblag`, `nblag_cumul`, `poly2nb`, `read.gal`, `read.gwt2nb`, `setdiff.nb`, `tolerance.nb`, `tri2nb`, `union.nb`
+
+* `summary.nb`, `print.nb`, `summary.listw` and `print.listw` now report the subgraph count from `n.comp.nb` if it is more than one
+
+* `subset.nb` now reports if the subgraph count of the neighbour object increases on subsetting
+
+* adding a `zero.policy` attribute to functions creating `listw` objects: `nb2listw`, `sn2listw`, `mat2listw`, `nb2listwdist`. Default `zero.policy=` argument updated to use `attr(., "zero.policy")` in `summary.listw`, `print.listw`, `moran`, `moran.test`, `moran.mc`, `moran.plot`, `geary.mc`, `geary`, `geary.test`, `globalG.test`, `joincount.test`, `joincount.mc`, `joincount.multi`, `localC`, `localC_perm`, `localmoran`, `localmoran_perm`, `localG`, `localG_perm`, `lee`, `lee.test`, `lee.mc`, `lm.morantest`, `lm.LMtests`, `sp.mantel.mc`, `listw2star`, `lag.listw`, `lm.morantest`, `lm.LMtests`, `subset.listw`, `EBImoran.mc`, `LOSH`, `LOSH.mc`, `LOSH.cs`, `lm.morantest.exact`and `lm.morantest.sad`
+
+* confusing error message in `moran.plot()` if no-neighbour cases, but `zero.policy=FALSE`
+
+* replace `rgrass7` with `rgrass` in vignette
+
+* fix #133 (`edit.nb` affected by not attaching `sp`)
+
+# Version 1.2-8 (2023-02-28)
 
 * `mat2listw()` warning if no `style=` argument given, or if `M"` is given https://github.com/r-spatial/spatialreg/issues/24, https://github.com/r-spatial/spatialreg/issues/23. 
 

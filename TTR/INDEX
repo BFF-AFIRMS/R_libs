@@ -1,7 +1,6 @@
 adjRatios               Split and dividend adjustment ratios
 ADX                     Welles Wilder's Directional Movement Index
 aroon                   Aroon
-ATR                     True Range / Average True Range
 BBands                  Bollinger Bands
 CCI                     Commodity Channel Index
 chaikinAD               Chaikin Accumulation / Distribution
@@ -35,6 +34,7 @@ stoch                   Stochastic Oscillator / Stochastic Momentum
                         Index
 stockSymbols            Fetch Internet Data
 TDI                     Trend Detection Index
+TR                      True Range / Average True Range
 TRIX                    Triple Smoothed Exponential Oscillator
 TTR                     Functions to create Technical Trading Rules
                         (TTR)

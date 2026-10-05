@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -9,11 +9,11 @@ styler::cache_deactivate()
 ## ----setup--------------------------------------------------------------------
 library(styler)
 
-## ---- eval = FALSE------------------------------------------------------------
-#  function() {
-#    # a comment
-#    x <- 2 # <- change this line
-#  }
-#  
-#  another(call)
+## ----eval = FALSE-------------------------------------------------------------
+# function() {
+#   # a comment
+#   x <- 2 # <- change this line
+# }
+# 
+# another(call)
 

@@ -1,11 +1,7 @@
+cldata                  A simulated clustered dataset
 ExamScores              Exam results for six inner London Education
                         Authorities
-JSPmiss                 Exam results for six inner London Education
-                        Authorities
-cldata                  A simulated clustered dataset
 jomo                    Joint Modelling Imputation
-jomo.MCMCchain          JM Imputation - A tool to check convergence of
-                        the MCMC
 jomo.clmm               Joint Modelling Imputation Compatible with
                         Cumulative Link Mixed Model
 jomo.clmm.MCMCchain     clmm Compatible JM Imputation - A tool to check
@@ -30,6 +26,8 @@ jomo.lmer               Joint Modelling Imputation Compatible with
                         Linear Mixed-effects Regression Model
 jomo.lmer.MCMCchain     lmer Compatible JM Imputation - A tool to check
                         convergence of the MCMC
+jomo.MCMCchain          JM Imputation - A tool to check convergence of
+                        the MCMC
 jomo.polr               Joint Modelling Imputation Compatible with
                         Proportional Odds Ordinal Probit Regression
 jomo.polr.MCMCchain     polr Compatible JM Imputation - A tool to check
@@ -112,6 +110,8 @@ jomo2hr.MCMCchain       JM Imputation of 2-level data assuming
                         cluster-specific level-1 covariance matrices
                         across level-2 units- A tool to check
                         convergence of the MCMC
+JSPmiss                 Exam results for six inner London Education
+                        Authorities
 sldata                  A simulated single level dataset
 surdata                 A simulated dataset with survival data
 tldata                  A simulated 2-level dataset

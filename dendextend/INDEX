@@ -203,5 +203,7 @@ untangle_step_rotate_1side
                         Stepwise untangle one tree compared to another
 untangle_step_rotate_2side
                         Stepwise untangle two trees one at a time
+untangle_step_rotate_both_side
+                        Stepwise untangle two trees at the same time
 which_leaf              Which node is a leaf?
 which_node              Which node id is common to a group of labels

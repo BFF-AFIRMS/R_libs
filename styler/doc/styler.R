@@ -1,4 +1,4 @@
-## ---- echo = FALSE------------------------------------------------------------
+## ----echo = FALSE-------------------------------------------------------------
 knitr::opts_chunk$set(echo = TRUE, comment = "")
 knitr::knit_engines$set(list(
   styler = function(options) {
@@ -20,7 +20,7 @@ library(styler)
 ## -----------------------------------------------------------------------------
 style_text("a + b", transformers = tidyverse_style(scope = "indention"))
 
-## ---- results = 'hide'--------------------------------------------------------
+## ----results = 'hide'---------------------------------------------------------
 # equivalent
 style_text("a + b", transformers = tidyverse_style(scope = "indention"))
 style_text("a + b", scope = "indention")
@@ -59,7 +59,7 @@ styler::style_text(
 "
 )
 
-## ---- comment = "#>"----------------------------------------------------------
+## ----comment = "#>"-----------------------------------------------------------
 out <- withr::with_tempfile(
   "code.R",
   {

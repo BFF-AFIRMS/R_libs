@@ -5,8 +5,10 @@ anovaPE	anovaPE
 aovN	aovN
 aovPower	aovPower
 base	base
+Beal.2010.Pb.df	Beal.2010.Pb.df
 Benthic.df	Benthic.df
 Benzene	EPA.89b.benzene.df
+BJC.2000.df	BJC.2000.df
 Box-Cox	boxcox
 Box-Cox Censored	boxcoxCensored
 Box-Cox Transformation	boxcox
@@ -108,6 +110,7 @@ empirical PDF	epdfPlot
 enbinom	enbinom
 enorm	enorm
 enormCensored	enormCensored
+enpar	enpar
 enparCensored	enparCensored
 Environmental	Environmental
 Environmental.df	Environmental
@@ -308,8 +311,9 @@ Helsel.Cohn.88.silver.df	Helsel.Cohn.88.silver.df
 Helsel.Hirsch.02.Mayfly.df	Helsel.Hirsch.02.Mayfly.df
 Hosking et al 1985	HoskingEtAl1985
 HoskingEtAl1985	HoskingEtAl1985
-htest.object	htest.object
+htest.object	htest.htestEnvStats.object
 htestCensored.object	htestCensored.object
+htestEnvStats.object	htest.htestEnvStats.object
 Hypothesis Tests	FcnsByCatHypothTests
 Interquartile Range	iqr
 inversePredictCalibrate	inversePredictCalibrate
@@ -437,9 +441,11 @@ predIntNparSimultaneousConfLevel	predIntNparSimultaneousConfLevel
 predIntNparSimultaneousN	predIntNparSimultaneousN
 predIntNparSimultaneousTestPower	predIntNparSimultaneousTestPower
 predIntPois	predIntPois
+print	print
 print.boxcox	print.boxcox
 print.boxcoxCensored	print.boxcoxCensored
 print.boxcoxLm	print.boxcoxLm
+print.default	print
 print.distChoose	print.distChoose
 print.distChooseCensored	print.distChooseCensored
 print.estimate	print.estimate
@@ -449,8 +455,9 @@ print.gofCensored	print.gofCensored
 print.gofGroup	print.gofGroup
 print.gofOutlier	print.gofOutlier
 print.gofTwoSample	print.gofTwoSample
+print.htest	print.htest.htestEnvStats
 print.htestCensored	print.htestCensored
-print.htestEnvStats	print.htestEnvStats
+print.htestEnvStats	print.htest.htestEnvStats
 print.permutationTest	print.permutationTest
 print.summaryStats	print.summaryStats
 Printing and Plotting Methods	FcnsByCatPrintPlot
@@ -460,6 +467,7 @@ Probability Distributions and Random Numbers	FcnsByCatProbDists
 propTestMdd	propTestMdd
 propTestN	propTestN
 propTestPower	propTestPower
+ProUCL.5.2.TRS.df	ProUCL.5.2.TRS.df
 ProUCL.Crit.Vals.for.AD.Test.for.Gamma.array	ProUCL.Crit.Vals.for.AD.Test.for.Gamma.array
 ProUCL.Crit.Vals.for.KS.Test.for.Gamma.array	ProUCL.Crit.Vals.for.KS.Test.for.Gamma.array
 ptri	Triangular

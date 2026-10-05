@@ -1,6 +1,6 @@
 Package: plyr
 Title: Tools for Splitting, Applying and Combining Data
-Version: 1.8.8
+Version: 1.8.9
 Authors@R: 
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre"))
 Description: A set of tools that solves a common set of problems: you need
@@ -20,11 +20,11 @@ Suggests: abind, covr, doParallel, foreach, iterators, itertools,
 LinkingTo: Rcpp
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 NeedsCompilation: yes
-Packaged: 2022-11-11 16:45:00 UTC; hadleywickham
+Packaged: 2023-09-27 13:58:04 UTC; hadleywickham
 Author: Hadley Wickham [aut, cre]
 Maintainer: Hadley Wickham <hadley@rstudio.com>
 Repository: CRAN
-Date/Publication: 2022-11-11 20:50:02 UTC
-Built: R 4.3.0; x86_64-pc-linux-gnu; 2023-07-07 02:39:06 UTC; unix
+Date/Publication: 2023-10-02 06:50:08 UTC
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-01 20:59:29 UTC; unix

@@ -4,14 +4,16 @@ author: "James Wondrasek, Katharina Brunner, Kirill Müller"
 date: "27 February 2020"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{"Introduction to DBI"}
+  %\VignetteIndexEntry{Introduction to DBI}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include=FALSE,warning=FALSE, message=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_chunk$set(error = Sys.getenv("IN_PKGDOWN") != "true" || (getRversion() < "3.5"))
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  error = Sys.getenv("IN_PKGDOWN") != "true" || (getRversion() < "3.5")
+)
 ```
 
 ## Who this tutorial is for
@@ -44,7 +46,7 @@ For more advanced features, such as parameterized queries, transactions, and mor
 
 ## How to connect to a database using DBI
 
-The following code establishes a connection to the Sakila database hosted by the Relational Dataset Repository at `https://relational.fit.cvut.cz/dataset/Sakila`, lists all tables on the database, and closes the connection.
+The following code establishes a connection to the Sakila database hosted by the Relational Dataset Repository at `https://relational-data.org/dataset/Sakila`, lists all tables on the database, and closes the connection.
 The database represents a fictional movie rental business and includes tables describing films, actors, customers, stores, etc.:
 
 ```{r}
@@ -52,10 +54,10 @@ library(DBI)
 
 con <- dbConnect(
   RMariaDB::MariaDB(),
-  host = "relational.fit.cvut.cz",
+  host = "relational.fel.cvut.cz",
   port = 3306,
   username = "guest",
-  password = "relational",
+  password = "ctu-relational",
   dbname = "sakila"
 )
 
@@ -83,10 +85,10 @@ The code to connect to the database could then look like this:
 ```{r eval = FALSE}
 con <- dbConnect(
   RMariaDB::MariaDB(),
-  host = "relational.fit.cvut.cz",
+  host = "relational.fel.cvut.cz",
   port = 3306,
   username = "guest",
-  password = keyring::key_get("relational.fit.cvut.cz", "guest"),
+  password = keyring::key_get("relational.fel.cvut.cz", "guest"),
   dbname = "sakila"
 )
 ```
@@ -99,7 +101,14 @@ It takes as arguments a database connection and a table name and returns a chara
 
 
 ```{r}
-con <- dbConnect(RMariaDB::MariaDB(), username = "guest", password = "relational", host = "relational.fit.cvut.cz", port = 3306, dbname = "sakila")
+con <- dbConnect(
+  RMariaDB::MariaDB(),
+  host = "relational.fel.cvut.cz",
+  port = 3306,
+  username = "guest",
+  password = "ctu-relational",
+  dbname = "sakila"
+)
 dbListFields(con, "film")
 ```
 
@@ -135,7 +144,7 @@ This is covered in more detail in `vignette("DBI-advanced", package = "DBI")`.
 
 ```{r}
 df <- dbGetQuery(con, "SELECT film_id, title, description FROM film WHERE release_year = 2006 AND rating = 'G'")
-head(df,3)
+head(df, 3)
 ```
 
 

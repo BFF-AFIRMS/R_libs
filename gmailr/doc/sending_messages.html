@@ -48,6 +48,7 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -353,13 +354,13 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <p>You can convert the message to a properly formatted MIME message
 using <code>as.character()</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">strwrap</span>(<span class="fu">as.character</span>(text_msg))</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MIME-Version: 1.0\r Date: Fri, 30 Jun 2023 05:00:28 GMT\r To:&quot;             </span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MIME-Version: 1.0\r Date: Thu, 29 Jan 2026 23:07:28 GMT\r To:&quot;             </span></span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt; [2] &quot;james.f.hester@gmail.com\r From: me@somewhere.com\r Content-Type:&quot;         </span></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt; [3] &quot;multipart/mixed; boundary=1783116a34f2b4e46fabff23476bb1be\r&quot;              </span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt; [4] &quot;--1783116a34f2b4e46fabff23476bb1be\r MIME-Version: 1.0\r Date: Fri, 30 Jun&quot;</span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; [5] &quot;2023 05:00:28 GMT\r Content-Type: text/plain; charset=utf-8;&quot;              </span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt; [3] &quot;multipart/mixed; boundary=95392f0a722339a1b8fdb0f72a761b25\r&quot;              </span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt; [4] &quot;--95392f0a722339a1b8fdb0f72a761b25\r MIME-Version: 1.0\r Date: Thu, 29 Jan&quot;</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; [5] &quot;2026 23:07:28 GMT\r Content-Type: text/plain; charset=utf-8;&quot;              </span></span>
 <span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; [6] &quot;format=flowed\r Content-Transfer-Encoding: quoted-printable\r Gmailr is a&quot; </span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; [7] &quot;very handy package!\r --1783116a34f2b4e46fabff23476bb1be--\r&quot;</span></span></code></pre></div>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; [7] &quot;very handy package!\r --95392f0a722339a1b8fdb0f72a761b25--\r&quot;</span></span></code></pre></div>
 </div>
 <div id="html" class="section level3">
 <h3>HTML</h3>
@@ -487,9 +488,9 @@ therefore with <code>gmailr</code>. However, you will still be able to
 complete the <code>gmailr</code> authorization process via
 <code>gm_auth()</code>. The problem will only reveal itself upon the
 first attempt to use the API and it will look something like this:</p>
-<pre><code> Error in gmailr_POST(c(&quot;messages&quot;, &quot;send&quot;), user_id, class = &quot;gmail_message&quot;,  : 
+<pre><code> Error in gmailr_POST(c(&quot;messages&quot;, &quot;send&quot;), user_id, class = &quot;gmail_message&quot;,  :
   Gmail API error: 400
-  Mail service not enabled </code></pre>
+  Mail service not enabled</code></pre>
 <p>You can confirm the account’s lack of mail capability by visiting
 <code>https://mail.google.com/mail/</code> while logged in. If you don’t
 already have Gmail, this link gives you the option of adding mail to

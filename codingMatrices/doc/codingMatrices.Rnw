@@ -1,0 +1,1127 @@
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{Coding and Contrast Matrices}
+
+\documentclass[12pt]{article}
+\usepackage{WNVvignette}
+
+\input defs
+\usepackage{fouriernc}
+
+\title{Coding Matrices, Contrast Matrices \\
+  and Linear Models}
+\author{Bill Venables}
+\date{\itshape\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+<<include = FALSE>>=
+knitr::opts_chunk$set(message = FALSE, comment = "",
+                      fig.height=5, fig.width=7,
+                      out.width="0.75\\textwidth",
+                      fig.align = "center",
+                      fig.path = "./_")
+library(dplyr)  ## we use the pipe operator, %>%, habitually
+library(stats)
+library(fractional)
+library(codingMatrices)
+library(ggplot2)
+source("./booktabs.R")
+theme_set(theme_bw() + theme(plot.title = element_text(hjust = 0.5)))
+@
+\section{Introduction}
+\label{sec:intro}
+
+Coding matrices are essentially a convenience for fitting linear
+models that involve factor predictors.  To a large extent, they are
+arbitrary, and the choice of coding matrix for the factors
+\emph{should not normally} affect any substantive aspect of the
+analysis.  Nevertheless some users become very confused about this
+very marginal role of coding (and contrast) matrices.  More
+pertinently, with Analysis of Variance tables that do not respect the
+marginality principle, the coding matrices used \emph{do} matter, as
+they define some of the hypotheses that are implicitly being tested.
+In this case it is clearly vital to be clear on how the coding matrix
+works.
+
+My first attempt to explain the working of coding matrices was with
+the first edition of \textsf{MASS}, %$
+\citep{venables92:_moder_applied_statis_s}. %$
+It was very brief as neither my co-author or I could believe this was
+a serious issue with most people.  It seems we were wrong.  With the
+following three editions of \textsf{MASS} the amount of space given to
+the issue generally expanded, but space constraints precluded our
+giving it anything more than a passing discussion.
+
+In this vignette I hope to give a better, more complete and simpler
+explanation of the concepts.  The package it accompanies,
+\texttt{contrastMatrices} offers replacement for the standard coding
+function in the \texttt{stats} package, which I hope will prove a
+useful, if minor, contribution to the \R community.
+
+\section{Some theory}
+\label{sec:theory}
+
+Consider a single classification model with $p$ classes.  Let the
+class means be $\mu_1, \mu_2, \ldots, \mu_p$, which under the outer
+hypothesis are allowed to be all different.
+
+Let $\bsm = (\mu_1, \mu_2, \ldots, \mu_p)^{\mathsf{T}}$ be the vector of class means.
+
+If the observation vector is arranged in class order, the \emph{incidence
+matrix}, $\mathbf{X}^{n\times p}$ is a binary matrix with the following
+familiar structure:
+\begin{equation}
+  \label{eq:incidence}
+  \mathbf{X}^{n\times p} =
+  \begin{bmatrix*}[l]
+  \one_{n_1}&\zero&\cdots&\zero\\
+  \zero&\one_{n_2}&\cdots&\zero\\
+  \;\vdots&\;\vdots&\ddots&\;\vdots\\
+  \zero&\zero&\cdots&\one_{n_p}\\
+  \end{bmatrix*}
+\end{equation}
+where the class sample sizes are clearly $n_1, n_2, \ldots,n_p$ and $n
+= n_1 + n_2 + \cdots + n_p$ is the total number of observations.
+
+Under the outer hypothesis\footnote{Sometimes called the
+  \emph{alternative} hypothesis.} the mean vector, $\bsy$, for the
+entire sample can be written, in matrix terms
+\begin{equation}
+  \label{eq:outer}
+  \bsy = \mathbf{X}\bsm
+\end{equation}
+
+
+Under the usual null hypothesis the class means are all equal, that is,
+$\mu_1 = \mu_2 = \cdots = \mu_p = \mu_.$, say.  Under this model the mean
+vector may be written:
+\begin{equation}
+  \label{eq:null}
+  \bsy = \one_n\mu_.
+\end{equation}
+Noting that $\mathbf{X}$ is a binary matrix with a singly unity entry in each
+row, we see that, trivially:
+\begin{equation}
+  \label{eq:gm}
+  \one_n = \mathbf{X}\one_p
+\end{equation}
+This will be used shortly.
+
+\subsection{Transformation to new parameters}
+\label{sec:trans}
+
+Let $\mathbf{C}^{p\times p}$ be a non-singular matrix, and rather than using
+$\bsm$ as the parameters for our model, we decide to use an alternative
+set of parameters defined as:
+\begin{equation}
+  \label{eq:transf}
+  \bsb = \mathbf{C}\bsm
+\end{equation}
+Since $\mathbf{C}$ is non-singular we can write the inverse transformation as
+\begin{equation}
+  \label{eq:invtrans}
+  \bsm = \mathbf{C}^{-1}\bsb = \mathbf{B}\bsb
+\end{equation}
+Where it is convenient to define $\mathbf{B} = \mathbf{C}^{-1}$.
+
+We can write our outer model, (\ref{eq:outer}), in terms of
+the new parameters as
+\begin{equation}
+  \label{eq:new-pars}
+  \bsy = \mathbf{X}\bsm = \mathbf{X}\mathbf{B}\bsb
+\end{equation}
+So using $\tilde{\mathbf{X}} = \mathbf{X}\mathbf{B}$ as our model matrix (in \R terms) the
+regression coefficients are the new parameters, $\bsb$.
+
+Notice that if we choose our transformation $\mathbf{C}$ in such a way to
+ensure that one of the columns, say the first, of the matrix $\mathbf{B} =
+\mathbf{C}^{-1}$ is a column of unities, $\one_p$, we can separate out the
+first column of this new model matrix as an \emph{intercept} column.
+
+Before doing so, it is convenient to label the components of $\bsb$ as
+\begin{displaymath}
+  \bsb^{\mathsf{T}} = (\beta_0, \beta_1, \beta_2, \ldots, \beta_{p-1}) =
+(\beta_0, \bsb_\star^{\mathsf{T}})
+\end{displaymath}
+that is, the first component is separated out and labelled $\beta_0$.
+
+Assuming now that we can arrange for the first column of $\mathbf{B}$ to be a
+column of unities we can write:
+\begin{equation}
+  \label{eq:new-pars-2}
+  \begin{split}
+      \mathbf{X}\mathbf{B}\bsb &= \mathbf{X}\left[\one_p\;\mathbf{B}_\star\right]
+  \begin{bmatrix*}[l]
+    \beta_0\\
+    \bsb_\star^{(p-1)\times1}
+  \end{bmatrix*} \\
+  & = \mathbf{X}\left(\one_p\beta_0 + \mathbf{B}_\star\bsb_\star\right)\\
+  & = \mathbf{X}\one_p\beta_0 + \mathbf{X}\mathbf{B}_\star\bsb_\star\\
+  & = \one_n\beta_0 + \mathbf{X}_\star\bsb_\star
+  \end{split}
+\end{equation}
+Thus under this assumption we can express the model in terms of a
+separate \emph{intercept} term, and a set of coefficients
+$\bsb_\star^{(p-1)\times1}$ with the property that
+\begin{quotation}\noindent
+  The null hypothesis, $\mu_1 = \mu_2 = \cdots = \mu_p$, is true
+  \emph{if and only if} $\bsb_\star=\zero_{p-1}$, that is, \emph{all the
+    components of $\bsb_\star$ are zero.}
+\end{quotation}
+
+The $p\times(p-1)$ matrix $\mathbf{B}_\star$ is called a \emph{coding
+  matrix}. The important thing to note about it is that the only
+restriction we need to place on it is that when a vector of unities is
+prepended, the resulting matrix $\mathbf{B} = [\one_p\;\mathbf{B}_\star]$ must be
+non-singular.
+
+In \R the familiar \texttt{stats} package functions
+\texttt{contr.treatment}, \texttt{contr.poly}, \texttt{contr.sum} and
+\texttt{contr.helmert} all generate \emph{coding} matrices, and not
+necessarily contrast matrices as the names might suggest.  We look at
+this in some detail in Section~\vref{sec:examples}, \emph{Examples}.
+
+The \texttt{contr.*} functions in \R are based on the ones of the same
+name used in \textsf{S} and \texttt{S-PLUS}.  They were formally %$
+described in \citet{chambers92:_statis_model_s}, although they were in %$
+use earlier.  (This was the same year as the first edition of
+\textsf{MASS} appeared as well.)
+
+\subsection{Contrast and averaging vectors}
+\label{sec:contrasts}
+
+We define
+\begin{description}
+\item[An averaging vector] as any vector, $\cv^{p\times1}$, whose
+  components add to $1$, that is, $\cv^{\mathsf{T}}\one_p = 1$, and
+\item[A contrast vector] as any \emph{non-zero} vector $\cv^{p\times1}$
+  whose components add to zero, that is, $\cv^{\mathsf{T}}\one_p = 0$.
+\end{description}
+
+Essentially an averaging vector a kind of weighted mean\footnote{Note,
+  however, that some of the components of an averaging vector may be
+  zero or negative.} and a contrast vector defines a kind of
+comparison.
+
+We will call the special case of an averaging vector with equal
+components:
+\begin{equation}
+  \label{eq:simple-av}
+   \mathbf{a}^{p\times1} = \left({\textstyle\frac1p},
+     {\textstyle\frac1p},\ldots,
+     {\textstyle\frac1p}\right)^{\mathsf{T}}
+\end{equation}
+a \emph{simple averaging vector}.
+
+Possibly the simplest contrast has the form:
+\begin{displaymath}
+  \cv = (0, \ldots, 0, 1, 0, \ldots, 0, -1, 0, \ldots, 0)^{\mathsf{T}}
+\end{displaymath}
+that is, with the only two non-zero components $-1$ and $1$.  Such a
+contrast is sometimes called an \emph{elementary} contrast.  If the $1$
+component is at position $i$ and the $-1$ at $j$, then the contrast
+$\cv^{\mathsf{T}}\bsm$ is clearly $\mu_i-\mu_j$, a simple difference.
+
+Two contrasts vectors will be called \emph{equivalent} if one is a
+scalar multiple of the other, that is, two contrasts $\cv$ and $\dv$
+are equivalent if $\cv = \lambda\dv$ for some number
+$\lambda$.\footnote{If we augment the set of all contrast vectors of
+  $p$ components with the zero vector, $\zero_p$, the resulting set is
+  a vector space, $\cal C$, of dimension $p-1$.  The elementary
+  contrasts clearly form a spanning set.
+
+  The set of all averaging vectors, $\av$, with $p$ components does
+  not form a vector space, but the difference of any two averaging
+  vectors is either a contrast or zero, that is it is in the contrast
+  space: $\cv = \av_1-\av_2 \in {\cal C}$.}
+
+\subsection{Choosing the transformation}
+\label{sec:choosy}
+
+Following on our discussion of transformed parameters, note that the
+matrix $\mathbf{B}$ has two roles
+\begin{itemize}
+\item It defines the original class means in terms of the new
+  parameters: $\bsm = \mathbf{B}\bsb$ and
+\item It modifies the original incidence design matrix, $X$, into the
+  new model matrix $\mathbf{X}\mathbf{B}$.
+\end{itemize}
+Recall also that $\bsb = \mathbf{C}\bsm = \mathbf{B}^{-1}\bsm$ so the inverse matrix
+$\mathbf{B}^{-1}$ determines \emph{how the transformed parameters relate to
+  the original class means}, that is, it determines what the
+\emph{interpretation} of the new parameters in terms of the primary
+ones.
+
+Choosing a $\mathbf{B}$ matrix with an initial column of ones is the first
+desirable feature we want, but we would also like to choose the
+transformation so that the parameters $\bsb$ have a ready
+interpretation in terms of the class means.
+
+Write the rows of $\mathbf{C}$ as $\cv_0^{\mathsf{T}}, \cv_1^{\mathsf{T}}, \ldots, \cv_{p-1}^{\mathsf{T}}$.
+Then
+\begin{equation}
+  \label{eq:cmat}
+ \mathbf{I}_p = \mathbf{C}\mathbf{B} =
+ \begin{bmatrix*}[l]
+   \cv_0^{\mathsf{T}}\\
+   \cv_1^{\mathsf{T}}\\
+   \;\vdots\\
+   \cv_{p-1}^{\mathsf{T}}
+ \end{bmatrix*}
+ \left[\one_p\;\mathbf{B}_\star\right] =  \left[
+    \begin{matrix*}[l]
+    \cv_0^{\mathsf{T}}\one_p & \cv_0^{\mathsf{T}}\mathbf{B}_\star    \\
+    \cv_1^{\mathsf{T}}\one_p &  \cv_1^{\mathsf{T}}\mathbf{B}_\star    \\
+    \;\vdots &  \;\vdots           \\
+    \cv_0^{\mathsf{T}}\one_p &  \cv_{p-1}^{\mathsf{T}}\mathbf{B}_\star
+    \end{matrix*}
+  \right]
+\end{equation}
+Equating the first columns of both sides gives:
+\begin{equation}
+  \label{eq:firstcol}
+  \left[
+    \begin{matrix*}[l]
+    \cv_0^{\mathsf{T}}\one_p     \\
+    \cv_1^{\mathsf{T}}\one_p    \\
+    \;\vdots            \\
+    \cv_0^{\mathsf{T}}\one_p
+    \end{matrix*}
+  \right] =
+  \begin{bmatrix}
+    1\\
+    0\\
+    \;\vdots\\
+    0\\
+  \end{bmatrix}
+\end{equation}
+
+This leads to the important result that if $\mathbf{B} = [\one_p\;\mathbf{B}_\star]$ then
+\begin{itemize}
+\item The first row of $\cv_0^{\mathsf{T}}$ of $\mathbf{C}$  is an \emph{averaging vector} and
+\item The remaining rows $\cv_1^{\mathsf{T}}, \cv_2^{\mathsf{T}}, \ldots,\cv_{p-1}^{\mathsf{T}}$ will be
+  \emph{contrast vectors}.
+\end{itemize}
+
+It will sometimes be useful to recognize this dichotomy my writing
+$\mathbf{C}$ in a way that partitions off the first row.  We then write:
+\begin{equation}
+  \label{eq:cstar}
+  \mathbf{C} =
+  \begin{bmatrix*}[l]
+    \cv_o^{\mathsf{T}}\\
+    {\mathbf{C}_\star}^{\mathsf{T}}
+  \end{bmatrix*}
+\end{equation}
+
+
+Most importantly, since the argument is reversible, choosing $\mathbf{C}$ as a
+non-singular matrix in this way, that is as an averaging vector for
+the first row and a linearly independent set of contrasts vectors as
+the remaining rows, will ensure that $\mathbf{B}$ has the desired form
+$\mathbf{B} = [\one_p\;\mathbf{B}_\star]$.
+
+Note that
+\begin{itemize}
+\item How we choose the averaging vector $\cv_0$ for the first row
+  will determine the relationship between the intercept coefficient,
+  $\beta_0$, and the class means, and
+\item How we choose the contrasts, $\mathbf{C}_\star$ will determine the
+  interpretation of the regression coefficients $\bsb_\star$ in terms of
+  the class means.
+\end{itemize}
+
+Suppose we choose $\cv_0$ as a \emph{simple} averaging vector:
+$\cv_0=\frac1p \one_p$.  The first row of equation~(\ref{eq:cmat}) now
+shows that
+\begin{equation}
+  \label{eq:firstrow}
+  \left[1\quad\zero_{p-1}^{\mathsf{T}}\right] =
+  \left[{\textstyle\frac1p}\one_p^{\mathsf{T}}\one_p\quad
+    {\textstyle\frac1p}\one_p^{\mathsf{T}}\mathbf{B}_\star\right]
+\end{equation}
+and hence $\one_p^{\mathsf{T}}\mathbf{B}_\star = \zero_{p-1}^{\mathsf{T}}$, which implies that in
+this special case the \emph{columns} of the coding matrix, $\mathbf{B}_\star$
+are also contrast vectors, (though not necessarily the same contrasts
+as, or even equivalent to, those in the rows of $\mathbf{C}$).
+
+\subsection{Orthogonal contrasts}
+\label{sec:orthog}
+
+A set of vectors $\cv_1, \ldots, \cv_{p-1}$ is called
+\emph{orthogonal} if $\cv_i^{\mathsf{T}}\cv_j = 0$ if $i \neq j$.  Suppose now
+we choose the $\mathbf{C}$ matrix with
+\begin{itemize}
+\item The first row as a simple averaging vector,
+  $\cv_0=\frac1p\one_p$, and
+\item The remaining rows, $\cv_1, \ldots, \cv_{p-1}$ as a set of
+  \emph{orthogonal} contrasts.
+\end{itemize}
+
+A simple averaging vector is orthogonal to every contrast by the
+definition of contrast, so in this case the rows of the matrix $\mathbf{C}$
+are all orthogonal vectors.  This implies that $\mathbf{C}^{\mathsf{T}}\mathbf{C}$ is a diagonal
+matrix:
+\begin{equation}
+  \label{eq:diagonal}
+  \mathbf{C}\mathbf{C}^{\mathsf{T}} =
+\left[
+\begin{matrix}
+\frac1{p^2}\one_p^{\mathsf{T}}\one_p & 0 & 0 & \cdots & 0\\
+0 & {\cv_1^{\mathsf{T}}}\cv_1 & 0 & \cdots & 0\\
+0 & 0 & {\cv_2^{\mathsf{T}}}\cv_2 & \cdots & 0\\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+0 & 0 & 0 & \cdots &  {\cv_{p-1}^{\mathsf{T}}}\cv_{p-1}
+\end{matrix}
+\right] = \mathbf{D} \quad \text{say.}
+\end{equation}
+Noting that, trivially, $\mathbf{I}_p =\mathbf{C}\mathbf{C}^{\mathsf{T}}(\mathbf{C}\mathbf{C}^{\mathsf{T}})^{-1}$ and since $\mathbf{C}\mathbf{B}
+= \mathbf{I}_p$ it follows
+that,
+\begin{equation}
+  \label{eq:orthog-conts}
+  \mathbf{B} = \mathbf{C}^{\mathsf{T}}(\mathbf{C}\mathbf{C}^{\mathsf{T}})^{-1} = \mathbf{C}^{\mathsf{T}}\mathbf{D}^{-1}
+\end{equation}
+Furthermore since in this case $\mathbf{D}^{-1}$ is a \emph{diagonal} matrix,
+it follows that each of the columns of $\mathbf{B}$ is a (strictly positive)
+scalar multiple of the \emph{corresponding row} of $\mathbf{C}$.  So in
+particular the contrasts in $\mathbf{B}$ and $\mathbf{C}$ are, one for one,
+equivalent.
+
+We may summarise this by noting that
+\begin{itemize}
+\item The columns of the coding matrix, $\mathbf{B}_\star$, are contrast
+  vectors \emph{if and only if} the averaging vector $\cv_0$ is a
+  simple averaging vector, and
+\item In addition, the corresponding contrast vectors in the columns
+  of $\mathbf{B}$ and in the rows of $\mathbf{C}$ are \emph{equivalent}, if and only
+  if either of them form an orthogonal set.
+\end{itemize}
+
+\section{Examples}
+\label{sec:examples}
+
+\textbf{Note on numerical displays:} This section will display a
+number of patterned matrices and to make the patterns more visible we
+use the \texttt{fractional} package to replace the numbers by vulgar
+fractions and any zeros by dots.
+
+We also use the package \texttt{dplyr} but mostly just for the pipe
+operator \verb|%>%|, to simplify the appearance of the code.
+<<eval=FALSE>>=
+library(dplyr)
+library(fractional)
+@
+To see the effect compare the two displays of the same
+matrix shown in Figure~\vref{fig:fractional}.
+
+\begin{figure}[!htp]
+<<>>=
+M <- (cbind(diag(4), 0)/7 - cbind(0, diag(4))/3) %>% print
+M <- (cbind(diag(4), 0)/7 - cbind(0, diag(4))/3) %>% fractional %>% print
+@
+  \caption{Effect of using the \texttt{fractional} package on displays}
+  \label{fig:fractional}
+\end{figure}
+
+\begin{minipage}[h]{1.0\linewidth}
+\end{minipage}
+
+
+
+\subsection{Control versus treatments
+  \texttt{contr.treatment} and \texttt{code\_control}}
+\label{sec:contr.treat}
+
+The default coding matrix for ``unordered'' factors is given by the
+\texttt{stats} package function \texttt{contr.treatment}.  We can see
+what the matrix looks like by an example.
+<<>>=
+levs <- letters[1:5]
+Bstar <- contr.treatment(levs) %>% fractional %>% print
+@
+To see what the implied regression coefficients mean we look at the
+$\mathbf{C}$~matrix.
+The columns of $\mathbf{B}_\star$ are clearly not contrasts, so we expect that
+the correspond averaging vector will not be a simple averaging vector.
+<<>>=
+B <- cbind(Ave = 1, Bstar) %>% fractional %>% print
+C <- solve(B) %>% fractional %>% print
+@
+Hence the regression coefficients, including the intercept, are
+\begin{displaymath}
+  \beta_0=\mu_1, \quad \beta_1 = \mu_2-\mu_1,\; \beta_2 = \mu_3-\mu_1,\;
+  \ldots, \beta_{p-1}=\mu_p-\mu_1
+\end{displaymath}
+So the contrasts are all \emph{elementary} contrasts of the succeeding
+class means with the first.
+
+The convenience function, \verb|mean_contrasts|, provides this kind of
+information more directly:
+<<>>=
+mean_contrasts(contr.treatment(levs))
+@
+
+The package alternative to \texttt{contr.treatment} is
+\verb|code_control|.  It generates a very different coding matrix, but
+the contrasts are the same.  The averaging vector, however is now
+simple, that is, with equal weights:
+<<>>=
+Bstar <- code_control(levs) %>% fractional %>% print
+mean_contrasts(Bstar)
+@
+Hence the intercept term will now be the average of the class means,
+but the remaining coefficients will be the same.
+
+We can verify this by a small example.
+<<results="asis">>=
+geno <- MASS::genotype
+ggplot(geno) + aes(x = Mother, y = Wt) + ylab("Mean litter weight (gms)") +
+  geom_boxplot(fill = "sky blue", col = "navy") + xlab("Mother genotype")
+Mmeans <- with(geno, tapply(Wt, Mother, mean))
+rbind(Means = Mmeans) %>% booktabs
+m1 <- aov(Wt ~ Mother, geno)
+rbind("From m1:"  = coef(m1),
+      "By hand:" = c(Mmeans[1], Mmeans[-1] - Mmeans[1])) %>% booktabs
+@
+Changing to the alternative coding function gives a different
+intercept term, but the same contrasts:
+<<results="asis">>=
+m2 <- update(m1, contrasts = list(Mother = "code_control"))
+rbind("From m2:" = coef(m2),
+      "By hand:" = c(mean(Mmeans), Mmeans[-1] - Mmeans[1])) %>% booktabs
+@
+Notice that the intercept term is the average of the class means,
+which is different from the overall mean in this case, since the class
+sizes are not equal:
+<<results="asis">>=
+rbind("Comparison:" = c(coef(m2)[1], "Grand mean" = mean(geno$Wt))) %>% booktabs
+@ %$
+
+\subsubsection{Difference contrasts}
+\label{sec:diff}
+
+A variant of the control versus treatment contrast scheme is what we
+call ``difference'' contrasts in %$
+\citet{venables02:_moder_applied_statis_s}. %$
+Rather than compare each mean with the first, under this scheme each
+class mean is compared to the one preceding sit, as in a table of
+differences.  The package provides two two versions.  The first,
+\texttt{contr.diff} is like \texttt{contr.treatment} in that the
+averaging vector is just the first mean:
+<<>>=
+mean_contrasts(contr.diff(5))
+@
+The second, \texttt{code\_diff} is like \texttt{code\_control} with a
+simple average vector:
+<<>>=
+mean_contrasts(code_diff(5))
+@
+We suggest these might be useful for ordered factors as they would
+show, for example, if the means were monotonic in factor level order.
+
+The default coding function for ordered factors is
+\texttt{contr.poly}, which envisages the levels of the factor as
+corresponding to equally spaced values of an underlying continuous
+covariate.  This assumption is not always met, however.
+
+\subsection{Deviation contrasts, \texttt{code\_deviation} and \texttt{contr.sum}}
+\label{sec:deviation}
+
+These two functions essentially do the same job apart from a minor
+change to labelling of the result.
+
+The pattern in the coding matrix is as follows:
+<<>>=
+Bstar <- code_deviation(levs) %>% fractional %>% print
+@
+Note that these columns now are contrast vectors.  They are linearly
+independent but they are not orthogonal.  Hence we can conclude that
+it leads to a simple averaging vector. The contrast pattern is
+shown as follows:
+<<>>=
+mean_contrasts(Bstar)
+@
+The general pattern is now clear.  We have for the regression
+coefficients in terms of the class means the following:
+\begin{displaymath}
+  \beta_0 = {\textstyle\frac1p\sum\nolimits_{j=1}^p\mu_j} = \bar\mu,
+    \qquad \beta_1 = \mu_1-\bar\mu, \;\beta_2 = \mu_2-\bar\mu,\;
+    \ldots,\;\beta_{p-1} = \mu_{p-1}-\bar\mu
+\end{displaymath}
+So if we add a final coefficient $\beta_p=\mu_p-\bar\mu$ to make a
+symmetric arrangement, the model for the class means can be written as
+\begin{displaymath}
+  \mu_j = \beta_0 + \beta_j,\quad j = 1,\ldots,p,\quad\text{with}\quad
+  \sum\nolimits_{j=1}^p\beta_j = 0
+\end{displaymath}
+The induced constraint is usually described by saying that the
+``effects'' \emph{sum} to zero, and hence the name
+\texttt{contr.sum}.  The alternative description is that the contrasts
+are the \emph{deviations} of the means from their simple average.
+
+\subsection{Helmert contrasts, \texttt{contr.helmert} and \texttt{code\_helmert}}
+\label{sec:helmert}
+
+Helmert coding matrices were the original default codings in the early
+releases of \R and indeed in \textsf{S-PLUS} and \texttt{S}
+beforehand.  As hardly anyone understood what they were they were
+immensely unpopular and were eventually democratically overthrown and
+replaced by control versus treatment contrasts, which everyone
+believed that they \emph{did} understand, even if this were not
+entirely true.
+
+Before outlining the likely original reasoning behind their original
+adoption, we need to see what they were.  The standard function gives
+a simple pattern of codings:
+<<>>=
+Bstar0 <- contr.helmert(levs) %>% fractional %>% print
+@
+Note that the columns of this coding matrix are not just contrasts
+but \emph{orthogonal} contrasts.
+
+The alternative coding we propose gives a set differently scaled
+contrast vectors, but \emph{equivalent} to the standard coding set:
+<<>>=
+Bstar1 <- code_helmert(levs) %>% fractional %>% print
+@
+
+The standard version leads to the contrast matrix:
+<<>>=
+mean_contrasts(Bstar0)
+@
+and since the columns of \texttt{Bstar0} were orthogonal, the mean
+contrasts are equivalent to them, that is, essentially the same apart
+from scaling.
+
+The alternative coding leads to the mean contrast pattern:
+<<>>=
+mean_contrasts(Bstar1)
+@
+which is slightly easier to describe.  The intercept term is again a
+simple average  of the class means.  The regression coefficient
+$\beta_j, j > 0$ represent a comparison of $\mu_{j+1}$ with the average of
+all the means preceding it in the levels order:
+\begin{equation}
+  \label{eq:betas}
+  \beta_j =\left\{
+  \begin{matrix*}[l]
+    {\textstyle\frac1p\sum\nolimits_{j=1}^p\mu_j} &= \overline{\mu_{1:p}} &
+    \text{for $j = 0$}\\
+     \mu_{j+1}- {\textstyle\frac1j\sum\nolimits_{k=1}^j\mu_k} &=
+     \mu_{j+1} - \overline{\mu_{1:j}}&\text{for $j = 1,2,\ldots,(p-1)$}
+  \end{matrix*}
+  \right.
+\end{equation}
+
+%% Versus
+%%
+%% \begin{align*}
+%%   \beta_0 &= {\textstyle\frac1p\sum\nolimits_{j=1}^p\mu_j} = \bar\mu\\
+%%   \beta_j &= \mu_{j+1}- {\textstyle\frac1j\sum\nolimits_{k=1}^j\mu_k}\\
+%%   &= \mu_{j+1} - \overline{\mu_{1:j}}, \quad j = 1, 2, \ldots, p-1
+%% \end{align*}
+%%
+The reason Helmert codings were originally chosen is not clear (to me)
+although I suspect something like the following reasoning took place.
+\begin{itemize}
+\item Coding matrices with contrast vectors as their columns had the
+  advantage of giving an intercept the simple average of the class
+  means.  While this is not important in simple one-factor models, it
+  does become more slightly important with multi-factor models (as we
+  shall see in a later section).
+\item Matrices with \emph{orthogonal} columns are, in general,
+  numerically very stable even for large cases, and were very quick
+  and easy to invert.
+\item Coding matrices with \emph{orthogonal contrast} columns provided
+  the user, (should they care to look at them), with a vies of the
+  mean contrasts that result, up to equivalence.
+\item For standard analysis of variance problems the coding matrix
+  used would not normally influence the inferential outcome, anyway,
+  so interpretability \emph{per se} has low priority.
+\end{itemize}
+
+None of these is particularly convincing, which is probably why they
+were eventually replaced by treatment versus control contrasts in
+response to the popular prejudice.
+
+\section{The double classification}
+\label{sec:doubleclass}
+
+\subsection{Incidence matrices}
+\label{sec:modelmats}
+
+
+A double classification is defined by two factors, say \texttt{f} and
+\texttt{g}.  Suppose they have $p$ and $q$ levels respectively.  A
+model specified in \R terms as \verb|~ f*G| is essentially equivalent
+to a single classification model with $pq$ classes defined by the
+distinct combinations of \texttt{f} and \texttt{g}.  We can generate
+the incidence matrix explicitly using a formula such as
+\verb|~ 0+f:g|. An example is as follows.
+<<include = FALSE>>=
+strip_attributes <- function(x) {
+  attr(x, "assign") <- attr(x, "contrasts") <- NULL
+  x
+}
+@
+<<>>=
+dat <- data.frame(f = rep(letters[1:3], each = 4),
+                  g = rep(LETTERS[1:2], each = 2, length.out = 12))
+cbind(model.matrix(~0+f, dat), "----" = 0,
+      model.matrix(~0+g, dat), "----" = 0,
+      model.matrix(~ 0 + f:g, dat)) %>% fractional
+@
+If $\mathbf{X}^f$ and $\mathbf{X}^g$ are the incidence matrices for \texttt{f} and
+\texttt{g} respectively, and $\mathbf{X}^{fg}$ the incidence matrix for the
+subclasses, notice that $\mathbf{X}^{fg}$ can be generated by taking $\mathbf{X}^f$
+and multiplying it, componentwise, by each column of $\mathbf{X}^g$ in turn
+and joining the results as the partitions to form a $n\times pq$
+matrix, namely $\mathbf{X}^{fg}$. More formally:
+
+\begin{itemize}
+\item If $\fv^{\mathsf{T}}$ is the $i-$th row of $\mathbf{X}^f$ and
+\item If $\gv^{\mathsf{T}}$ is the $i-$th row of $\mathbf{X}^g$,
+\item The $i-$th row of $\mathbf{X}^{fg}$ is their Kronecker product
+  $\gv^{\mathsf{T}}\otimes\fv^{\mathsf{T}}$.  (Note the reversed order.)
+\end{itemize}
+
+It is useful to note that the $\mathbf{X}^f$ and $\mathbf{X}^g$ can be recovered from
+$\mathbf{X}^{fg}$ by adding selected columns together, as well as the
+intercept term.  The relevant relations are
+\begin{align*}
+    \mathbf{X}^f &= \mathbf{X}^{fg} \left(\one_q\otimes\mathbf{I}_p\right)\\
+    \mathbf{X}^g &= \mathbf{X}^{fg} \left(\mathbf{I}_q\otimes\one_p\right)\\
+    \one_n &= \mathbf{X}^{fg}\left(\one_q\otimes\one_p\right) = \mathbf{X}^{fg} \one_{pq}
+\end{align*}
+An easily proved mild generalization of these relations, namely:
+\begin{equation}
+  \label{eq:mmatsg}
+  \begin{split}
+    \mathbf{X}^f\mathbf{B} &= \mathbf{X}^{fg} \left(\one_q\otimes\mathbf{B}\right)\\
+    \mathbf{X}^g\mathbf{D} &= \mathbf{X}^{fg} \left(\mathbf{D}\otimes\one_p\right)
+  \end{split}
+\end{equation}
+(for any multiplicatively coherent matrices $\mathbf{B}$ and $\mathbf{D}$) will be
+useful later.
+
+\subsection{Transformations of the mean}
+\label{sec:trans-mean}
+
+Although the full model for a double classification can be regarded as
+a single classification, the customary transformations of the mean are
+in practice restricted to those which respect its two-factor origins.
+
+For simplicity we assume that all cells are filled, so under the full
+model all cell means are \emph{estimable}.  Under this assumption we
+can write the $pq$~cell means in as a $p\times q$~matrix,
+$\bsm_{\bullet\bullet}$.  When we deal with the subclass means as a
+vector, $\bsm$ (got by stacking each column of $\bsm_{\bullet\bullet}$
+underneath each other---the $\vect$ operation), the bullet subscripts
+will be omitted.
+\begin{equation}
+  \label{eq:mudotdot}
+  \bsm_{\bullet\bullet}^{p\times q} =
+  \begin{bmatrix*}[c]
+    \mu_{11} & \mu_{12} & \cdots & \mu_{1q}\\
+    \mu_{21} & \mu_{22} & \cdots & \mu_{2q}\\
+     \vdots & \vdots   & \ddots & \vdots\\
+    \mu_{p1} & \mu_{p2} & \cdots & \mu_{pq}
+  \end{bmatrix*}, \qquad
+  \bsm^{pq\times1} = \vect(\bsm_{\bullet\bullet})
+\end{equation}
+
+
+Let $\mathbf{C}^f$  and $\mathbf{C}^g$ be the contrast matrices corresponding to the
+full coding matrices $\mathbf{B}^f$ and $\mathbf{B}^g$ respectively.  That is:
+\begin{equation}
+  \label{eq:contcode}
+  \begin{split}
+    \mathbf{B}^f  = \left[\one_p\;\mathbf{B}^f_\star\right] &= {\mathbf{C}^f}^{-1}\\
+    \mathbf{B}^g  = \left[\one_q\;\mathbf{B}^g_\star\right] &= {\mathbf{C}^g}^{-1}
+  \end{split}
+\end{equation}
+with the inverse relations:
+\begin{equation}
+  \label{eq:codecont}
+  \begin{split}
+    \mathbf{C}^f  =
+    \begin{bmatrix*}[l]
+      {\cv_0^f}^{\mathsf{T}}\\
+      {\mathbf{C}^f_\star}^{\mathsf{T}}
+    \end{bmatrix*}
+   & = {\mathbf{B}^f}^{-1}\\
+    \mathbf{C}^g  =
+    \begin{bmatrix*}[l]
+      {\cv_0^g}^{\mathsf{T}}\\
+      {\mathbf{C}^g_\star}^{\mathsf{T}}
+    \end{bmatrix*}
+   & = {\mathbf{B}^g}^{-1}
+  \end{split}
+\end{equation}
+
+Linear transformations that respect the two-factor structure are  of
+the form:
+\begin{equation}
+  \label{eq:trans0}
+  \bsb_{\bullet\bullet} = \mathbf{C}^f\bsm_{\bullet\bullet}{\mathbf{C}^g}^{\mathsf{T}}\quad\text{or in
+ vector terms}\quad \bsb = \left(\mathbf{C}^g\otimes\mathbf{C}^f\right)\bsm
+\end{equation}
+The inverse relationship is then:
+\begin{equation}
+  \label{eq:trans1}
+  \bsm_{\bullet\bullet} = \mathbf{B}^f\bsb_{\bullet\bullet}{\mathbf{B}^g}^{\mathsf{T}}\quad\text{and in
+ vector terms}\quad \bsm = \left(\mathbf{B}^g\otimes\mathbf{B}^f\right)\bsb
+\end{equation}
+
+First consider the transformations of the
+mean,~Equation~\ref{eq:trans0}.  We partition the matrix as:
+\begin{equation}
+  \label{eq:maineffects}
+  \bsb_{\bullet\bullet} = \mathbf{C}^f\bsm_{\bullet\bullet}{\mathbf{C}^g}^{\mathsf{T}} =
+  \begin{bmatrix*}[l]
+      {\cv_0^f}^{\mathsf{T}}\\
+      {\mathbf{C}^f_\star}^{\mathsf{T}}
+    \end{bmatrix*} \bsm_{\bullet\bullet}
+    \left[{\cv_0^g}\; {\mathbf{C}^g_\star}\right]
+    =  \begin{bmatrix*}[l]
+      {\cv_0^f}^{\mathsf{T}}\bsm_{\bullet\bullet}{\cv_0^g} & {\cv_0^f}^{\mathsf{T}}\bsm_{\bullet\bullet} {\mathbf{C}^g_\star}\\
+      {\mathbf{C}^f_\star}^{\mathsf{T}}\bsm_{\bullet\bullet}{\cv_0^g}& {\mathbf{C}^f_\star}^{\mathsf{T}}\bsm_{\bullet\bullet} {\mathbf{C}^g_\star}
+    \end{bmatrix*} =
+    \begin{bmatrix*}[c]
+      \beta_{00} & \bsb_{0\star}^{\mathsf{T}}\vphantom{{\cv_0^f}^{\mathsf{T}}}\\
+      \bsb_{\star0} & \bsb_{\star\star}\vphantom{{\cv_0^f}^{\mathsf{T}}}
+    \end{bmatrix*}
+\end{equation}
+With this notation:
+\begin{itemize}
+\item $\beta_{00}$ will be the \emph{intercept} coefficient
+\item $\bsb_{\star0}$ and $\bsb_{0\star}$ are called the \texttt{f}
+  and \texttt{g} \emph{main effects}, respectively, and
+\item $\bsb_{\star\star}$ is the \texttt{f}$\times$\texttt{g} \emph{interaction}
+\end{itemize}
+
+\begin{quotation}\noindent\slshape
+  \label{dire-wanring}
+  It is important to note that the the main effects, $\bsb_{0\star}$
+  and $\bsb_{\star0}$, are defined from the subclass means,
+  $\bsm_{\bullet\bullet}$ by
+  \begin{itemize}
+  \item Averaging over the levels of the other factor using the
+    averaging vector for its contrast matrix and
+  \item Taking contrasts of the averages using the contrast vectors
+    for the given factor.
+  \end{itemize}
+  The operations commute, so they can be done in either order.
+\end{quotation}
+
+The consequences of this simple result are often overlooked.  So, for
+example,
+\begin{itemize}
+\item if \texttt{f} has a coding matrix giving a simple averaging
+  vector, (e.g. using \texttt{contr.helmert} or \texttt{contr.sum}),
+  the main effect for \texttt{g} represents contrasts between the
+  levels of \texttt{g} for \emph{a simple average of the means} over
+  all the levels of \texttt{f}, but
+\item if \texttt{f} has a coding matrix giving an averaging vector
+  that selects the first mean, (e.g. using \texttt{contr.treatment} or
+  our \texttt{contr.diff}), the main effect for \texttt{g} represents
+  contrasts between the levels of \texttt{g} for \emph{the means in
+    just the first} level of \texttt{f}.
+\end{itemize}
+
+If the model does not allow for interactions, such as an additive
+model, \verb|~ f + g|, then the two are identical.  However if the
+model does allow for interactions, such as \verb|~ f*g|, then the two
+are likely to be different.  So testing a main effect \emph{in the
+  presence of interactions involving it} does require some careful
+consideration of what you are exactly testing, and that in turn
+depends on the averaging vectors implied by the coding vectors you are
+using.
+
+
+
+\subsection{Model matrices}
+\label{sec:modmats}
+
+The full double classification mean vector can, by definition, be written as
+\begin{displaymath}
+  \bsy = \mathbf{X}^{fg}\bsm = \mathbf{X}^{fg} \left(\mathbf{B}^g\otimes\mathbf{B}^f\right)\bsb =
+  \mathbf{X}^{fg} \left([\one_q\;\mathbf{B}^g_\star]\otimes[\one_p\;\mathbf{B}^f_\star]\right)\bsb
+\end{displaymath}
+
+If we re-arrange the components of $\bsb$ in the order
+\begin{displaymath}
+  [\beta_{00}, \;\bsb_{\star0}, \;\bsb_{0\star}, \;\bsb_{\star\star}]^{\mathsf{T}}
+\end{displaymath}
+the transformed model matrix, $\mathbf{X}^{fg}
+\left([\one_q\;\mathbf{B}^g_\star]\otimes[\one_p\;\mathbf{B}^f_\star]\right)$ can be
+re-arranged into four partitions, namely:
+\begin{equation}
+  \label{eq:modeltransf}
+  \left[\one_n\quad \mathbf{X}^f\mathbf{B}^f_\star\quad \mathbf{X}^g\mathbf{B}^g_\star\quad
+    \mathbf{X}^{fg}\left(\mathbf{B}^g_\star\otimes\mathbf{B}^f_\star\right)\right] =
+  \left[\one_n\quad\mathbf{X}^f_\star\quad\mathbf{X}^g_\star\quad\mathbf{X}^{fg}_{\star\star}\right], \qquad\text{say.}
+\end{equation}
+The sizes of these partitions are, respectively, $n\times1$,
+$n\times(p-1)$, $n\times(q-1)$ and $n\times(p-1)(q-1)$.
+
+Notice that $\mathbf{X}^{fg}_{\star\star}$ can also be obtained from
+$\mathbf{X}^f_\star$ and $\mathbf{X}^g_\star$ by taking $\mathbf{X}^f_\star$ and multiplying
+it, componentwise, by each of the columns of $\mathbf{X}^g_\star$ and
+arranging the results in a partitioned matrix.
+
+Putting this together we see that, if $\Pm$ is the permutation
+matrix that affects this re-ordering:
+\begin{equation}
+  \label{eq:two-way-means}
+  \begin{split}
+    \bsy &= \mathbf{X}^{fg}
+    \left([\one_q\;\mathbf{B}^g_\star]\otimes[\one_p\;\mathbf{B}^f_\star]\right)\bsb \\
+    &=
+    \mathbf{X}^{fg}
+    \left([\one_q\;\mathbf{B}^g_\star]\otimes[\one_p\;\mathbf{B}^f_\star]\right)\Pm^{\mathsf{T}}\Pm\bsb\\
+    &=
+    \left[\one_n\quad\mathbf{X}^f_\star\quad\mathbf{X}^g_\star\quad\mathbf{X}^{fg}_{\star\star}\right]
+    \begin{bmatrix*}[c]
+      \beta_{00}\\
+      \bsb_{\star0}\\
+      \bsb_{0\star}\\
+      \bsb_{\star\star}
+    \end{bmatrix*}\\
+  \implies\quad  \bsy &= \one_n\beta_{00} + \mathbf{X}^f_\star\bsb_{\star0} +
+    \mathbf{X}^g_\star\bsb_{0\star} + \mathbf{X}^{fg}_{\star\star}\bsb_{\star\star}
+  \end{split}
+\end{equation}
+Compare this with the simpler expression for the single classification
+in Equation~\vref{eq:new-pars-2}.
+
+\section{Synopsis and higher way extensions}
+\label{sec:synopsis}
+
+It is important to recognise the essential simplicity of what is going
+on here.
+
+Setting up the model matrices involves \emph{only the coding matrices}
+for the factors involved.
+\begin{itemize}
+\item For a single classification, \verb|~ f|, the model matrix is
+  obtained by coding the incidence matrix, and joining it to an
+  intercept term, i.e.
+  \begin{displaymath}
+    \mathbf{M} = \left[\one_n\quad\mathbf{X}^f_\star\right]
+  \end{displaymath}
+\item To extend this to a double classification, \verb|~ f*g|, take
+  the coded incidence matrix for \texttt{g}, $\mathbf{X}^g_\star$, and
+  multiply it, column by column, with each of the partitions already
+  present, and add them to the single classification.  I.e.
+  $\one_n \cdot \mathbf{X}^g_\star \rightarrow \mathbf{X}^g_\star$ and
+  $\mathbf{X}^f_\star \cdot \mathbf{X}^g_\star \rightarrow \mathbf{X}^{ft}_{\star\star}$ so
+  the model matrix becomes:
+  \begin{displaymath}
+    \mathbf{M} =
+  \left[\one_n\quad\mathbf{X}^f_\star\quad\mathbf{X}^g_\star\quad\mathbf{X}^{fg}_{\star\star}\right]
+  \end{displaymath}
+\item For higher way models the process of constructing the model
+  matrix, for the complete model, follows in the same way.  Each new
+  factor generates a new coded incidence matrix, $\mathbf{X}_{\star}$.
+  Multiply this, columnwise, with each of the partitions of the model
+  matrix already there and add the extra partitions to the model
+  matrix.  Thus each factor doubles the number of partitions, (or
+  terms). So for a 3-factor model, \verb|~ f*g*h|:
+  \begin{displaymath}
+    \mathbf{M} =
+  \left[\one_n\quad\mathbf{X}^f_\star\quad\mathbf{X}^g_\star\quad\mathbf{X}^{fg}_{\star\star}
+  \qquad \mathbf{X}^h_\star \quad \mathbf{X}^{fh}_\star \quad \mathbf{X}^{gh}_{\star\star} \quad
+  \mathbf{X}^{fgh}_{\star\star\star}
+  \right]
+  \end{displaymath}
+  In practice, of course, the terms would be arranged according to the
+  order of the interactions.
+\end{itemize}
+
+To interpret the regression coefficients resulting from a linear model
+fitted with such a design, however, requires the \emph{contrast matrices}
+$\mathbf{C}= \mathbf{B}^{-1}$, of which the first row, $\cv_0^{\mathsf{T}}$, is the all-important
+\emph{averaging vector}.
+\begin{itemize}
+\item By an interpretation of the regression coefficients $\bsb$ we mean
+  relating them to the subclass means, $\bsm$, which have a natural,
+  unequivocal interpretation.
+\item For interpretative purposes, it is helpful to think of the
+  subclass means as arranged in an $n-$way array,
+  $\bsm_{\bullet\bullet\ldots\bullet}$.
+  \begin{itemize}
+  \item The \emph{intercept coefficient}, $\beta_{00\ldots0}$ is got
+    from the means array by averaging over all dimensions using the
+    averaging vectors for the codings of each factor in turn.
+  \item The \emph{main effects} are got by averaging with respect to
+    all factors not involved, and taking contrasts with respect to the
+    dimension of the factor itself.
+  \item In general, an interaction of any order is got by averaging
+    over all dimensions in this way for the factors not involved, and
+    taking contrasts for the factors that are.
+  \end{itemize}
+\item It is also important to note that for an interpretation of the
+  sums of squares in an analysis of variance table, an understanding
+  of what coding matrices are used, particularly if the table is
+  non-standard such as in the case of the egregious ``Type III'' sums
+  of squares, when testing marginal effects, such as main effects when
+  interactions involving them are present in the model. The hypothesis
+  being tested depends on precisely how the main effect is defined,
+  which in turn depends on the averaging vector for the \emph{other}
+  factor. (See \citet{venables98:_exeges_linear_model} for a polemical
+  discussion, now somewhat dated.)
+
+\end{itemize}
+
+\subsection{The genotype example, continued}
+\label{sec:geno2}
+
+The \texttt{genotype} data used in the example in
+Section~\vref{sec:examples} has a single response, \texttt{Wt}, and two
+factor predictors \texttt{Litter} and \texttt{Mother}, each with four
+levels labelled by \texttt{A, B, I, J}.  Figure~\ref{fig:geno2} shows
+the mean profiles for the four Litter genotypes across Mother types.
+
+\begin{figure}[!htp]
+<<echo=FALSE>>=
+cols <- c(A = "steel blue", B = "rosy brown",
+          I = "thistle 3", J = "lemon chiffon 3")
+tab <-  geno %>%
+  group_by(Mother, Litter) %>%
+  summarise(Weight = mean(Wt), n = n(), .groups = "drop")
+ggplot(tab) +
+  aes(x = Mother, y = Weight, colour = Litter, group = Litter) +
+  xlab("Mother genotype") +
+  ylab("Litter average weight (in gms)") +
+  geom_line(linewidth = 1.5, lineend  = "round") +
+  scale_colour_manual(values = cols) + # theme_minimal() +
+  geom_point(aes(size = n), colour = "black") +
+  theme(legend.position = "top", legend.box = "horizontal") +
+  guides(shape = guide_legend(title = "Litter genotype"),
+         colour = guide_legend(title = "Litter genotype"))
+@
+  \caption{Mean profiles for the \texttt{genotype} data}
+  \label{fig:geno2}
+\end{figure}
+
+The sequential ANOVA tables show some variation in sums of squares
+depending on the order in which the terms are introduced, as would
+have been expected as the subclass numbers are unequal to some degree,
+but the overall message is clear from either analysis.
+
+<<results="asis">>=
+m2 <- aov(Wt ~ Litter*Mother, geno)
+anova(m2) %>% booktabs
+anova(update(m2, . ~ Mother*Litter)) %>% booktabs
+@
+
+To explore the non-standard versions of ANOVA we use John
+Fox's\footnote{John, in his engaging and very pragmatic way
+  provides the technology for generating ``Type II'' and ``Type III''
+  ANOVA tables, but the help information firmly
+  recommends that users \emph{do not} use ``Type III'' unless they
+  fully understand what they mean---and there is a not very subtle
+  implication that he expects most will not.}  \texttt{car} package,
+  \citep{fox_wesiberg11:_car_package},
+which has an \texttt{Anova} function for the purpose.
+
+First consider ``Type II'', which observes the marginality principle
+and hence the results do not depend on the choice of coding function:
+
+<<results="asis">>=
+car::Anova(m2, type = "II") %>% booktabs
+@
+
+In this case the result is a composite table formed by taking the main
+effect from the sequential table where it was introduced last. The
+two-factor interaction is introduced last in both sequential tables
+and hence is the same for both. It is the only non-marginal term in
+this case for the full model.
+
+For Type~III sums of squares, the protocol is different.  The full
+model is fitted and each term is dropped separately, while leaving the
+remainder of the model matrix intact.  In this case this makes what is
+actually being tested under the name of a main effect unclear as the
+definition is critically dependent on the coding matrices being used.
+
+A couple of examples illustrate the point.  In the first case the
+standard \texttt{contr.treatment} coding matrices are used, meaning
+the main effect of one factor is defined by contrasts in the means for
+the \emph{first level only} of the other factor.
+
+<<results="asis">>=
+car::Anova(m2, type = "III") %>% booktabs
+@
+
+Now the main effect of \texttt{Litter} seems important, simply because
+from Figure~\vref{fig:geno2} that looking only at \texttt{Mother}
+level \texttt{A}, the \texttt{Litter} means do indeed appear to vary
+quite considerably.
+
+If we change the reference level for \texttt{Mother} from the first to
+the last, however, we would expect from the same diagram the
+\texttt{Litter} would become non-significant.  The coding function
+\texttt{contr.SAS}, somewhat ominously, does this switch from first to
+last levels.
+
+<<results="asis">>=
+car::Anova(update(m2, contrasts = list(Mother = "contr.SAS")), type = "III") %>%
+  booktabs
+@
+
+And indeed it does so appear.  If we vary the \texttt{Litter}
+contrasts also to the same form, the \texttt{Mother} term changes as well.
+
+<<results="asis">>=
+car::Anova(update(m2, contrasts = list(Mother = "contr.SAS",
+                                       Litter = "contr.SAS")),
+           type = "III") %>% booktabs
+@
+
+There is really no paradox here.  We have chosen coding matrices which
+produce an averaging vector whose effect is to choose just one level from
+the set as the `average'.  For \texttt{contr.treatment} is is the
+first level and for \texttt{contr.SAS} it is the last.  And it so
+happens that for this data the means for either factor are least
+variable within the last level of the other factor.
+
+Hence with \texttt{contr.treatment} in force both main effects appear
+to be clearly significant, and with \texttt{contr.SAS} both appear to
+be entirely non-significant.  This is simply because they are using
+different definition of ``main effect''.
+
+The most commonly advocated resolution of this \emph{essential}
+arbitrariness is to recommend using coding schemes for which the
+averaging vector is a simple average, \emph{only}.
+
+Schemes that
+conform are \texttt{contr.helmert}, \texttt{contr.sum} and
+\texttt{contr.poly} from the \texttt{stats} package and all the
+\texttt{code\_*} functions from the present package.
+
+Those that do not
+conform are \texttt{contr.treatment} and \texttt{contr.SAS} from the
+\texttt{stats} package and \texttt{contr.diff} from the present package.
+
+We finish by checking that different coding schemes, but each having
+a simple average as the averaging vector, produce the same Type~III
+ANOVA table:
+
+<<results="asis">>=
+car::Anova(update(m2, contrasts = list(Mother = "contr.sum",
+                                       Litter = "contr.poly")),
+           type = "III") %>% booktabs
+car::Anova(update(m2, contrasts = list(Mother = "code_diff",
+                                       Litter = "code_helmert")),
+           type = "III") %>% booktabs
+@
+
+\bibliography{refs}
+\addcontentsline{toc}{section}{References}
+
+
+\end{document}

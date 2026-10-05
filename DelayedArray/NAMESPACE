@@ -1,5 +1,3 @@
-useDynLib(DelayedArray)
-
 import(methods)
 importFrom(utils, object.size)
 importFrom(stats, setNames,
@@ -16,6 +14,7 @@ import(MatrixGenerics)
 import(S4Vectors)
 import(IRanges)
 import(S4Arrays)
+import(SparseArray)
 
 
 ### - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -23,9 +22,6 @@ import(S4Arrays)
 ###
 
 exportClasses(
-    ## SparseArraySeed-class.R:
-    SparseArraySeed,
-
     ## DelayedOp-class.R:
     DelayedOp,
     DelayedUnaryOp,
@@ -82,20 +78,12 @@ exportClasses(
 ### Export S3 methods
 ###
 
-S3method(aperm, SparseArraySeed)
 S3method(aperm, DelayedArray)
 
-S3method(as.array, SparseArraySeed)
-
-S3method(as.matrix, SparseArraySeed)
-
-S3method(mean, SparseArraySeed)
 S3method(mean, DelayedArray)
 
-S3method(range, SparseArraySeed)
 S3method(range, DelayedArray)
 
-S3method(rowsum, dgCMatrix)
 S3method(rowsum, DelayedMatrix)
 
 S3method(scale, DelayedMatrix)
@@ -118,20 +106,12 @@ S3method(unique, DelayedArray)
 ### and (c) methods() doesn't asterisk them.
 
 export(
-    aperm.SparseArraySeed,
     aperm.DelayedArray,
 
-    as.array.SparseArraySeed,
-
-    as.matrix.SparseArraySeed,
-
-    mean.SparseArraySeed,
     mean.DelayedArray,
 
-    range.SparseArraySeed,
     range.DelayedArray,
 
-    rowsum.dgCMatrix,
     rowsum.DelayedMatrix,
 
     scale.DelayedMatrix,
@@ -198,13 +178,14 @@ exportMethods(
     aperm,
     dims,
     grepl,
+    paste2,
     path, "path<-",
     table,
     type, "type<-",
     updateObject,
-    rowSums, colSums, rowMeans, colMeans,
 
     ## Methods for generics defined in the MatrixGenerics package:
+    rowSums, colSums, rowMeans, colMeans,
     rowMins, colMins,
     rowMaxs, colMaxs,
     rowRanges, colRanges,
@@ -219,7 +200,10 @@ exportMethods(
     ranges, start, end, width,
 
     ## Methods for generics defined in the S4Arrays package:
-    arbind, acbind, is_sparse, extract_array, write_block
+    rowsum, arbind, acbind, extract_array, is_sparse, write_block,
+
+    ## Methods for generics defined in the SparseArray package:
+    nzwhich, nzdata, extract_sparse_array
 )
 
 
@@ -228,9 +212,6 @@ exportMethods(
 ###
 
 export(
-    ## SparseArraySeed-class.R:
-    SparseArraySeed, dense2sparse, sparse2dense,
-
     ## makeCappedVolumeBox.R:
     makeCappedVolumeBox, makeRegularArrayGridOfCappedLengthViewports,
 
@@ -240,18 +221,18 @@ export(
     setAutoBlockShape, getAutoBlockShape,
 
     ## AutoGrid.R:
-    defaultAutoGrid, blockGrid,
-    rowAutoGrid, rowGrid,
-    colAutoGrid, colGrid,
+    defaultAutoGrid,
+    rowAutoGrid,
+    colAutoGrid,
     setAutoGridMaker, getAutoGridMaker,
     defaultSinkAutoGrid,
-    defaultMultAutoGrids, multGrids,
+    defaultMultAutoGrids,
 
     ## blockApply.R:
     setAutoBPPARAM, getAutoBPPARAM,
     set_grid_context, effectiveGrid, currentBlockId, currentViewport,
-    gridApply, viewportApply, blockApply,
-    gridReduce, viewportReduce, blockReduce,
+    gridApply, blockApply,
+    gridReduce, blockReduce,
 
     ## showtree.R:
     showtree, seedApply, modify_seeds,
@@ -263,10 +244,9 @@ export(
     new_DelayedArray,
 
     ## RealizationSink-class.R:
-    supportedRealizationBackends,
+    registeredRealizationBackends, supportedRealizationBackends,
     getAutoRealizationBackend, setAutoRealizationBackend,
-    getRealizationBackend, setRealizationBackend,
-    AutoRealizationSink, RealizationSink,
+    AutoRealizationSink,
     sinkApply,
 
     ## realize.R:
@@ -286,15 +266,6 @@ export(
 ###
 
 export(
-    ## sparseMatrix-utils.R:
-    rowsum, colsum,
-
-    ## SparseArraySeed-class.R:
-    nzindex, nzdata, sparsity, extract_sparse_array,
-
-    ## read_sparse_block.R:
-    read_sparse_block,
-
     ## makeCappedVolumeBox.R:
     isLinear,
 
@@ -322,15 +293,12 @@ export(
     ## DelayedArray-utils.R:
     pmax2, pmin2, apply, sweep, scale,
 
-    ## DelayedMatrix-stats.R:
+    ## matrixStats-methods.R:
     rowMaxs, colMaxs, rowMins, colMins, rowRanges, colRanges
 )
 
 ### Same list as above.
 exportMethods(
-    rowsum, colsum,
-    nzindex, nzdata, sparsity, extract_sparse_array,
-    read_sparse_block,
     isLinear,
     is_noop,
     nseed, seed, "seed<-",
@@ -359,7 +327,7 @@ export(
     DummyArrayGrid, RegularArrayGrid, extract_array, is_sparse, write_block,
 
     ## Used in bsseq:
-    ArbitraryArrayGrid, read_block
+    colsum, ArbitraryArrayGrid, read_block
 )
 
 exportMethods(

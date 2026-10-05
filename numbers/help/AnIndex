@@ -1,5 +1,6 @@
 numbers-package	numbers-package
 agm	agm
+arithmetic_progression	progression
 atkin_sieve	primes
 bell	bell
 bernoulli_numbers	bernoulli
@@ -43,6 +44,7 @@ mod	mod
 modinv	modinv
 modlin	modlin
 modlog	modlog
+modNthroot	modNthroot
 modorder	modpower
 modpower	modpower
 modq	mod
@@ -50,12 +52,14 @@ modsqrt	modinv
 moebius	moebius
 necklace	necklace
 nextPrime	nextprime
+num2cf	cf2num
 numbers	numbers-package
 Omega	omega
 omega	omega
 ordpn	ordpn
 pascal_triangle	pascal
 periodicCF	periodicCF
+polygonal	polygonal
 previousPrime	previousPrime
 primeFactors	factorize
 Primes	primes

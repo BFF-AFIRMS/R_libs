@@ -2,20 +2,20 @@
 
 @call test.earthmain.gcc.bat
                         @if %errorlevel% NEQ 0 goto err
-@call test.earthmain.clang.bat
+@call test.earthc.gcc.bat
                         @if %errorlevel% NEQ 0 goto err
+@call test.numstab.bat
+                        @if %errorlevel% NEQ 0 goto err
+@rem The following require the Microsoft VC16-32 compiler.
 @call test.earthmain.msc.bat
                         @if %errorlevel% NEQ 0 goto err
 @call test.earthc.msc.bat
                         @if %errorlevel% NEQ 0 goto err
-@call test.earthc.gcc.bat
-                        @if %errorlevel% NEQ 0 goto err
-@call test.earthc.msc.bat
-                        @if %errorlevel% NEQ 0 goto err
-@call test.earthc.clang.bat
-                        @if %errorlevel% NEQ 0 goto err
-@call test.numstab.bat
-                        @if %errorlevel% NEQ 0 goto err
+@rem TODO Removed clang because 32-bit builds are no longer supported by rtools45, rtools45
+@rem @call test.earthmain.clang.bat
+@rem                    @if %errorlevel% NEQ 0 goto err
+@rem @call test.earthc.clang.bat
+@rem                    @if %errorlevel% NEQ 0 goto err
 @call test.mods.bat
                         @if %errorlevel% NEQ 0 goto err
 @call test.incorrect.bat
@@ -58,7 +58,6 @@
 @rem TODO With some versions of R, test.mem gives different results per run (first seen Sep 2020, R 4.0.3)
 @rem @call test.mem.bat
                         @if %errorlevel% NEQ 0 goto err
-
 @goto done
 :err
 @echo ==== ERROR ====

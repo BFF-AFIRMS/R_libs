@@ -1,3 +1,131 @@
+rmarkdown 2.32
+================================================================================
+
+- LaTeX auxiliary files (`.aux`, `.log`, etc.) generated while producing PDF output are now written to the output directory instead of the input directory. Previously `latexmk()` ran in the input file's directory, so PDF rendering failed when the input directory was read-only (e.g. in production or Shiny deployments) even when `output_dir` pointed to a writable location (thanks, @cderv #1975, @siddharthab #1615).
+
+- Fixed a `cannot open file '<name>.tex'` error when rendering to PDF with the `intermediates_dir` argument set. Pandoc wrote the intermediate `.tex` into `intermediates_dir`, but `rmarkdown` looked for it in the input directory. The `.tex` is now resolved to its actual location, and with `keep_tex: true` the retained `.tex` is moved next to the output instead of being left behind in `intermediates_dir` (thanks, @beerda, #2183).
+
+- HTML output no longer errors when `lib_dir` points outside the output directory (e.g. `lib_dir = "../lib"`), so documents in sibling subdirectories can share a single library directory. Such dependencies are now referenced with an up-tree relative path instead of failing with `"The path <file> does not appear to be a descendant of <dir>"` (thanks, @gaborcsardi #146, @jonathan-g #1859 #2199).
+
+- The minimum required version of Pandoc is now 2.8 (previously 1.14). Dropping support for Pandoc 1.x and early 2.x allowed a simplification of internal version guards (#2623).
+
+- Relicensed this package to MIT (thanks, @karangattu, #2615).
+
+- Fixed a `pandoc: ... openBinaryFile: does not exist` error when calling `render()` in parallel via a fork cluster. Temp files created by `render()` are now tracked per process and cleaned up individually, instead of deleting all files matching the `rmarkdown-str*.html` pattern in the shared `tempdir()`, which could remove sibling renders' files while Pandoc still needed them (thanks, @gorgitko, #1632).
+
+- Replaced the Pandoc argument `--extract-media` with a Lua filter to fix the `*_files/` cleanup regression (thanks, @bastistician, #2620).
+
+- Fixed the bug that the `intermediates_dir` argument may delete external input files during `rmarkdown::render()` (thanks, @BerndGit, #2619).
+
+- The `html_vignette` template now uses a literal YAML block for vignette metadata, preserving the required line breaks between directives (thanks, @t-kalinowski, #2624).
+
+- Bumped the minimum version of **knitr** to 1.50 to avoid an incompatible combination of **knitr** (< 1.50) and **xfun** (>= 0.56), which fails to load because `xfun::attr()` was removed in xfun 0.56 (thanks, @jsinnett, #2627).
+
+- Fixed captioned figures disappearing from `ioslides_presentation()` output with Pandoc 3, which represents standalone captioned images as `Figure` elements not handled by the custom writer (thanks, @LeonidasZhak, #2607).
+
+
+rmarkdown 2.31
+================================================================================
+
+- Base64 encoded images work with non-HTML output formats now (thanks, @averissimo, #2604).
+
+- Use the argument `--syntax-highlighting` for Pandoc >= 3.8 since `--highlight-style` has been deprecated (thanks, @ywwry66, #2602).
+
+- `default_output_format()` will fall back to `html_document` if the output format in YAML cannot be recognized.
+
+
+rmarkdown 2.30
+================================================================================
+
+- `pandoc_convert()` will throw an error if Pandoc is not available (thanks, @brianperdomo, #2600).
+
+- Use the argument `--syntax-highlighting=none` for Pandoc >= 3.8 since `--no-highlight` has been deprecated (#2602).
+
+- Dropped the temporary workaround that used to support syntax highlighting of `|>` and `=>`. The workaround has no longer been necessary since [Pandoc 2.18](https://github.com/jgm/pandoc/releases/tag/2.18), which was released more than 3 years ago (#2290).
+
+- `convert_ipynb()` no longer drops raw cells with no `format` in metadata (thanks, @katrinabrock, #2587).
+
+- Fixed a bug that prevents `render()` from working when converting `.md` input to PDF (thanks, @mrainers, #2599).
+
+
+rmarkdown 2.29
+================================================================================
+
+- `find_external_resources()` now correctly detects knitr child document provided with option like `child = c("child.Rmd")` (thanks, @rempsyc, #2574).
+
+- `knit_params_ask()` uses a `select` input for parameters which allow multiple selected values. Previously, a `radio` input was incorrectly used when the parameter had a small number of choices.
+
+    ```yaml
+    params:
+        primaries:
+            choices: ["red", "yellow", "blue"]
+            multiple: true
+    ```
+    
+    When `multiple` is not enabled, parameter configuration still uses `radio` when there are fewer than five choices.
+
+    The `input` parameter field can still be used to force the configuration control.
+    
+    ```yaml
+    params:
+        grade:
+            input: radio
+            choices: ["A", "B", "C", "D", "F"]
+    ```
+
+
+rmarkdown 2.28
+================================================================================
+
+- Add classes `odd`, `even`, and `header` back to table rows for Pandoc >= 3.2.1, so tables can be styled properly (thanks, @therealgenna, #2567).
+
+- `beamer_presentation` support handling latex dependencies via the new `extra_dependencies` argument and declarations within chunks (e.g., `knitr::asis_output("", meta = list(rmarkdown::latex_dependency("longtable")))`) (thanks, @cderv, @atusy, #2478).
+
+
+rmarkdown 2.27
+================================================================================
+
+- Provide a global option `rmarkdown.files.suffix` to configure the suffix of the directory for auxiliary files (thanks, @certara-tzweers, #2550). By default, this suffix is `_files`, which can cause HTML output files to be deleted automatically on Microsoft OneDrive or Google Drive. If that is the case for you, you may set a different suffix in your `.Rprofile`, e.g., `options(rmarkdown.files.suffix = "_rmdfiles")`.
+
+- Fix a regression in 2.26 regarding image paths post-processing in `html_document_base()`. Now absolute paths to image in the output directory (`output_dir`) are correctly made relative to the output directory again.
+
+
+rmarkdown 2.26
+================================================================================
+
+- **rmarkdown** now requires **knitr** >= 1.43.
+
+- Get rid of the superfluous warning in `find_pandoc()` (thanks, @jszhao, #2527).
+
+- Removed the **stringr** dependency since it is used only once in the package and the equivalent base R code is simple enough (thanks, @etiennebacher, #2530).
+
+- For the output format option `fig_crop: auto`, it will now use the same logic as in **knitr** to decide if cropping is possible (yihui/knitr#2246).
+
+- Avoid corrupting input files by accident (thanks, @J-Moravec, #2534).
+
+
+rmarkdown 2.25
+================================================================================
+
+- Fixed a bug that filenames beginning with `-` cause incorrect invocation of Pandoc (thanks, @mbaynton, #2503).
+
+- Documented how to merge `output_format_dependency()` to the output format (thanks, @atusy, #2508).
+
+- `ioslides_presentation()` now correctly works with new **shiny** 1.7.5 (thanks, @nicolasgaraycoa, #2514, @gadenbuie, #2516).
+
+- Added a new argument `metadata` to the `pre_knit` function in `output_format()` so that users will have access to the YAML metadata of the input document before knitting it (#2485). Please note that if you define `pre_knit` for a custom output format, you are strongly recommended to leave a `...` argument in `pre_knit`, so we (**rmarkdown** package authors) are free to add more arguments to `pre_knit` without breaking your code. If your `pre_knit` function does not have the `...` argument, you will get a warning.
+
+
+rmarkdown 2.24
+================================================================================
+
+- Fixed `file_scope` being lost when extending output formats that considers the `file_scope` using `output_format()`. Merge behavior is to apply overlay `file_scope` function onto the result of `base_format`'s `file_scope` function. This implies that `file_scope` gains second argument which receives the returned values of the base `file_scope` (thanks, @atusy, #2488).
+
+- Added `output_format_dependency()` which allows extending output format from within chunks (thanks, @atusy, #2462)
+
+- Fix an issue with shiny prerendered document where dependencies context were written twice leasing to parsing error (thanks, @gadenbuie, rstudio/learn#597, #2500).
+
+
 rmarkdown 2.23
 ================================================================================
 
@@ -13,7 +141,7 @@ rmarkdown 2.22
 
 - Add a `pandoc_metadata_file_arg()` function to match Pandoc's CLI flag `--metadata-file`.
 
-- Mentions that **webshot** or **webshot2** is required to take screenshot of HTML widget. When not installed, an error message mentionning `always_allow_html: true` solution will be shown, but setting this is not the solution (quarto-dev/quarto-cli#4225).
+- Mentions that **webshot** or **webshot2** is required to take screenshot of HTML widget. When not installed, an error message mentioning `always_allow_html: true` solution will be shown, but setting this is not the solution (quarto-dev/quarto-cli#4225).
 
 - `html_dependency_jqueryui()` updated to 1.13.2 from version bundled in shiny (thanks, @daschnerm, #2477).
 

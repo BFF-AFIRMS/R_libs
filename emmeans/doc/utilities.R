@@ -1,4 +1,4 @@
-## ---- echo = FALSE, results = "hide", message = FALSE---------------------------------------------
+## ----echo = FALSE, results = "hide", message = FALSE----------------------------------------------
 require("emmeans")
 emm_options(opt.digits = TRUE)
 knitr::opts_chunk$set(fig.width = 4.5, class.output = "ro") 
@@ -14,8 +14,8 @@ pigs.emm.s <- update(pigs.emm, infer = c(TRUE, TRUE), null = log(35),
 pigs.emm.s
 
 ## ----eval = FALSE---------------------------------------------------------------------------------
-#  emmeans(pigs.lm, "source", infer = c(TRUE, TRUE), null = log(35),
-#          calc = c(n = ".wgt."))
+# emmeans(pigs.lm, "source", infer = c(TRUE, TRUE), null = log(35),
+#         calc = c(n = ".wgt."))
 
 ## -------------------------------------------------------------------------------------------------
 get_emm_option("emmeans")
@@ -43,8 +43,8 @@ pigs.emm
 emm_options(opt.digits = TRUE)  # revert to optimal digits
 
 ## ----eval = FALSE---------------------------------------------------------------------------------
-#  options(emmeans = list(lmer.df = "satterthwaite",
-#                         contrast = list(infer = c(TRUE, FALSE))))
+# options(emmeans = list(lmer.df = "satterthwaite",
+#                        contrast = list(infer = c(TRUE, FALSE))))
 
 ## -------------------------------------------------------------------------------------------------
 rbind(pairs(pigs.emm.s), pigs.anal.p[[2]])
@@ -74,7 +74,7 @@ str(pigs.emm.ss)
 ## -------------------------------------------------------------------------------------------------
 emmeans(pigs.emm.ss, pairwise ~ type)
 
-## ---- message = FALSE-----------------------------------------------------------------------------
+## ----message = FALSE------------------------------------------------------------------------------
 warp <- transform(warpbreaks, treat = interaction(wool, tension))
 library(nlme)
 warp.gls <- gls(breaks ~ treat, weights = varIdent(form = ~ 1|treat), data = warp)

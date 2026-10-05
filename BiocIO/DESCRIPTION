@@ -1,11 +1,11 @@
 Package: BiocIO
 Title: Standard Input and Output for Bioconductor Packages
-Version: 1.10.0
+Version: 1.20.0
 Authors@R: c(
     person("Martin", "Morgan", role = "aut"),
     person("Michael", "Lawrence", role = "aut"),
     person("Daniel", "Van Twisk", role = "aut"),
-    person("Marcel", "Ramos", , "marcel.ramos@roswellpark.org",
+    person("Marcel", "Ramos", , "marcel.ramos@sph.cuny.edu",
         "cre", c(ORCID = "0000-0002-3242-0582")
     ))
 Description: The `BiocIO` package contains high-level abstract classes
@@ -25,7 +25,7 @@ Description: The `BiocIO` package contains high-level abstract classes
 License: Artistic-2.0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Depends: R (>= 4.3.0)
 Imports: BiocGenerics, S4Vectors, methods, tools
 Suggests: testthat, knitr, rmarkdown, BiocStyle
@@ -33,16 +33,18 @@ Collate: 'BiocFile.R' 'import_export.R' 'compression.R' 'utils.R'
 VignetteBuilder: knitr
 biocViews: Annotation,DataImport
 BugReports: https://github.com/Bioconductor/BiocIO/issues
+Date: 2024-11-21
 git_url: https://git.bioconductor.org/packages/BiocIO
-git_branch: RELEASE_3_17
-git_last_commit: 1368ff1
-git_last_commit_date: 2023-04-25
-Date/Publication: 2023-04-25
+git_branch: RELEASE_3_22
+git_last_commit: 2810f6a
+git_last_commit_date: 2025-10-29
+Repository: Bioconductor 3.22
+Date/Publication: 2025-10-29
 NeedsCompilation: no
-Packaged: 2023-04-25 20:19:38 UTC; biocbuild
+Packaged: 2025-10-30 02:47:15 UTC; biocbuild
 Author: Martin Morgan [aut],
   Michael Lawrence [aut],
   Daniel Van Twisk [aut],
-  Marcel Ramos [cre] (<https://orcid.org/0000-0002-3242-0582>)
-Maintainer: Marcel Ramos <marcel.ramos@roswellpark.org>
-Built: R 4.3.0; ; 2023-07-07 13:00:29 UTC; unix
+  Marcel Ramos [cre] (ORCID: <https://orcid.org/0000-0002-3242-0582>)
+Maintainer: Marcel Ramos <marcel.ramos@sph.cuny.edu>
+Built: R 4.5.0; ; 2026-09-03 23:10:28 UTC; unix

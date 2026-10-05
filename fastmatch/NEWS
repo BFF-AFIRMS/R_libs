@@ -1,6 +1,61 @@
  NEWS for fastmatch
 --------------------
 
+1.1-8	2025-01-18
+    o	fix protection bug in safe mode
+
+    o	remove index slicing since we don't pass the index
+
+
+1.1-7	2025-01-17
+    o	adjust to API changes up to R 4.6.0
+
+    o	add .SAFE argument to ctapply() which determines whether the
+	index and value vectors are cached between calls to FUN
+	(.SAFE=FALSE) or if a clean set of vectors is allocated for
+	each call (.SAFE=TRUE). The latter is now the default, because
+	cached vectors may not be assigned and thus are only safe to
+	use with some functions FUN (see ?ctapply and #1). Previous
+	versions behaved like .SAFE=FALSE.
+	
+	Note that .SAFE=FALSE is not supported in R 4.5.x, because
+	SETLENGTH has been declared illegal, but only R 4.6.0 has
+	growable vector support, so use R < 4.5.0 or R >= 4.6.0 if
+	needed.
+	
+	In general, the performance gain from .SAFE=FALSE is only
+	noticeable if X is big (~>1e7), INDEX creates a moderately
+	large number of groups and FUN is fast enough to not dominate
+	the cost. For example, ctapply(x, y, sum, .SAFE=FALSE) on 1e8
+	elements with average group length of 100 is ~25% faster than
+	.SAFE=TRUE, but if the group length is too small or too big
+	then either the call cost dominates or there are not enough
+	allocations to benefit from the cache.
+
+    o	add %!fin% which is the negation of %fin%
+
+
+1.1-6	2024-12-20
+    o	use C99 version of flexible arrays to avoid
+	false-positives in strict array sanitizers.
+
+    o	PROTECT fix when falling back to R's match
+	and coercion happened before.
+
+    o	bugfix: fast.hash returned the result instead of
+	the `table` argument. (#9)
+
+
+1.1-5	2024-02-14
+    o	bug fix: -0 in table= would never be matched,
+	because it was (correctly) hashed as 0, but final
+	comparison was 0 to -0 in the table. (#12)
+
+
+1.1-4	2023-06-13
+    o	use eval(match(...)) instead of match5 for safety
+
+
 1.1-3	2021-07-23
     o	don't call XLENGTH() on NULL objects
 

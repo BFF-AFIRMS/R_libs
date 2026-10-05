@@ -101,6 +101,8 @@ bold_children	bold_children
 bold_downstream	bold_downstream
 bold_ping	ping
 bold_search	bold_search
+bold_tax_id	bold_tax_id
+bold_tax_id2	bold_tax_id2
 cbind.classification	classification
 cbind.classification_ids	classification
 children	children
@@ -185,6 +187,7 @@ get_ids	get_ids
 get_ids_	get_ids
 get_id_details	get_id_details
 get_iucn	get_iucn
+get_iucn_data	get_iucn_data
 get_natservid	get_natservid
 get_natservid_	get_natservid
 get_nbnid	get_nbnid
@@ -207,12 +210,15 @@ get_wiki_	get_wiki
 get_wormsid	get_wormsid
 get_wormsid_	get_wormsid
 gisd_isinvasive	gisd_invasive-defunct
+gna_data_sources	gna_data_sources
+gna_parse	gna_parse
+gna_search	gna_search
+gna_verifier	gna_verifier
 gni_details	gni_details
 gni_parse	gni_parse
-gni_search	gni_search
+gni_seach	gni_seach
 gnr_datasources	gnr_datasources
 gnr_resolve	gnr_resolve
-gn_parse	gn_parse
 id2name	id2name
 id2name.boldid	id2name
 id2name.default	id2name
@@ -241,7 +247,6 @@ iucn_getname	iucn_getname
 iucn_id	iucn_id
 iucn_status	iucn_status
 iucn_summary	iucn_summary
-iucn_summary_id	iucn_summary_id-defunct
 key_helpers	key_helpers
 limited_print	limited_print
 lowest_common	lowest_common

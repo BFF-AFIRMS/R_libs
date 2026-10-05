@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="William Gearty" />
+
+<meta name="date" content="2025-09-03" />
+
+<title>Using rredlist within a research workflow</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Using rredlist within a research
+workflow</h1>
+<h4 class="author">William Gearty</h4>
+<h4 class="date">2025-09-03</h4>
+
+
+
+<div style="text-align: justify">
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>Once you have <code>rredlist</code> <a href="rredlist.html">set
+up</a>, it’s very likely you’ll want to use it for some sort of research
+workflow. This vignette gives examples of the kinds of data that users
+may be interested in downloading from the IUCN API, and how they might
+then use that data within a partial research workflow. I’ve given three
+worked examples, but because the possibilities are pretty endless, I’ve
+also cited some recent published works at the bottom of the vignette to
+cover a wider variety of use cases.</p>
+<p>Before we get started, we’ll just load some packages that we’ll need.
+We’ll use <code>{dplyr}</code> for handling and cleaning our data, and
+we’ll use <code>{ggplot2}</code> and <code>{patchwork}</code> for
+visualizing our data.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(rredlist)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code></pre></div>
+</div>
+<div id="how-have-mollusc-assessments-increased-through-time" class="section level2">
+<h2>How have mollusc assessments increased through time?</h2>
+<p>For our first research workflow, we are interested in the assessment
+of molluscs through time. Specifically, we are interested in how many
+cumulative assessments have been completed each year, and how many
+cumulative species have then been assessed each year. First, we’ll need
+to download an assessment summary for Mollusca. Note that while I’ve
+used <code>quiet = TRUE</code> here for the purposes of the vignette,
+you would likely want to skip that to get a lovely progress bar that
+keeps you apprised of the download’s progress since there are quite a
+few pages of assessments to download.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>moll_assessments <span class="ot">&lt;-</span> <span class="fu">rl_phylum</span>(<span class="at">phylum =</span> <span class="st">&quot;Mollusca&quot;</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Now that we have our assessment summary, we can summarize the data by
+calculating the cumulative numbers of assessments through time. This is
+a fairly basic <code>{dplyr}</code> pipeline that counts the number of
+assessments for each year, then orders those counts from oldest to most
+recent, then calculates the cumulative sum of the counts.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>moll_counts <span class="ot">&lt;-</span> moll_assessments<span class="sc">$</span>assessments <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="fu">group_by</span>(year_published) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">assess_cnt =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year_published =</span> <span class="fu">as.numeric</span>(year_published)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  <span class="fu">arrange</span>(year_published) <span class="sc">%&gt;%</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">assess_cum =</span> <span class="fu">cumsum</span>(assess_cnt))</span></code></pre></div>
+<p>Now that we have our cumulative sums, we can make a simple plot.
+We’ll save it for later to combine with our second plot.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>gg1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(moll_counts) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> year_published, <span class="at">y =</span> assess_cum)) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Cumulative # of Assessments&quot;</span>) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code></pre></div>
+<p>Now let’s see how many cumulative <em>species</em> are assessed by
+year. In order to do this, we’ll first need to filter to only the first
+assessment for each species using <code>arrange()</code> and
+<code>slice()</code>. Then we can calculate the cumulative sum as we did
+for the assessments above.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>moll_sp_counts <span class="ot">&lt;-</span> moll_assessments<span class="sc">$</span>assessments <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year_published =</span> <span class="fu">as.numeric</span>(year_published)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="fu">group_by</span>(sis_taxon_id) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="fu">arrange</span>(year_published) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>  <span class="fu">group_by</span>(year_published) <span class="sc">%&gt;%</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">sp_cnt =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year_published =</span> <span class="fu">as.numeric</span>(year_published)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>  <span class="fu">arrange</span>(year_published) <span class="sc">%&gt;%</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sp_cum =</span> <span class="fu">cumsum</span>(sp_cnt))</span></code></pre></div>
+<p>Now that we have our species cumulative sums, we can visualize that
+and combine the two plots together.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>gg2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(moll_sp_counts) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> year_published, <span class="at">y =</span> sp_cum)) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Cumulative # of Species Assessed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>gg1 <span class="sc">/</span> gg2</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img role="img" aria-label="plot of chunk unnamed-chunk-7" src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-7" />
+<p class="caption">
+plot of chunk unnamed-chunk-7
+</p>
+</div>
+<p>Et voila! Now we have a fairly straightforward visualization of
+mollusc IUCN assessment through time, indicating that there were some
+booms and lulls over this interval. We also see one or two instances
+where the majority of the assessments were of previously assessed
+species instead of new species.</p>
+</div>
+<div id="what-is-the-conservation-status-of-australian-reptiles" class="section level2">
+<h2>What is the conservation status of Australian reptiles?</h2>
+<p>That first workflow only used an assessment summary, but there is so
+much more data available via the IUCN API if we retrieve entire
+assessments. Of course, these assessments include the threat status of
+each species, so let’s start with that. In this case, we’ll assess the
+overall threat status of differences orders of Australian reptiles.</p>
+<p>First, we’ll need to figure out which Australian reptiles have been
+assessed. Unfortunately, we can’t do this in a single query, so we’ll
+need to get the intersection of all reptiles that have been assessed and
+all Australian species that have been assessed. Let’s get the Australian
+species assessment summary first. Hmm…what’s the code for Australia,
+again? I can’t remember, so let’s look it up using the default behavior
+of <code>rl_countries()</code> which returns all country codes:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">rl_countries</span>()</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co">#&gt; $countries</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co">#&gt;                                               en code</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#&gt; 1                                        Andorra   AD</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt; 2                           United Arab Emirates   AE</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; 3                                    Afghanistan   AF</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt; 4                            Antigua and Barbuda   AG</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co">#&gt; 5                                       Anguilla   AI</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt; 6                                        Albania   AL</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt; 7                                        Armenia   AM</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt; 8                                         Angola   AO</span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt; 9                                     Antarctica   AQ</span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt; 10                                     Argentina   AR</span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt; 11                                American Samoa   AS</span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt; 12                                       Austria   AT</span></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co">#&gt; 13                                     Australia   AU</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt; 14                                         Aruba   AW</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt; 15                                 Åland Islands   AX</span></span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="co">#&gt; 16                                    Azerbaijan   AZ</span></span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co">#&gt; 17                        Bosnia and Herzegovina   BA</span></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="co">#&gt; 18                                      Barbados   BB</span></span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a>...</span></code></pre></div>
+<p>Ah, “AU”, of course! Now we can get an assessment summary for all
+species that occur in Australia. As opposed to the first use case above,
+we only care about which species have been assessed, so we’ll only
+retrieve the latest assessments using <code>latest = TRUE</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>au_assessments <span class="ot">&lt;-</span> <span class="fu">rl_countries</span>(<span class="at">code =</span> <span class="st">&quot;AU&quot;</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>, <span class="at">latest =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="fu">names</span>(au_assessments)</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co">#&gt; [1] &quot;country&quot;     &quot;assessments&quot; &quot;filters&quot;</span></span></code></pre></div>
+<p>You’ll notice that the returned assessment actually contains more
+than just the assessment, it includes information about the query we
+made (“metadata”, if you will). Let’s check that it matches what we
+meant to search:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>au_assessments<span class="sc">$</span>country</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="co">#&gt; $description</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="co">#&gt; $description$en</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Australia&quot;</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt; $code</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt; [1] &quot;AU&quot;</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>au_assessments<span class="sc">$</span>filters</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt; $latest</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; [1] &quot;TRUE&quot;</span></span></code></pre></div>
+<p>Yep, that looks good! Now let’s inspect the format of the assessment
+summary:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">names</span>(au_assessments<span class="sc">$</span>assessments)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;year_published&quot;               &quot;latest&quot;                       &quot;possibly_extinct&quot;             &quot;possibly_extinct_in_the_wild&quot;</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;sis_taxon_id&quot;                 &quot;url&quot;                          &quot;taxon_scientific_name&quot;        &quot;red_list_category_code&quot;      </span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;assessment_id&quot;                &quot;code&quot;                         &quot;code_type&quot;                    &quot;scopes&quot;</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="fu">head</span>(au_assessments<span class="sc">$</span>assessments)</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co">#&gt;   year_published latest possibly_extinct possibly_extinct_in_the_wild sis_taxon_id                                               url</span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="co">#&gt; 1           2020   TRUE            FALSE                        FALSE        10030  https://www.iucnredlist.org/species/10030/495630</span></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#&gt; 2           2014   TRUE            FALSE                        FALSE        11150  https://www.iucnredlist.org/species/11150/500780</span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="co">#&gt; 3           2019   TRUE            FALSE                        FALSE        11200  https://www.iucnredlist.org/species/11200/500969</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="co">#&gt; 4           2013   TRUE            FALSE                        FALSE       137084 https://www.iucnredlist.org/species/137084/519692</span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co">#&gt; 5           2013   TRUE            FALSE                        FALSE       137097 https://www.iucnredlist.org/species/137097/519904</span></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="co">#&gt; 6           2013   TRUE            FALSE                        FALSE       137119 https://www.iucnredlist.org/species/137119/520192</span></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co">#&gt;   taxon_scientific_name red_list_category_code assessment_id code code_type    scopes</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co">#&gt; 1     Hexanchus griseus                     NT        495630   AU   country Global, 1</span></span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="co">#&gt; 2  Lagocephalus gloveri                     DD        500780   AU   country Global, 1</span></span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="co">#&gt; 3           Lamna nasus                     VU        500969   AU   country Global, 1</span></span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="co">#&gt; 4     Onthophagus manya                     LC        519692   AU   country Global, 1</span></span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="co">#&gt; 5   Coptodactyla lesnei                     LC        519904   AU   country Global, 1</span></span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="co">#&gt; 6  Onthophagus lamgalio                     DD        520192   AU   country Global, 1</span></span></code></pre></div>
+<p>We could go ahead and download the full assessments for all
+Australian species now, but downloading full assessments is the slowest
+part of the workflow, so let’s get an assessment summary for reptiles
+first, then only download full assessments for Australian reptiles.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>reptilia_assessments <span class="ot">&lt;-</span> <span class="fu">rl_class</span>(<span class="at">class =</span> <span class="st">&quot;Reptilia&quot;</span>, <span class="at">latest =</span> <span class="cn">TRUE</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>OK, now we’ve got our assessment summaries for Australian species and
+for reptiles. We can take those two lists of assessments and find the
+intersection of them to get the list of assessment IDs for Australian
+reptiles.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>assessment_ids <span class="ot">&lt;-</span> <span class="fu">intersect</span>(au_assessments<span class="sc">$</span>assessments<span class="sc">$</span>assessment_id,</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>                            reptilia_assessments<span class="sc">$</span>assessments<span class="sc">$</span>assessment_id)</span></code></pre></div>
+<p>Now that we have this list of IDs, we can download the full
+assessment information. Before we download full assessments for all of
+these IDs, let’s first take a look at what that looks like for the first
+assessment. We do that using <code>rl_assessment()</code>.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>assessment <span class="ot">&lt;-</span> <span class="fu">rl_assessment</span>(assessment_ids[<span class="dv">1</span>])</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">names</span>(assessment)</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;assessment_date&quot;              &quot;year_published&quot;               &quot;latest&quot;                       &quot;possibly_extinct&quot;            </span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;possibly_extinct_in_the_wild&quot; &quot;sis_taxon_id&quot;                 &quot;criteria&quot;                     &quot;url&quot;                         </span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;citation&quot;                     &quot;assessment_id&quot;                &quot;assessment_points&quot;            &quot;assessment_ranges&quot;           </span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">#&gt; [13] &quot;taxon&quot;                        &quot;population_trend&quot;             &quot;red_list_category&quot;            &quot;supplementary_info&quot;          </span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="co">#&gt; [17] &quot;documentation&quot;                &quot;biogeographical_realms&quot;       &quot;conservation_actions&quot;         &quot;faos&quot;                        </span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="co">#&gt; [21] &quot;habitats&quot;                     &quot;locations&quot;                    &quot;researches&quot;                   &quot;use_and_trade&quot;               </span></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="co">#&gt; [25] &quot;threats&quot;                      &quot;credits&quot;                      &quot;errata&quot;                       &quot;references&quot;                  </span></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="co">#&gt; [29] &quot;growth_forms&quot;                 &quot;lmes&quot;                         &quot;scopes&quot;                       &quot;stresses&quot;                    </span></span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="co">#&gt; [33] &quot;systems&quot;</span></span></code></pre></div>
+<p>Now you can see why downloading this information will take a while;
+that’s a lot of data! The information available from the IUCN API spans
+ecology, threats, references, and more!</p>
+<p>Now we’ll go ahead and download the full records for all of our
+assessments. Note that performing this many large queries over a short
+period of time may result in getting timed out by the API. If you do get
+timed out, <code>rredlist</code> will automatically retry the query
+after a short wait time. By default, if you get timed out more than 3
+times for the same query, the query will be stopped and throw an error,
+forcing you to try the entire download again. You can customize the
+settings related to these retries, including the wait time and the
+number of retries. Since this is a pretty large download that we don’t
+want to have to redo, we could increase the number of retries to 10
+(from the default of 3), like so:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>assessment_list <span class="ot">&lt;-</span> <span class="fu">lapply</span>(assessment_ids, rl_assessment, <span class="at">times =</span> <span class="dv">10</span>)</span></code></pre></div>
+<p>Alternatively, if we know we might get timed out because of the
+download size, we could impose our own wait time between each query to
+proactively prevent timeouts. IUCN recommends a wait time of 0.5 seconds
+between queries to avoid timeouts. We can use <code>Sys.sleep()</code>
+to impose such a wait before each query.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>assessment_list <span class="ot">&lt;-</span> <span class="fu">lapply</span>(assessment_ids,</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>                          <span class="cf">function</span>(x) {</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>                            <span class="fu">Sys.sleep</span>(<span class="fl">0.5</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>                            <span class="fu">rl_assessment</span>(x)</span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>                          }</span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>                          )</span></code></pre></div>
+<p>However, instead of worrying about all of this, we can also use the
+<code>rl_assessment_list()</code> helper function that is included with
+<code>rredlist</code>. This function will retrieve multiple assessments
+for you while also making sure to wait for a given amount of time (0.5
+seconds, by default, as recommended by IUCN) between queries.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>assessment_list <span class="ot">&lt;-</span> <span class="fu">rl_assessment_list</span>(assessment_ids)</span></code></pre></div>
+<p>OK, now, after a bit of a wait, we have our full assessment records!
+Each item of this list is a single assessment record. And each
+assessment record is also a list, with each element representing a
+different kind of data in the record (e.g., habitats, taxonomy). For
+this workflow, we only really care about the taxonomic and threat
+category data, so let’s extract those elements from each list item using
+<code>rl_assessment_extract()</code>. Note that the
+<code>flatten = TRUE</code> option for
+<code>rl_assessment_extract()</code> requires the <code>dplyr</code>,
+<code>tibble</code>, and <code>tidyr</code> packages to be
+installed.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>assessment_df <span class="ot">&lt;-</span> <span class="fu">rl_assessment_extract</span>(assessment_list, <span class="fu">c</span>(<span class="st">&quot;taxon&quot;</span>, <span class="st">&quot;red_list_category__code&quot;</span>), <span class="at">format =</span> <span class="st">&quot;df&quot;</span>, <span class="at">flatten =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>We’ll do some very minor data cleaning and filtering. In this case,
+some of the assessments use old threat codes, so we’ll exclude them from
+further analyses. We’ll also convert the category column to an ordered
+factor for visualization purposes.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>assessment_df <span class="ot">&lt;-</span> assessment_df <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">code =</span> <span class="fu">factor</span>(code,</span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>                           <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;DD&quot;</span>, <span class="st">&quot;LC&quot;</span>, <span class="st">&quot;NT&quot;</span>, <span class="st">&quot;VU&quot;</span>, <span class="st">&quot;EN&quot;</span>, <span class="st">&quot;CR&quot;</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>                                      <span class="st">&quot;EW&quot;</span>, <span class="st">&quot;EX&quot;</span>),</span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>                           <span class="at">ordered =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(code))</span></code></pre></div>
+<p>Now let’s make a plot! Here we are visualizing the number of reptiles
+in each threat category, split out by their order (crocs vs. lizards
+vs. turtles). Note that <code>rredlist</code> includes a custom color
+palette for use with <code>{ggplot2}</code> that matches the official
+IUCN threat category color scheme (<code>scale_fill_iucn()</code> for
+the fill aesthetic and <code>scale_color_iucn()</code> for the color
+aesthetic).</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">ggplot</span>(assessment_df) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> code, <span class="at">fill =</span> code), <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>  <span class="fu">scale_fill_iucn</span>() <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>order_name, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;IUCN Category&quot;</span>, <span class="at">y =</span> <span class="st">&quot;# of Species&quot;</span>) <span class="sc">+</span></span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img role="img" aria-label="plot of chunk unnamed-chunk-20" src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-20" />
+<p class="caption">
+plot of chunk unnamed-chunk-20
+</p>
+</div>
+<p>We can do some quick data manipulation to calculate the proportions
+of species in each threat category instead of counts to make comparisons
+between the orders easier.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>assessment_props <span class="ot">&lt;-</span> assessment_df <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>  <span class="fu">group_by</span>(order_name) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>  <span class="fu">count</span>(code, <span class="at">name =</span> <span class="st">&quot;cnt&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> cnt<span class="sc">/</span><span class="fu">sum</span>(cnt))</span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a><span class="fu">ggplot</span>(assessment_props) <span class="sc">+</span></span>
+<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">y =</span> order_name, <span class="at">x =</span> prop, <span class="at">fill =</span> code)) <span class="sc">+</span></span>
+<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a>  <span class="fu">scale_fill_iucn</span>(<span class="at">name =</span> <span class="cn">NULL</span>, <span class="at">limits =</span> rev) <span class="sc">+</span></span>
+<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>()) <span class="sc">+</span></span>
+<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Proportion of Species&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Order&quot;</span>) <span class="sc">+</span></span>
+<span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img role="img" aria-label="plot of chunk unnamed-chunk-21" src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-21" />
+<p class="caption">
+plot of chunk unnamed-chunk-21
+</p>
+</div>
+<p>And that’s that! You’ll see that Australian turtles are all
+threatened, whereas Australian crocodiles and lizards tend to be not
+threatened.</p>
+</div>
+<div id="what-habitats-do-conifers-and-cycads-occur-in" class="section level2">
+<h2>What habitats do conifers and cycads occur in?</h2>
+<p>Some taxonomic or functional groups are stored as “comprehensive
+groups” within the API. These often correspond to groups of taxa that
+groups of assessors care about. Many of these correspond to groups that
+are not otherwise query-able by taxonomy such as clades of plants. Let’s
+take a look at what comprehensive groups exist in the database:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">rl_comp_groups</span>()</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="co">#&gt; $comprehensive_group</span></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="co">#&gt;     high  comp                       name          higher_name</span></span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="co">#&gt; 1   TRUE  TRUE                 amphibians           amphibians</span></span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="co">#&gt; 2  FALSE  TRUE                angelfishes selected_bony_fishes</span></span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="co">#&gt; 3   TRUE  TRUE                      birds                birds</span></span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="co">#&gt; 4  FALSE  TRUE                   blennies selected_bony_fishes</span></span>
+<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a><span class="co">#&gt; 5  FALSE  TRUE           butterfly_fishes selected_bony_fishes</span></span>
+<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a><span class="co">#&gt; 6  FALSE  TRUE                      cacti      selected_dicots</span></span>
+<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a><span class="co">#&gt; 7  FALSE  TRUE                 chameleons    selected_reptiles</span></span>
+<span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a><span class="co">#&gt; 8  FALSE  TRUE                cone_snails  selected_gastropods</span></span>
+<span id="cb21-12"><a href="#cb21-12" tabindex="-1"></a><span class="co">#&gt; 9  FALSE  TRUE                   conifers             conifers</span></span>
+<span id="cb21-13"><a href="#cb21-13" tabindex="-1"></a><span class="co">#&gt; 10 FALSE  TRUE  crocodiles_and_alligators    selected_reptiles</span></span>
+<span id="cb21-14"><a href="#cb21-14" tabindex="-1"></a><span class="co">#&gt; 11 FALSE  TRUE                     cycads               cycads</span></span>
+<span id="cb21-15"><a href="#cb21-15" tabindex="-1"></a><span class="co">#&gt; 12 FALSE  TRUE        fw_caridean_shrimps selected_crustaceans</span></span>
+<span id="cb21-16"><a href="#cb21-16" tabindex="-1"></a><span class="co">#&gt; 13 FALSE  TRUE                   fw_crabs selected_crustaceans</span></span>
+<span id="cb21-17"><a href="#cb21-17" tabindex="-1"></a><span class="co">#&gt; 14 FALSE  TRUE                fw_crayfish selected_crustaceans</span></span>
+<span id="cb21-18"><a href="#cb21-18" tabindex="-1"></a><span class="co">#&gt; 15 FALSE  TRUE                   groupers selected_bony_fishes</span></span>
+<span id="cb21-19"><a href="#cb21-19" tabindex="-1"></a><span class="co">#&gt; 16 FALSE  TRUE                  hagfishes                 &lt;NA&gt;</span></span>
+<span id="cb21-20"><a href="#cb21-20" tabindex="-1"></a><span class="co">#&gt; 17 FALSE  TRUE                   lobsters selected_crustaceans</span></span>
+<span id="cb21-21"><a href="#cb21-21" tabindex="-1"></a><span class="co">#&gt; 18 FALSE  TRUE                  magnolias      selected_dicots</span></span>
+<span id="cb21-22"><a href="#cb21-22" tabindex="-1"></a><span class="co">#&gt; 19  TRUE  TRUE                    mammals              mammals</span></span>
+<span id="cb21-23"><a href="#cb21-23" tabindex="-1"></a><span class="co">#&gt; 20 FALSE  TRUE            mangrove_plants                 &lt;NA&gt;</span></span>
+<span id="cb21-24"><a href="#cb21-24" tabindex="-1"></a><span class="co">#&gt; 21 FALSE  TRUE             marine_turtles    selected_reptiles</span></span>
+<span id="cb21-25"><a href="#cb21-25" tabindex="-1"></a><span class="co">#&gt; 22 FALSE  TRUE               pufferfishes selected_bony_fishes</span></span>
+<span id="cb21-26"><a href="#cb21-26" tabindex="-1"></a><span class="co">#&gt; 23 FALSE  TRUE       reef_building_corals  reef_forming_corals</span></span>
+<span id="cb21-27"><a href="#cb21-27" tabindex="-1"></a><span class="co">#&gt; 24 FALSE  TRUE seabreams_porgies_picarels selected_bony_fishes</span></span>
+<span id="cb21-28"><a href="#cb21-28" tabindex="-1"></a><span class="co">#&gt; 25 FALSE  TRUE                 seagrasses                 &lt;NA&gt;</span></span>
+<span id="cb21-29"><a href="#cb21-29" tabindex="-1"></a><span class="co">#&gt; 26 FALSE  TRUE                  seasnakes    selected_reptiles</span></span>
+<span id="cb21-30"><a href="#cb21-30" tabindex="-1"></a><span class="co">#&gt; 27 FALSE  TRUE            sharks_and_rays      sharks_and_rays</span></span>
+<span id="cb21-31"><a href="#cb21-31" tabindex="-1"></a><span class="co">#&gt; 28 FALSE  TRUE                  sturgeons selected_bony_fishes</span></span>
+<span id="cb21-32"><a href="#cb21-32" tabindex="-1"></a><span class="co">#&gt; 29 FALSE  TRUE              surgeonfishes selected_bony_fishes</span></span>
+<span id="cb21-33"><a href="#cb21-33" tabindex="-1"></a><span class="co">#&gt; 30 FALSE  TRUE     tarpons_and_ladyfishes selected_bony_fishes</span></span>
+<span id="cb21-34"><a href="#cb21-34" tabindex="-1"></a><span class="co">#&gt; 31 FALSE  TRUE       tunas_and_billfishes selected_bony_fishes</span></span>
+<span id="cb21-35"><a href="#cb21-35" tabindex="-1"></a><span class="co">#&gt; 32 FALSE  TRUE   wrasses_and_parrotfishes selected_bony_fishes</span></span>
+<span id="cb21-36"><a href="#cb21-36" tabindex="-1"></a><span class="co">#&gt; 33  TRUE FALSE                  arachnids                 &lt;NA&gt;</span></span>
+<span id="cb21-37"><a href="#cb21-37" tabindex="-1"></a><span class="co">#&gt; 34  TRUE FALSE                brown_algae                 &lt;NA&gt;</span></span>
+<span id="cb21-38"><a href="#cb21-38" tabindex="-1"></a><span class="co">#&gt; 35  TRUE FALSE                     corals                 &lt;NA&gt;</span></span>
+<span id="cb21-39"><a href="#cb21-39" tabindex="-1"></a><span class="co">#&gt; 36  TRUE FALSE                crustaceans                 &lt;NA&gt;</span></span>
+<span id="cb21-40"><a href="#cb21-40" tabindex="-1"></a><span class="co">#&gt; 37  TRUE FALSE          fernes_and_allies                 &lt;NA&gt;</span></span>
+<span id="cb21-41"><a href="#cb21-41" tabindex="-1"></a><span class="co">#&gt; 38  TRUE FALSE                     fishes                 &lt;NA&gt;</span></span>
+<span id="cb21-42"><a href="#cb21-42" tabindex="-1"></a><span class="co">#&gt; 39  TRUE FALSE           flowering_plants                 &lt;NA&gt;</span></span>
+<span id="cb21-43"><a href="#cb21-43" tabindex="-1"></a><span class="co">#&gt; 40  TRUE FALSE                green_algae                 &lt;NA&gt;</span></span>
+<span id="cb21-44"><a href="#cb21-44" tabindex="-1"></a><span class="co">#&gt; 41  TRUE FALSE                gymnosperms                 &lt;NA&gt;</span></span>
+<span id="cb21-45"><a href="#cb21-45" tabindex="-1"></a><span class="co">#&gt; 42  TRUE FALSE            horseshoe_crabs                 &lt;NA&gt;</span></span>
+<span id="cb21-46"><a href="#cb21-46" tabindex="-1"></a><span class="co">#&gt; 43  TRUE FALSE                    insects                 &lt;NA&gt;</span></span>
+<span id="cb21-47"><a href="#cb21-47" tabindex="-1"></a><span class="co">#&gt; 44  TRUE FALSE                    lichens                 &lt;NA&gt;</span></span>
+<span id="cb21-48"><a href="#cb21-48" tabindex="-1"></a><span class="co">#&gt; 45  TRUE FALSE                   molluscs                 &lt;NA&gt;</span></span>
+<span id="cb21-49"><a href="#cb21-49" tabindex="-1"></a><span class="co">#&gt; 46  TRUE FALSE                     mosses                 &lt;NA&gt;</span></span>
+<span id="cb21-50"><a href="#cb21-50" tabindex="-1"></a><span class="co">#&gt; 47  TRUE FALSE                  mushrooms                 &lt;NA&gt;</span></span>
+<span id="cb21-51"><a href="#cb21-51" tabindex="-1"></a><span class="co">#&gt; 48  TRUE FALSE                     others                 &lt;NA&gt;</span></span>
+<span id="cb21-52"><a href="#cb21-52" tabindex="-1"></a><span class="co">#&gt; 49  TRUE FALSE                  red_algae                 &lt;NA&gt;</span></span>
+<span id="cb21-53"><a href="#cb21-53" tabindex="-1"></a><span class="co">#&gt; 50  TRUE FALSE                   reptiles                 &lt;NA&gt;</span></span>
+<span id="cb21-54"><a href="#cb21-54" tabindex="-1"></a><span class="co">#&gt; 51  TRUE FALSE               velvet_worms                 &lt;NA&gt;</span></span></code></pre></div>
+<p>OK, since we have gymnosperms split into conifers and cycads, let’s
+compare these two groups. Let’s also introduce another type of data in
+assessments: <em>habitat</em>.</p>
+<p>We’ll start with the cycads and download a summary of their latest
+assessments. We’ll then download the full assessment records based on
+that summary. Finally, we’ll extract the <code>habitats</code> and
+<code>taxon</code> data.frame from each assessment record. Note that for
+each assessment, there are one or more habitats assigned to the species.
+There is also often habitat suitability data, although we’ll ignore that
+for today.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>cycad_assessments <span class="ot">&lt;-</span> <span class="fu">rl_comp_groups</span>(<span class="st">&quot;cycads&quot;</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>, <span class="at">latest =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>cycad_data <span class="ot">&lt;-</span> <span class="fu">rl_assessment_list</span>(cycad_assessments<span class="sc">$</span>assessments<span class="sc">$</span>assessment_id)</span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>cycad_habitats <span class="ot">&lt;-</span> <span class="fu">rl_assessment_extract</span>(cycad_data, <span class="fu">c</span>(<span class="st">&quot;taxon&quot;</span>, <span class="st">&quot;habitats&quot;</span>), <span class="at">format =</span> <span class="st">&quot;df&quot;</span>, <span class="at">flatten =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Now we can do the same thing for conifers:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>conifer_assessments <span class="ot">&lt;-</span> <span class="fu">rl_comp_groups</span>(<span class="st">&quot;conifers&quot;</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>, <span class="at">latest =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>conifer_data <span class="ot">&lt;-</span> <span class="fu">rl_assessment_list</span>(conifer_assessments<span class="sc">$</span>assessments<span class="sc">$</span>assessment_id)</span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a>conifer_habitats <span class="ot">&lt;-</span> <span class="fu">rl_assessment_extract</span>(conifer_data, <span class="fu">c</span>(<span class="st">&quot;habitats&quot;</span>, <span class="st">&quot;taxon&quot;</span>), <span class="at">format =</span> <span class="st">&quot;df&quot;</span>, <span class="at">flatten =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Now that we have habitat data for both clades, let’s combine them and
+clean up the data a bit. We can also use <code>rl_habitats()</code>
+without any arguments to get descriptions of the different habitats. For
+visualization purposes, we’ll shorten the descriptions to anything
+outside of the parentheses. Also, we’ll collapse all of the habitats
+into their major habitats (i.e., codes without underscores), since the
+visualization would be pretty messy otherwise.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>habitats <span class="ot">&lt;-</span> <span class="fu">rl_habitats</span>()<span class="sc">$</span>habitats <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">s</span><span class="sc">\\</span><span class="st">(.*$&quot;</span>, <span class="st">&quot;&quot;</span>, description<span class="sc">$</span>en))</span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>gymno_habitats <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(<span class="at">Cycads =</span> cycad_habitats,</span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a>                            <span class="at">Conifers =</span> conifer_habitats, <span class="at">.id =</span> <span class="st">&quot;clade&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">code_major =</span> <span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">_[0-9]*$&quot;</span>, <span class="st">&quot;&quot;</span>, code)) <span class="sc">%&gt;%</span></span>
+<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">code_major =</span> <span class="fu">factor</span>(<span class="fu">as.numeric</span>(code_major), <span class="at">ordered =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb24-8"><a href="#cb24-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">habitat_major =</span> habitats<span class="sc">$</span>label[<span class="fu">match</span>(code_major, habitats<span class="sc">$</span>code)])</span></code></pre></div>
+<p>We’ll now summarize the data. First, we’ll make sure to remove any
+duplicates now that we’re using the major habitats. Then, we count how
+many of each clade exist in each habitat. Since the two clades have
+different numbers of species, we then divide by the number of unique
+assessed species in each clade to get the proportions of species in each
+habitat so we can easily compare between the two clades.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>gymno_counts <span class="ot">&lt;-</span> gymno_habitats <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>  <span class="fu">select</span>(sis_id, clade, code_major, habitat_major) <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a>  <span class="fu">group_by</span>(clade) <span class="sc">%&gt;%</span></span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a>  <span class="fu">count</span>(code_major, habitat_major, <span class="at">name =</span> <span class="st">&quot;cnt&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> cnt<span class="sc">/</span><span class="fu">length</span>(</span>
+<span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a>    <span class="fu">unique</span>(<span class="fu">subset</span>(gymno_habitats, clade <span class="sc">==</span> <span class="fu">cur_group</span>()<span class="sc">$</span>clade)<span class="sc">$</span>sis_id)</span>
+<span id="cb25-8"><a href="#cb25-8" tabindex="-1"></a>  ))</span></code></pre></div>
+<p>And now we can plot our proportions:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">ggplot</span>(gymno_counts) <span class="sc">+</span></span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> prop, <span class="at">y =</span> code_major, <span class="at">fill =</span> clade),</span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>           <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">preserve =</span> <span class="st">&quot;single&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">name =</span> <span class="cn">NULL</span>, <span class="at">palette =</span> <span class="st">&quot;Dark2&quot;</span>, <span class="at">limits =</span> rev) <span class="sc">+</span></span>
+<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>()) <span class="sc">+</span></span>
+<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">labels =</span> <span class="cf">function</span>(breaks) {</span>
+<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a>    habitats<span class="sc">$</span>label[<span class="fu">match</span>(breaks, habitats<span class="sc">$</span>code)]</span>
+<span id="cb26-9"><a href="#cb26-9" tabindex="-1"></a>  }, <span class="at">limits =</span> rev) <span class="sc">+</span></span>
+<span id="cb26-10"><a href="#cb26-10" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Proportion of Species in Habitat&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Habitat&quot;</span>) <span class="sc">+</span></span>
+<span id="cb26-11"><a href="#cb26-11" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center">
+<img role="img" aria-label="plot of chunk unnamed-chunk-27" src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-27" />
+<p class="caption">
+plot of chunk unnamed-chunk-27
+</p>
+</div>
+<p>Tada! As you maybe expected, cycads and conifers live in fairly
+similar habitats, although conifers tend to live in forests slightly
+more than cycads, whereas some cycads live in rocky areas.</p>
+</div>
+<div id="some-recent-published-uses-of-rredlist" class="section level2">
+<h2>Some recent published uses of <code>rredlist</code></h2>
+<p>Since I can’t cover all potential use cases of <code>rredlist</code>,
+here is a selection of publications that have recently used the
+<code>rredlist</code> as part of their research pipeline:</p>
+<ul>
+<li>Bates, R., Taylor, E., Sun, Y., Gumbs, R., Böhm, M., Gray, C. and
+Rosindell, J. 2024. Quantifying the IUCN Red List: Using historical
+assessments to calculate future extinction risk. bioRxiv. <a href="https://doi.org/10.1101/2024.02.04.578808" class="uri">https://doi.org/10.1101/2024.02.04.578808</a>.
+<ul>
+<li>Collected species data and historical Red List assessment data</li>
+</ul></li>
+<li>Divieso, R., Pie, M.R. and Hortal, J. 2024. On the macroecology of
+rarity and vulnerability to extinction in terrestrial mammals.
+Biological Conservation. 296. <a href="https://doi.org/10.1016/j.biocon.2024.110673" class="uri">https://doi.org/10.1016/j.biocon.2024.110673</a>.
+<ul>
+<li>Collected conservation status of species</li>
+</ul></li>
+<li>Turner, J.A., Starkey, M., Dulvy, N.K., Hawkins, F., Mair, L.,
+Serckx, A., Brooks, T., Polidoro, B., Butchart, S.H., Carpenter, K.,
+Epps, M., Jabado, R.W., Macfarlane, N.B.W., and Bennun, L. 2024.
+Targeting ocean conservation outcomes through threat reduction. npj
+Ocean Sustainability 3(1). <a href="https://doi.org/10.1038/s44183-023-00040-8" class="uri">https://doi.org/10.1038/s44183-023-00040-8</a>.
+<ul>
+<li>Collected habitat preferences and threat information for
+species</li>
+</ul></li>
+<li>Pacifici, M., Cristiano, A., Lumbierres, M., Lucherini, M., Mallon,
+D., Meijaard, E., Solari, S., Tognelli, M.F., Belant, J.L., Butynski,
+T.M., Cronin, D., d’Huart, J.P., Da Re, D., de Jong, Y.A., Dheer, A.,
+Fei, L., Gallina, S., Goodrich, J.M., Harihar, A., Lopez Gonzalez, C.A.,
+King, S.R.B., Lewison, R.L., de Melo, F.R., Napolitano, C., Rahman,
+D.A., Robinson, P.T., Robinson, T., Rondinini, C., Semiadi, G., Strier,
+K., Talebi, M., Taylor, W.A., Thiel-Bender, C., Ting, N., and Wiesel, I.
+2023. Drivers of habitat availability for terrestrial mammals:
+Unravelling the role of livestock, land conversion and intrinsic traits
+in the past 50 years. Global Change Biology, 29(24):6900-6911. <a href="https://doi.org/10.1111/gcb.16964" class="uri">https://doi.org/10.1111/gcb.16964</a>.
+<ul>
+<li>Collected habitats for species</li>
+</ul></li>
+<li>Schmidt, C., Hoban, S., Hunter, M., Paz‐Vinas, I. and Garroway, C.J.
+2023. Genetic diversity and IUCN Red List status. Conservation Biology,
+37(4). <a href="https://doi.org/10.1111/cobi.14064" class="uri">https://doi.org/10.1111/cobi.14064</a>.
+<ul>
+<li>Collected conservation status of species</li>
+</ul></li>
+<li>Toussaint, A., Brosse, S., Bueno, C.G., Pärtel, M., Tamme, R. and
+Carmona, C.P. 2021. Extinction of threatened vertebrates will lead to
+idiosyncratic changes in functional diversity across the world. Nature
+Communications, 12. <a href="https://doi.org/10.1038/s41467-021-25293-0" class="uri">https://doi.org/10.1038/s41467-021-25293-0</a>.
+<ul>
+<li>Collected conservation statuses of species</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<style type="text/css">
+p.caption {
+display: none;
+}
+</style>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

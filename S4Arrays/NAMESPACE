@@ -2,9 +2,11 @@ useDynLib(S4Arrays)
 
 import(methods)
 importFrom(stats, setNames)
-importClassFrom(Matrix, dgCMatrix, lgCMatrix, dgRMatrix, lgRMatrix)
+importClassFrom(Matrix, CsparseMatrix, dgCMatrix, lgCMatrix, ngCMatrix,
+                        RsparseMatrix, dgRMatrix, lgRMatrix, ngRMatrix,
+                        TsparseMatrix, dgTMatrix, lgTMatrix, ngTMatrix)
 
-importFrom(crayon, make_style)
+importFrom(abind, abind)
 
 import(BiocGenerics)
 import(S4Vectors)
@@ -16,6 +18,9 @@ import(IRanges)
 ###
 
 exportClasses(
+    ## array_recycling.R:
+    tile,
+
     ## Array-class.R:
     Array,
 
@@ -110,9 +115,11 @@ exportMethods(
     anyNA,
     var,
     nchar,
+    Ops,
 
     ## Methods for generics defined in the methods package:
     coerce, show,
+    kronecker,
 
     ## Methods for generics defined in the BiocGenerics package:
     cbind, rbind,
@@ -140,12 +147,18 @@ export(
     ## array_selection.R:
     Lindex2Mindex, Mindex2Lindex,
 
+    ## array_recycling.R:
+    as_tile,
+
     ## ArrayGrid-class.R:
     DummyArrayViewport, ArrayViewport, makeNindexFromArrayViewport,
     DummyArrayGrid, ArbitraryArrayGrid, RegularArrayGrid,
 
     ## read_block.R:
-    read_block
+    read_block,
+
+    ## Array-kronecker-methods.R:
+    kronecker2
 )
 
 
@@ -155,13 +168,29 @@ export(
 
 export(
     ## rowsum.R:
-    rowsum, colsum,
+    rowsum,            # no rowsum() method defined in S4Arrays!
+    colsum,
 
     ## abind.R:
-    arbind, acbind,
+    abind, arbind, acbind,
+
+    ## arep.R:
+    arep_times, arep_each,
 
     ## dim-tuning-utils.R:
-    tune_Array_dims,
+    tune_Array_dims,   # no tune_Array_dims() method defined in S4Arrays!
+
+    ## Array-subsetting.R:
+    subset_Array_by_logical_array,
+    subset_Array_by_Lindex,
+    subset_Array_by_Mindex,
+    subset_Array_by_Nindex,
+
+    ## Array-subassignment.R:
+    subassign_Array_by_logical_array,
+    subassign_Array_by_Lindex,
+    subassign_Array_by_Mindex,
+    subassign_Array_by_Nindex,
 
     ## ArrayGrid-class.R:
     refdim, maxlength, downsample,
@@ -173,7 +202,8 @@ export(
     extract_array,
 
     ## is_sparse.R:
-    is_sparse, "is_sparse<-",
+    is_sparse,
+    "is_sparse<-",     # no "is_sparse<-" method defined in S4Arrays!
 
     ## read_block.R:
     read_block_as_dense,
@@ -184,13 +214,21 @@ export(
 
 ### Same list as above.
 exportMethods(
-    colsum,          # no rowsum() method defined in S4Arrays!
-    arbind, acbind,
+    colsum,
+    abind, arbind, acbind,
+    arep_times, arep_each,
+    subset_Array_by_logical_array,
+    subset_Array_by_Lindex,
+    subset_Array_by_Mindex,
+    subset_Array_by_Nindex,
+    subassign_Array_by_logical_array,
+    subassign_Array_by_Lindex,
+    subassign_Array_by_Mindex,
+    subassign_Array_by_Nindex,
     refdim, maxlength, downsample,
     mapToGrid, mapToRef,
     extract_array,
     is_sparse,
-    #"is_sparse<-",  # no methods defined in S4Arrays!
     read_block_as_dense,
     write_block
 )

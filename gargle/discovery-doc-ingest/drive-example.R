@@ -13,9 +13,9 @@ dd <- read_discovery_document(x)
 
 methods <- get_raw_methods(dd)
 
-methods <- methods %>% map(groom_properties,  dd)
-methods <- methods %>% map(add_schema_params, dd)
-methods <- methods %>% map(add_global_params, dd)
+methods <- methods |> map(groom_properties, dd)
+methods <- methods |> map(add_schema_params, dd)
+methods <- methods |> map(add_global_params, dd)
 
 ## duplicate two methods to create a companion for media
 ## simpler to do this here, in data, than in wrapper functions
@@ -27,7 +27,11 @@ mediafy <- function(target_id, methods) {
     pluck(target_method, "mediaUpload", "protocols", "simple", "path")
   new$parameters <- c(
     new$parameters,
-    uploadType = list(list(type = "string", required = TRUE, location = "query"))
+    uploadType = list(list(
+      type = "string",
+      required = TRUE,
+      location = "query"
+    ))
   )
 
   methods[[new$id]] <- new

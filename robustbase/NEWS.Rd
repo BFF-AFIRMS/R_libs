@@ -4,9 +4,110 @@
 \title{News for \R Package \pkg{robustbase}}
 \encoding{UTF-8}
 
-\section{CHANGES in robustbase VERSION 0.99-0 (2023-06-12, svn r928)}{
   % --- 1.0-0  once we fix  adjOutlyingness() properly !
   %     =====
+
+\section{CHANGES in robustbase VERSION 0.99-7 (2026-02-04, svn 1019)}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item Our \code{weights()} methods for \code{lmrob} and \code{glmrob}
+      results now work for \code{weights(mod, type = "working")} which are
+      proportional to the \code{type = "robustness"} weights. % see ../man/weights.lmrob.Rd
+
+      This allows using the \dQuote{influence measures} from \pkg{stats},
+      e.g., \code{influence(<lmrob>)}; now tested somewhat. % ../tests/NAcoef.R
+    }
+  }
+}
+
+\section{CHANGES in robustbase VERSION 0.99-6 (2025-09-03, svn 1011)}{
+  \subsection{Misc}{
+    \itemize{
+      \item small change in vignette \file{lmrob_simulation.Rnw} such that
+      it also works with \CRANpkg{ggplot2} version \code{4.0.0} and newer.
+    }
+  }
+}
+
+\section{CHANGES in robustbase VERSION 0.99-5 (2024-11-01, svn 1007)}{
+  \subsection{Misc}{
+    \itemize{
+      \item small changes in \file{tests/*}, "robustifying" against the
+      possibility of \code{osVersion} being \code{NULL};
+      with thank to Michael Chirico for alerting me.
+    }
+  }
+}
+
+\section{CHANGES in robustbase VERSION 0.99-4-1 (2024-09-25, svn 1006)}{
+  \subsection{Misc}{
+    \itemize{
+      \item small changes in \file{tests/lmrob-psifns.R} and \file{*.Rout.save}, notably
+      avoiding small diffs on "M1mac" and "noLD" (\command{--disable-long-double}).
+    }
+  }
+}
+
+\section{CHANGES in robustbase VERSION 0.99-4 (2024-08-19, svn 1002)}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item \code{lmrob.fit()} gets new option \code{bare.only} for some
+      speed up, in case a relatively \dQuote{bare} result is sufficient.
+    }
+  }
+  \subsection{Misc}{
+    \itemize{
+      \item fix another LaTeX no more wanting math in section
+      titles (same problem as 0.99-3), now for \file{lmrob_simulation.Rnw}.
+      Now also use \verb{\texorpdfstring} inside \verb{\title{}} of
+      \file{psi_functions.Rnw} \emph{and} use \verb{newtheorem{..}}
+      \emph{after} \verb{\hypersetup{...}} (thanks to Kurt).
+
+      \item avoid some \pkg{ggplot2} warnings (about omitting obs.)
+
+      \item do not warn about skipping equilibration for p=1.
+
+      \item define \code{STRICT_R_HEADERS} now (src/*.[ch]).
+    }
+  }
+}
+
+\section{CHANGES in robustbase VERSION 0.99-3 (2024-07-01, svn r992)}{
+  \subsection{Misc}{
+    \itemize{
+      \item Again adapt \file{../vignettes/lmrob_simulation.Rnw} to
+      \pkg{ggplot2} changes (\code{ s/ fun.y / fun / }).
+
+      \item \file{tests/subsample.R} now shows "Matrix" info (as that gave
+      confusing error during Matrix / R-devel changes).
+
+      \item Latest LaTeX does not like math in \verb{\section{.}}; hence
+      replacing \verb{\psi} by \verb{\texorpdfstring{$\psi$}{psi}}.
+    }
+  }
+}
+
+\section{CHANGES in robustbase VERSION 0.99-2 (2024-01-27, svn r989)}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item fix thinko bug introduced exact fit checking in 0.99-0; thanks
+      to the report by Thomas Mang.
+    }
+  }
+}
+
+\section{CHANGES in robustbase VERSION 0.99-1 (2023-11-28, svn r988)}{
+  \subsection{Misc}{
+    \itemize{
+      \item document the \code{...} argument(s) of \code{nlrob.control()}.
+      \item \file{DESCRIPTION}: more URLSs.
+      \item \file{*.Rd} tweaks; avoiding other \verb{NOTE}s.
+      \item \file{src/lmrob.c,mc.c,monitor.c}: format \%lld etc
+    }
+  }
+}
+
+\section{CHANGES in robustbase VERSION 0.99-0 (2023-06-12, svn r928)}{
   \subsection{NEW FEATURES}{
     \itemize{
       \item In case it finds an \emph{exact fit}, i.e., \eqn{k > n/2}
@@ -316,8 +417,8 @@
 \section{CHANGES in robustbase VERSION 0.93-1-1 (2018-07-18, svn r818)}{
   \subsection{BUG FIXES}{
     \itemize{
-      \item \file{src/robustbase.h}: \code{is_redescender} now
-      \code{\bold{static} inline}, needed for some compilers, e.g., on
+      \item \file{src/robustbase.h}: \code{is_redescender} now is
+      \code{static inline}, needed for some compilers, e.g., on
       ubuntu 18.04.
       Fixing R-forge bug(s) 6588 (and 6590, 6593),
       \url{https://r-forge.r-project.org/tracker/index.php?func=detail&aid=6588&group_id=59&atid=302}

@@ -34,10 +34,8 @@ pglmm_matrix_structure
 pglmm_plot_ranef        Visualize random terms of communityPGLMMs
 pglmm_predicted_values
                         Predicted values of PGLMM
-pglmm_profile_LRT       'pglmm_profile_LRT' tests statistical
-                        significance of the phylogenetic random effect
-                        of binomial models on species slopes using a
-                        likelihood ratio test.
+pglmm_profile_LRT       Testing statistical significance of random
+                        effect
 phylotree               Example phylogeny
 plot_bayes              plot_bayes generic
 plot_data               Plot the original dataset and predicted values

@@ -1,13 +1,14 @@
 \documentclass[nojss]{jss}
 \usepackage{rlmer}
 %\VignetteIndexEntry{Replication Code For Simulation Studies}
-%\VignetteDepends{ggplot2, robustlmm, MASS, skewt, reshape2, lemon}
+%\VignetteDepends{ggplot2, robustlmm, MASS, skewt, reshape2, ggh4x}
 
 \usepackage[utf8]{inputenc}
 \usepackage{geometry}
 \usepackage{amsmath}
 \usepackage{natbib}
 \usepackage[export]{adjustbox}[2011/08/13]
+\usepackage{booktabs}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% declarations for jss.cls %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -41,6 +42,11 @@
 %\usepackage{Sweave}
 
 \newcommand{\script}[1]{\href{https://github.com/kollerma/robustlmm/blob/master/inst/simulationStudy/#1}{\code{#1}}}
+% Same as \script but without the GitHub hyperlink, for scripts that
+% ship in the package but are not yet on the public repository's master
+% branch (a linked URL would 404). Switch back to \script once the file
+% is published on https://github.com/kollerma/robustlmm.
+\newcommand{\scriptpending}[1]{\code{#1}}
 
 \begin{document}
 \SweaveOpts{concordance=TRUE,echo=FALSE}
@@ -54,6 +60,12 @@ require(ggplot2)
 theme <- theme_bw(base_size = 9)
 theme$legend.position = "top"
 theme_set(theme)
+## Headline numbers for the "new in 3.5.0" studies are precomputed from
+## the simulation results into this shipped RDS (by
+## vignettes/precompute-3.5.0.R) and pulled in with \Sexpr{}, so they
+## always match the studies and are never hand-typed.
+nums <- readRDS("robustlmm-3.5.0-numbers.rds")
+fmt <- function(x, digits = 2) formatC(x, format = "f", digits = digits)
 @
 
 \baselineskip 15pt
@@ -90,6 +102,7 @@ Section~\ref{sec:sessionInfo} shows the output of
 were loaded when the simulation studies were run.
 
 \section{The code}
+\label{sec:thecode}
 The code for each simulation study is shipped as script file
 with \pkg{robustlmm}. To see it, run a variation of following
 command in \Rp or click the script name in this document to
@@ -133,6 +146,11 @@ The following simulation studies are provided:
     \item Section~\ref{sec:breakdown}:
         \script{breakdown.R} reproduces Figure~4.5 in
         \citet{koller2013diss}.
+    \item Section~\ref{sec:breakdownMC}:
+        \script{breakdownMC.R} a Monte-Carlo extension of the
+        breakdown study that compares the new RANSAC and
+        redescending-$\psi$ wrappers under several contamination
+        strategies per design.
     \item Section~\ref{sec:robustnessAndCoverage}:
         \script{robustnessDiagonal.R} replicates the simulation
         study in Section~4.2 in \citet{koller2022rse}
@@ -141,12 +159,25 @@ The following simulation studies are provided:
         \script{robustnessBlockDiagonal.R} replicates the
         simulation study in Section~4.4 in \citet{koller2022rse}
         (Figure~4 and Figure~5).
+    \item Section~\ref{sec:new350}: the studies backing the methods new
+        in the 3.5.0 release ---
+        \script{inferenceStudy.R} (Section~\ref{sec:inferenceStudy}),
+        \script{leverageBreakdown.R} and
+        \script{leverageGES.R} (Section~\ref{sec:leverageBreakdown}),
+        \script{mallowsEfficiency.R} and
+        \script{mallowsEfficiencyDim.R}
+        (Section~\ref{sec:mallowsEfficiency}),
+        \script{ransacBasin.R} and
+        \script{ransacConsensus.R}
+        (Section~\ref{sec:ransacStudies}), and
+        \script{structuredCovariances.R}
+        (Section~\ref{sec:structuredCovariances}).
 \end{itemize}
 
-\script{consistencyAndEfficiencyBlockDiagonal.R} and
-\script{convergence.R} have not been published elsewhere, so
-a description of the study and a discussion are included in
-this document.
+\script{consistencyAndEfficiencyBlockDiagonal.R},
+\script{convergence.R} and \script{breakdownMC.R} have not been
+published elsewhere, so a description of the study and a discussion
+are included in this document.
 
 \section{General structure of code for each presented study}
 \label{sec:generalStructure}
@@ -299,14 +330,14 @@ Models were fit using code from
 \pkg{robustvarComp} \citep{robustvarComp},
 \pkg{heavy} (no longer on  CRAN) \citep{heavy},
 \pkg{lqmm} \citep{lqmm}.
-Support for \code{rlme} from \pkg{rlme}  \citep{rlme} is also
+Support for \code{rlme} from \pkg{rlme} (no longer on CRAN) \citep{rlme} is also
 available, but it was not included in any simulation studies
 as all studied datasets were balanced.
 
 The function \code{hubers} from \pkg{MASS}
 \citep{MASS} is used to compute robust mean and scale estimates when
-aggregating simulation results. The function \code{geom_pointline} from
-\pkg{lemon} \citep{lemon} is used to draw lines of type \code{b}. Colors
+aggregating simulation results. The function \code{geom_pointpath} from
+\pkg{ggh4x} \citep{ggh4x} is used to draw lines of type \code{b}. Colors
 are taken from palettes provided by \pkg{RColorBrewer}
 \citep{RColorBrewer}. The skewed t-distribution is implemented in
 \pkg{skewt} \citep{skewt}. We ensure file names are file system
@@ -572,6 +603,125 @@ The plot is shown in Figure~\ref{fig:breakdown}.
   \label{fig:breakdown}
 \end{figure}
 
+\section{Monte-Carlo Breakdown Sweep}
+\label{sec:breakdownMC}
+
+This section presents a Monte-Carlo extension of the breakdown
+study from Section~\ref{sec:breakdown}. While \script{breakdown.R}
+shows a single trajectory under extreme observation-level
+contamination ($|y_i| \cdot 10^6$), the study here repeats the
+breakdown experiment many times under several distinct
+\emph{contamination strategies} and compares the additional fitting
+methods provided by the wrappers
+\code{fitDatasets_rlmer_DAStau_bisq},
+\code{fitDatasets_rlmer_DAStau_sizeOBR},
+\code{fitDatasets_rlmer_ransac} and
+\code{fitDatasets_rlmer_ransac_bisq} against the classical and
+default robust baselines.
+
+\subsection{Setup}
+
+Three default \pkg{robustlmm} designs are used:
+\begin{itemize}
+    \item \texttt{Dyestuff} (one-way, $6$ batches $\times 5$ replicates)
+    \item \texttt{Penicillin} (crossed, $24$ plates $\times 6$ samples)
+    \item \texttt{sleepstudy} (block-diagonal, $18$ subjects $\times 10$
+        days, with random intercept and slope)
+\end{itemize}
+
+For each design, several contamination strategies that differ in
+\emph{which} observations or groups are corrupted are tested
+(Table~\ref{tab:strategies}). The contamination intensity
+$\epsilon \in \{0, 0.05, 0.10, 0.15, 0.20, 0.30, 0.40, 0.50\}$ is
+the fraction of observations (or, for RE-level strategies, the
+fraction of groups) that are contaminated. The contamination
+shifts the corresponding $y$ values by $10 \cdot \sigma_e$ (where
+$\sigma_e$ is the true residual scale, taken from the canonical
+\code{lmer} fit on the uncontaminated data).
+
+For each (design, strategy, method, $\epsilon$) combination, $30$
+random datasets are generated by parametric bootstrap from the
+canonical \code{lmer} fit, contaminated, and re-fit. A fit is
+``broken'' on indicator $A$ if any of the following indicator
+components hold:
+\begin{itemize}
+    \item \emph{beta}: $|\hat\beta_j - \beta_j| > 5 \cdot
+        \mathrm{SE}_{\text{lmer}}(\hat\beta_j)$ for some $j$
+    \item \emph{sigma\_e}: $\hat\sigma_e / \sigma_e \notin [1/5, 5]$
+    \item \emph{sigma\_b}: $\hat\sigma_{b,k} / \sigma_{b,k} \notin
+        [1/5, 5]$ for some $k$
+    \item \emph{rho} (sleepstudy only): $|\hat\rho| > 0.99$
+\end{itemize}
+``Any indicator'' is the OR of those four. The breakdown rate is
+the fraction of replicates for which the indicator is true.
+
+\begin{table}[ht]
+\centering
+\caption{Contamination strategies per design.}
+\begin{tabular}{l l p{8cm}}
+\toprule
+Design & Strategy & Description \\
+\midrule
+Dyestuff   & \texttt{within}                 & Saturate batch 1, then 2, \ldots \\
+           & \texttt{round\_robin}           & One obs per batch in turn \\
+           & \texttt{random\_obs}            & Uniform random obs \\
+           & \texttt{re\_shift}              & Shift all obs of $\lceil\epsilon \cdot 6\rceil$ batches \\
+Penicillin & \texttt{within\_plate}, \texttt{within\_sample}             & Within-plate (resp. sample) saturation \\
+           & \texttt{round\_robin\_plate}, \texttt{round\_robin\_sample} & Round-robin across plates (resp. samples) \\
+           & \texttt{random\_obs}            & Uniform random obs \\
+           & \texttt{re\_shift\_plate}, \texttt{re\_shift\_sample}       & RE-level shift on plate (resp. sample) intercepts \\
+sleepstudy & \texttt{within\_subject}        & Saturate subject 1, then 2, \ldots \\
+           & \texttt{round\_robin}           & One obs per subject in turn \\
+           & \texttt{high\_leverage}         & Highest-\code{Days} obs first \\
+           & \texttt{random\_obs}            & Uniform random obs \\
+           & \texttt{re\_shift}              & Shift all obs of $\lceil\epsilon \cdot 18\rceil$ subjects \\
+           & \texttt{re\_shift\_slope}       & Subject slope shift, centered on \code{Days} \\
+\bottomrule
+\end{tabular}
+\label{tab:strategies}
+\end{table}
+
+\subsection{Code}
+
+<<source-breakdownMC-code>>=
+source(system.file("simulationStudy/breakdownMC.R",
+                   package = "robustlmm"))
+@
+
+<<plot_breakdownMC_dyestuff,fig=TRUE,include=FALSE,height=4>>=
+print(plot_breakdownMC_dyestuff)
+@
+<<plot_breakdownMC_penicillin,fig=TRUE,include=FALSE,height=5>>=
+print(plot_breakdownMC_penicillin)
+@
+<<plot_breakdownMC_sleepstudy,fig=TRUE,include=FALSE,height=5>>=
+print(plot_breakdownMC_sleepstudy)
+@
+
+\begin{figure}[htb]
+  \centering
+  \caption{Breakdown rate (any indicator) for Dyestuff across the four
+    contamination strategies, as a function of $\epsilon$ (fraction of
+    contaminated observations or groups). $30$ replicates per cell.}
+  \includegraphics[center]{simulationStudies-plot_breakdownMC_dyestuff}
+  \label{fig:breakdownMC_dyestuff}
+\end{figure}
+
+\begin{figure}[htb]
+  \centering
+  \caption{Breakdown rate for Penicillin (crossed random effects).}
+  \includegraphics[center]{simulationStudies-plot_breakdownMC_penicillin}
+  \label{fig:breakdownMC_penicillin}
+\end{figure}
+
+\begin{figure}[htb]
+  \centering
+  \caption{Breakdown rate for sleepstudy (block-diagonal random
+    effects with correlation $\rho$).}
+  \includegraphics[center]{simulationStudies-plot_breakdownMC_sleepstudy}
+  \label{fig:breakdownMC_sleepstudy}
+\end{figure}
+
 \section{Convergence}
 \label{sec:convergence}
 This section contains the details on a simulation study we ran to answer a referee's comment about the convergence of the estimator for increasing sample sizes. The plots have been defined in \script{convergence.R}.
@@ -786,6 +936,141 @@ Figure~\ref{fig:violinBlockDiagonal}.
   \includegraphics[center]{simulationStudies-plot_violinBlockDiagonal}
   \label{fig:violinBlockDiagonal}
 \end{figure}
+
+\clearpage
+\section{Studies new in the 3.5.0 release}
+\label{sec:new350}
+
+The 3.5.0 release adds a number of new methods (robust inference,
+influence diagnostics, a \textsc{ransac} initial estimator, Mallows
+design weights and structured random-effect covariances; see
+\code{vignette("robustlmm-3.5.0")}). Each is backed by one or more
+simulation studies. The scripts are available in the package sources
+on GitHub and are linked below; the worked,
+\Sexpr{}-reproducible headline numbers appear in the
+\code{robustlmm-3.5.0} vignette. This section describes each study's
+design and conclusions. Because the full result objects exceed the
+CRAN size limit, the figures are not rebuilt here; install the
+\code{full-results} version (Section~\ref{sec:thecode}) to regenerate
+them.
+
+\subsection{Inference: coverage, size and power}
+\label{sec:inferenceStudy}
+
+\script{inferenceStudy.R} evaluates the finite-sample behaviour
+of the new inference methods (the cluster-sandwich \code{vcov}, the
+Wald and bootstrap \code{confint}, and the robust \code{anova}). It
+sweeps the number of groups $J$ and several error- and
+random-effect-contamination strategies, and records, for each method:
+the empirical coverage of the nominal $95\%$ confidence intervals, the
+Type-I error of the tests at nominal $5\%$, and the power under a
+fixed-effect alternative.
+
+\emph{Conclusions.} On clean Gaussian data all methods are
+well-calibrated. Under error-distribution contamination the robust
+Wald intervals are markedly shorter than the classical ones at matched
+coverage, and the robust Wald \code{anova} is more powerful than the
+classical likelihood-ratio test while holding its size. The
+cluster-sandwich covariance is a large-$J$ device: at small $J$ it
+under-covers and the sandwich-based tests become anti-conservative,
+returning to nominal only for larger $J$; \code{vcov_sandwich} warns
+below $20$ clusters, and the conclusions are distilled into the
+\code{?vcov\_sandwich} and \code{?anova.rlmerMod} caveats. The
+variance-component bootstrap test (\code{anova(f0, f1, test =
+  "boot"})) calibrates correctly under error contamination but is
+anti-conservative when whole groups are contaminated, which motivates
+the cluster-level influence diagnostics below.
+
+\subsection{Leverage breakdown and gross-error sensitivity}
+\label{sec:leverageBreakdown}
+
+The $\psi$-functions of the RSE bound the influence of outliers in the
+response but not of high-leverage design points.
+\script{leverageBreakdown.R} contaminates a fraction of the
+observations by moving them onto a spurious regression line at a large
+robust distance in covariate space, and compares the slope bias of
+\code{lmer}, the plain RSE and the Mallows-weighted RSE
+(\code{design.weights = "mcd"}) as the contamination fraction grows.
+\script{leverageGES.R} complements it by tracing the
+gross-error sensitivity --- the supremum of the (standardised)
+influence as a single design point is moved out along a covariate.
+
+\emph{Conclusions.} The plain RSE breaks down with \code{lmer} under
+leverage contamination (good-leverage outliers have small residuals,
+so the $\psi$-functions do not down-weight them), whereas the
+Mallows-weighted fit stays close to the clean-data estimate, with
+several-fold smaller slope bias at moderate contamination. The
+gross-error sensitivity of the plain RSE is unbounded in the leverage
+direction, while the Mallows weights make it bounded.
+
+\subsection{Efficiency cost of the Mallows weights}
+\label{sec:mallowsEfficiency}
+
+\script{mallowsEfficiency.R} quantifies the price of the
+leverage protection at the clean Gaussian model across the tuning grid
+($\gamma \in \{1, 2\}$, cut-off $\in \{0.95, 0.975, 0.99\}$), reporting
+the relative efficiency of $\hat\beta$ against \code{lmer} (the MLE)
+and against the plain RSE. \script{mallowsEfficiencyDim.R}
+repeats this as the number of continuous covariates grows, to check
+that the $\chi^2$-calibrated cut-off keeps the false-down-weighting
+rate roughly constant with dimension.
+
+\emph{Conclusions.} At the default tuning ($\gamma = 1$, cut-off
+$0.975$) the clean-model cost is about $\Sexpr{fmt(nums$mallows$costVsRsePct, 1)}\%$
+in the variance of $\hat\beta$ relative to the plain RSE (over
+$\Sexpr{nums$mallows$nreps}$ replicates), with only about
+$\Sexpr{fmt(nums$mallows$pctDown, 1)}\%$ of clean observations
+down-weighted; the cost is stable as the covariate dimension grows and
+vanishes for designs without continuous covariates. Only the most
+aggressive corner of the grid ($\gamma = 2$, cut-off $0.95$) costs
+appreciably more, which is why the gentler default is shipped.
+
+\subsection{RANSAC: basin radius and multi-start consensus}
+\label{sec:ransacStudies}
+
+\script{ransacBasin.R} separates the two failure modes the
+\code{rlmer_ransac} diagnostics watch for: a \emph{fixed-effect basin}
+condition (a redescending \code{rho.e} only keeps the high-breakdown
+\textsc{ransac} start if the start lies within the bisquare
+support-preservation radius $r^\ast$) and a distinct
+\emph{random-effects} attractor in which the fitted RE correlation
+collapses to a phony $|\hat\rho| \to 1$. \script{ransacConsensus.R}
+then evaluates the multi-start consensus (\code{rlmer_ransac(n_starts =
+  m)}) under several error/RE contamination generators.
+
+\emph{Conclusions.} The basin radius is genuinely a fixed-effect
+property and the phony-correlation failure is a separate random-effects
+phenomenon, so the two are reported by separate diagnostics. Running
+\code{rlmer} from the several best distinct \textsc{ransac} starts and
+keeping the interior, lowest-residual-scale fit markedly reduces the
+rate of phony $|\hat\rho| \to 1$ solutions relative to a single start,
+at essentially unchanged slope accuracy --- recovering the good
+solution when the single best start falls into the phony attractor.
+
+\subsection{Structured random-effect covariances}
+\label{sec:structuredCovariances}
+
+\script{structuredCovariances.R} studies the new \code{cs} and
+\code{ar1} covariance structures. Balanced repeated-measures datasets
+(generated with \code{generateRepeatedMeasuresDatasets}) are fitted
+classically (\code{lmer}) and robustly (\code{rlmer}) under both clean
+data and random-effects-level contamination, and the recovered common
+correlation and marginal standard deviations are compared with the
+truth.
+
+\emph{Conclusions.} On clean data both fits recover the truth, so the
+projection-based fitting is consistent. Under contamination of
+$\Sexpr{nums$structured$contamPct}\%$ of the subjects the classical
+common correlation collapses toward zero (from a true
+$\Sexpr{fmt(nums$structured$cs$trueRho)}$ to
+$\Sexpr{fmt(nums$structured$cs$contLmer)}$ for \code{cs} and from
+$\Sexpr{fmt(nums$structured$ar1$trueRho)}$ to
+$\Sexpr{fmt(nums$structured$ar1$contLmer)}$ for \code{ar1}) and the
+marginal standard deviations inflate, whereas the robust structured fit
+stays near the truth (correlation
+$\Sexpr{fmt(nums$structured$cs$contRlmer)}$ and
+$\Sexpr{fmt(nums$structured$ar1$contRlmer)}$). The \code{cs}/\code{ar1}
+fitting is experimental (see \code{vignette("robustlmm-3.5.0")}).
 
 \clearpage
 \section{Session Info}

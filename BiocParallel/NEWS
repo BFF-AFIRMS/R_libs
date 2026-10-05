@@ -1,3 +1,32 @@
+CHANGES IN VERSION 1.44
+-----------------------
+
+TRANSFERRING MAINTAINERSHIP
+    o (1.43.4) Transfer maintainership to Jiefei Wang
+
+NEW FEATURES
+
+    o (1.43.2) Lazy-load S4 classes in workers; see
+    <https://github.com/Bioconductor/BiocParallel/issues/262>
+    <https://github.com/Bioconductor/BiocParallel/pull/270>
+
+    o (1.43.1) Support NULL return value from bplapply; see
+    <https://github.com/Bioconductor/BiocParallel/issues/267>
+    <https://github.com/Bioconductor/BiocParallel/pull/269>
+
+CHANGES IN VERSION 1.42
+-----------------------
+
+BUG FIXES
+
+    o (1.41.3) Patch a compiler error under Apple clang 17.0.0; see
+    <https://github.com/Bioconductor/BiocParallel/issues/271>
+
+    o (1.41.2) Set options (via `do.call()`) in package namespace,
+    rather than base environment / search path. Thanks Charlotte
+    Soneson!
+    <https://github.com/Bioconductor/BiocParallel/issues/266>
+
 CHANGES IN VERSION 1.34
 -----------------------
 

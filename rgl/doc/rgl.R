@@ -40,16 +40,16 @@ decorate3d()
 bg3d("lightgray")
 aspect3d(1,1,1)
 
-## ---- eval = FALSE------------------------------------------------------------
-#  myview <- par3d("userMatrix")
-#  # ... later ...
-#  par3d(userMatrix = myview)
+## ----eval = FALSE-------------------------------------------------------------
+# myview <- par3d("userMatrix")
+# # ... later ...
+# par3d(userMatrix = myview)
 
 ## ----Texture------------------------------------------------------------------
 filename <- tempfile(fileext = ".png")
 png(filename = filename)
 plot(rnorm(1000), rnorm(1000))
-dev.off()
+safe.dev.off()
 open3d()
 xyz <- cbind(c(0,1,1,0), 0, c(0,0,1,1))
 quads3d(xyz, texture = filename, texcoords = xyz[,c(1, 3)]*2, 
@@ -79,20 +79,20 @@ triangles3d(xyz, col = rainbow(9))
 spheres3d(xyz, col = rainbow(9), radius = 0.1)
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  plots <- NULL
-#  for (i in 1:3) {
-#    plot3d(rnorm(10), rnorm(10), rnorm(10))
-#    plots <- htmltools::tagList(plots, rglwidget())
-#    close3d()
-#  }
-#  plots
+# plots <- NULL
+# for (i in 1:3) {
+#   plot3d(rnorm(10), rnorm(10), rnorm(10))
+#   plots <- htmltools::tagList(plots, rglwidget())
+#   close3d()
+# }
+# plots
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  foreignHigh()   # Produces a high level plot, but doesn't return
-#                  # an appropriate value
-#  highlevel()
-#  foreignLow()    # Modifies the previous plot
-#  lowlevel()
+# foreignHigh()   # Produces a high level plot, but doesn't return
+#                 # an appropriate value
+# highlevel()
+# foreignLow()    # Modifies the previous plot
+# lowlevel()
 
 ## -----------------------------------------------------------------------------
 par3d("mouseMode")

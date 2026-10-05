@@ -26,6 +26,7 @@ mutate.dtplyr_step	mutate.dtplyr_step
 nest.dtplyr_step	nest.dtplyr_step
 pivot_longer.dtplyr_step	pivot_longer.dtplyr_step
 pivot_wider.dtplyr_step	pivot_wider.dtplyr_step
+reframe.dtplyr_step	reframe.dtplyr_step
 relocate.dtplyr_step	relocate.dtplyr_step
 rename.dtplyr_step	rename.dtplyr_step
 rename_with.dtplyr_step	rename.dtplyr_step

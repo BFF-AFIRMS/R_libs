@@ -288,5 +288,24 @@ March 04 2010:
 - Fixed index in equation (7) of the clm-vignette.
 - Fix import of ranef and VarCorr methods from nlme and lme4 packages
 
+2023-12-04:
+- Change NCOL usage because Kurt Hornik wants to change the behavior of 
+  NCOL(NULL) in base R
+- Names of functions clm.fit.NR, clm.fit.flex and clm.fit.optim changed to 
+  clm_fit_NR, clm_fit_flex and clm_fit_optim to avoid hiccup from CRAN checks. 
 
+2025-06-16:
+- Fix bug in type-3 anova tables for clm objects. Thanks to André Meichtry, 
+  Bern, Switzerland for reporting.
+
+2025-12-29:
+- Clarifying the distinction between the unidentifiable parameters and the 
+  standardized parameters on the latent scale in Figure 1 in the clm-vignette
+  following discussion with Michael Mühlbauer. Also removing static figures and 
+  now generate them directly in the Rnw file.
+
+2026-07-26:
+- Fixing missing reference from clm_article.Rnw
+- Fixing `structure(..., .Dim, .Dimnames, .Names)` to 
+  `structure(..., dim, dimnames, names)`
 

@@ -10,12 +10,7 @@ options(width = 60, str = strOptions(vec.len = 1.4), prompt = 'R> ', continue = 
 ### code chunk number 2: init
 ###################################################
 require("robustlmm")
-warning("Current dir: ", system.file("", package = "robustlmm"), " has contents: ",
-        paste(list.files(system.file("", package = "robustlmm")), collapse = ", "))
-warning("doc dir: ", system.file("doc", package = "robustlmm"), " has contents: ",
-        paste(list.files(system.file("doc", package = "robustlmm")), collapse = ", "))
 filename <- system.file("doc/Penicillin.R", package = "robustlmm", mustWork = TRUE)
-warning("Filename: ", filename)
 source(filename)
 
 
@@ -108,7 +103,28 @@ options(oldopts)
 
 
 ###################################################
-### code chunk number 15: smoothedHuber
+### code chunk number 15: finite-sample-confint (eval = FALSE)
+###################################################
+## fit  <- rlmer(Yield ~ (1 | Batch), Dyestuff)
+## confint(fit)                              # Wald, vcov_type = "default"
+## confint(fit, vcov_type = "sandwich")      # Wald with robust V
+## 
+## ## requires the 'confintROB' package (Suggests):
+## confint(fit, method = "BCa", nsim = 1000, # parametric BCa bootstrap
+##         seed = 20260601)
+## confint(fit, method = "boot",             # wild bootstrap
+##         boot.type = "wild", nsim = 1000)
+
+
+###################################################
+### code chunk number 16: design-weights (eval = FALSE)
+###################################################
+## fit_mallows <- rlmer(Yield ~ x + (1 | Batch), data,
+##                      design.weights = "mcd")
+
+
+###################################################
+### code chunk number 17: smoothedHuber
 ###################################################
 require(reshape2)
 xs <- seq.int(0, 3, length.out = 100)
@@ -123,7 +139,7 @@ print(ggplot(melt(data, 1), aes(x, value, color = variable,
 
 
 ###################################################
-### code chunk number 16: convergence-setup (eval = FALSE)
+### code chunk number 18: convergence-setup (eval = FALSE)
 ###################################################
 ## require(robustbase)
 ## require(reshape2)
@@ -133,7 +149,7 @@ print(ggplot(melt(data, 1), aes(x, value, color = variable,
 
 
 ###################################################
-### code chunk number 17: convergence (eval = FALSE)
+### code chunk number 19: convergence (eval = FALSE)
 ###################################################
 ## rfm <- rlmer(Yield ~ (1 | Batch), Dyestuff, rho.e = Psi, rho.b = Psi,
 ##   rho.sigma.e = if (wExp == 2) psi2propII(Psi, k = c.sigma) else Psi,
@@ -170,5 +186,3 @@ print(ggplot(melt(data, 1), aes(x, value, color = variable,
 ##     labels = c(0:3, expression(theta^"\u2020"), expression(hat(theta)))) +
 ##   xlab(expression(theta)) + geom_hline(yintercept = 0) +
 ##   theme(legend.position = "bottom", legend.box = "horizontal"))
-
-

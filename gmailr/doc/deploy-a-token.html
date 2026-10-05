@@ -48,6 +48,7 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -432,10 +433,12 @@ implements the technique described here..</em></p>
 <p>In the code that’s running in the deployed / unattended setting, use
 a snippet like this to read the token from file and tell gmailr to use
 it:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">gm_auth</span>(<span class="at">token =</span> <span class="fu">gm_token_read</span>(</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="at">path =</span> <span class="st">&quot;path/to/gmailr-token.rds&quot;</span>,</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="at">key =</span> <span class="st">&quot;GMAILR_KEY&quot;</span></span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>))</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">gm_auth</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="at">token =</span> <span class="fu">gm_token_read</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>    <span class="at">path =</span> <span class="st">&quot;path/to/gmailr-token.rds&quot;</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>    <span class="at">key =</span> <span class="st">&quot;GMAILR_KEY&quot;</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  )</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>)</span></code></pre></div>
 <p>If you did not specify the <code>key</code> in
 <code>gm_token_write()</code>, omit it from the
 <code>gm_token_read()</code> call as well. If you did specify the

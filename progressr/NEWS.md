@@ -1,3 +1,183 @@
+# Version 1.0.0 [2026-07-03]
+
+## Significant Changes
+
+ * Changed the package license to permissive Apache License (>= 2).
+
+## New Features
+
+ * Add `handler_tutorial()` useful for benchmarking and illustrating
+   sequential and parallel processing, e.g. `handlers("tutorial")` and
+   `handlers("tutorial", "newline")`.
+
+ * `handler_cli()` gained argument `type` to choose from a predefined
+   set of `cli::cli_progress_bar()` `format` strings.
+
+ * `handler_progress()` gained argument `type` to choose from a
+   predefined set of `progress::progress_bar()` `format` strings.
+
+ * Renamed `slow_sum()` to `slow_sum_p()` and added `slow_sqrt_p()`.
+   Added new basic `slow_sum()` and `slow_sqrt()`.
+
+
+# Version 0.19.0 [2026-03-18]
+
+## New Features
+
+ * `handlers()` gained support for specifying both progression
+   handlers and enabling the global progression handler in one
+   call, e.g. `handlers("beepr", "cli", global = TRUE)`.
+
+## Performance
+
+ * `handler_cli()` no longer forces a display update after every
+   tick, instead relying on **cli** itself to decide how often to
+   refresh the display. This results in much better performance.
+
+## Bug Fixes
+
+ * Buffering and flushing of standard output (stdout) would cause a
+   progress bar in the terminal to overwrite flush output that did not
+   include a newline. Although it was technically flushed, it would be
+   invisible in the terminal. Now buffered stdout is only flushed up
+   until the last newline, keeping the remaining output buffered until
+   it is safe to flush.
+
+## Deprecated and Defunct
+
+ * Remove `progress()`, which has been defunct since **progressr**
+   0.10.0 (2021-12-18).
+
+
+# Version 0.18.0 [2025-11-05]
+
+## New Features
+
+ * Add `length()` for `progressor` objects, which enables using
+   `seq_along()` and `seq()` on progressors.
+
+## Beta Features
+
+ * Add experimental support for `progressor(..., finalize = TRUE)`,
+   which will cause the progressor to signal a progression 'shutdown'
+   condition when the progressor is garbage collected. This can serve
+   as a backstop in yet-to-be-observed cases where a progressor did
+   not shut down properly leaving for instance active sinks behind.
+   For now, `finalize = FALSE` is the default.
+
+## Bug Fixes
+
+ * It was not possible to create more than one progressor in a
+   `with_progress()` call, resulting in additional progressors being
+   ignored. Also, warnings on "with_progress() received a progression
+   'initiate' request" were produced with **progressr** 0.17.0
+   (2025-10-15).
+   
+
+# Version 0.17.0 [2025-10-15]
+
+## New Features
+
+ * Now also `with_progress()` warns about receiving progress updates
+   after the progressor has finished. Previously, only the global
+   'progression' handler would do this.
+ 
+## Bug Fixes
+
+ * Using `with_progress()` together with `handlers(global = TRUE)`
+   would produce a warning on "Received a progression 'update' request
+   (...) but is not listening to this progressor".
+
+ * Shiny apps running as background jobs in RStudio could fail with an
+   error "object 'RStudio.Version' of mode 'function' was not found".
+   This error occurred sporadically.
+   
+
+# Version 0.16.0 [2025-05-18]
+
+## New Features
+
+ * Add `handler_slowdown()` for slowing down a full progress run a
+   certain amount of time (in seconds).
+
+## Workarounds
+
+ * RStudio v2025.05.0 introduced new default handlers for messages and
+   warnings for the RStudio Console, which came with a bug causing
+   console output to stop working in some cases. This bug was fixed in
+   RStudio v2025.05.1. If you run v2025.05.0, **progressr** implements
+   a workaround.
+
+## Documentation
+
+ * Replace the long, single introductory vignette with eight separate
+   vignettes.
+
+## Bug Fixes
+
+ * Package failed to load in the Positron environment due to an
+   "object 'RStudio.Version' of mode 'function' was not found" error.
+
+ * In Positron, messages produced while progress is reported were
+   prepended by a newline to standard output, even when there is no
+   stdout buffered. This is due to a bug in Positron, which this version
+   of the package works around.
+
+
+# Version 0.15.1 [2024-11-20]
+
+## Bug Fixes
+
+ * Renamed `handler_rpushbullet()` argument `device` to `devices`.
+
+ * Fixed thinko bug in `example("handler_ntfy")`.
+
+
+# Version 0.15.0 [2024-10-28]
+
+## New Features
+
+ * Add `handler_ntfy()` for reporting on progress via the Ntfy.sh
+   Messaging Service using the **ntfy** package.
+
+
+## Bug Fixes
+
+ * `withProgressShiny()` could produce an `if (config$max_steps ==
+   0) : ... argument is of length zero` error.
+
+ * `handlers(new_handlers)` would return `NULL`, instead of `list()`,
+   if there were no prior handlers set.
+
+ * `handler_cli(..., format_done = "...", clear = TRUE)` would not
+   render the `format_done` message, if set.
+
+
+# Version 0.14.0 [2023-08-10]
+
+## New Features
+
+ * Progress reporting may be terminated by an interrupt (e.g. user
+   presses Ctrl-C, or the process is interrupted externally), or a
+   run-time error.  When this happens, the most recent progress update
+   is preserved (e.g. a progress bar in the terminal remains), and an
+   informative message is displayed (if the progress handler supported
+   it). In previous versions, the preservation of the progress and the
+   output of the message happened only for interrupts. In this version,
+   this happens also for errors.
+
+## Miscellaneous
+
+ * The `progressr.options` help page is now listed in the help index.
+
+## Bug Fixes
+
+ * The 'cli', 'pbcol', 'pbmclapply', 'progress', and 'txtprogressbar'
+   handlers did not redraw the progress bar if there was an interrupt,
+   which made it a hit or miss whether it was displayed after the
+   interruption.
+ 
+
 # Version 0.13.0 [2023-01-09]
 
 ## Significant Changes
@@ -47,7 +227,7 @@
 
 ## Significant Changes
 
- * Now `with_progress()` and `without_progress()` disables the global
+ * Now `with_progress()` and `without_progress()` disable the global
    progress handler temporarily while running to avoid progress
    updates being handled twice.  Previously, it was, technically,
    possible to have two different progress handlers intertwined.
@@ -86,14 +266,14 @@
    disables the global progress handler temporarily while running.
 
  * The `pbmclapply()` handler went from 0 to 100% in one step, because
-   we forgot to set the `max`:imum value.
+   we forgot to set the maximum value.
  
 
 # Version 0.11.0 [2022-09-02]
 
 ## New Features
 
- * When the using a 'winprogressbar' or a 'tkprogressbar' handler,
+ * When using a 'winprogressbar' or a 'tkprogressbar' handler,
    progression messages updates the `label` component of the progress
    panel.  Now, it is also possible to update the `title` component
    based on progression messages.  How the `title` and `label`
@@ -104,7 +284,7 @@
    ones to update both.  For backward compatible reasons, the default
    is `inputs = list(title = NULL, label = "message")`.
 
- * Now the demo function `slow_sum()` outputs also "sticky" messages.
+ * Now the demo function `slow_sum()` also outputs "sticky" messages.
  
 ## Miscellaneous
 
@@ -115,7 +295,7 @@
 
 ## New Features
 
- * Now **plyr** (>= 1.8.7) supports **progressr** for also parallel
+ * Now **plyr** (>= 1.8.7) supports **progressr** also for parallel
    processing, e.g. `y <- plyr::llply(X, slow_sum, .parallel = TRUE,
    .progress = "progressr")`.
 
@@ -139,7 +319,7 @@
 ## Bug Fixes
 
  * A progressor that signaled progress beyond 100% prevented any
-   further progressors in the same environment to report on progress.
+   further progressors in the same environment reporting on progress.
    
  * It was not possible to reuse handlers of type 'progress' more than
    once, because they did not fully reset themselves when finished.
@@ -161,7 +341,7 @@
 ## Performance
 
  * The progressor function created by `progressor()` no longer
-   "inherit" objects from the calling environment, which would, for
+   inherits objects from the calling environment, which would, for
    instance, result in those objects to be exported to parallel
    workers together with the progressor function, which in turn would
    come with large time and memory costs.
@@ -185,14 +365,14 @@
    the call stack should be recorded in each `progression` condition.
    
  * Now `print()` for `progressor` functions and `progression`
-   conditions report also on the size of the object, i.e. the number
+   conditions reports also on the size of the object, i.e. the number
    of bytes it requires when serialized, for instance, to and from a
    parallel worker.
 
 ## Bug Fixes
 
  * Registered progression handlers would report on progress also when
-   in a _forked_ parallel child processes, e.g. when using
+   in a _forked_ parallel child process, e.g. when using
    `parallel::mclapply()`.  This would give a false impression that
    **progressr** updates would work when using `parallel::mclapply()`,
    which is not true. Note however, that it does indeed work when
@@ -213,11 +393,11 @@
    `progressr.*` option.  Previously, some of these environment
    variables were queried by different functions as a fallback to when
    an option was not set.  By only parsing them when the package is
-   loaded, it decrease the overhead in functions, and it clarifies
+   loaded, it decreases the overhead in functions, and it clarifies
    that options can be changed at runtime whereas environment
    variables should only be set at startup.
 
- * When using `withProgressShiny()`, progression messages now updates
+ * When using `withProgressShiny()`, progression messages now update
    the `detail` component of the Shiny progress panel.  Previously, it
    updated the `message` component. This can be configured via new
    `inputs` argument.
@@ -242,7 +422,7 @@
  * As an alternative to specifying the relative amount of progress,
    say, `p(amount = 2)`, it is now possible to also specify the
    absolute amount of progress made this far, e.g. `p(step = 42)`.
-   Argument `amount` has not effect when argument `step` is specified.
+   Argument `amount` has no effect when argument `step` is specified.
    WARNING: Argument `step` should only be used when in full control
    of the order when this `progression` condition is signaled.  For
    example, it must not be signaled as one of many parallel progress
@@ -384,7 +564,7 @@
 
  * Argument `interval` was ignored for `handler_debug()`.
 
- * The class of `handler_<nnn>()` functions where all
+ * The class of `handler_<nnn>()` functions were all
    `reset_progression_handler` rather than
    `<nnn>_progression_handler`.  The same bug caused the reported
    `name` field to be `"reset"` rather than `"<nnn>"`.
@@ -405,7 +585,7 @@
 
 ## Significant Changes
 
- * All progression handler function have been renamed from
+ * All progression handler functions have been renamed from
    `<name>_handler()` to `handler_<name>()` to make it easier to use
    autocompletion on them.
 
@@ -466,7 +646,7 @@
  * Package could set `.Random.seed` to NULL, instead of removing it,
    which in turn would produce a warning on "'.Random.seed' is not an
    integer vector but of type 'NULL', so ignored" when the next random
-   number generated.
+   number was generated.
 
 
 # Version 0.1.4 [2019-07-02]
@@ -482,14 +662,14 @@
 
  * Now it is possible to send "I'm still here" progression updates by
    setting the progress step to zero, e.g. `progress(amount = 0)`.
-   This type of information can for instance be used to updated a
+   This type of information can for instance be used to update a
    progress bar spinner.
 
  * Add utility function `handlers()` for controlling option
    `progressr.handlers`.
  
  * Progression handlers' internal state now has a sticky `message`
-   field, which hold the most recent, non-empty progression `message`
+   field, which holds the most recent, non-empty progression `message`
    received.
 
 
@@ -584,7 +764,7 @@
  * TESTS: Increased package test coverage of progression handlers by
    running all code except the last step that calls the backend, which
    may not be installed or supported on the current platform,
-   e.g. **tcltk**, **beepr**, notifier.
+   e.g. **tcltk**, **beepr**, and **notifier**.
 
 ## Bug Fixes
 
@@ -602,7 +782,7 @@
  
  * Now `with_progress(..., cleanup = TRUE)` will signal a generic
    "shutdown" progression at the end that will trigger all progression
-   handlers to finish up regardless of all steps have been take or
+   handlers to finish up regardless of whether all steps have been taken or
    not.
 
  * Now progressions originating from an unknown source are ignored.
@@ -685,7 +865,7 @@
    also signal "done" as soon as the last step has been reached.
 
  * Made `amount` the first argument of progressors to avoid having to
-   specify it by name if progressing with an amount than the default
+   specify it by name if progressing with an amount other than the default
    `amount = 1.0`.
 
  * Add argument `clear` to control whether progress reporter should

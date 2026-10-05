@@ -1,3 +1,36 @@
+Version 1.3.14
+----------------------------------------------------------------
+
+* Fixed -Wformat, -Wformat-extra-args in Windows oldrelease CRAN checks.
+
+Version 1.3.13
+----------------------------------------------------------------
+
+* Added Authors@R field in description to comply with CRAN requirements
+
+* Update to fix a CRAN warning (using non partable flags during compilation)
+
+* Maintainer change. Frederic Bertrand is now the maintainer of the package.
+  (https://github.com/wch/Rttf2pt1/issues/25#issuecomment-3320579566).
+  
+* Fixed C code compilation warnings : -Wcomment, -Wparentheses, 
+  -Wunused-function, -Wunused-label, -Wunused-but-set-variable, 
+  -Wdeprecated-declarations, -Wuninitialized
+
+* Fixed gcc-ASAN -Wstringop-overflow issue
+
+* Fixed include of <netinet/in.h> on Windows systems
+
+* Fixed -Wimplicit-function-declaration in Windows CRAN checks
+
+* Fixed FIXED issue, -Wmaybe-uninitialized, -Wunused-but-set-variable, 
+  -Wunused-function, -Wcomment, -Wparentheses, -Wformat, -Wformat-extra-args 
+  in Windows CRAN checks
+
+* Added lib to windows makefile
+
+* Added basic unit tests
+
 Version 1.3.12
 --------------
 

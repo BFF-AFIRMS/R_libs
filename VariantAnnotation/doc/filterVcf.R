@@ -1,14 +1,9 @@
-### R code from vignette source 'filterVcf.Rnw'
+## ----eval=FALSE---------------------------------------------------------------
+# tabix.file <- TabixFile(file.gz, yieldSize=10000)
+# filterVcf(tabix.file, genome, destination.file,
+#               prefilters=prefilters, filters=filters)
 
-###################################################
-### code chunk number 1: style-Sweave
-###################################################
-BiocStyle::latex()
-
-
-###################################################
-### code chunk number 2: prefilters
-###################################################
+## ----prefilters---------------------------------------------------------------
 isGermlinePrefilter <- function(x) {
     grepl("Germline", x, fixed=TRUE)
 }
@@ -17,10 +12,7 @@ notInDbsnpPrefilter <- function(x) {
     !(grepl("dbsnp", x, fixed=TRUE))
 }
 
-
-###################################################
-### code chunk number 3: filters
-###################################################
+## ----filters------------------------------------------------------------------
 ## We will use isSNV() to filter only SNVs
 
 allelicDepth <- function(x) {
@@ -36,51 +28,51 @@ allelicDepth <- function(x) {
     as.vector(!is.na(test) & test)
 }
 
-
-###################################################
-### code chunk number 4: createFilterRules
-###################################################
+## ----createFilterRules, message=FALSE, warning=FALSE--------------------------
 library(VariantAnnotation)
-prefilters <- FilterRules(list(germline=isGermlinePrefilter, 
+prefilters <- FilterRules(list(germline=isGermlinePrefilter,
                                dbsnp=notInDbsnpPrefilter))
 filters <- FilterRules(list(isSNV=isSNV, AD=allelicDepth))
 
-
-###################################################
-### code chunk number 5: createFilteredFile
-###################################################
-file.gz     <- system.file("extdata", "chr7-sub.vcf.gz", 
+## ----createFilteredFile, message=FALSE, warning=FALSE-------------------------
+file.gz     <- system.file("extdata", "chr7-sub.vcf.gz",
                            package="VariantAnnotation")
-file.gz.tbi <- system.file("extdata", "chr7-sub.vcf.gz.tbi", 
+file.gz.tbi <- system.file("extdata", "chr7-sub.vcf.gz.tbi",
                            package="VariantAnnotation")
 destination.file <- tempfile()
 tabix.file <- TabixFile(file.gz, yieldSize=10000)
 filterVcf(tabix.file,  "hg19", destination.file,
           prefilters=prefilters, filters=filters, verbose=TRUE)
 
-
-###################################################
-### code chunk number 6: mcf7regulatoryRegions
-###################################################
+## ----mcf7regulatoryRegions, message=FALSE, warning=FALSE----------------------
 library(AnnotationHub)
 hub <- AnnotationHub()
 id <- names(query(hub, "wgEncodeUwTfbsMcf7CtcfStdPkRep1.narrowPeak"))
 mcf7.gr <- hub[[tail(id, 1)]]
 
-
-###################################################
-### code chunk number 7: findOverlaps
-###################################################
+## ----findOverlaps-------------------------------------------------------------
 vcf <- readVcf(destination.file, "hg19")
 seqlevels(vcf) <- paste("chr", seqlevels(vcf), sep="")
 ov.mcf7 <- findOverlaps(vcf, mcf7.gr)
 
-
-###################################################
-### code chunk number 8: locateVariant
-###################################################
+## ----locateVariant, message=FALSE, warning=FALSE------------------------------
 library(TxDb.Hsapiens.UCSC.hg19.knownGene)
-txdb <- TxDb.Hsapiens.UCSC.hg19.knownGene 
+txdb <- TxDb.Hsapiens.UCSC.hg19.knownGene
 locateVariants(vcf[6,], txdb, AllVariants())
 
+## ----eval=FALSE---------------------------------------------------------------
+# library(VariantAnnotation)
+# file.gz <- "somaticVcfBeta-HCC1187-H-200-37-ASM-T1-N1.vcf.gz"
+# stopifnot(file.exists(file.gz))
+# file.gz.tbi <- paste(file.gz, ".tbi", sep="")
+# if(!(file.exists(file.gz.tbi)))
+#     indexTabix(file.gz, format="vcf")
+# start.loc <- 55000000
+# end.loc   <- 56000000
+# chr7.gr <- GRanges("7", IRanges(start.loc, end.loc))
+# params <- ScanVcfParam(which=chr7.gr)
+# vcf <- readVcf(TabixFile(file.gz), "hg19", params)
+# writeVcf(vcf, "chr7-sub.vcf")
+# bgzip("chr7-sub.vcf", overwrite=TRUE)
+# indexTabix("chr7-sub.vcf.gz", format="vcf")
 

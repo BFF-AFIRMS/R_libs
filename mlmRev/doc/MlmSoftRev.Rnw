@@ -60,7 +60,7 @@ capabilities of \RR{} by writing their own functions in the language
 and by creating packages of functions and data sets.  Many such
 packages are available on the archive network called CRAN
 (Comprehensive R Archive Network) for which the parent site is
-\url{http://cran.r-project.org}. One such package called \code{lme4}
+\url{https://cran.r-project.org}. One such package called \code{lme4}
 (along with a companion package called \code{Matrix}) provides
 functions to fit and display linear mixed models and generalized
 linear mixed models, which are the statisticians' names for the models

@@ -1,14 +1,38 @@
 ctlcurves               Classification Trimmed Likelihood Curves
-discr_coords            Discriminant coordinates/canonical variates of
-                        tclust objects
-DiscrFact               Discriminant Factor Analysis for tclust Objects
+DiscrFact               Discriminant Factor analysis for 'tclust'
+                        objects
+estepRR                 Function to perform the E-step for a Gaussian
+                        mixture distribution
+flea                    Flea
+FowlkesMallowsIndex     Computes the Fowlkes and Mallows index
 geyser2                 Old Faithful Geyser Data
-M5data                  Mixture M5 Data
-plot.ctlcurves          plot Method for ctlcurves Objects
-plot.DiscrFact          plot Method for DiscrFact Objects
-plot.tclust             plot Method for tclust Objects
-summary.DiscrFact       summary Method for DiscrFact Objects
-swissbank               SwissBankNotes Data
-tclust                  General Trimming Approach to Robust Cluster
-                        Analysis
-tkmeans                 Trimmed k-means Cluster Analysis
+LG5data                 LG5data data
+M5data                  M5data data
+mixsym                  mixsym
+pine                    Pinus nigra dataset
+plot.ctlcurves          The 'plot' method for objects of class
+                        'ctlcurves'
+plot.DiscrFact          The 'plot' method for objects of class
+                        'DiscrFact'
+plot.rlg                Plot an 'rlg' object
+plot.tclust             Plot Method for 'tclust' and 'tkmeans' Objects
+plot.tclustIC           The 'plot' method for objects of class
+                        'tclustIC'
+plot.tclustICsol        Plot Method for 'tclustICsol' Objects
+randIndex               Calculates Rand type Indices to compare two
+                        partitions
+rlg                     Robust Linear Grouping
+simula.rlg              Simulate contaminated data set for applying rlg
+simula.tclust           Simulate contaminated data set for applying
+                        TCLUST
+summary.DiscrFact       The 'summary' method for objects of class
+                        'DiscrFact'
+swissbank               Swiss banknotes data
+tclust                  TCLUST method for robust clustering
+tclustIC                Performs cluster analysis by calling 'tclust'
+                        for different number of groups 'k' and
+                        restriction factors 'c'
+tclustICsol             Extracts a set of best relevant solutions
+                        obtained by 'tclustIC'
+tkmeans                 TKMEANS method for robust K-means clustering
+wholesale               Wholesale customers dataset

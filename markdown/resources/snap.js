@@ -71,9 +71,9 @@
     if (fn) s.querySelectorAll('.footnote-ref > a[href^="#fn"]').forEach(a => {
       const li = fn.querySelector('li' + a.getAttribute('href'));
       if (!li) return;
-      let f = s.querySelector('div.footnotes');
+      let f = s.querySelector('section.footnotes');
       if (!f) {
-        f = newEl('div', 'footnotes'); s.append(f);
+        f = newEl('section', 'footnotes'); s.append(f);
       }
       f.append(li);
       li.firstElementChild?.insertAdjacentHTML('afterbegin', `[${a.innerHTML}] `);
@@ -136,7 +136,7 @@
   // start timer on fullscreen
   d.onfullscreenchange = (e) => d.fullscreenElement && !t0 && startTimers();
   tms.forEach(el => el.addEventListener('click', e => startTimers()));
-  // restore previsouly saved body class
+  // restore previously saved body class
   const bc = sessionStorage.getItem('body-class');
   if (bc) d.body.className += ' ' + bc;
 })(document);

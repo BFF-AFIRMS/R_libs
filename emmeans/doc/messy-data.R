@@ -1,4 +1,4 @@
-## ---- echo = FALSE, results = "hide", message = FALSE-------------------------
+## ----echo = FALSE, results = "hide", message = FALSE--------------------------
 require("emmeans")
 require("ggplot2")
 options(show.signif.stars = FALSE) 
@@ -32,14 +32,14 @@ emmip(framing.glm, treat ~ educ | gender, type = "response",
     cov.reduce = emo ~ treat*gender + age + educ + income)
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  emo.adj <- resid(lm(emo ~ treat*gender + age + educ + income, data = framing))
+# emo.adj <- resid(lm(emo ~ treat*gender + age + educ + income, data = framing))
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  emmeans(..., cov.reduce = list(x1 ~ trt, x2 ~ trt + x1, x3 ~ trt + x1 + x2))
+# emmeans(..., cov.reduce = list(x1 ~ trt, x2 ~ trt + x1, x3 ~ trt + x1 + x2))
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  emmeans(model, "A", weights = "outer")
-#  emmeans(model, c("A", "B"), weights = "prop") |>  emmeans(weights = "prop")
+# emmeans(model, "A", weights = "outer")
+# emmeans(model, c("A", "B"), weights = "prop") |>  emmeans(weights = "prop")
 
 ## ----message = FALSE----------------------------------------------------------
 sapply(c("equal", "prop", "outer", "cells", "flat"), \(w)
@@ -52,10 +52,10 @@ mtcars.lm <- lm(mpg ~ factor(cyl)*am + disp + hp + drat + log(wt) + vs +
 ## -----------------------------------------------------------------------------
 rg.usual <- ref_grid(mtcars.lm)
 rg.usual
-nrow(rg.usual@linfct)
+nrow(linfct(rg.usual))
 rg.nuis = ref_grid(mtcars.lm, non.nuisance = "cyl")
 rg.nuis
-nrow(rg.nuis@linfct)
+nrow(linfct(rg.nuis))
 
 ## -----------------------------------------------------------------------------
 emmeans(rg.usual, ~ cyl * am)
@@ -69,8 +69,10 @@ predict(emmeans(mtcars.lm, ~ cyl * am, weights = "outer"))
 ## -----------------------------------------------------------------------------
 emmeans(mtcars.lm, ~ gear | am, non.nuis = quote(all.vars(specs)))
 
-## ---- error = TRUE------------------------------------------------------------
+## ----error = TRUE-------------------------------------------------------------
+try({
 ref_grid(mtcars.lm, rg.limit = 200)
+})
 
 ## -----------------------------------------------------------------------------
 neuralgia.glm <- glm(Pain ~ Sex + Age + Duration + Treatment,
@@ -117,14 +119,15 @@ pairs(route.emm, reverse = TRUE)
 
 pairs(drug.emm, by = "route", reverse = TRUE)
 
-## ---- fig.width = 5.5, fig.alt = "A panel for each route. This interaction plot has a lot of empty space because all 5 drugs are represented in each panel, and the x axis labels all overlap"----
+## ----fig.width = 5.5, fig.alt = "A panel for each route. This interaction plot has a lot of empty space because all 5 drugs are represented in each panel, and the x axis labels all overlap"----
 emmip(cows.rg, ~ drug | route)
 
-## ---- fig.width = 5.5, fig.alt = "This plot shows the same means as the previous one, but each panel shows only the drugs that are nested in each route"----
+## ----fig.width = 5.5, fig.alt = "This plot shows the same means as the previous one, but each panel shows only the drugs that are nested in each route"----
 require(ggplot2)
-emmip(cows.rg, ~ drug) + facet_wrap(~ route, scales = "free_x")
+emmip(cows.rg, ~ drug, abbr.len = 6) + 
+  facet_wrap(~ route, scales = "free_x", space = "free_x")
 
-## ---- fig.height = 2.5, fig.width = 5.5, fig.alt = "side-by-side CIs and PIs for drugs in each route. Again, with free_y scaling, each panel contains only the drugs involved"----
-plot(drug.emm, PIs = TRUE) + 
-    facet_wrap(~ route, nrow = 2, scales = "free_y")
+## ----fig.height = 2.5, fig.width = 5.5, fig.alt = "side-by-side CIs and PIs for drugs in each route. Again, with free_y scaling, each panel contains only the drugs involved"----
+plot(drug.emm, by = "route", PIs = TRUE) + 
+    facet_wrap(~ route, scales = "free_y", space = "free_y")
 

@@ -17,13 +17,13 @@ RemoteHost: api.github.com
 RemoteRepo: rPackages
 RemoteUsername: solgenomics
 RemoteRef: HEAD
-RemoteSha: f81da3d6f91422fe457bd2f7afff150df1c600f1
+RemoteSha: 6d95c1f67e54a24fa3008431ca9196b5a0d8d317
 RemoteSubdir: phenoAnalysis
 GithubRepo: rPackages
 GithubUsername: solgenomics
 GithubRef: HEAD
-GithubSHA1: f81da3d6f91422fe457bd2f7afff150df1c600f1
+GithubSHA1: 6d95c1f67e54a24fa3008431ca9196b5a0d8d317
 GithubSubdir: phenoAnalysis
 NeedsCompilation: no
-Packaged: 2023-10-02 19:19:04 UTC; root
-Built: R 4.3.1; ; 2023-10-02 19:19:05 UTC; unix
+Packaged: 2026-09-01 21:35:10 UTC; root
+Built: R 4.5.0; ; 2026-09-01 21:35:10 UTC; unix

@@ -1,3 +1,85 @@
+CHANGES IN VERSION 2.44.0
+-------------------------
+
+NEW FEATURES
+
+    o Add makeIRangesFromDataFrame(). Also add:
+      - coercion from data.frame or DataFrame to IRanges,
+      - support for IRanges(<data.frame>) and IRanges(<DataFrame>).
+
+    o Define Views() methods for integer and numeric vectors (they require
+      the XVector package).
+
+    o Start experimenting with multithreading in findOverlaps().
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+    o Significantly reduce findOverlaps() memory footprint. See commit 247ed4e.
+
+    o Some clarification in nearest()'s documentation.
+
+BUG FIXES
+
+    o Small tweak to viewApply() method for Views objects.
+
+
+CHANGES IN VERSION 2.42.0
+-------------------------
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+    o New implementations of the viewMins(), viewMaxs(), viewSums(),
+      viewMeans(), viewWhichMins(), viewWhichMaxs(), viewRangeMins(),
+      and viewRangeMaxs() methods for RleViews objects.
+
+      This is a complete rewrite (including of the C code behind these methods)
+      that addresses many long-standing (and unnoticed-for-years) bugs in the
+      previous implementation. This new implementation can also be significantly
+      faster than the previous one e.g. 5x faster or more for RleViews objects
+      with millions of views.
+
+BUG FIXES
+
+    o Fix multiple bugs in viewMins(), viewMaxs(), viewSums(), viewMeans(),
+      viewWhichMins(), viewWhichMaxs(), viewRangeMins(), and viewRangeMaxs()
+      methods for RleViews objects. See above for the details.
+
+    o Fix bug in disjointBins() method for IntegerRanges derivatives when
+      the input object has names and is not sorted.
+      See https://github.com/Bioconductor/IRanges/issues/54 for the details.
+
+
+CHANGES IN VERSION 2.40.0
+-------------------------
+
+BUG FIXES
+
+    o Make sure that internal helper coerceToCompressedList() always
+      propagates the mcols.
+
+
+CHANGES IN VERSION 2.38.0
+-------------------------
+
+NEW FEATURES
+
+    o Add terminators(), same as promoters() but for terminator regions.
+
+
+CHANGES IN VERSION 2.36.0
+-------------------------
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+    o Add link to revElements() in man page for reverse().
+
+BUG FIXES
+
+    o Fix is.unsorted() methods for Compressed[Integer|Numeric]List
+      objects (they were never working since their introduction years
+      ago).
+
+
 CHANGES IN VERSION 2.34.0
 -------------------------
 

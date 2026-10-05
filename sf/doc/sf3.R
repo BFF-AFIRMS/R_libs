@@ -6,12 +6,12 @@ knitr::opts_chunk$set(collapse = TRUE)
 ## -----------------------------------------------------------------------------
 library(sf)
 suppressPackageStartupMessages(library(dplyr))
-st_point(c(1,1)) %>% st_cast("MULTIPOINT")
-st_multipoint(rbind(c(1,1))) %>% st_cast("POINT")
-st_multipoint(rbind(c(1,1),c(2,2))) %>% st_cast("POINT")
+st_point(c(1,1)) |> st_cast("MULTIPOINT")
+st_multipoint(rbind(c(1,1))) |> st_cast("POINT")
+st_multipoint(rbind(c(1,1),c(2,2))) |> st_cast("POINT")
 
 ## -----------------------------------------------------------------------------
-st_geometrycollection(list(st_point(c(1,1)))) %>% st_cast("POINT")
+st_geometrycollection(list(st_point(c(1,1)))) |> st_cast("POINT")
 
 ## -----------------------------------------------------------------------------
 shp = system.file("shape/nc.shp", package="sf")
@@ -75,16 +75,16 @@ st_crs(s2) <- "+proj=longlat +datum=WGS84"
 all.equal(s1, s2)
 
 ## -----------------------------------------------------------------------------
-s1 %>% st_set_crs(4326)
+s1 |> st_set_crs(4326)
 
 ## -----------------------------------------------------------------------------
-s3 <- s1 %>% st_set_crs(4326) %>% st_set_crs(3857)
+s3 <- s1 |> st_set_crs(4326) |> st_set_crs(3857)
 
 ## -----------------------------------------------------------------------------
-s3 <- s1  %>% st_set_crs(NA) %>% st_set_crs(3857)
+s3 <- s1  |> st_set_crs(NA) |> st_set_crs(3857)
 
 ## -----------------------------------------------------------------------------
-s3 <- s1 %>% st_transform(3857)
+s3 <- s1 |> st_transform(3857)
 s3
 
 ## ----figure=TRUE--------------------------------------------------------------
@@ -142,11 +142,11 @@ st_covered_by(x, y, sparse = FALSE)
 st_covered_by(y, y, sparse = FALSE)
 st_equals_exact(x, y,0.001, sparse = FALSE)
 
-## ---- fig=TRUE----------------------------------------------------------------
+## ----fig=TRUE-----------------------------------------------------------------
 u = st_union(x)
 plot(u)
 
-## ---- fig=TRUE----------------------------------------------------------------
+## ----fig=TRUE-----------------------------------------------------------------
 par(mfrow=c(1,2), mar = rep(0,4))
 plot(st_buffer(u, 0.2))
 plot(u, border = 'red', add = TRUE)
@@ -163,14 +163,14 @@ plot(st_convex_hull(x))
 plot(st_convex_hull(u))
 par(mfrow = c(1,1))
 
-## ---- fig=TRUE----------------------------------------------------------------
+## ----fig=TRUE-----------------------------------------------------------------
 par(mfrow=c(1,2))
 plot(x)
 plot(st_centroid(x), add = TRUE, col = 'red')
 plot(x)
 plot(st_centroid(u), add = TRUE, col = 'red')
 
-## ---- fig=TRUE----------------------------------------------------------------
+## ----fig=TRUE-----------------------------------------------------------------
 plot(x)
 plot(y, add = TRUE)
 plot(st_intersection(st_union(x),st_union(y)), add = TRUE, col = 'red')

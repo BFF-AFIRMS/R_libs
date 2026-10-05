@@ -41,8 +41,7 @@ French, German, Spanish, and Swedish. For example,
 
 # Use
 
-After [installing](../index.html#installation) the package from either CRAN
-or GitHub, it's simple to convert a cardinal to an ordinal number.
+After [installing](https://centerforassessment.github.io/toOrdinal/#installation) the package from either CRAN or GitHub, it's simple to convert a cardinal to an ordinal number.
 
 To convert cardinal to ordinal numbers in English (the default), supply the cardinal number to `toOrdinal`.
 

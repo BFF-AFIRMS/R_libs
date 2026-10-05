@@ -1,0 +1,18 @@
+csolnp                  Nonlinear optimization using augmented Lagrange
+                        method (C++ version)
+csolnp_ms               Multi-start version of csolnp
+gosolnp                 Random Initialization and Multiple Restarts of
+                        the solnp solver.
+kkt_diagnose            Summarize KKT Condition Diagnostics
+solnp                   Nonlinear optimization using augmented Lagrange
+                        method (original version)
+solnp_problem_suite     Retrieve Implemented Test Problems for the
+                        SOLNP Suite
+solnp_problems_table    List of Valid Test Problems for the SOLNP Suite
+solnp_standardize_problem
+                        Standardize an Optimization Problem to NLP
+                        Standard Form
+startpars               Generates and returns a set of starting
+                        parameters by sampling the parameter space
+                        based on the evaluation of the function and
+                        constraints.

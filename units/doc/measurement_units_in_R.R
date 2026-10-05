@@ -18,20 +18,20 @@ year_duration %*% rep(1, length(year_duration)) / length(year_duration)
 coef(lm(Annual_Mean ~ date, temp_data))
 coef(lm(Annual_Mean ~ time, temp_data))
 
-## ---- eval=requireNamespace("measurements", quietly=TRUE)---------------------
+## ----eval=requireNamespace("measurements", quietly=TRUE)----------------------
 library(measurements)
 conv_unit(2.54, "cm", "inch")
 conv_unit(c("101 44.32","3 19.453"), "deg_dec_min", "deg_min_sec")
 conv_unit(10, "cm_per_sec", "km_per_day")
 
-## ---- eval=requireNamespace("measurements", quietly=TRUE)---------------------
+## ----eval=requireNamespace("measurements", quietly=TRUE)----------------------
 names(conv_unit_options)
 conv_unit_options$volume
 
-## ---- eval=requireNamespace("measurements", quietly=TRUE)---------------------
+## ----eval=requireNamespace("measurements", quietly=TRUE)----------------------
 conv_dim(x = 100, x_unit = "m", trans = 3, trans_unit = "ft_per_sec", y_unit = "min")
 
-## ---- eval=requireNamespace("NISTunits", quietly=TRUE)------------------------
+## ----eval=requireNamespace("NISTunits", quietly=TRUE)-------------------------
 library(NISTunits)
 NISTwattPerSqrMeterTOwattPerSqrInch(1:5)
 
@@ -102,7 +102,7 @@ mtcars$displacement = set_units(mtcars$displacement, cm^3)
 par(mar = par("mar") + c(0, .3, 0, 0))
 with(mtcars, plot(1/displacement, 1/consumption))
 
-## ---- eval=requireNamespace("ggplot2", quietly=TRUE)--------------------------
+## ----eval=requireNamespace("ggplot2", quietly=TRUE)---------------------------
 library(ggplot2)
 ggplot(mtcars) + geom_point(aes(x = 1/displacement, y = 1/consumption))
 

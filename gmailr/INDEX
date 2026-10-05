@@ -23,7 +23,6 @@ gm_insert_message       Insert a message into the gmail mailbox from a
                         mime message
 gm_label                Get a specific label
 gm_labels               Get a list of all labels
-gm_last_response        Response from the last query
 gm_message              Get a single message
 gm_messages             Get a list of messages
 gm_mime                 Create a mime formatted message object

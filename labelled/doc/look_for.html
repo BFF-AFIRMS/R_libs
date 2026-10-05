@@ -13,7 +13,7 @@
 <meta name="author" content="Joseph Larmarange" />
 
 
-<title>Generate a data dictionnary and search for variables with look_for()</title>
+<title>Generate a data dictionary and search for variables with look_for()</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -49,6 +49,7 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -337,7 +338,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">Generate a data dictionnary and search for
+<h1 class="title toc-ignore">Generate a data dictionary and search for
 variables with <code>look_for()</code></h1>
 <h4 class="author">Joseph Larmarange</h4>
 
@@ -459,96 +460,631 @@ values corresponding to:</p>
 ##                                                    versicolor
 ##                                                    virginica</code></pre>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">look_for</span>(women)</span></code></pre></div>
-<pre><code>##  pos variable          label                     col_type missing
-##  1   id_woman          Woman Id                  dbl      0      
-##  2   id_household      Household Id              dbl      0      
-##  3   weight            Sample weight             dbl      0      
-##  4   interview_date    Interview date            date     0      
-##  5   date_of_birth     Date of birth             date     0      
-##  6   age               Age at last anniversary ~ dbl      0      
-##  7   residency         Urban / rural residency   dbl+lbl  0      
-##                                                                  
-##  8   region            Region                    dbl+lbl  0      
-##                                                                  
-##                                                                  
-##                                                                  
-##  9   instruction       Level of instruction      dbl+lbl  0      
-##                                                                  
-##                                                                  
-##                                                                  
-##  10  employed          Employed?                 dbl+lbl  7      
-##                                                                  
-##                                                                  
-##  11  matri             Matrimonial status        dbl+lbl  0      
-##                                                                  
-##                                                                  
-##                                                                  
-##                                                                  
-##                                                                  
-##  12  religion          Religion                  dbl+lbl  4      
-##                                                                  
-##                                                                  
-##                                                                  
-##                                                                  
-##  13  newspaper         Read newspaper?           dbl+lbl  0      
-##                                                                  
-##  14  radio             Listen to radio?          dbl+lbl  0      
-##                                                                  
-##  15  tv                Watch TV?                 dbl+lbl  0      
-##                                                                  
-##  16  ideal_nb_children Ideal number of children  dbl+lbl  0      
-##                                                                  
-##  17  test              Ever tested for HIV?      dbl+lbl  29     
-##                                                                  
-##                                                                  
-##  values             
-##                     
-##                     
-##                     
-##                     
-##                     
-##                     
-##  [1] urban          
-##  [2] rural          
-##  [1] North          
-##  [2] East           
-##  [3] South          
-##  [4] West           
-##  [0] none           
-##  [1] primary        
-##  [2] secondary      
-##  [3] higher         
-##  [0] no             
-##  [1] yes            
-##  [9] missing        
-##  [0] single         
-##  [1] married        
-##  [2] living together
-##  [3] windowed       
-##  [4] divorced       
-##  [5] separated      
-##  [1] Muslim         
-##  [2] Christian      
-##  [3] Protestant     
-##  [4] no religion    
-##  [5] other          
-##  [0] no             
-##  [1] yes            
-##  [0] no             
-##  [1] yes            
-##  [0] no             
-##  [1] yes            
-##  [96] don&#39;t know    
-##  [99] missing       
-##  [0] no             
-##  [1] yes            
-##  [9] missing</code></pre>
+<pre><code>##  pos variable          label              col_type missing values            
+##  1   id_woman          Woman Id           dbl      0                         
+##  2   id_household      Household Id       dbl      0                         
+##  3   weight            Sample weight      dbl      0                         
+##  4   interview_date    Interview date     date     0                         
+##  5   date_of_birth     Date of birth      date     0                         
+##  6   age               Age at last anniv~ dbl      0                         
+##  7   residency         Urban / rural res~ dbl+lbl  0       [1] urban         
+##                                                            [2] rural         
+##  8   region            Region             dbl+lbl  0       [1] North         
+##                                                            [2] East          
+##                                                            [3] South         
+##                                                            [4] West          
+##  9   instruction       Level of instruct~ dbl+lbl  0       [0] none          
+##                                                            [1] primary       
+##                                                            [2] secondary     
+##                                                            [3] higher        
+##  10  employed          Employed?          dbl+lbl  7       [0] no            
+##                                                            [1] yes           
+##                                                            [9] missing       
+##  11  matri             Matrimonial status dbl+lbl  0       [0] single        
+##                                                            [1] married       
+##                                                            [2] living togeth~
+##                                                            [3] windowed      
+##                                                            [4] divorced      
+##                                                            [5] separated     
+##  12  religion          Religion           dbl+lbl  4       [1] Muslim        
+##                                                            [2] Christian     
+##                                                            [3] Protestant    
+##                                                            [4] no religion   
+##                                                            [5] other         
+##  13  newspaper         Read newspaper?    dbl+lbl  0       [0] no            
+##                                                            [1] yes           
+##  14  radio             Listen to radio?   dbl+lbl  0       [0] no            
+##                                                            [1] yes           
+##  15  tv                Watch TV?          dbl+lbl  0       [0] no            
+##                                                            [1] yes           
+##  16  ideal_nb_children Ideal number of c~ dbl+lbl  0       [96] don&#39;t know   
+##                                                            [99] missing      
+##  17  test              Ever tested for H~ dbl+lbl  29      [0] no            
+##                                                            [1] yes           
+##                                                            [9] missing</code></pre>
 <p>Note that <code>lookfor()</code> and
 <code>generate_dictionary()</code> are synonyms of
 <code>look_for()</code> and works exactly in the same way.</p>
 <p>If there is not enough space to print full labels in the console,
 they will be truncated (truncation is indicated by a
 <code>~</code>).</p>
+<p>To get a nicely formatted table from <code>look_for()</code>, you
+could use <code>to_gt()</code> (the <code>{gt}</code> package is
+required).</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>women <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>  <span class="fu">look_for</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>  <span class="fu">to_gt</span>()</span></code></pre></div>
+<div id="yvdsiampkf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#yvdsiampkf table {
+font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+#yvdsiampkf thead, #yvdsiampkf tbody, #yvdsiampkf tfoot, #yvdsiampkf tr, #yvdsiampkf td, #yvdsiampkf th {
+border-style: none;
+}
+#yvdsiampkf p {
+margin: 0;
+padding: 0;
+}
+#yvdsiampkf .gt_table {
+display: table;
+border-collapse: collapse;
+line-height: normal;
+margin-left: auto;
+margin-right: auto;
+color: #333333;
+font-size: 16px;
+font-weight: normal;
+font-style: normal;
+background-color: #FFFFFF;
+width: auto;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #A8A8A8;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #A8A8A8;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+}
+#yvdsiampkf .gt_caption {
+padding-top: 4px;
+padding-bottom: 4px;
+}
+#yvdsiampkf .gt_title {
+color: #333333;
+font-size: 125%;
+font-weight: initial;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-color: #FFFFFF;
+border-bottom-width: 0;
+}
+#yvdsiampkf .gt_subtitle {
+color: #333333;
+font-size: 85%;
+font-weight: initial;
+padding-top: 3px;
+padding-bottom: 5px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-color: #FFFFFF;
+border-top-width: 0;
+}
+#yvdsiampkf .gt_heading {
+background-color: #FFFFFF;
+text-align: center;
+border-bottom-color: #FFFFFF;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#yvdsiampkf .gt_bottom_border {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#yvdsiampkf .gt_col_headings {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#yvdsiampkf .gt_col_heading {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 6px;
+padding-left: 5px;
+padding-right: 5px;
+overflow-x: hidden;
+}
+#yvdsiampkf .gt_column_spanner_outer {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+padding-top: 0;
+padding-bottom: 0;
+padding-left: 4px;
+padding-right: 4px;
+}
+#yvdsiampkf .gt_column_spanner_outer:first-child {
+padding-left: 0;
+}
+#yvdsiampkf .gt_column_spanner_outer:last-child {
+padding-right: 0;
+}
+#yvdsiampkf .gt_column_spanner {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 5px;
+overflow-x: hidden;
+display: inline-block;
+width: 100%;
+}
+#yvdsiampkf .gt_spanner_row {
+border-bottom-style: hidden;
+}
+#yvdsiampkf .gt_group_heading {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+text-align: left;
+}
+#yvdsiampkf .gt_empty_group_heading {
+padding: 0.5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: middle;
+}
+#yvdsiampkf .gt_from_md > :first-child {
+margin-top: 0;
+}
+#yvdsiampkf .gt_from_md > :last-child {
+margin-bottom: 0;
+}
+#yvdsiampkf .gt_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+margin: 10px;
+border-top-style: solid;
+border-top-width: 1px;
+border-top-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+overflow-x: hidden;
+}
+#yvdsiampkf .gt_stub {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+}
+#yvdsiampkf .gt_stub_row_group {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+vertical-align: top;
+}
+#yvdsiampkf .gt_row_group_first td {
+border-top-width: 2px;
+}
+#yvdsiampkf .gt_row_group_first th {
+border-top-width: 2px;
+}
+#yvdsiampkf .gt_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#yvdsiampkf .gt_first_summary_row {
+border-top-style: solid;
+border-top-color: #D3D3D3;
+}
+#yvdsiampkf .gt_first_summary_row.thick {
+border-top-width: 2px;
+}
+#yvdsiampkf .gt_last_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#yvdsiampkf .gt_grand_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#yvdsiampkf .gt_first_grand_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-style: double;
+border-top-width: 6px;
+border-top-color: #D3D3D3;
+}
+#yvdsiampkf .gt_last_grand_summary_row_top {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: double;
+border-bottom-width: 6px;
+border-bottom-color: #D3D3D3;
+}
+#yvdsiampkf .gt_striped {
+background-color: rgba(128, 128, 128, 0.05);
+}
+#yvdsiampkf .gt_table_body {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#yvdsiampkf .gt_footnotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#yvdsiampkf .gt_footnote {
+margin: 0px;
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#yvdsiampkf .gt_sourcenotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#yvdsiampkf .gt_sourcenote {
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#yvdsiampkf .gt_left {
+text-align: left;
+}
+#yvdsiampkf .gt_center {
+text-align: center;
+}
+#yvdsiampkf .gt_right {
+text-align: right;
+font-variant-numeric: tabular-nums;
+}
+#yvdsiampkf .gt_font_normal {
+font-weight: normal;
+}
+#yvdsiampkf .gt_font_bold {
+font-weight: bold;
+}
+#yvdsiampkf .gt_font_italic {
+font-style: italic;
+}
+#yvdsiampkf .gt_super {
+font-size: 65%;
+}
+#yvdsiampkf .gt_footnote_marks {
+font-size: 75%;
+vertical-align: 0.4em;
+position: initial;
+}
+#yvdsiampkf .gt_asterisk {
+font-size: 100%;
+vertical-align: 0;
+}
+#yvdsiampkf .gt_indent_1 {
+text-indent: 5px;
+}
+#yvdsiampkf .gt_indent_2 {
+text-indent: 10px;
+}
+#yvdsiampkf .gt_indent_3 {
+text-indent: 15px;
+}
+#yvdsiampkf .gt_indent_4 {
+text-indent: 20px;
+}
+#yvdsiampkf .gt_indent_5 {
+text-indent: 25px;
+}
+#yvdsiampkf .katex-display {
+display: inline-flex !important;
+margin-bottom: 0.75em !important;
+}
+#yvdsiampkf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold; vertical-align:top" scope="col" id="pos">#</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-weight: bold; vertical-align:top" scope="col" id="variable">Variable</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-weight: bold; vertical-align:top" scope="col" id="col_type">Type</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-weight: bold; vertical-align:top" scope="col" id="label">Variable label</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold; vertical-align:top" scope="col" id="values">Values</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold; vertical-align:top" scope="col" id="missing">Missing values</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">1</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">id_woman</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Woman Id</td>
+<td headers="values" class="gt_row gt_center" style="vertical-align:top"></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">2</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">id_household</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Household Id</td>
+<td headers="values" class="gt_row gt_center" style="vertical-align:top"></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">3</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">weight</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Sample weight</td>
+<td headers="values" class="gt_row gt_center" style="vertical-align:top"></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">4</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">interview_date</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">date</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Interview date</td>
+<td headers="values" class="gt_row gt_center" style="vertical-align:top"></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">5</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">date_of_birth</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">date</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Date of birth</td>
+<td headers="values" class="gt_row gt_center" style="vertical-align:top"></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">6</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">age</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Age at last anniversary (in years)</td>
+<td headers="values" class="gt_row gt_center" style="vertical-align:top"></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">7</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">residency</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl+lbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Urban / rural residency</td>
+<td headers="values" class="gt_row gt_center" style="text-align: left; vertical-align:top"><span class="gt_from_md"><ul>
+<li>[1] urban</li>
+<li>[2] rural</li>
+</ul>
+</span></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">8</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">region</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl+lbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Region</td>
+<td headers="values" class="gt_row gt_center" style="text-align: left; vertical-align:top"><span class="gt_from_md"><ul>
+<li>[1] North</li>
+<li>[2] East</li>
+<li>[3] South</li>
+<li>[4] West</li>
+</ul>
+</span></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">9</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">instruction</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl+lbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Level of instruction</td>
+<td headers="values" class="gt_row gt_center" style="text-align: left; vertical-align:top"><span class="gt_from_md"><ul>
+<li>[0] none</li>
+<li>[1] primary</li>
+<li>[2] secondary</li>
+<li>[3] higher</li>
+</ul>
+</span></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">10</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">employed</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl+lbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Employed?</td>
+<td headers="values" class="gt_row gt_center" style="text-align: left; vertical-align:top"><span class="gt_from_md"><ul>
+<li>[0] no</li>
+<li>[1] yes</li>
+<li>[9] missing</li>
+</ul>
+</span></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">7</td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">11</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">matri</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl+lbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Matrimonial status</td>
+<td headers="values" class="gt_row gt_center" style="text-align: left; vertical-align:top"><span class="gt_from_md"><ul>
+<li>[0] single</li>
+<li>[1] married</li>
+<li>[2] living together</li>
+<li>[3] windowed</li>
+<li>[4] divorced</li>
+<li>[5] separated</li>
+</ul>
+</span></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">12</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">religion</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl+lbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Religion</td>
+<td headers="values" class="gt_row gt_center" style="text-align: left; vertical-align:top"><span class="gt_from_md"><ul>
+<li>[1] Muslim</li>
+<li>[2] Christian</li>
+<li>[3] Protestant</li>
+<li>[4] no religion</li>
+<li>[5] other</li>
+</ul>
+</span></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">4</td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">13</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">newspaper</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl+lbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Read newspaper?</td>
+<td headers="values" class="gt_row gt_center" style="text-align: left; vertical-align:top"><span class="gt_from_md"><ul>
+<li>[0] no</li>
+<li>[1] yes</li>
+</ul>
+</span></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">14</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">radio</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl+lbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Listen to radio?</td>
+<td headers="values" class="gt_row gt_center" style="text-align: left; vertical-align:top"><span class="gt_from_md"><ul>
+<li>[0] no</li>
+<li>[1] yes</li>
+</ul>
+</span></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">15</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">tv</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl+lbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Watch TV?</td>
+<td headers="values" class="gt_row gt_center" style="text-align: left; vertical-align:top"><span class="gt_from_md"><ul>
+<li>[0] no</li>
+<li>[1] yes</li>
+</ul>
+</span></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">16</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">ideal_nb_children</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl+lbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Ideal number of children</td>
+<td headers="values" class="gt_row gt_center" style="text-align: left; vertical-align:top"><span class="gt_from_md"><ul>
+<li>[96] don’t know</li>
+<li>[99] missing</li>
+</ul>
+</span></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">17</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">test</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl+lbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Ever tested for HIV?</td>
+<td headers="values" class="gt_row gt_center" style="text-align: left; vertical-align:top"><span class="gt_from_md"><ul>
+<li>[0] no</li>
+<li>[1] yes</li>
+<li>[9] missing</li>
+</ul>
+</span></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">29</td></tr>
+  </tbody>
+  
+</table>
+</div>
 </div>
 </div>
 <div id="searching-variables-by-key" class="section level2">
@@ -557,41 +1093,41 @@ they will be truncated (truncation is indicated by a
 become difficult to find a specific variable. In such case, you can
 provide an optional list of keywords, which can be simple character
 strings or regular expression, to search for specific variables.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># Look for a single keyword.</span></span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="fu">look_for</span>(iris, <span class="st">&quot;petal&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># Look for a single keyword.</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="fu">look_for</span>(iris, <span class="st">&quot;petal&quot;</span>)</span></code></pre></div>
 <pre><code>##  pos variable     label           col_type missing values
 ##  3   Petal.Length Length of petal dbl      0             
 ##  4   Petal.Width  Width of Petal  dbl      0</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">look_for</span>(iris, <span class="st">&quot;s&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">look_for</span>(iris, <span class="st">&quot;s&quot;</span>)</span></code></pre></div>
 <pre><code>##  pos variable     label col_type missing values    
 ##  1   Sepal.Length —     dbl      0                 
 ##  2   Sepal.Width  —     dbl      0                 
 ##  5   Species      —     fct      0       setosa    
 ##                                          versicolor
 ##                                          virginica</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co"># Look for with a regular expression</span></span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="fu">look_for</span>(iris, <span class="st">&quot;petal|species&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co"># Look for with a regular expression</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="fu">look_for</span>(iris, <span class="st">&quot;petal|species&quot;</span>)</span></code></pre></div>
 <pre><code>##  pos variable     label           col_type missing values    
 ##  3   Petal.Length Length of petal dbl      0                 
 ##  4   Petal.Width  Width of Petal  dbl      0                 
 ##  5   Species      —               fct      0       setosa    
 ##                                                    versicolor
 ##                                                    virginica</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">look_for</span>(iris, <span class="st">&quot;s$&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">look_for</span>(iris, <span class="st">&quot;s$&quot;</span>)</span></code></pre></div>
 <pre><code>##  pos variable label col_type missing values    
 ##  5   Species  —     fct      0       setosa    
 ##                                      versicolor
 ##                                      virginica</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="co"># Look for with several keywords</span></span>
-<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a><span class="fu">look_for</span>(iris, <span class="st">&quot;pet&quot;</span>, <span class="st">&quot;sp&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="co"># Look for with several keywords</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="fu">look_for</span>(iris, <span class="st">&quot;pet&quot;</span>, <span class="st">&quot;sp&quot;</span>)</span></code></pre></div>
 <pre><code>##  pos variable     label           col_type missing values    
 ##  3   Petal.Length Length of petal dbl      0                 
 ##  4   Petal.Width  Width of Petal  dbl      0                 
 ##  5   Species      —               fct      0       setosa    
 ##                                                    versicolor
 ##                                                    virginica</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="co"># Look_for will take variable labels into account</span></span>
-<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="fu">look_for</span>(women, <span class="st">&quot;read&quot;</span>, <span class="st">&quot;level&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="co"># Look_for will take variable labels into account</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a><span class="fu">look_for</span>(women, <span class="st">&quot;read&quot;</span>, <span class="st">&quot;level&quot;</span>)</span></code></pre></div>
 <pre><code>##  pos variable    label                col_type missing values       
 ##  9   instruction Level of instruction dbl+lbl  0       [0] none     
 ##                                                        [1] primary  
@@ -602,27 +1138,27 @@ strings or regular expression, to search for specific variables.</p>
 <p>By default, <code>look_for()</code> will look through both variable
 names and variables labels. Use <code>labels = FALSE</code> to look only
 through variable names.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">look_for</span>(women, <span class="st">&quot;read&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">look_for</span>(women, <span class="st">&quot;read&quot;</span>)</span></code></pre></div>
 <pre><code>##  pos variable  label           col_type missing values 
 ##  13  newspaper Read newspaper? dbl+lbl  0       [0] no 
 ##                                                 [1] yes</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">look_for</span>(women, <span class="st">&quot;read&quot;</span>, <span class="at">labels =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<pre><code>## Nothing found. Sorry.</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">look_for</span>(women, <span class="st">&quot;read&quot;</span>, <span class="at">labels =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## ! Nothing found. Sorry.</code></pre>
 <p>Similarly, the search is by default case insensitive. To make the
 search case sensitive, use <code>ignore.case = FALSE</code>.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="fu">look_for</span>(iris, <span class="st">&quot;sepal&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="fu">look_for</span>(iris, <span class="st">&quot;sepal&quot;</span>)</span></code></pre></div>
 <pre><code>##  pos variable     label col_type missing values
 ##  1   Sepal.Length —     dbl      0             
 ##  2   Sepal.Width  —     dbl      0</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="fu">look_for</span>(iris, <span class="st">&quot;sepal&quot;</span>, <span class="at">ignore.case =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<pre><code>## Nothing found. Sorry.</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="fu">look_for</span>(iris, <span class="st">&quot;sepal&quot;</span>, <span class="at">ignore.case =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## ! Nothing found. Sorry.</code></pre>
 </div>
 <div id="level-of-details" class="section level2">
 <h2>Level of details</h2>
 <p>If you just want to use the search feature of <code>look_for()</code>
 without computing the details of each variable, simply indicate
 <code>details = &quot;none&quot;</code> or <code>details = FALSE</code>.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">look_for</span>(women, <span class="st">&quot;id&quot;</span>, <span class="at">details =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="fu">look_for</span>(women, <span class="st">&quot;id&quot;</span>, <span class="at">details =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <pre><code>##  pos variable          label                   
 ##   1  id_woman          Woman Id                
 ##   2  id_household      Household Id            
@@ -631,93 +1167,93 @@ without computing the details of each variable, simply indicate
 <p>If you want more details (but can be time consuming for big data
 frames), indicate <code>details = &quot;full&quot;</code> or
 <code>details = TRUE</code>.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="fu">look_for</span>(women, <span class="at">details =</span> <span class="st">&quot;full&quot;</span>)</span></code></pre></div>
-<pre><code>##  pos variable          label                  col_type missing unique_values
-##  1   id_woman          Woman Id               dbl      0       2000         
-##  2   id_household      Household Id           dbl      0       1814         
-##  3   weight            Sample weight          dbl      0       351          
-##  4   interview_date    Interview date         date     0       165          
-##  5   date_of_birth     Date of birth          date     0       1740         
-##  6   age               Age at last anniversa~ dbl      0       36           
-##  7   residency         Urban / rural residen~ dbl+lbl  0       2            
-##                                                                             
-##  8   region            Region                 dbl+lbl  0       4            
-##                                                                             
-##                                                                             
-##                                                                             
-##  9   instruction       Level of instruction   dbl+lbl  0       4            
-##                                                                             
-##                                                                             
-##                                                                             
-##  10  employed          Employed?              dbl+lbl  7       3            
-##                                                                             
-##                                                                             
-##  11  matri             Matrimonial status     dbl+lbl  0       6            
-##                                                                             
-##                                                                             
-##                                                                             
-##                                                                             
-##                                                                             
-##  12  religion          Religion               dbl+lbl  4       6            
-##                                                                             
-##                                                                             
-##                                                                             
-##                                                                             
-##  13  newspaper         Read newspaper?        dbl+lbl  0       2            
-##                                                                             
-##  14  radio             Listen to radio?       dbl+lbl  0       2            
-##                                                                             
-##  15  tv                Watch TV?              dbl+lbl  0       2            
-##                                                                             
-##  16  ideal_nb_children Ideal number of child~ dbl+lbl  0       18           
-##                                                                             
-##  17  test              Ever tested for HIV?   dbl+lbl  29      3            
-##                                                                             
-##                                                                             
-##  values                 na_values na_range
-##  range: 1 - 2000                          
-##  range: 1 - 1814                          
-##  range: 0.044629 - 4.3~                   
-##  range: 2011-12-01 - 2~                   
-##  range: 1962-02-07 - 1~                   
-##  range: 14 - 49                           
-##  [1] urban                                
-##  [2] rural                                
-##  [1] North                                
-##  [2] East                                 
-##  [3] South                                
-##  [4] West                                 
-##  [0] none                                 
-##  [1] primary                              
-##  [2] secondary                            
-##  [3] higher                               
-##  [0] no                 9                 
-##  [1] yes                                  
-##  [9] missing                              
-##  [0] single                               
-##  [1] married                              
-##  [2] living together                      
-##  [3] windowed                             
-##  [4] divorced                             
-##  [5] separated                            
-##  [1] Muslim                               
-##  [2] Christian                            
-##  [3] Protestant                           
-##  [4] no religion                          
-##  [5] other                                
-##  [0] no                                   
-##  [1] yes                                  
-##  [0] no                                   
-##  [1] yes                                  
-##  [0] no                                   
-##  [1] yes                                  
-##  [96] don&#39;t know                          
-##  [99] missing                             
-##  [0] no                 9                 
-##  [1] yes                                  
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="fu">look_for</span>(women, <span class="at">details =</span> <span class="st">&quot;full&quot;</span>)</span></code></pre></div>
+<pre><code>##  pos variable          label              col_type missing unique_values
+##  1   id_woman          Woman Id           dbl      0       2000         
+##  2   id_household      Household Id       dbl      0       1814         
+##  3   weight            Sample weight      dbl      0       351          
+##  4   interview_date    Interview date     date     0       165          
+##  5   date_of_birth     Date of birth      date     0       1740         
+##  6   age               Age at last anniv~ dbl      0       36           
+##  7   residency         Urban / rural res~ dbl+lbl  0       2            
+##                                                                         
+##  8   region            Region             dbl+lbl  0       4            
+##                                                                         
+##                                                                         
+##                                                                         
+##  9   instruction       Level of instruct~ dbl+lbl  0       4            
+##                                                                         
+##                                                                         
+##                                                                         
+##  10  employed          Employed?          dbl+lbl  7       3            
+##                                                                         
+##                                                                         
+##  11  matri             Matrimonial status dbl+lbl  0       6            
+##                                                                         
+##                                                                         
+##                                                                         
+##                                                                         
+##                                                                         
+##  12  religion          Religion           dbl+lbl  4       6            
+##                                                                         
+##                                                                         
+##                                                                         
+##                                                                         
+##  13  newspaper         Read newspaper?    dbl+lbl  0       2            
+##                                                                         
+##  14  radio             Listen to radio?   dbl+lbl  0       2            
+##                                                                         
+##  15  tv                Watch TV?          dbl+lbl  0       2            
+##                                                                         
+##  16  ideal_nb_children Ideal number of c~ dbl+lbl  0       18           
+##                                                                         
+##  17  test              Ever tested for H~ dbl+lbl  29      3            
+##                                                                         
+##                                                                         
+##  values             na_values na_range
+##  range: 1 - 2000                      
+##  range: 1 - 1814                      
+##  range: 0.044629 -~                   
+##  range: 2011-12-01~                   
+##  range: 1962-02-07~                   
+##  range: 14 - 49                       
+##  [1] urban                            
+##  [2] rural                            
+##  [1] North                            
+##  [2] East                             
+##  [3] South                            
+##  [4] West                             
+##  [0] none                             
+##  [1] primary                          
+##  [2] secondary                        
+##  [3] higher                           
+##  [0] no             9                 
+##  [1] yes                              
+##  [9] missing                          
+##  [0] single                           
+##  [1] married                          
+##  [2] living togeth~                   
+##  [3] windowed                         
+##  [4] divorced                         
+##  [5] separated                        
+##  [1] Muslim                           
+##  [2] Christian                        
+##  [3] Protestant                       
+##  [4] no religion                      
+##  [5] other                            
+##  [0] no                               
+##  [1] yes                              
+##  [0] no                               
+##  [1] yes                              
+##  [0] no                               
+##  [1] yes                              
+##  [96] don&#39;t know                      
+##  [99] missing                         
+##  [0] no             9                 
+##  [1] yes                              
 ##  [9] missing</code></pre>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="fu">look_for</span>(women, <span class="at">details =</span> <span class="st">&quot;full&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">glimpse</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="fu">look_for</span>(women, <span class="at">details =</span> <span class="st">&quot;full&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">glimpse</span>()</span></code></pre></div>
 <pre><code>## Rows: 17
 ## Columns: 14
 ## $ pos           &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17
@@ -734,6 +1270,614 @@ frames), indicate <code>details = &quot;full&quot;</code> or
 ## $ n_na          &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, 4, 0, 0, 0, 0, 29
 ## $ unique_values &lt;int&gt; 2000, 1814, 351, 165, 1740, 36, 2, 4, 4, 3, 6, 6,…
 ## $ range         &lt;named list&gt; &lt;1, 2000&gt;, &lt;1, 1814&gt;, &lt;0.044629, 4.396831&gt;, &lt;2011…</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="fu">look_for</span>(women, <span class="at">details =</span> <span class="st">&quot;full&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">to_gt</span>()</span></code></pre></div>
+<div id="aehptvqnff" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#aehptvqnff table {
+font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+#aehptvqnff thead, #aehptvqnff tbody, #aehptvqnff tfoot, #aehptvqnff tr, #aehptvqnff td, #aehptvqnff th {
+border-style: none;
+}
+#aehptvqnff p {
+margin: 0;
+padding: 0;
+}
+#aehptvqnff .gt_table {
+display: table;
+border-collapse: collapse;
+line-height: normal;
+margin-left: auto;
+margin-right: auto;
+color: #333333;
+font-size: 16px;
+font-weight: normal;
+font-style: normal;
+background-color: #FFFFFF;
+width: auto;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #A8A8A8;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #A8A8A8;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+}
+#aehptvqnff .gt_caption {
+padding-top: 4px;
+padding-bottom: 4px;
+}
+#aehptvqnff .gt_title {
+color: #333333;
+font-size: 125%;
+font-weight: initial;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-color: #FFFFFF;
+border-bottom-width: 0;
+}
+#aehptvqnff .gt_subtitle {
+color: #333333;
+font-size: 85%;
+font-weight: initial;
+padding-top: 3px;
+padding-bottom: 5px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-color: #FFFFFF;
+border-top-width: 0;
+}
+#aehptvqnff .gt_heading {
+background-color: #FFFFFF;
+text-align: center;
+border-bottom-color: #FFFFFF;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#aehptvqnff .gt_bottom_border {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#aehptvqnff .gt_col_headings {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+}
+#aehptvqnff .gt_col_heading {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 6px;
+padding-left: 5px;
+padding-right: 5px;
+overflow-x: hidden;
+}
+#aehptvqnff .gt_column_spanner_outer {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: normal;
+text-transform: inherit;
+padding-top: 0;
+padding-bottom: 0;
+padding-left: 4px;
+padding-right: 4px;
+}
+#aehptvqnff .gt_column_spanner_outer:first-child {
+padding-left: 0;
+}
+#aehptvqnff .gt_column_spanner_outer:last-child {
+padding-right: 0;
+}
+#aehptvqnff .gt_column_spanner {
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: bottom;
+padding-top: 5px;
+padding-bottom: 5px;
+overflow-x: hidden;
+display: inline-block;
+width: 100%;
+}
+#aehptvqnff .gt_spanner_row {
+border-bottom-style: hidden;
+}
+#aehptvqnff .gt_group_heading {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+text-align: left;
+}
+#aehptvqnff .gt_empty_group_heading {
+padding: 0.5px;
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+vertical-align: middle;
+}
+#aehptvqnff .gt_from_md > :first-child {
+margin-top: 0;
+}
+#aehptvqnff .gt_from_md > :last-child {
+margin-bottom: 0;
+}
+#aehptvqnff .gt_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+margin: 10px;
+border-top-style: solid;
+border-top-width: 1px;
+border-top-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 1px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 1px;
+border-right-color: #D3D3D3;
+vertical-align: middle;
+overflow-x: hidden;
+}
+#aehptvqnff .gt_stub {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+}
+#aehptvqnff .gt_stub_row_group {
+color: #333333;
+background-color: #FFFFFF;
+font-size: 100%;
+font-weight: initial;
+text-transform: inherit;
+border-right-style: solid;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+padding-left: 5px;
+padding-right: 5px;
+vertical-align: top;
+}
+#aehptvqnff .gt_row_group_first td {
+border-top-width: 2px;
+}
+#aehptvqnff .gt_row_group_first th {
+border-top-width: 2px;
+}
+#aehptvqnff .gt_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#aehptvqnff .gt_first_summary_row {
+border-top-style: solid;
+border-top-color: #D3D3D3;
+}
+#aehptvqnff .gt_first_summary_row.thick {
+border-top-width: 2px;
+}
+#aehptvqnff .gt_last_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#aehptvqnff .gt_grand_summary_row {
+color: #333333;
+background-color: #FFFFFF;
+text-transform: inherit;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#aehptvqnff .gt_first_grand_summary_row {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-top-style: double;
+border-top-width: 6px;
+border-top-color: #D3D3D3;
+}
+#aehptvqnff .gt_last_grand_summary_row_top {
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 5px;
+padding-right: 5px;
+border-bottom-style: double;
+border-bottom-width: 6px;
+border-bottom-color: #D3D3D3;
+}
+#aehptvqnff .gt_striped {
+background-color: rgba(128, 128, 128, 0.05);
+}
+#aehptvqnff .gt_table_body {
+border-top-style: solid;
+border-top-width: 2px;
+border-top-color: #D3D3D3;
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+}
+#aehptvqnff .gt_footnotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#aehptvqnff .gt_footnote {
+margin: 0px;
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#aehptvqnff .gt_sourcenotes {
+color: #333333;
+background-color: #FFFFFF;
+border-bottom-style: none;
+border-bottom-width: 2px;
+border-bottom-color: #D3D3D3;
+border-left-style: none;
+border-left-width: 2px;
+border-left-color: #D3D3D3;
+border-right-style: none;
+border-right-width: 2px;
+border-right-color: #D3D3D3;
+}
+#aehptvqnff .gt_sourcenote {
+font-size: 90%;
+padding-top: 4px;
+padding-bottom: 4px;
+padding-left: 5px;
+padding-right: 5px;
+}
+#aehptvqnff .gt_left {
+text-align: left;
+}
+#aehptvqnff .gt_center {
+text-align: center;
+}
+#aehptvqnff .gt_right {
+text-align: right;
+font-variant-numeric: tabular-nums;
+}
+#aehptvqnff .gt_font_normal {
+font-weight: normal;
+}
+#aehptvqnff .gt_font_bold {
+font-weight: bold;
+}
+#aehptvqnff .gt_font_italic {
+font-style: italic;
+}
+#aehptvqnff .gt_super {
+font-size: 65%;
+}
+#aehptvqnff .gt_footnote_marks {
+font-size: 75%;
+vertical-align: 0.4em;
+position: initial;
+}
+#aehptvqnff .gt_asterisk {
+font-size: 100%;
+vertical-align: 0;
+}
+#aehptvqnff .gt_indent_1 {
+text-indent: 5px;
+}
+#aehptvqnff .gt_indent_2 {
+text-indent: 10px;
+}
+#aehptvqnff .gt_indent_3 {
+text-indent: 15px;
+}
+#aehptvqnff .gt_indent_4 {
+text-indent: 20px;
+}
+#aehptvqnff .gt_indent_5 {
+text-indent: 25px;
+}
+#aehptvqnff .katex-display {
+display: inline-flex !important;
+margin-bottom: 0.75em !important;
+}
+#aehptvqnff div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+height: 0px !important;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold; vertical-align:top" scope="col" id="pos">#</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-weight: bold; vertical-align:top" scope="col" id="variable">Variable</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-weight: bold; vertical-align:top" scope="col" id="col_type">Type</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-weight: bold; vertical-align:top" scope="col" id="label">Variable label</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold; vertical-align:top" scope="col" id="values">Values</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold; vertical-align:top" scope="col" id="missing">Missing values</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold; vertical-align:top" scope="col" id="unique_values">Unique values</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold; vertical-align:top" scope="col" id="na_values">User-defined missings (values)</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">1</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">id_woman</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Woman Id</td>
+<td headers="values" class="gt_row gt_center" style="vertical-align:top">1 – 2000</td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td>
+<td headers="unique_values" class="gt_row gt_right" style="vertical-align:top">2000</td>
+<td headers="na_values" class="gt_row gt_center" style="vertical-align:top"></td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">2</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">id_household</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Household Id</td>
+<td headers="values" class="gt_row gt_center" style="vertical-align:top">1 – 1814</td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td>
+<td headers="unique_values" class="gt_row gt_right" style="vertical-align:top">1814</td>
+<td headers="na_values" class="gt_row gt_center" style="vertical-align:top"></td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">3</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">weight</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Sample weight</td>
+<td headers="values" class="gt_row gt_center" style="vertical-align:top">0.044629 – 4.396831</td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td>
+<td headers="unique_values" class="gt_row gt_right" style="vertical-align:top">351</td>
+<td headers="na_values" class="gt_row gt_center" style="vertical-align:top"></td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">4</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">interview_date</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">date</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Interview date</td>
+<td headers="values" class="gt_row gt_center" style="vertical-align:top">2011-12-01 – 2012-05-31</td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td>
+<td headers="unique_values" class="gt_row gt_right" style="vertical-align:top">165</td>
+<td headers="na_values" class="gt_row gt_center" style="vertical-align:top"></td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">5</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">date_of_birth</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">date</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Date of birth</td>
+<td headers="values" class="gt_row gt_center" style="vertical-align:top">1962-02-07 – 1997-03-13</td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td>
+<td headers="unique_values" class="gt_row gt_right" style="vertical-align:top">1740</td>
+<td headers="na_values" class="gt_row gt_center" style="vertical-align:top"></td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">6</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">age</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Age at last anniversary (in years)</td>
+<td headers="values" class="gt_row gt_center" style="vertical-align:top">14 – 49</td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td>
+<td headers="unique_values" class="gt_row gt_right" style="vertical-align:top">36</td>
+<td headers="na_values" class="gt_row gt_center" style="vertical-align:top"></td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">7</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">residency</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl+lbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Urban / rural residency</td>
+<td headers="values" class="gt_row gt_center" style="text-align: left; vertical-align:top"><span class="gt_from_md"><ul>
+<li>[1] urban</li>
+<li>[2] rural</li>
+</ul>
+</span></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td>
+<td headers="unique_values" class="gt_row gt_right" style="vertical-align:top">2</td>
+<td headers="na_values" class="gt_row gt_center" style="vertical-align:top"></td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">8</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">region</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl+lbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Region</td>
+<td headers="values" class="gt_row gt_center" style="text-align: left; vertical-align:top"><span class="gt_from_md"><ul>
+<li>[1] North</li>
+<li>[2] East</li>
+<li>[3] South</li>
+<li>[4] West</li>
+</ul>
+</span></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td>
+<td headers="unique_values" class="gt_row gt_right" style="vertical-align:top">4</td>
+<td headers="na_values" class="gt_row gt_center" style="vertical-align:top"></td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">9</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">instruction</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl+lbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Level of instruction</td>
+<td headers="values" class="gt_row gt_center" style="text-align: left; vertical-align:top"><span class="gt_from_md"><ul>
+<li>[0] none</li>
+<li>[1] primary</li>
+<li>[2] secondary</li>
+<li>[3] higher</li>
+</ul>
+</span></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td>
+<td headers="unique_values" class="gt_row gt_right" style="vertical-align:top">4</td>
+<td headers="na_values" class="gt_row gt_center" style="vertical-align:top"></td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">10</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">employed</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl+lbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Employed?</td>
+<td headers="values" class="gt_row gt_center" style="text-align: left; vertical-align:top"><span class="gt_from_md"><ul>
+<li>[0] no</li>
+<li>[1] yes</li>
+<li>[9] missing</li>
+</ul>
+</span></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">7</td>
+<td headers="unique_values" class="gt_row gt_right" style="vertical-align:top">3</td>
+<td headers="na_values" class="gt_row gt_center" style="vertical-align:top">9</td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">11</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">matri</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl+lbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Matrimonial status</td>
+<td headers="values" class="gt_row gt_center" style="text-align: left; vertical-align:top"><span class="gt_from_md"><ul>
+<li>[0] single</li>
+<li>[1] married</li>
+<li>[2] living together</li>
+<li>[3] windowed</li>
+<li>[4] divorced</li>
+<li>[5] separated</li>
+</ul>
+</span></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td>
+<td headers="unique_values" class="gt_row gt_right" style="vertical-align:top">6</td>
+<td headers="na_values" class="gt_row gt_center" style="vertical-align:top"></td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">12</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">religion</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl+lbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Religion</td>
+<td headers="values" class="gt_row gt_center" style="text-align: left; vertical-align:top"><span class="gt_from_md"><ul>
+<li>[1] Muslim</li>
+<li>[2] Christian</li>
+<li>[3] Protestant</li>
+<li>[4] no religion</li>
+<li>[5] other</li>
+</ul>
+</span></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">4</td>
+<td headers="unique_values" class="gt_row gt_right" style="vertical-align:top">6</td>
+<td headers="na_values" class="gt_row gt_center" style="vertical-align:top"></td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">13</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">newspaper</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl+lbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Read newspaper?</td>
+<td headers="values" class="gt_row gt_center" style="text-align: left; vertical-align:top"><span class="gt_from_md"><ul>
+<li>[0] no</li>
+<li>[1] yes</li>
+</ul>
+</span></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td>
+<td headers="unique_values" class="gt_row gt_right" style="vertical-align:top">2</td>
+<td headers="na_values" class="gt_row gt_center" style="vertical-align:top"></td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">14</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">radio</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl+lbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Listen to radio?</td>
+<td headers="values" class="gt_row gt_center" style="text-align: left; vertical-align:top"><span class="gt_from_md"><ul>
+<li>[0] no</li>
+<li>[1] yes</li>
+</ul>
+</span></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td>
+<td headers="unique_values" class="gt_row gt_right" style="vertical-align:top">2</td>
+<td headers="na_values" class="gt_row gt_center" style="vertical-align:top"></td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">15</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">tv</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl+lbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Watch TV?</td>
+<td headers="values" class="gt_row gt_center" style="text-align: left; vertical-align:top"><span class="gt_from_md"><ul>
+<li>[0] no</li>
+<li>[1] yes</li>
+</ul>
+</span></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td>
+<td headers="unique_values" class="gt_row gt_right" style="vertical-align:top">2</td>
+<td headers="na_values" class="gt_row gt_center" style="vertical-align:top"></td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">16</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">ideal_nb_children</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl+lbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Ideal number of children</td>
+<td headers="values" class="gt_row gt_center" style="text-align: left; vertical-align:top"><span class="gt_from_md"><ul>
+<li>[96] don’t know</li>
+<li>[99] missing</li>
+</ul>
+</span></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">0</td>
+<td headers="unique_values" class="gt_row gt_right" style="vertical-align:top">18</td>
+<td headers="na_values" class="gt_row gt_center" style="vertical-align:top"></td></tr>
+    <tr><td headers="pos" class="gt_row gt_right" style="vertical-align:top">17</td>
+<td headers="variable" class="gt_row gt_left" style="font-weight: bold; vertical-align:top">test</td>
+<td headers="col_type" class="gt_row gt_left" style="vertical-align:top">dbl+lbl</td>
+<td headers="label" class="gt_row gt_left" style="vertical-align:top">Ever tested for HIV?</td>
+<td headers="values" class="gt_row gt_center" style="text-align: left; vertical-align:top"><span class="gt_from_md"><ul>
+<li>[0] no</li>
+<li>[1] yes</li>
+<li>[9] missing</li>
+</ul>
+</span></td>
+<td headers="missing" class="gt_row gt_right" style="vertical-align:top">29</td>
+<td headers="unique_values" class="gt_row gt_right" style="vertical-align:top">3</td>
+<td headers="na_values" class="gt_row gt_center" style="vertical-align:top">9</td></tr>
+  </tbody>
+  
+</table>
+</div>
 </div>
 <div id="advanced-usages-of-look_for" class="section level2">
 <h2>Advanced usages of <code>look_for()</code></h2>
@@ -741,8 +1885,8 @@ frames), indicate <code>details = &quot;full&quot;</code> or
 before printing. To deactivate default printing and see full results,
 simply use <code>dplyr::as_tibble()</code>,
 <code>dplyr::glimpse()</code> or even <code>utils::View()</code>.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="fu">look_for</span>(women) <span class="sc">%&gt;%</span> <span class="fu">View</span>()</span></code></pre></div>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="fu">look_for</span>(women) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="fu">look_for</span>(women) <span class="sc">%&gt;%</span> <span class="fu">View</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="fu">look_for</span>(women) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 17 × 7
 ##      pos variable          label            col_type missing levels value_labels
 ##    &lt;int&gt; &lt;chr&gt;             &lt;chr&gt;            &lt;chr&gt;      &lt;int&gt; &lt;name&gt; &lt;named list&gt;
@@ -763,7 +1907,7 @@ simply use <code>dplyr::as_tibble()</code>,
 ## 15    15 tv                Watch TV?        dbl+lbl        0 &lt;NULL&gt; &lt;dbl [2]&gt;   
 ## 16    16 ideal_nb_children Ideal number of… dbl+lbl        0 &lt;NULL&gt; &lt;dbl [2]&gt;   
 ## 17    17 test              Ever tested for… dbl+lbl       29 &lt;NULL&gt; &lt;dbl [3]&gt;</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="fu">glimpse</span>(<span class="fu">look_for</span>(women))</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="fu">glimpse</span>(<span class="fu">look_for</span>(women))</span></code></pre></div>
 <pre><code>## Rows: 17
 ## Columns: 7
 ## $ pos          &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17
@@ -780,7 +1924,7 @@ manipulated for advanced programming.</p>
 stored with nested named list. You can convert named lists into simpler
 character vectors, you can use
 <code>convert_list_columns_to_character()</code>.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="fu">look_for</span>(women) <span class="sc">%&gt;%</span> <span class="fu">convert_list_columns_to_character</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="fu">look_for</span>(women) <span class="sc">%&gt;%</span> <span class="fu">convert_list_columns_to_character</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 17 × 7
 ##      pos variable          label            col_type missing levels value_labels
 ##    &lt;int&gt; &lt;chr&gt;             &lt;chr&gt;            &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;       
@@ -804,7 +1948,7 @@ character vectors, you can use
 <p>Alternatively, you can use <code>lookfor_to_long_format()</code> to
 transform results into a long format with one row per factor level and
 per value label.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="fu">look_for</span>(women) <span class="sc">%&gt;%</span> <span class="fu">lookfor_to_long_format</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="fu">look_for</span>(women) <span class="sc">%&gt;%</span> <span class="fu">lookfor_to_long_format</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 41 × 7
 ##      pos variable       label               col_type missing levels value_labels
 ##    &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;               &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;       
@@ -820,9 +1964,9 @@ per value label.</p>
 ## 10     8 region         Region              dbl+lbl        0 &lt;NA&gt;   [2] East    
 ## # ℹ 31 more rows</code></pre>
 <p>Both can be combined:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="fu">look_for</span>(women) <span class="sc">%&gt;%</span></span>
-<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a>  <span class="fu">lookfor_to_long_format</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb49-3"><a href="#cb49-3" tabindex="-1"></a>  <span class="fu">convert_list_columns_to_character</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="fu">look_for</span>(women) <span class="sc">%&gt;%</span></span>
+<span id="cb51-2"><a href="#cb51-2" tabindex="-1"></a>  <span class="fu">lookfor_to_long_format</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb51-3"><a href="#cb51-3" tabindex="-1"></a>  <span class="fu">convert_list_columns_to_character</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 41 × 7
 ##      pos variable       label               col_type missing levels value_labels
 ##    &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;               &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;       

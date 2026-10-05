@@ -18,6 +18,11 @@ look_for(iris)
 look_for(women)
 
 ## -----------------------------------------------------------------------------
+women %>%
+  look_for() %>%
+  to_gt()
+
+## -----------------------------------------------------------------------------
 # Look for a single keyword.
 look_for(iris, "petal")
 look_for(iris, "s")
@@ -47,9 +52,10 @@ look_for(women, "id", details = "none")
 look_for(women, details = "full")
 look_for(women, details = "full") %>%
   dplyr::glimpse()
+look_for(women, details = "full") %>% to_gt()
 
-## ---- eval=FALSE--------------------------------------------------------------
-#  look_for(women) %>% View()
+## ----eval=FALSE---------------------------------------------------------------
+# look_for(women) %>% View()
 
 ## -----------------------------------------------------------------------------
 look_for(women) %>% as_tibble()

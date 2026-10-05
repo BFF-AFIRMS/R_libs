@@ -7,11 +7,11 @@ knitr::opts_chunk$set(
 )
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  FielDHub::run_app()
+# FielDHub::run_app()
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  library(FielDHub)
-#  run_app()
+# library(FielDHub)
+# run_app()
 
 ## ----include=FALSE------------------------------------------------------------
 ENTRY <- 1:12
@@ -37,14 +37,14 @@ alpha <- alpha_lattice(
 )
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
-#  print(alpha)
+# print(alpha)
 
 ## ----echo=FALSE, eval=TRUE----------------------------------------------------
 print(alpha)
 
 ## ----echo=TRUE, eval=FALSE----------------------------------------------------
-#  field_book <- alpha$fieldBook
-#  head(alpha$fieldBook, 10)
+# field_book <- alpha$fieldBook
+# head(alpha$fieldBook, 10)
 
 ## ----echo=FALSE, eval=TRUE----------------------------------------------------
 field_book <- alpha$fieldBook

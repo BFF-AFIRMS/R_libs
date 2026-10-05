@@ -1,8 +1,14 @@
 Package: pan
-Version: 1.9
-Date: 2023-8-19
+Version: 2.0
+Date: 2026-06-30
 Title: Multiple Imputation for Multivariate Panel or Clustered Data
-Author: Original by Joseph L. Schafer 
+Authors@R: c(person(given = c("Original", "by", "Joseph", "L."),
+                    family = "Schafer",
+                    role = "aut"),
+             person(given = c("Jing", "hua"),
+                    family = "Zhao",
+                    role = "cre",
+                    email = "jinghuazhao@hotmail.com"))
 Maintainer: Jing hua Zhao <jinghuazhao@hotmail.com>
 Suggests: mitools, lme4
 LazyData: Yes
@@ -14,8 +20,9 @@ Description: It provides functions and examples for maximum likelihood estimatio
               Technical report 97-04, Dept. of Statistics, The Pennsylvania State University.
 License: GPL-3
 NeedsCompilation: yes
-Packaged: 2023-12-07 16:29:39 UTC; hornik
+Packaged: 2026-06-30 10:04:27 UTC; jhz22
+Author: Original by Joseph L. Schafer [aut],
+  Jing hua Zhao [cre]
 Repository: CRAN
-Date/Publication: 2023-12-07 17:57:27
-Depends: R (>= 2.10)
-Built: R 4.3.2; x86_64-pc-linux-gnu; 2024-03-11 18:52:33 UTC; unix
+Date/Publication: 2026-06-30 10:50:07 UTC
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-03 22:04:52 UTC; unix

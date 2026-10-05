@@ -818,7 +818,7 @@ vfilter <- function(q = 0.3) {
 
 Here, our filter function `vfilter()` is a function generator as discussed above, and will exclude the fraction `q` of variables with the lowest variance.
 	
-We can also use `y` as part of our filtering. This final example builds on the example above. Here the response `y` is binary, taking two values. We want to filter out variables with low values of the two-sample t-statistic with groups defined by `y`. Again, we present an efficient function for computing the t-statistics, and then the filter. (Notice that for convenience, our function `uvar` above can optionally return a mean vector and a variance vector.)
+We can also use `y` as part of our filtering. This final example builds on the example above. Here the response `y` is binary, taking two values. We want to filter out variables with small absolute values for the two-sample t-statistic with groups defined by `y`. Again, we present an efficient function for computing the t-statistics, and then the filter. (Notice that for convenience, our function `uvar` above can optionally return a mean vector and a variance vector.)
 
 ```{r}
 ut.test <- function(x, y, s0 = 0) {
@@ -834,8 +834,8 @@ ut.test <- function(x, y, s0 = 0) {
 
 tfilter <- function(q = 0.3, s0 = 0) {
   function(x, y, ...) {
-    tstats <- ut.test(x, y, s0 = s0)
-    which(tstats < quantile(tstats, q))
+    abs_tstats <- abs(ut.test(x, y, s0 = s0))
+    which(abs_tstats < quantile(abs_tstats, q))
   }
 }
 ```
@@ -1005,7 +1005,7 @@ For Gaussian models it uses the following. Suppose observation $i$ has weight $w
 sum-of-squares for variable $x_j$:
 $$v_j=\sum_{i=1}^Nw_ix_{ij}^2.$$
 If there is an intercept in the model, these $x_j$ will be centered by the weighted mean, and hence this would be a weighted variance. After $\hat\beta_j^o$ has been updated to $\hat\beta_j^n$, we compute $\Delta_j=v_j(\hat\beta_j^o-\hat\beta_j^n)^2$. After a complete cycle of coordinate descent, we look at $\Delta_{max}=\max_j\Delta_j$. Why this measure? We can write
-$$\Delta_j=\frac1N\sum_{i=1}^N w_j(x_{ij}\hat\beta_j^o-x_{ij}\hat\beta_j^n)^2,$$
+$$\Delta_j=\frac1N\sum_{i=1}^N w_i(x_{ij}\hat\beta_j^o-x_{ij}\hat\beta_j^n)^2,$$
 which measures the weighted sum of squares of changes in fitted values for this term. This measures the impact of the change in this coefficient on the fit. If the largest such change is negligible, we stop.
 
 For logistic regression and other non-Gaussian models it is similar for the inner loop, only now the weights for each observation are more complex. For example, for logistic regression the weights are those that arise from the current Newton step, i.e. $w_i^*=w_i\hat p_i(1-\hat p_i)$, where the $\hat p_i$'s are the fitted probabilities as we entered the current inner loop. The intuition is the same: it measures the impact of the coefficient change on the current weighted least squares loss, or quadratic approximation to the log-likelihood loss.

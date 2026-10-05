@@ -1,10 +1,10 @@
 ---
 title: "Motivation and use of _Rhtslib_"
 author: "Nathaniel Hayden, Martin Morgan"
-date: "Compiled `r doc_date()`;  Modified 30 April 2022"
+date: "Compiled `r doc_date()`;  Modified 31 October 2023"
 package: "`r pkg_ver('Rhtslib')`"
 abstract: >
-  This package provides version 1.15.1 of the 'HTSlib' C library for
+  This package provides version 1.18 of the 'HTSlib' C library for
   high-throughput sequence analysis. The package is primarily useful
   to developers of other R packages who wish to make use of
   HTSlib. Motivation and instructions for use of this package are in
@@ -61,12 +61,11 @@ for an example of a package that compiles and links against `Rhtslib`.
 
 ## Find headers
 
-In order for the C/C++ compiler to find HTSlib headers (and zlib
-headers on Windows) during installation of your package, you must
-add `Rhtslib` and `zlibbioc` to the `LinkingTo` field of its
+In order for the C/C++ compiler to find HTSlib headers during installation
+of your package, you must add `Rhtslib` to the `LinkingTo` field of its
 `DESCRIPTION` file, e.g.,
 
-    LinkingTo: Rhtslib, zlibbioc
+    LinkingTo: Rhtslib
 
 Note that as of R 3.0.2 `LinkingTo` values can include version
 specifications, e.g., `LinkingTo: Rhtslib (>= 0.99.10)`.

@@ -1,5 +1,31 @@
 \name{NEWS} 
 \title{News for Package 'sp'}
+\section{Changes in version 2.2-0 (2024-xx-yy)}{
+\itemize{
+		\item remove exporting C symbols previously used by rgdal and rgeos
+}
+}
+\section{Changes in version 2.1-5 (2024-xx-yy)}{
+\itemize{
+		\item add pkgdown site
+		\item update sp map gallery and move to vignettes
+}
+}
+\section{Changes in version 2.1-4 (2024-04-30)}{
+\itemize{
+		\item if CRS is NA, do not require (and depend on) presence of package sf; #144
+}
+}
+\section{Changes in version 2.1-3 (2024-01-29)}{
+\itemize{
+		\item remove use of deprecated is.R()
+}
+}
+\section{Changes in version 2.0-1 (2023-10-16)}{
+\itemize{
+		\item remove startup message
+}
+}
 \section{Changes in version 2.0-0 (2023-06-20)}{
 \itemize{
 	\item \code{get_evolution_status()} defaults to 2, meaning sp will no longer call rgdal or rgeos; \code{spTransform} will work using \code{sf::st_transform}.

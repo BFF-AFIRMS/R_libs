@@ -1,15 +1,30 @@
+Beta01                  Create a Zero- and/or One-Inflated Beta
+                        Distribution
+Beta4                   Create a 4-Parameter Beta Distribution
 betamix                 Finite Mixtures of Beta Regression for Rates
                         and Proportions
+BetaR                   Create a Beta Regression Distribution
+betar_family            Family Objects for (Extended-Support) Beta
+                        Regression
 betareg                 Beta Regression for Rates and Proportions
 betareg.control         Control Parameters for Beta Regression
 betatree                Beta Regression Trees
-CarTask                 Partition-primed Probability Judgement Task for
+CarTask                 Partition-Primed Probability Judgement Task for
                         Car Dealership
+dbeta01                 The Zero- and/or One-Inflated Beta Distribution
+                        in Regression Parameterization
+dbeta4                  The 4-Parameter Beta Distribution in Regression
+                        Parameterization
+dbetar                  The Beta Distribution in Regression
+                        Parameterization
+dxbeta                  The Extended-Support Beta Distribution
+dxbetax                 The Extended-Support Beta Mixture Distribution
 FoodExpenditure         Proportion of Household Income Spent on Food
 GasolineYield           Estimation of Gasoline Yields from Crude Oil
 gleverage               Generalized Leverage Values
 ImpreciseTask           Imprecise Probabilities for Sunday Weather and
                         Boeing Stock Task
+LossAversion            (No) Myopic Loss Aversion in Adolescents
 MockJurors              Confidence of Mock Jurors in Their Verdicts
 plot.betareg            Diagnostic Plots for betareg Objects
 predict.betareg         Prediction Method for betareg Objects
@@ -17,5 +32,8 @@ ReadingSkills           Dyslexia and IQ Predicting Reading Accuracy
 residuals.betareg       Residuals Method for betareg Objects
 StressAnxiety           Dependency of Anxiety on Stress
 summary.betareg         Methods for betareg Objects
-WeatherTask             Weather Task With Priming and Precise and
+WeatherTask             Weather Task with Priming and Precise and
                         Imprecise Probabilities
+XBeta                   Create an Extended-Support Beta Distribution
+XBetaX                  Create an Extended-Support Beta Mixture
+                        Distribution

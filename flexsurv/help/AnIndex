@@ -1,6 +1,11 @@
 flexsurv-package	flexsurv-package
 .hessian	dot-hessian
 .hess_to_cov	dot-hess_to_cov
+AIC.fmsm	AIC.fmsm
+AICC	AICc
+AICc	AICc
+AICC.flexsurvreg	AICc.flexsurvreg
+AICc.flexsurvreg	AICc.flexsurvreg
 ajfit	ajfit
 ajfit_flexsurvmix	ajfit_flexsurvmix
 ajfit_fmsm	ajfit_fmsm
@@ -8,6 +13,7 @@ augment	reexports
 augment.flexsurvreg	augment.flexsurvreg
 basis	basis
 bc	bc
+BIC.flexsurvreg	BIC.flexsurvreg
 bootci.fmsm	bootci.fmsm
 bos	bos
 bosms3	bos
@@ -94,6 +100,7 @@ hweibullPH	WeibullPH
 lines.flexsurvreg	lines.flexsurvreg
 lines.survrtrunc	plot_survtrunc
 Llogis	Llogis
+logLik.flexsurvreg	logLik.flexsurvreg
 meanfinal_fmixmsm	meanfinal_fmixmsm
 means	means
 mean_exp	means
@@ -117,6 +124,7 @@ mean_survspline6	Survsplinek
 mean_survspline7	Survsplinek
 mean_weibull	means
 mean_weibullPH	means
+model.frame.flexsurvmix	model.frame.flexsurvmix
 model.frame.flexsurvreg	model.frame.flexsurvreg
 model.matrix.flexsurvreg	model.frame.flexsurvreg
 msfit.flexsurvreg	msfit.flexsurvreg
@@ -226,5 +234,5 @@ tidy.standsurv	tidy.standsurv
 totlos.fs	totlos.fs
 totlos.simfs	totlos.simfs
 unroll.function	unroll.function
+vcov.flexsurvreg	vcov.flexsurvreg
 WeibullPH	WeibullPH
-_PACKAGE	flexsurv-package

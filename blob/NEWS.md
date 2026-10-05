@@ -1,5 +1,20 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
+# blob 1.3.0 (2026-01-13)
+
+## Testing
+
+- The upcoming vctrs update changes details on how subset assignment with `NULL` works. This motivated the minor version bump (@DavisVaughan, #65).
+
+## Bug fixes
+
+- Fix argument consistency between S3 generics and methods.
+
+## Chore
+
+- Upkeep (@MikeJohnPage, #55).
+
+
 # blob 1.2.4 (2023-03-17)
 
 ## Bug fixes

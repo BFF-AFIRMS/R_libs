@@ -1,0 +1,29 @@
+# FOR FUTURE USE
+# useDynLib(mokken)
+
+export(
+ ConstraintMatrix,
+ DesignMatrix,
+ DirectSum,
+ JoinModels,
+ MarginalMatrix,
+ MarginalModelFit,
+ Margins,
+ ModelStatistics,
+# MultiCoefficient,
+ RecordsToFrequencies,
+ SampleStatistics,
+ SpecifyCoefficient
+)
+
+importFrom("stats", "pchisq", "var", "ftable")
+importFrom("utils", "combn")
+
+
+# used internally - not intended to be visible to users
+# All other functions (not listed)
+#
+
+# FOR FUTURE USE
+S3method(summary, "CMM")
+# S3method(summary, "SampleStatisticsClass")

@@ -1,6 +1,6 @@
 Package: s2
 Title: Spherical Geometry Operators Using the S2 Geometry Library
-Version: 1.1.4
+Version: 1.1.12
 Authors@R: c(
      person(given = "Dewey",
            family = "Dunnington",
@@ -19,13 +19,12 @@ Authors@R: c(
 Description: Provides R bindings for Google's s2 library for geometric calculations on
     the sphere. High-performance constructors and exporters provide high compatibility
     with existing spatial packages, transformers construct new geometries from existing
-    geometries, predicates provide a means to select geometries based on spatial 
+    geometries, predicates provide a means to select geometries based on spatial
     relationships, and accessors extract information about geometries.
 License: Apache License (== 2.0)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.3
-SystemRequirements: OpenSSL >= 1.0.1
+SystemRequirements: cmake, OpenSSL >= 1.0.1, Abseil >= 20230802.0
 LinkingTo: Rcpp, wk
 Imports: Rcpp, wk (>= 0.6.0)
 Suggests: bit64, testthat (>= 3.0.0), vctrs
@@ -34,14 +33,16 @@ URL: https://r-spatial.github.io/s2/, https://github.com/r-spatial/s2,
 BugReports: https://github.com/r-spatial/s2/issues
 Depends: R (>= 3.0.0)
 Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0
 NeedsCompilation: yes
-Packaged: 2023-05-16 15:01:01 UTC; edzer
-Author: Dewey Dunnington [aut] (<https://orcid.org/0000-0002-9415-4582>),
-  Edzer Pebesma [aut, cre] (<https://orcid.org/0000-0001-8049-7069>),
+Packaged: 2026-09-03 07:29:53 UTC; edzer
+Author: Dewey Dunnington [aut] (ORCID: <https://orcid.org/0000-0002-9415-4582>),
+  Edzer Pebesma [aut, cre] (ORCID:
+    <https://orcid.org/0000-0001-8049-7069>),
   Ege Rubak [aut],
   Jeroen Ooms [ctb] (configure script),
   Google, Inc. [cph] (Original s2geometry.io source code)
 Maintainer: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
 Repository: CRAN
-Date/Publication: 2023-05-17 10:40:02 UTC
-Built: R 4.3.0; x86_64-pc-linux-gnu; 2023-07-07 02:40:52 UTC; unix
+Date/Publication: 2026-09-03 09:30:02 UTC
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-03 23:19:46 UTC; unix

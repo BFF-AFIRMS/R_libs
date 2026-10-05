@@ -20,7 +20,7 @@ hgu95av2.db
 columns(hgu95av2.db)
 
 ## ----help, eval=FALSE------------------------------------------------------
-#  help("SYMBOL")
+# help("SYMBOL")
 
 ## ----keytypes--------------------------------------------------------------
 keytypes(hgu95av2.db)
@@ -45,7 +45,7 @@ library(org.Hs.eg.db)
 columns(org.Hs.eg.db)
 
 ## ----selectOrg2, eval=FALSE------------------------------------------------
-#  help("SYMBOL") ## for explanation of these columns and keytypes values
+# help("SYMBOL") ## for explanation of these columns and keytypes values
 
 ## ----selectOrg3------------------------------------------------------------
 keytypes(org.Hs.eg.db)

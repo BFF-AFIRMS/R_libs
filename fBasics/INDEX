@@ -4,15 +4,15 @@ baseMethods             Generic functions extensions
 basicStats              Basic time series statistics
 boxPlot                 Time series box plots
 characterTable          Table of characters
-colorLocator            Color selection
+colorLocator            Named colors in R
 colorPalette            Color palettes
 colorTable              Table of colors
 colVec                  Column and row vectors
 correlationTest         Correlation tests
 decor                   Functions for decorating plots
-dght                    Generalized Hyperbolic Student-t
+dght                    Generalized Hyperbolic Student-t distribution
 distCheck               Distribution check
-DistributionFits        Parametric fit of a distribution
+DistributionFits        Fit normal, Student-t and stable distributions
 fBasics-deprecated      Deprecated functions in package fBasics
 fBasics-package         Portfolio modelling, optimization and
                         backtesting
@@ -37,9 +37,9 @@ gldRobMoments           Robust Moments for the GLD
 gridVector              Grid vector coordinates
 Heaviside               Heaviside and related functions
 hilbert                 Hilbert matrix
-histPlot                Histogram and density plots
+HistogramPlot           Histogram and density plots
 hyp                     Hyperbolic distribution
-hypFit                  Fit a Hyperbolic distribution
+hypFit                  Fit a hyperbolic distribution
 hypMode                 Hyperbolic mode
 hypMoments              Hyperbolic distribution moments
 hypRobMoments           Robust moments for the HYP
@@ -69,7 +69,7 @@ pascal                  Pascal matrix
 pdl                     Polynomial distributed lags
 positiveDefinite        Positive definite matrices
 print.control           Print control
-qqnormPlot              Quantile-Quantile plots
+qqnormPlot              Quantile-quantile plots
 returnSeriesGUI         Return series plots
 rk                      The rank of a matrix
 rowStats                Row statistics
@@ -96,3 +96,4 @@ tsHessian               Two sided approximated Hessian
 tslag                   Lagged or leading vector/matrix
 varianceTest            Two sample variance tests
 vec                     Stacking vectors and matrices
+volatility              Compute volatility

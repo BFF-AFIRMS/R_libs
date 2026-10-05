@@ -15,14 +15,17 @@
 #include <boost/process/v2/default_launcher.hpp>
 #include <boost/process/v2/exit_code.hpp>
 #include <boost/process/v2/pid.hpp>
+#include <boost/process/v2/ext/exe.hpp>
 #include <boost/process/v2/process_handle.hpp>
 
 #if defined(BOOST_PROCESS_V2_STANDALONE)
 #include <asio/any_io_executor.hpp>
+#include <boost/asio/dispatch.hpp>
 #include <asio/post.hpp>
 #include <utility>
 #else
 #include <boost/asio/any_io_executor.hpp>
+#include <boost/asio/dispatch.hpp>
 #include <boost/asio/post.hpp>
 #include <boost/core/exchange.hpp>
 #endif
@@ -33,7 +36,7 @@ BOOST_PROCESS_V2_BEGIN_NAMESPACE
 /* A `basic_process` object manages a subprocess; it tracks the status and exit-code,
  * and will terminate the process on destruction if `detach` was not called.
 */
-template<typename Executor = BOOST_PROCESS_V2_ASIO_NAMESPACE::any_io_executor>
+template<typename Executor = net::any_io_executor>
 struct basic_process
 {
   /// The executor of the process
@@ -92,17 +95,7 @@ struct basic_process
       : basic_process(default_process_launcher()(std::move(executor), exe, args, std::forward<Inits>(inits)...))
   {
   }
-    /// Construct a child from a property list and launch it using the default launcher..
-  template<typename ... Inits>
-  explicit basic_process(
-      executor_type executor,
-      const filesystem::path& exe,
-      std::initializer_list<wstring_view> args,
-      Inits&&... inits)
-      : basic_process(default_process_launcher()(std::move(executor), exe, args, std::forward<Inits>(inits)...))
-  {
-  }
-
+  
   /// Construct a child from a property list and launch it using the default launcher..
   template<typename Args, typename ... Inits>
   explicit basic_process(
@@ -120,7 +113,7 @@ struct basic_process
       ExecutionContext & context,
       typename std::enable_if<
           std::is_convertible<ExecutionContext&, 
-                              BOOST_PROCESS_V2_ASIO_NAMESPACE::execution_context&>::value,
+                              net::execution_context&>::value,
           const filesystem::path&>::type exe,
       std::initializer_list<string_view> args,
       Inits&&... inits)
@@ -134,7 +127,7 @@ struct basic_process
       ExecutionContext & context,
       typename std::enable_if<
           std::is_convertible<ExecutionContext&, 
-                              BOOST_PROCESS_V2_ASIO_NAMESPACE::execution_context&>::value,
+                              net::execution_context&>::value,
           const filesystem::path&>::type exe,
       Args&& args, Inits&&... inits)
       : basic_process(default_process_launcher()(executor_type(context.get_executor()),
@@ -157,7 +150,7 @@ struct basic_process
   explicit basic_process(ExecutionContext & context, pid_type pid,
                          typename std::enable_if<
                              std::is_convertible<ExecutionContext&,
-                                BOOST_PROCESS_V2_ASIO_NAMESPACE::execution_context&>::value, void *>::type = nullptr)
+                                net::execution_context&>::value, void *>::type = nullptr)
        : process_handle_(context, pid) {}
 
   /// Attach to an existing process and the internal handle
@@ -165,7 +158,7 @@ struct basic_process
   explicit basic_process(ExecutionContext & context, pid_type pid, native_handle_type native_handle,
                          typename std::enable_if<
                             std::is_convertible<ExecutionContext&, 
-                                BOOST_PROCESS_V2_ASIO_NAMESPACE::execution_context&>::value, void *>::type = nullptr)
+                                net::execution_context&>::value, void *>::type = nullptr)
       : process_handle_(context.get_executor(), pid, native_handle) {}
 
   /// Create an invalid handle
@@ -173,7 +166,7 @@ struct basic_process
   explicit basic_process(ExecutionContext & context,
                          typename std::enable_if<
                              is_convertible<ExecutionContext&, 
-                                BOOST_PROCESS_V2_ASIO_NAMESPACE::execution_context&>::value, void *>::type = nullptr)
+                                net::execution_context&>::value, void *>::type = nullptr)
      : process_handle_(context.get_executor()) {}
 
 
@@ -214,6 +207,37 @@ struct basic_process
     process_handle_.request_exit(ec);
   }
 
+  /// Send the process a signal requesting it to stop. This may rely on undocumented functions.
+  void suspend(error_code &ec)
+  {
+    process_handle_.suspend(ec);
+  }
+
+  /// Send the process a signal requesting it to stop. This may rely on undocumented functions.
+  void suspend()
+  {
+    error_code ec;
+    suspend(ec);
+    if (ec)
+        detail::throw_error(ec, "suspend");
+  }
+
+
+  /// Send the process a signal requesting it to resume. This may rely on undocumented functions.
+  void resume(error_code &ec)
+  {
+    process_handle_.resume(ec);  
+  }
+
+  /// Send the process a signal requesting it to resume. This may rely on undocumented functions.
+  void resume()
+  {
+      error_code ec;
+      resume(ec);
+      if (ec)
+          detail::throw_error(ec, "resume");
+  }
+
   /// Throwing @overload void terminate(native_exit_code_type &exit_code, error_code & ec)
   void terminate()
   {
@@ -233,12 +257,12 @@ struct basic_process
   {
     error_code ec;
     if (running(ec))
-      wait(ec);
+      process_handle_.wait(exit_status_, ec);
     if (ec)
       detail::throw_error(ec, "wait failed");
     return exit_code();
   }
-  /// Waits for the process to exit, store the exit code internall and return it.
+  /// Waits for the process to exit, store the exit code internally and return it.
   int wait(error_code & ec)
   {
     if (running(ec))
@@ -255,8 +279,9 @@ struct basic_process
     return boost::exchange(process_handle_, get_executor());
 #endif
   }
-  // Get the native 
+  /// Get the native
   native_handle_type native_handle() {return process_handle_.native_handle(); }
+  /// Return the evaluated exit_code.
   int exit_code() const
   {
     return evaluate_exit_code(exit_status_);
@@ -277,6 +302,8 @@ struct basic_process
    */
   bool running()
   {
+    if (!process_is_running(exit_status_))
+      return false;
     error_code ec;
     native_exit_code_type exit_code{};
     auto r =  process_handle_.running(exit_code, ec);
@@ -291,6 +318,8 @@ struct basic_process
   /// Throwing @overload bool running(error_code & ec)
   bool running(error_code & ec) noexcept
   {
+    if (!process_is_running(exit_status_))
+      return false;
     native_exit_code_type exit_code{};
     auto r =  process_handle_.running(exit_code, ec);
     if (!ec && !r)
@@ -302,15 +331,7 @@ struct basic_process
   /** Note that this might be a process that already exited.*/
   bool is_open() const { return process_handle_.is_open(); }
   
-  /// Asynchronously wait for the process to exit and deliver the portable exit-code in the completion handler.
-  template <BOOST_PROCESS_V2_COMPLETION_TOKEN_FOR(void (error_code, int))
-            WaitHandler BOOST_PROCESS_V2_DEFAULT_COMPLETION_TOKEN_TYPE(executor_type)>
-  BOOST_PROCESS_V2_INITFN_AUTO_RESULT_TYPE(WaitHandler, void (error_code, int))
-  async_wait(WaitHandler && handler BOOST_ASIO_DEFAULT_COMPLETION_TOKEN(executor_type))
-  {
-    return BOOST_PROCESS_V2_ASIO_NAMESPACE::async_compose<WaitHandler, void (error_code, int)>(
-      async_wait_op_{process_handle_, exit_status_}, handler, process_handle_);
-  }
+
 
 private:
   template<typename Executor1>
@@ -340,26 +361,37 @@ private:
             }
         };
 
-        BOOST_PROCESS_V2_ASIO_NAMESPACE::post(handle.get_executor(),
-                                              completer{static_cast<int>(res), std::move(self)});
+        net::dispatch(
+            net::get_associated_immediate_executor(handle, handle.get_executor()),
+            completer{static_cast<int>(res), std::move(self)});
       }
       else
-        handle.async_wait(std::move(self));
+        handle.async_wait(res, std::move(self));
     }
 
     template<typename Self>
-    void operator()(Self && self, error_code ec, native_exit_code_type code)
+    void operator()(Self && self, error_code ec)
     {
-      if (!ec && process_is_running(code))
-        handle.async_wait(std::move(self));
+      if (!ec && process_is_running(res))
+        handle.async_wait(res, std::move(self));
       else
       {
-        if (!ec)
-          res = code;
-        std::move(self).complete(ec, evaluate_exit_code(code));
+        std::move(self).complete(ec, evaluate_exit_code(res));
       }
     }
   };
+
+ public:
+  /// Asynchronously wait for the process to exit and deliver the native exit-code in the completion handler.
+  template <BOOST_PROCESS_V2_COMPLETION_TOKEN_FOR(void (error_code, int))
+  WaitHandler = net::default_completion_token_t<executor_type>>
+  auto async_wait(WaitHandler && handler = net::default_completion_token_t<executor_type>())
+    -> decltype(net::async_compose<WaitHandler, void (error_code, int)>(
+        async_wait_op_{process_handle_, exit_status_}, handler, process_handle_))
+  {
+    return net::async_compose<WaitHandler, void (error_code, int)>(
+        async_wait_op_{process_handle_, exit_status_}, handler, process_handle_);
+  }
 };
 
 /// Process with the default executor.

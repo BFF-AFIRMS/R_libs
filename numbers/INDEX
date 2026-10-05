@@ -1,4 +1,6 @@
 agm                     Arithmetic-geometric Mean
+arithmetic_progression
+                        Arithmetic Progression
 bell                    Bell Numbers
 bernoulli_numbers       Bernoulli Numbers
 carmichael              Carmichael Numbers
@@ -30,6 +32,7 @@ mod                     Modulo Operator
 modinv                  Modular Inverse and Square Root
 modlin                  Modular Linear Equation Solver
 modlog                  Modular (or: Discrete) Logarithm
+modNthroot              N-th root modulo p
 modpower                Power Function modulo m
 moebius                 Moebius Function
 necklace                Necklace and Bracelet Functions
@@ -39,6 +42,7 @@ omega                   Number of Prime Factors
 ordpn                   Order in Faculty
 pascal_triangle         Pascal Triangle
 periodicCF              Periodic continued fraction
+polygonal               Polygonal Numbers
 previousPrime           Previous Prime
 primeFactors            Prime Factors
 Primes                  Prime Numbers

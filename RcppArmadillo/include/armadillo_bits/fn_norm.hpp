@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
 // 
-// Copyright 2008-2016 Conrad Sanderson (http://conradsanderson.id.au)
+// Copyright 2008-2016 Conrad Sanderson (https://conradsanderson.id.au)
 // Copyright 2008-2016 National ICT Australia (NICTA)
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// http://www.apache.org/licenses/LICENSE-2.0
+// https://www.apache.org/licenses/LICENSE-2.0
 // 
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -32,7 +32,7 @@ norm
   const typename arma_real_or_cx_only<typename T1::elem_type>::result* junk = nullptr
   )
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   arma_ignore(junk);
   
   typedef typename T1::pod_type T;
@@ -48,7 +48,7 @@ norm
     if(k == uword(1))  { return op_norm::vec_norm_1(P); }
     if(k == uword(2))  { return op_norm::vec_norm_2(P); }
     
-    arma_debug_check( (k == 0), "norm(): unsupported vector norm type" );
+    arma_conform_check( (k == 0), "norm(): unsupported vector norm type" );
     
     return op_norm::vec_norm_k(P, int(k));
     }
@@ -78,7 +78,7 @@ norm
   const typename arma_real_or_cx_only<typename T1::elem_type>::result* junk = nullptr
   )
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   arma_ignore(junk);
   
   typedef typename T1::pod_type T;
@@ -131,7 +131,7 @@ norm
   const typename arma_integral_only<typename T1::elem_type>::result* junk = nullptr
   )
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   arma_ignore(junk);
   
   if(resolves_to_colvector<T1>::value)  { return norm(conv_to< Col<double> >::from(X), k); }
@@ -153,7 +153,7 @@ norm
   const typename arma_integral_only<typename T1::elem_type>::result* junk = nullptr
   )
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   arma_ignore(junk);
   
   if(resolves_to_colvector<T1>::value)  { return norm(conv_to< Col<double> >::from(X), method); }
@@ -179,7 +179,7 @@ norm
   const typename arma_real_or_cx_only<typename T1::elem_type>::result* junk = nullptr
   )
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   arma_ignore(junk);
   
   typedef typename T1::elem_type eT;
@@ -234,7 +234,7 @@ norm
   const typename arma_real_or_cx_only<typename T1::elem_type>::result* junk = nullptr
   )
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   arma_ignore(junk);
   
   typedef typename T1::elem_type eT;
@@ -311,7 +311,7 @@ norm2est
   const typename arma_real_or_cx_only<typename T1::elem_type>::result* junk = nullptr
   )
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   arma_ignore(junk);
   
   return op_norm2est::norm2est(X.get_ref(), tolerance, max_iter);
@@ -331,7 +331,7 @@ norm2est
   const typename arma_real_or_cx_only<typename T1::elem_type>::result* junk = nullptr
   )
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   arma_ignore(junk);
   
   return op_norm2est::norm2est(X.get_ref(), tolerance, max_iter);

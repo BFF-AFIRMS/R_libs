@@ -140,5 +140,3 @@ mymod <- function(formula, data, level=0.05) {
 ###################################################
 errorest(Class ~ . , data=GlaucomaM, model=mymod, estimator = "cv",
 est.para=control.errorest(k=5))
-
-

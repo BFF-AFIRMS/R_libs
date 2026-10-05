@@ -1,22 +1,28 @@
 Package: pingr
 Title: Check if a Remote Computer is Up
-Version: 2.0.2
-Authors@R: person(given = "Gábor", family = "Csárdi", role = c("aut", "cre"),
-             email = "csardi.gabor@gmail.com")
-Description: Check if a remote computer is up. It can either
-    just call the system ping command, or check a specified
-    TCP port.
+Version: 2.0.5
+Authors@R: c(
+    person("Gábor", "Csárdi", , "csardi.gabor@gmail.com", role = c("aut", "cre")),
+    person("Posit Software, PBC", role = c("cph", "fnd"))
+  )
+Description: Check if a remote computer is up. It can either just call the
+    system ping command, or check a specified TCP port.
 License: MIT + file LICENSE
-URL: https://github.com/r-lib/pingr#readme
+URL: https://r-lib.github.io/pingr/, https://github.com/r-lib/pingr
 BugReports: https://github.com/r-lib/pingr/issues
-Suggests: covr, testthat
+Depends: R (>= 3.6)
 Imports: processx, utils
-RoxygenNote: 7.1.0.9000
+Suggests: covr, ps, testthat (>= 3.0.0)
+Config/Needs/website: tidyverse/tidytemplate
+Config/testthat/edition: 3
 Encoding: UTF-8
+RoxygenNote: 7.2.3
+Biarch: true
 NeedsCompilation: yes
-Packaged: 2022-10-26 16:43:46 UTC; gaborcsardi
-Author: Gábor Csárdi [aut, cre]
+Packaged: 2024-12-12 09:19:43 UTC; gaborcsardi
+Author: Gábor Csárdi [aut, cre],
+  Posit Software, PBC [cph, fnd]
 Maintainer: Gábor Csárdi <csardi.gabor@gmail.com>
 Repository: CRAN
-Date/Publication: 2022-10-26 17:12:36 UTC
-Built: R 4.3.0; x86_64-pc-linux-gnu; 2023-07-07 03:04:15 UTC; unix
+Date/Publication: 2024-12-12 10:10:02 UTC
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-03 22:14:40 UTC; unix

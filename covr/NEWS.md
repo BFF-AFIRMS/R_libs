@@ -1,3 +1,44 @@
+# covr 3.6.5
+
+## New Features and improvements
+
+* Added support for `klmr/box` modules. This works best with `file_coverage()`. (@radbasa, #491)
+
+* Performance improvement for compiled code with a lot of compilation units (@krlmlr, #611)
+
+* Fix R CMD check NOTE for upcoming R 4.6: non-API calls to SET_BODY, SET_CLOENV, SET_FORMALS (@t-kalinowski, #587)
+
+## Fixes and minor improvements
+
+* Messages are now displayed using cli instead of crayon (@olivroy, #591).
+
+* covr now uses `testthat::with_mocked_bindings()` for its internal testing (@olivroy, #595).
+
+* Fix a bug preventing `package_coverage()` from running tests when `install_path` is set to a relative path (@gergness, #517, #548).
+
+* Fixed a performance regression and an error triggered by a change in R
+  4.4.0. (@kyleam, #588)
+
+* Fixed an issue where attempting to generate code coverage on an already-loaded
+  package could fail on Windows. (@kevinushey, #574)
+
+* Prevent `covr.record_tests` option from logging duplicate tests when the same
+  line of testing code is hit repeatedly, as in a loop. (@dgkf, #528)
+
+* Normalize `install_path` path before creating directory to prevent
+  failures when running covr in a subprocess using a path with Windows 
+  `\\` path separators. (@maksymiuks, #592)
+
+# covr 3.6.4
+
+* Fix for a failing test on CRAN
+
+# covr 3.6.3
+
+* Updates to internal usage of `is.atomic()` to work with upcoming R release (@mmaechler , #542)
+
+* `package_coverage()` now works correctly with ignore files when it is not run in the package root directory (@mpadge, #538)
+
 # covr 3.6.2
 
 # covr 3.6.1

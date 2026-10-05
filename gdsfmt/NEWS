@@ -1,3 +1,59 @@
+CHANGES IN VERSION 1.46.0
+-------------------------
+
+UTILITIES
+
+    o fix a strange bug in `append.gdsn(, val=character())` in MacOS when
+      compiled by Apple clang version 17
+
+
+CHANGES IN VERSION 1.44.1
+-------------------------
+
+UTILITIES
+
+    o faster appending bit<N> array data when N is one of 1, ..., and 16
+
+
+CHANGES IN VERSION 1.44.0
+-------------------------
+
+UTILITIES
+
+    o fix the C++ error with Apple clang version 17: no
+      'std::basic_string<unsigned short>' & 'std::basic_string<unsigned int>'
+
+
+CHANGES IN VERSION 1.42.2
+-------------------------
+
+UTILITIES
+
+    o tweak the C Macro to support Linux MUSL
+
+    o fix according to the C compiler C23
+
+
+CHANGES IN VERSION 1.40.2
+-------------------------
+
+UTILITIES
+
+    o add "#define STRICT_R_HEADERS 1" to the C++ header file according to
+      R_r86984
+
+    o update the C codes according to '_R_USE_STRICT_R_HEADERS_=true' &
+      '_R_CXX_USE_NO_REMAP_=true'
+
+
+CHANGES IN VERSION 1.38.1
+-------------------------
+
+UTILITIES
+
+    o fix the compiler warning: -Wformat-security
+
+
 CHANGES IN VERSION 1.36.1
 -------------------------
 

@@ -1,0 +1,9 @@
+citHeader("To cite cmm in publications use:")
+
+bibentry(bibtype = "Manual",
+  title        = "cmm: Categorical marginal models",
+  author       = c(person("W. P.", "Bergsma"), person("L. A.", "Van der Ark")),
+  year         = "2023",
+  version       = "R package, version 1.0"
+)
+

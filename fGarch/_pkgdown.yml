@@ -18,7 +18,7 @@ reference:
       - garchSim
       - dem2gbp
       - sp500dge
-  - title: "Fit models"
+  - title: "Fit GARCH-type models"
     contents:
       - garchFit
       - .gogarchFit
@@ -33,6 +33,7 @@ reference:
       - "show,fGARCHSPEC-method"
   - title: "Exploring and computing on 'fGARCH' objects"
     contents:
+      - tsdiag.fGARCH
       - "plot,fGARCH,missing-method"
       - "summary-methods"
       - "summary,fGARCH-method"
@@ -46,6 +47,8 @@ reference:
       - "predict,fGARCH-method"
       - "residuals,fGARCH-method"
       - volatility
+      - VaR.fGARCH
+      - ES.fGARCH
   - title: "Standardized distributions"
     contents:
       - absMoments

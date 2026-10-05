@@ -7,12 +7,10 @@ import(BiocGenerics)
 importFrom(MatrixGenerics, rowRanges)
 import(S4Vectors)
 import(IRanges)
-import(GenomeInfoDb)
+import(Seqinfo)
 import(GenomicRanges)
 import(SummarizedExperiment)
 import(Rsamtools)
-
-import(zlibbioc)
 
 importClassesFrom(Biobase, 
     AssayData
@@ -104,7 +102,7 @@ export(
     isSNV, isInsertion, isDeletion, isIndel, isDelins, isTransition,
     isSubstitution,
     VcfFile, VcfFileList,
-    makeVRangesFromGRanges
+    makeVRangesFromGRanges, post_Hs_region, vep_by_region
 )
 
 exportMethods(

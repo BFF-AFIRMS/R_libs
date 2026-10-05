@@ -211,6 +211,7 @@ PolyPhen	PolyPhenDb-class
 PolyPhenDb	PolyPhenDb-class
 PolyPhenDb-class	PolyPhenDb-class
 PolyPhenDbColumns	PolyPhenDbColumns
+post_Hs_region	post_Hs_region
 predictCoding	predictCoding-methods
 predictCoding,CollapsedVCF,TxDb,ANY,missing-method	predictCoding-methods
 predictCoding,ExpandedVCF,TxDb,ANY,missing-method	predictCoding-methods
@@ -357,6 +358,7 @@ upstream<-,IntergenicVariants-method	VariantType-class
 upstream<-,PromoterVariants-method	VariantType-class
 VariantAnnotation-defunct	defunct
 VariantType-class	VariantType-class
+variant_body	variant_body
 VCF	VCF-class
 VCF-class	VCF-class
 vcfFields	VCFHeader-class
@@ -384,6 +386,7 @@ vcfTrimEmpty	ScanVcfParam-class
 vcfTrimEmpty<-	ScanVcfParam-class
 vcfWhich	ScanVcfParam-class
 vcfWhich<-	ScanVcfParam-class
+vep_by_region	vep_by_region
 VRanges	VRanges-class
 VRanges-class	VRanges-class
 VRangesList	VRangesList-class

@@ -1,3 +1,7 @@
+AIC.fmsm                Akaike's information criterion from a flexible
+                        parametric multistate model
+AICc                    Second-order Akaike information criterion
+AICc.flexsurvreg        Second-order Akaike information criterion
 ajfit                   Aalen-Johansen nonparametric estimates
                         comparable to a fitted flexsurvmix model
 ajfit_flexsurvmix       Forms a tidy data frame for plotting the fit of
@@ -10,6 +14,8 @@ augment.flexsurvreg     Augment data with information from a flexsurv
                         model object
 basis                   Natural cubic spline basis
 bc                      Breast cancer survival data
+BIC.flexsurvreg         Bayesian Information Criterion (BIC) for
+                        comparison of flexsurvreg models
 bootci.fmsm             Bootstrap confidence intervals for flexsurv
                         output functions
 bos                     Bronchiolitis obliterans syndrome after lung
@@ -49,10 +55,13 @@ hr_flexsurvreg          Hazard ratio as a function of time from a
                         parametric survival model
 lines.flexsurvreg       Add fitted flexible survival curves to a plot
 Llogis                  The log-logistic distribution
+logLik.flexsurvreg      Log likelihood from a flexsurvreg model
 mean_exp                Mean and restricted mean survival functions
 mean_flexsurvmix        Mean times to events from a flexsurvmix model
 meanfinal_fmixmsm       Mean time to final state in a mixture
                         multi-state model
+model.frame.flexsurvmix
+                        Model frame from a flexsurvmix object
 model.frame.flexsurvreg
                         Extract original data from 'flexsurvreg'
                         objects.
@@ -97,7 +106,7 @@ residuals.flexsurvreg   Calculate residuals for flexible survival
 rmst_flexsurvmix        Restricted mean times to events from a
                         flexsurvmix model
 rmst_generic            Generic function to find restricted mean
-                        survival of a distribution
+                        survival time for some distribution
 sim.fmsm                Simulate paths through a fully parametric
                         semi-Markov multi-state model
 simfinal_fmsm           Simulate and summarise final outcomes from a
@@ -118,7 +127,7 @@ survrtrunc              Nonparametric estimator of survival from
                         right-truncated, uncensored data
 Survspline              Royston/Parmar spline survival distribution
 Survsplinek             Royston/Parmar spline survival distribution
-                        functions
+                        functions with one argument per parameter
 tidy.flexsurvreg        Tidy a flexsurv model object
 tidy.standsurv          Tidy a standsurv object.
 totlos.fs               Total length of stay in particular states for a
@@ -129,5 +138,7 @@ totlos.simfs            Expected total length of stay in specific
                         multi-state model
 unroll.function         Convert a function with matrix arguments to a
                         function with vector arguments.
+vcov.flexsurvreg        Variance-covariance matrix from a flexsurvreg
+                        model
 WeibullPH               Weibull distribution in proportional hazards
                         parameterisation

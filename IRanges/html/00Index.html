@@ -12,9 +12,9 @@
 <div style="text-align: center;">
 <a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
 <a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
-</div><h2>Documentation for package &lsquo;IRanges&rsquo; version 2.34.1</h2>
+</div><h2>Documentation for package &lsquo;IRanges&rsquo; version 2.44.0</h2>
 
-<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+<ul><li><a href="../DESCRIPTION" type="text/plain; charset=utf-8">DESCRIPTION file</a>.</li>
 <li><a href="../doc/index.html">User guides, package vignettes and other documentation.</a></li>
 <li><a href="../NEWS">Package NEWS</a>.</li>
 </ul>
@@ -59,12 +59,12 @@
 <td>MaskCollection objects</td></tr>
 <tr><td style="width: 25%;"><a href="MaskCollection-class.html">active&lt;--method</a></td>
 <td>MaskCollection objects</td></tr>
-<tr><td style="width: 25%;"><a href="AtomicList-utils.html">all-method</a></td>
-<td>Common operations on AtomicList objects</td></tr>
-<tr><td style="width: 25%;"><a href="AtomicList-utils.html">any-method</a></td>
-<td>Common operations on AtomicList objects</td></tr>
-<tr><td style="width: 25%;"><a href="AtomicList-utils.html">anyNA-method</a></td>
-<td>Common operations on AtomicList objects</td></tr>
+<tr><td style="width: 25%;"><a href="AtomicList-summarization.html">all-method</a></td>
+<td>AtomicList summarization methods</td></tr>
+<tr><td style="width: 25%;"><a href="AtomicList-summarization.html">any-method</a></td>
+<td>AtomicList summarization methods</td></tr>
+<tr><td style="width: 25%;"><a href="AtomicList-summarization.html">anyNA-method</a></td>
+<td>AtomicList summarization methods</td></tr>
 <tr><td style="width: 25%;"><a href="MaskCollection-class.html">append-method</a></td>
 <td>MaskCollection objects</td></tr>
 <tr><td style="width: 25%;"><a href="IPosRanges-class.html">as.character-method</a></td>
@@ -105,7 +105,13 @@
 <td>Lists of Atomic Vectors in Natural and Rle Form</td></tr>
 <tr><td style="width: 25%;"><a href="AtomicList-class.html">AtomicList-class</a></td>
 <td>Lists of Atomic Vectors in Natural and Rle Form</td></tr>
+<tr><td style="width: 25%;"><a href="AtomicList-summarization.html">AtomicList-summarization</a></td>
+<td>AtomicList summarization methods</td></tr>
 <tr><td style="width: 25%;"><a href="AtomicList-utils.html">AtomicList-utils</a></td>
+<td>Common operations on AtomicList objects</td></tr>
+<tr><td style="width: 25%;"><a href="AtomicList-summarization.html">AtomicList_summarization</a></td>
+<td>AtomicList summarization methods</td></tr>
+<tr><td style="width: 25%;"><a href="AtomicList-utils.html">AtomicList_utils</a></td>
 <td>Common operations on AtomicList objects</td></tr>
 </table>
 
@@ -337,6 +343,8 @@
 <td>List of RleViews</td></tr>
 <tr><td style="width: 25%;"><a href="Views-class.html">coerce-method</a></td>
 <td>Views objects</td></tr>
+<tr><td style="width: 25%;"><a href="makeIRangesFromDataFrame.html">coerce-method</a></td>
+<td>Make a IRanges object from a data.frame or DataFrame</td></tr>
 <tr><td style="width: 25%;"><a href="MaskCollection-class.html">collapse</a></td>
 <td>MaskCollection objects</td></tr>
 <tr><td style="width: 25%;"><a href="MaskCollection-class.html">collapse-method</a></td>
@@ -445,14 +453,14 @@
 <td>List of DataFrames</td></tr>
 <tr><td style="width: 25%;"><a href="DataFrameList-class.html">CompressedSplitDFrameList-class</a></td>
 <td>List of DataFrames</td></tr>
-<tr><td style="width: 25%;"><a href="AtomicList-utils.html">cor-method</a></td>
-<td>Common operations on AtomicList objects</td></tr>
+<tr><td style="width: 25%;"><a href="AtomicList-summarization.html">cor-method</a></td>
+<td>AtomicList summarization methods</td></tr>
 <tr><td style="width: 25%;"><a href="findOverlaps-methods.html">countOverlaps</a></td>
 <td>Finding overlapping ranges</td></tr>
 <tr><td style="width: 25%;"><a href="findOverlaps-methods.html">countOverlaps-method</a></td>
 <td>Finding overlapping ranges</td></tr>
-<tr><td style="width: 25%;"><a href="AtomicList-utils.html">cov-method</a></td>
-<td>Common operations on AtomicList objects</td></tr>
+<tr><td style="width: 25%;"><a href="AtomicList-summarization.html">cov-method</a></td>
+<td>AtomicList summarization methods</td></tr>
 <tr><td style="width: 25%;"><a href="coverage-methods.html">coverage</a></td>
 <td>Coverage of a set of ranges</td></tr>
 <tr><td style="width: 25%;"><a href="coverage-methods.html">coverage-method</a></td>
@@ -703,8 +711,8 @@
 <td>IPosRanges objects</td></tr>
 <tr><td style="width: 25%;"><a href="IPosRanges-comparison.html">IPosRanges-comparison</a></td>
 <td>Comparing and ordering ranges</td></tr>
-<tr><td style="width: 25%;"><a href="AtomicList-utils.html">IQR-method</a></td>
-<td>Common operations on AtomicList objects</td></tr>
+<tr><td style="width: 25%;"><a href="AtomicList-summarization.html">IQR-method</a></td>
+<td>AtomicList summarization methods</td></tr>
 <tr><td style="width: 25%;"><a href="IRanges-constructor.html">IRanges</a></td>
 <td>The IRanges constructor and supporting functions</td></tr>
 <tr><td style="width: 25%;"><a href="IRanges-class.html">IRanges-class</a></td>
@@ -775,8 +783,10 @@
 <h2><a id="M">-- M --</a></h2>
 
 <table style="width: 100%;">
-<tr><td style="width: 25%;"><a href="AtomicList-utils.html">mad-method</a></td>
-<td>Common operations on AtomicList objects</td></tr>
+<tr><td style="width: 25%;"><a href="AtomicList-summarization.html">mad-method</a></td>
+<td>AtomicList summarization methods</td></tr>
+<tr><td style="width: 25%;"><a href="makeIRangesFromDataFrame.html">makeIRangesFromDataFrame</a></td>
+<td>Make a IRanges object from a data.frame or DataFrame</td></tr>
 <tr><td style="width: 25%;"><a href="Grouping-class.html">ManyToManyGrouping</a></td>
 <td>Grouping objects</td></tr>
 <tr><td style="width: 25%;"><a href="Grouping-class.html">ManyToManyGrouping-class</a></td>
@@ -821,12 +831,12 @@
 <td>MaskCollection objects</td></tr>
 <tr><td style="width: 25%;"><a href="view-summarization-methods.html">max-method</a></td>
 <td>Summarize views on a vector-like object with numeric values</td></tr>
-<tr><td style="width: 25%;"><a href="AtomicList-utils.html">mean-method</a></td>
-<td>Common operations on AtomicList objects</td></tr>
+<tr><td style="width: 25%;"><a href="AtomicList-summarization.html">mean-method</a></td>
+<td>AtomicList summarization methods</td></tr>
 <tr><td style="width: 25%;"><a href="view-summarization-methods.html">mean-method</a></td>
 <td>Summarize views on a vector-like object with numeric values</td></tr>
-<tr><td style="width: 25%;"><a href="AtomicList-utils.html">median-method</a></td>
-<td>Common operations on AtomicList objects</td></tr>
+<tr><td style="width: 25%;"><a href="AtomicList-summarization.html">median-method</a></td>
+<td>AtomicList summarization methods</td></tr>
 <tr><td style="width: 25%;"><a href="Grouping-class.html">members</a></td>
 <td>Grouping objects</td></tr>
 <tr><td style="width: 25%;"><a href="Grouping-class.html">members-method</a></td>
@@ -1043,8 +1053,8 @@
 <h2><a id="Q">-- Q --</a></h2>
 
 <table style="width: 100%;">
-<tr><td style="width: 25%;"><a href="AtomicList-utils.html">quantile-method</a></td>
-<td>Common operations on AtomicList objects</td></tr>
+<tr><td style="width: 25%;"><a href="AtomicList-summarization.html">quantile-method</a></td>
+<td>AtomicList summarization methods</td></tr>
 </table>
 
 <h2><a id="R">-- R --</a></h2>
@@ -1052,8 +1062,8 @@
 <table style="width: 100%;">
 <tr><td style="width: 25%;"><a href="inter-range-methods.html">range</a></td>
 <td>Inter range transformations of an IntegerRanges, Views, IntegerRangesList, or MaskCollection object</td></tr>
-<tr><td style="width: 25%;"><a href="AtomicList-utils.html">range-method</a></td>
-<td>Common operations on AtomicList objects</td></tr>
+<tr><td style="width: 25%;"><a href="AtomicList-summarization.html">range-method</a></td>
+<td>AtomicList summarization methods</td></tr>
 <tr><td style="width: 25%;"><a href="inter-range-methods.html">range-method</a></td>
 <td>Inter range transformations of an IntegerRanges, Views, IntegerRangesList, or MaskCollection object</td></tr>
 <tr><td style="width: 25%;"><a href="range-squeezers.html">range-squeezers</a></td>
@@ -1183,8 +1193,8 @@
 <h2><a id="S">-- S --</a></h2>
 
 <table style="width: 100%;">
-<tr><td style="width: 25%;"><a href="AtomicList-utils.html">sd-method</a></td>
-<td>Common operations on AtomicList objects</td></tr>
+<tr><td style="width: 25%;"><a href="AtomicList-summarization.html">sd-method</a></td>
+<td>AtomicList summarization methods</td></tr>
 <tr><td style="width: 25%;"><a href="nearest-methods.html">selectNearest</a></td>
 <td>Finding the nearest range/position neighbor</td></tr>
 <tr><td style="width: 25%;"><a href="AtomicList-utils.html">selfmatch-method</a></td>
@@ -1381,12 +1391,12 @@
 <td>IRanges utility functions</td></tr>
 <tr><td style="width: 25%;"><a href="Views-class.html">successiveViews</a></td>
 <td>Views objects</td></tr>
-<tr><td style="width: 25%;"><a href="AtomicList-utils.html">sum-method</a></td>
-<td>Common operations on AtomicList objects</td></tr>
+<tr><td style="width: 25%;"><a href="AtomicList-summarization.html">sum-method</a></td>
+<td>AtomicList summarization methods</td></tr>
 <tr><td style="width: 25%;"><a href="view-summarization-methods.html">sum-method</a></td>
 <td>Summarize views on a vector-like object with numeric values</td></tr>
-<tr><td style="width: 25%;"><a href="AtomicList-utils.html">Summary-method</a></td>
-<td>Common operations on AtomicList objects</td></tr>
+<tr><td style="width: 25%;"><a href="AtomicList-summarization.html">Summary-method</a></td>
+<td>AtomicList summarization methods</td></tr>
 <tr><td style="width: 25%;"><a href="view-summarization-methods.html">Summary-method</a></td>
 <td>Summarize views on a vector-like object with numeric values</td></tr>
 <tr><td style="width: 25%;"><a href="IPos-class.html">summary-method</a></td>
@@ -1408,6 +1418,10 @@
 <td>Lists of Atomic Vectors in Natural and Rle Form</td></tr>
 <tr><td style="width: 25%;"><a href="Vector-class-leftovers.html">tapply-method</a></td>
 <td>Vector objects (old man page)</td></tr>
+<tr><td style="width: 25%;"><a href="intra-range-methods.html">terminators</a></td>
+<td>Intra range transformations of an IRanges, IPos, Views, RangesList, or MaskCollection object</td></tr>
+<tr><td style="width: 25%;"><a href="intra-range-methods.html">terminators-method</a></td>
+<td>Intra range transformations of an IRanges, IPos, Views, RangesList, or MaskCollection object</td></tr>
 <tr><td style="width: 25%;"><a href="intra-range-methods.html">threebands</a></td>
 <td>Intra range transformations of an IRanges, IPos, Views, RangesList, or MaskCollection object</td></tr>
 <tr><td style="width: 25%;"><a href="intra-range-methods.html">threebands-method</a></td>
@@ -1478,8 +1492,8 @@
 <h2><a id="V">-- V --</a></h2>
 
 <table style="width: 100%;">
-<tr><td style="width: 25%;"><a href="AtomicList-utils.html">var-method</a></td>
-<td>Common operations on AtomicList objects</td></tr>
+<tr><td style="width: 25%;"><a href="AtomicList-summarization.html">var-method</a></td>
+<td>AtomicList summarization methods</td></tr>
 <tr><td style="width: 25%;"><a href="view-summarization-methods.html">view-summarization-methods</a></td>
 <td>Summarize views on a vector-like object with numeric values</td></tr>
 <tr><td style="width: 25%;"><a href="view-summarization-methods.html">viewApply</a></td>
@@ -1514,6 +1528,8 @@
 <td>The RleViews class</td></tr>
 <tr><td style="width: 25%;"><a href="RleViewsList-class.html">Views-method</a></td>
 <td>List of RleViews</td></tr>
+<tr><td style="width: 25%;"><a href="Views-class.html">Views-method</a></td>
+<td>Views objects</td></tr>
 <tr><td style="width: 25%;"><a href="ViewsList-class.html">ViewsList</a></td>
 <td>List of Views</td></tr>
 <tr><td style="width: 25%;"><a href="ViewsList-class.html">ViewsList-class</a></td>

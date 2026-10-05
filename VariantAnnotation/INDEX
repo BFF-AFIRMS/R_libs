@@ -9,6 +9,8 @@ isSNV                   Identification of genomic variant types.
 locateVariants          Locate variants
 PolyPhenDb-class        PolyPhenDb objects
 PolyPhenDbColumns       PolyPhenDb Columns
+post_Hs_region          elementary vep/homo_sapiens/region call to
+                        ensembl VEP REST API
 predictCoding           Predict amino acid coding changes for variants
 probabilityToSnpMatrix
                         Convert posterior genotype probability to a
@@ -23,6 +25,8 @@ SIFTDbColumns           SIFTDb Columns
 snpSummary              Counts and distribution statistics for SNPs in
                         a VCF object
 summarizeVariants       Summarize variants by sample
+variant_body            helper function to construct inputs for VEP
+                        REST API
 VariantAnnotation-defunct
                         Defunct Functions in Package
                         'VariantAnnotation'
@@ -30,6 +34,9 @@ VariantType-class       VariantType subclasses
 VCF-class               VCF class objects
 VcfFile                 Manipulate Variant Call Format (Vcf) files.
 VCFHeader-class         VCFHeader instances
+vep_by_region           Use the VEP region API on variant information
+                        in a VCF object as defined in
+                        VariantAnnotation.
 VRanges-class           VRanges objects
 VRangesList-class       VRangesList objects
 writeVcf                Write VCF files

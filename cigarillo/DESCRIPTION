@@ -1,0 +1,57 @@
+Package: cigarillo
+Title: Efficient manipulation of CIGAR strings
+Description: CIGAR stands for Concise Idiosyncratic Gapped Alignment Report.
+	CIGAR strings are found in the BAM files produced by most aligners
+	and in the AIRR-formatted output produced by IgBLAST.
+	The cigarillo package provides functions to parse and inspect CIGAR
+	strings, trim them, turn them into ranges of positions relative to
+	the "query space" or "reference space", and project positions or
+	sequences from one space to the other. Note that these operations
+	are low-level operations that the user rarely needs to perform
+	directly. More typically, they are performed behind the scene by
+	higher-level functionality implemented in other packages like
+	Bioconductor packages GenomicAlignments and igblastr.
+biocViews: Infrastructure, Alignment, SequenceMatching, Sequencing
+URL: https://bioconductor.org/packages/cigarillo
+BugReports: https://github.com/Bioconductor/cigarillo/issues
+Version: 1.0.0
+License: Artistic-2.0
+Encoding: UTF-8
+Authors@R: c(
+	person("Hervé", "Pagès", role=c("aut", "cre"),
+		email="hpages.on.github@gmail.com",
+		comment=c(ORCID="0009-0002-8272-4522")),
+	person("Valerie", "Obenchain", role="aut"),
+	person("Michael", "Lawrence", role="aut",
+		email="lawremi@gmail.com"),
+	person("Patrick", "Aboyoun", role="ctb"),
+	person("Fedor", "Bezrukov", role="ctb"),
+	person("Martin", "Morgan", role="ctb"))
+Depends: methods, BiocGenerics, S4Vectors (>= 0.47.2), IRanges,
+        Biostrings
+Imports: stats
+LinkingTo: S4Vectors, IRanges
+Suggests: Rsamtools, GenomicAlignments, RNAseqData.HNRNPC.bam.chr14,
+        BSgenome.Hsapiens.UCSC.hg19, testthat, knitr, rmarkdown,
+        BiocStyle
+VignetteBuilder: knitr
+Collate: utils.R cigar_ops_visibility.R explode_cigars.R
+        tabulate_cigar_ops.R cigar_extent.R trim_cigars.R
+        cigars_as_ranges.R project_positions.R project_sequences.R
+        map_ref_ranges_to_query.R
+git_url: https://git.bioconductor.org/packages/cigarillo
+git_branch: RELEASE_3_22
+git_last_commit: 8775adf
+git_last_commit_date: 2025-10-29
+Repository: Bioconductor 3.22
+Date/Publication: 2025-10-29
+NeedsCompilation: yes
+Packaged: 2025-10-30 03:08:01 UTC; biocbuild
+Author: Hervé Pagès [aut, cre] (ORCID: <https://orcid.org/0009-0002-8272-4522>),
+  Valerie Obenchain [aut],
+  Michael Lawrence [aut],
+  Patrick Aboyoun [ctb],
+  Fedor Bezrukov [ctb],
+  Martin Morgan [ctb]
+Maintainer: Hervé Pagès <hpages.on.github@gmail.com>
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-03 23:12:29 UTC; unix

@@ -1,33 +1,35 @@
 Package: timeSeries
 Title: Financial Time Series Objects (Rmetrics)
-Version: 4030.106
+Version: 4052.112
 Authors@R: c(person("Diethelm", "Wuertz", role="aut", comment = "original code")
 	   , person("Tobias", "Setz", role = c("aut"), email = "tobias.setz@live.com")
 	   , person("Yohan", "Chalabi", role = "aut")
-	   , person("Martin","Maechler", role="ctb", email="maechler@stat.math.ethz.ch", comment = c(ORCID = "0000-0002-8685-9910"))
+	   , person("Martin","Maechler", role="ctb", email="maechler@stat.math.ethz.ch",
+	            comment = c(ORCID = "0000-0002-8685-9910"))
 	   , person(given = c("Georgi", "N."), family = "Boshnakov", 
-                    role = c("cre", "ctb"), email = "georgi.boshnakov@manchester.ac.uk") )
+                    role = c("cre", "aut"), email = "georgi.boshnakov@manchester.ac.uk",
+		    comment = c(ORCID = "0000-0003-2839-346X")) )
 Description: 'S4' classes and various tools for financial time series:
   Basic functions such as scaling and sorting, subsetting,
   mathematical operations and statistical functions.
-Depends: R (>= 2.10), timeDate (>= 2150.95)
-Imports: graphics, grDevices, stats, utils, methods
-Suggests: RUnit, robustbase, xts, PerformanceAnalytics, fTrading
+Depends: R (>= 2.10), timeDate (>= 4041.110), methods
+Imports: graphics, grDevices, stats, utils
+Suggests: RUnit, robustbase, xts, zoo, PerformanceAnalytics, fTrading
 LazyData: yes
 License: GPL (>= 2)
-URL:
-        https://r-forge.r-project.org/scm/viewvc.php/pkg/timeSeries/?root=rmetrics
-        (devel), https://www.rmetrics.org,
-        https://geobosh.github.io/timeSeriesDoc/ (doc)
-BugReports: https://r-forge.r-project.org/projects/rmetrics
+URL: https://geobosh.github.io/timeSeriesDoc/ (doc),
+        https://CRAN.R-project.org/package=timeSeries,
+        https://www.rmetrics.org
+BugReports: https://r-forge.r-project.org/tracker/?atid=633&group_id=156&func=browse
 NeedsCompilation: no
-Packaged: 2023-05-25 09:20:14 UTC; georgi
+Packaged: 2025-12-12 12:45:32 UTC; georgi
 Author: Diethelm Wuertz [aut] (original code),
   Tobias Setz [aut],
   Yohan Chalabi [aut],
-  Martin Maechler [ctb] (<https://orcid.org/0000-0002-8685-9910>),
-  Georgi N. Boshnakov [cre, ctb]
+  Martin Maechler [ctb] (ORCID: <https://orcid.org/0000-0002-8685-9910>),
+  Georgi N. Boshnakov [cre, aut] (ORCID:
+    <https://orcid.org/0000-0003-2839-346X>)
 Maintainer: Georgi N. Boshnakov <georgi.boshnakov@manchester.ac.uk>
 Repository: CRAN
-Date/Publication: 2023-05-25 10:30:02 UTC
-Built: R 4.3.0; ; 2023-07-07 02:52:42 UTC; unix
+Date/Publication: 2025-12-12 16:00:03 UTC
+Built: R 4.5.0; ; 2026-09-01 21:04:14 UTC; unix

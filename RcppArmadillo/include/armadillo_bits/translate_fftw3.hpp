@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
 // 
-// Copyright 2008-2016 Conrad Sanderson (http://conradsanderson.id.au)
+// Copyright 2008-2016 Conrad Sanderson (https://conradsanderson.id.au)
 // Copyright 2008-2016 National ICT Australia (NICTA)
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// http://www.apache.org/licenses/LICENSE-2.0
+// https://www.apache.org/licenses/LICENSE-2.0
 // 
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,12 +30,12 @@ namespace fftw3
     
     if(is_cx_float<eT>::value)
       {
-      return fftwf_plan_dft_1d(N, (cx_float*)input, (cx_float*)output, fftw3_sign, fftw3_flags);
+      return fftwf_plan_dft_1d(N, (fftwf_complex*)(input), (fftwf_complex*)(output), fftw3_sign, fftw3_flags);
       }
     else
     if(is_cx_double<eT>::value)
       {
-      return fftw_plan_dft_1d(N, (cx_double*)input, (cx_double*)output, fftw3_sign, fftw3_flags);
+      return fftw_plan_dft_1d(N, (fftw_complex*)(input), (fftw_complex*)(output), fftw3_sign, fftw3_flags);
       }
     
     return nullptr;
@@ -52,12 +52,12 @@ namespace fftw3
     
     if(is_cx_float<eT>::value)
       {
-      fftwf_execute(plan);
+      fftwf_execute(fftwf_plan(plan));
       }
     else
     if(is_cx_double<eT>::value)
       {
-      fftw_execute(plan);
+      fftw_execute(fftw_plan(plan));
       }
     }
   
@@ -72,12 +72,12 @@ namespace fftw3
     
     if(is_cx_float<eT>::value)
       {
-      fftwf_destroy_plan(plan);
+      fftwf_destroy_plan(fftwf_plan(plan));
       }
     else
     if(is_cx_double<eT>::value)
       {
-      fftw_destroy_plan(plan);
+      fftw_destroy_plan(fftw_plan(plan));
       }
     }
   

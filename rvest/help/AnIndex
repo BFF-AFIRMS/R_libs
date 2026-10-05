@@ -23,8 +23,10 @@ html_text	html_text
 html_text2	html_text
 is.session	session
 jump_to	rename
+LiveHTML	LiveHTML
 minimal_html	minimal_html
-read_html	reexports
+read_html	read_html
+read_html_live	read_html_live
 reexports	reexports
 repair_encoding	repair_encoding
 rvest	rvest-package

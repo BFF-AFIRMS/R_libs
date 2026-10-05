@@ -410,7 +410,7 @@ namespace spreadsort {
                                                                 max, min))
         return;
       unsigned log_divisor = get_log_divisor<float_log_mean_bin_size>(
-          last - first, rough_log_2_size(Size_type(max - min)));
+          last - first, rough_log_2_size(Size_type(max/2 - min/2)) + 1);
       Div_type div_min = min >> log_divisor;
       Div_type div_max = max >> log_divisor;
       unsigned bin_count = unsigned(div_max - div_min) + 1;
@@ -507,7 +507,7 @@ namespace spreadsort {
       if (is_sorted_or_find_extremes(first, last, max, min, rshift))
         return;
       unsigned log_divisor = get_log_divisor<float_log_mean_bin_size>(
-          last - first, rough_log_2_size(Size_type(max - min)));
+          last - first, rough_log_2_size(Size_type(max/2 - min/2)) + 1);
       Div_type div_min = min >> log_divisor;
       Div_type div_max = max >> log_divisor;
       unsigned bin_count = unsigned(div_max - div_min) + 1;
@@ -605,7 +605,7 @@ namespace spreadsort {
       if (is_sorted_or_find_extremes(first, last, max, min, rshift, comp))
         return;
       unsigned log_divisor = get_log_divisor<float_log_mean_bin_size>(
-          last - first, rough_log_2_size(Size_type(max - min)));
+          last - first, rough_log_2_size(Size_type(max/2 - min/2)) + 1);
       Div_type div_min = min >> log_divisor;
       Div_type div_max = max >> log_divisor;
       unsigned bin_count = unsigned(div_max - div_min) + 1;
@@ -775,9 +775,8 @@ namespace spreadsort {
     inline typename boost::disable_if_c< sizeof(boost::uintmax_t) >=
       sizeof(Div_type), void >::type
     float_sort(RandomAccessIter first, RandomAccessIter last, Div_type,
-               Right_shift rshift)
+               Right_shift /* rshift */)
     {
-      BOOST_STATIC_ASSERT(sizeof(boost::uintmax_t) >= sizeof(Div_type));
       boost::sort::pdqsort(first, last);
     }
 
@@ -817,9 +816,8 @@ namespace spreadsort {
     inline typename boost::disable_if_c< sizeof(boost::uintmax_t) >=
       sizeof(Div_type), void >::type
     float_sort(RandomAccessIter first, RandomAccessIter last, Div_type,
-               Right_shift rshift, Compare comp)
+               Right_shift /* rshift */, Compare comp)
     {
-      BOOST_STATIC_ASSERT(sizeof(boost::uintmax_t) >= sizeof(Div_type));
       boost::sort::pdqsort(first, last, comp);
     }
   }

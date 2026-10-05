@@ -1,7 +1,17 @@
+anova.rlmerMod          Analysis of variance for an rlmer fit.
 asymptoticVariance      Compute Asymptotic Efficiencies
 bindDatasets            Bind Generated Datasets
+bisquarePsi             Default Tukey bisquare psi-function with 'c =
+                        4.685'.
+caseweightIF            Case-weight (Hampel) influence function of the
+                        fixed effects of a fitted 'rlmerMod' object.
 chgDefaults             Change default arguments
 compare                 Create comparison charts for multiple fits
+confint.rlmerMod        Confidence intervals for the fixed-effect
+                        coefficients of an rlmer fit.
+cooks.distance.rlmerMod
+                        Cook's-distance equivalent for an rlmerMod fit
+                        (per observation or per cluster).
 createDatasetsFromList
                         Create Dataset List From List of Data Objects
 createRhoFunction       Create Rho-Functions With Custom Tuning
@@ -10,20 +20,41 @@ extractTuningParameter
                         Extract Tuning Parameters Used In Fitting
 fitDatasets_lmer        Fitting Functions
 generateAnovaDatasets   Generate ANOVA type datasets
+generateLongitudinalDatasets
+                        Generate Longitudinal Datasets
 generateMixedEffectDatasets
                         Generate Mixed Effects Datasets
+generateRepeatedMeasuresDatasets
+                        Generate Repeated-Measures Datasets With
+                        Structured Covariance
 generateSensitivityCurveDatasets
                         Generate Datasets To Create Sensitivity Curves
 getME                   Extract or Get Generalize Components from a
                         Fitted Mixed Effects Model
+hatvalues.rlmerMod      Robust leverage (hat values) for an rlmerMod
+                        fit.
+implicitIF_full         Full implicit influence function (beta, u,
+                        sigma, theta) for a fitted 'rlmerMod' object.
+influence.rlmerMod      Per-observation influence on (\hat{beta},
+                        \hat{sigma}, \hat{theta}) for an rlmerMod fit.
 lapplyDatasets          Lapply for generated datasets
 loadAndMergePartialResults
                         Load And Merge Partial Results
+lqqPsi                  Default lqq (linear-quadratic-quadratic)
+                        redescending psi-function.
+makeBisquarePsi         Bisquare (Tukey biweight) psi function
+makeRobustbasePsi       Redescending psi-functions from robustbase
+                        (bisquare, lqq, optimal, hampel, ggw)
 mergeProcessedFits      Merge Processed Fits
 partialMoment_standardNormal
                         Compute Partial Moments
 plot-methods            Plot an Object of the "Psi Function" Class
 plot.rlmerMod           Plot Method for "rlmerMod" objects.
+plotLongitudinalBySubject
+                        Plot longitudinal data with robustness-weight
+                        colored lines
+predict.rlmerMod        Predictions and confidence/prediction intervals
+                        for an rlmerMod fit.
 prepareMixedEffectDataset
                         Prepare Dataset for Parametric Bootstrap
 processDatasetsInParallel
@@ -33,14 +64,22 @@ processFit              Process Fitted Objects
 psi-functions           Classical, Huber and smoothed Huber psi- or
                         rho-functions
 psi2propII              Convert to Proposal 2 weight function
+ransac_basin_radius     Redescender basin (support-preservation) radius
+ransac_lme4             RANSAC initial estimator for LMM
 residuals.rlmerMod      Get residuals
 rlmer                   Robust Scoring Equations Estimator for Linear
                         Mixed Models
+rlmer_ransac            rlmer with RANSAC initial estimator
 rlmerMod-class          rlmerMod Class
+robustlmm-options       Global options consulted by 'robustlmm'
 robustlmm-package       Robust linear mixed effects models
 saveDatasets            Save datasets
 shortenLabelsKS2022     Shorten Labels
 show                    Other methods
 splitDatasets           Split Datasets Into Chunks
+vcov_sandwich           Robust cluster-sandwich covariance of the fixed
+                        effects of a fitted 'rlmerMod' object.
+vcov.rlmerMod           Variance-covariance matrix of the fixed effects
+                        of an rlmerMod fit.
 viewCopyOfSimulationStudy
                         Access Simulation Study Code

@@ -24,6 +24,7 @@ pivot_longer.dtplyr_step
                         Pivot data from wide to long
 pivot_wider.dtplyr_step
                         Pivot data from long to wide
+reframe.dtplyr_step     Summarise each group to one row
 relocate.dtplyr_step    Relocate variables using their names
 rename.dtplyr_step      Rename columns using their names
 replace_na.dtplyr_step

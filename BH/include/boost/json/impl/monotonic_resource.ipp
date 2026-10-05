@@ -12,14 +12,15 @@
 #define BOOST_JSON_IMPL_MONOTONIC_RESOURCE_IPP
 
 #include <boost/json/monotonic_resource.hpp>
-#include <boost/json/detail/align.hpp>
 #include <boost/json/detail/except.hpp>
+#include <boost/core/max_align.hpp>
 
 #include <memory>
 
-BOOST_JSON_NS_BEGIN
+namespace boost {
+namespace json {
 
-struct alignas(detail::max_align_t)
+struct alignas(core::max_align_t)
     monotonic_resource::block : block_base
 {
 };
@@ -118,8 +119,7 @@ do_allocate(
     std::size_t n,
     std::size_t align)
 {
-    auto p = detail::align(
-        align, n, head_->p, head_->avail);
+    auto p = std::align(align, n, head_->p, head_->avail);
     if(p)
     {
         head_->p = reinterpret_cast<
@@ -139,8 +139,7 @@ do_allocate(
     head_ = b;
     next_size_ = next_pow2(next_size_);
 
-    p = detail::align(
-        align, n, head_->p, head_->avail);
+    p = std::align(align, n, head_->p, head_->avail);
     BOOST_ASSERT(p);
     head_->p = reinterpret_cast<
         unsigned char*>(p) + n;
@@ -166,6 +165,7 @@ do_is_equal(
     return this == &mr;
 }
 
-BOOST_JSON_NS_END
+} // namespace json
+} // namespace boost
 
 #endif

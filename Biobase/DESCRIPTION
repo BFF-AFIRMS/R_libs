@@ -5,7 +5,7 @@ Description: Functions that are needed by many other packages or which
 biocViews: Infrastructure
 URL: https://bioconductor.org/packages/Biobase
 BugReports: https://github.com/Bioconductor/Biobase/issues
-Version: 2.60.0
+Version: 2.70.0
 License: Artistic-2.0
 Authors@R: c(
     person("R.", "Gentleman", role="aut"),
@@ -20,7 +20,8 @@ Authors@R: c(
         role = "cre",
         email = "maintainer@bioconductor.org"
     ))
-Suggests: tools, tkWidgets, ALL, RUnit, golubEsets, BiocStyle, knitr
+Suggests: tools, tkWidgets, ALL, RUnit, golubEsets, BiocStyle, knitr,
+        limma
 Depends: R (>= 2.10), BiocGenerics (>= 0.27.1), utils
 Imports: methods
 VignetteBuilder: knitr
@@ -35,12 +36,13 @@ Collate: tools.R strings.R environment.R vignettes.R packages.R
         methods-NChannelSet.R anyMissing.R rowOp-methods.R
         updateObjectTo.R methods-ScalarObject.R zzz.R
 git_url: https://git.bioconductor.org/packages/Biobase
-git_branch: RELEASE_3_17
-git_last_commit: 8dc10d2
-git_last_commit_date: 2023-04-25
-Date/Publication: 2023-04-25
+git_branch: RELEASE_3_22
+git_last_commit: 9964e15
+git_last_commit_date: 2025-10-29
+Repository: Bioconductor 3.22
+Date/Publication: 2025-10-29
 NeedsCompilation: yes
-Packaged: 2023-04-25 20:18:46 UTC; biocbuild
+Packaged: 2025-10-30 02:45:56 UTC; biocbuild
 Author: R. Gentleman [aut],
   V. Carey [aut],
   M. Morgan [aut],
@@ -49,4 +51,4 @@ Author: R. Gentleman [aut],
     translation from Sweave to Rmarkdown / HTML),
   Bioconductor Package Maintainer [cre]
 Maintainer: Bioconductor Package Maintainer <maintainer@bioconductor.org>
-Built: R 4.3.0; x86_64-pc-linux-gnu; 2023-07-07 13:00:18 UTC; unix
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-03 23:10:07 UTC; unix

@@ -48,6 +48,7 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -409,8 +410,8 @@ is using the intended Google identity.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">gm_profile</span>()</span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt; Logged in as:</span></span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt;   * email: gargle-testuser@posit.co</span></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt;   * num_messages: 121</span></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt;   * num_threads: 121</span></span></code></pre></div>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt;   * num_messages: 141</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt;   * num_threads: 141</span></span></code></pre></div>
 </div>
 <div id="compose-and-send-an-email" class="section level2">
 <h2>Compose and send an email</h2>
@@ -420,9 +421,8 @@ from parts, using helper functions like <code>gm_to()</code> and
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>test_email <span class="ot">&lt;-</span></span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">gm_mime</span>() <span class="sc">|&gt;</span></span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="fu">gm_to</span>(<span class="st">&quot;PUT_A_VALID_EMAIL_ADDRESS_THAT_YOU_CAN_CHECK_HERE&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="fu">gm_from</span>(<span class="st">&quot;PUT_THE_GMAIL_ADDRESS_ASSOCIATED_WITH_YOUR_GOOGLE_ACCOUNT_HERE&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="fu">gm_subject</span>(<span class="st">&quot;this is just a gmailr test&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  <span class="fu">gm_text_body</span>(<span class="st">&quot;Can you hear me now?&quot;</span>)</span></code></pre></div>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="fu">gm_subject</span>(<span class="st">&quot;this is just a gmailr test&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="fu">gm_text_body</span>(<span class="st">&quot;Can you hear me now?&quot;</span>)</span></code></pre></div>
 <p>You can even add a file attachment with
 <code>gm_attach_file()</code>:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="st">&quot;mtcars-&quot;</span>, <span class="at">fileext =</span> <span class="st">&quot;.csv&quot;</span>)</span>
@@ -433,10 +433,10 @@ with <code>gm_create_draft()</code> Then you can visit your Gmail drafts
 in the browser and confirm that the message content and formatting is as
 you intend.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">gm_create_draft</span>(test_email)</span></code></pre></div>
-<p>If you’re happy, you can either send that draft with
-<code>gm_send_draft()</code>:</p>
+<p>If you’re happy, you can either send that draft from the web UI or
+with <code>gm_send_draft()</code>:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">gm_send_draft</span>(d)</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="co">#&gt; Draft Id: 1890aac8acf8f966 </span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="co">#&gt; Draft Id: 19c0c02f3920d7cc </span></span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="co">#&gt; NULL</span></span></code></pre></div>
 <p>Or you can send the original MIME message with
 <code>gm_send_message()</code>:</p>
@@ -454,7 +454,7 @@ can then isolate a specific message and access its parts.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>my_msg <span class="ot">&lt;-</span> latest_thread<span class="sc">$</span>messages[[<span class="dv">1</span>]]</span>
 <span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="fu">gm_date</span>(my_msg)</span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Thu, 29 Jun 2023 22:00:27 -0700&quot;</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Thu, 29 Jan 2026 15:07:25 -0800&quot;</span></span>
 <span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="fu">gm_subject</span>(my_msg)</span>
 <span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">#&gt; [1] &quot;this is just a gmailr test&quot;</span></span>
 <span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="fu">gm_body</span>(my_msg)</span>
@@ -467,9 +467,9 @@ can then isolate a specific message and access its parts.</p>
 <span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="fu">gm_save_attachments</span>(my_msg, <span class="at">path =</span> tmp2)</span>
 <span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a></span>
 <span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="co"># let&#39;s take a peek</span></span>
-<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>tmp2 <span class="sc">|&gt;</span> </span>
-<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>  <span class="fu">list.files</span>(<span class="at">full.names =</span> <span class="cn">TRUE</span>, <span class="at">pattern =</span> <span class="st">&quot;[.]csv$&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>  <span class="fu">read.csv</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>tmp2 <span class="sc">|&gt;</span></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>  <span class="fu">list.files</span>(<span class="at">full.names =</span> <span class="cn">TRUE</span>, <span class="at">pattern =</span> <span class="st">&quot;[.]csv$&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>  <span class="fu">read.csv</span>() <span class="sc">|&gt;</span></span>
 <span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>  <span class="fu">head</span>()</span>
 <span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="co">#&gt;                   X  mpg cyl disp  hp drat    wt  qsec vs am gear carb</span></span>
 <span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a><span class="co">#&gt; 1         Mazda RX4 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4</span></span>

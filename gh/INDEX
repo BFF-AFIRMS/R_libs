@@ -1,3 +1,4 @@
+fake_github_app         A fake GitHub web app
 gh                      Query the GitHub API
 gh_gql                  A simple interface for the GitHub GraphQL API
                         v4.

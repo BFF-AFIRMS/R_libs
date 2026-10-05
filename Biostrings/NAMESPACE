@@ -3,7 +3,6 @@ useDynLib(Biostrings)
 import(methods)
 importFrom(utils, data, packageVersion)
 importFrom(grDevices, rgb)
-importFrom(graphics, axis, legend, lines, par, plot.new, plot.window, title)
 importFrom(stats, chisq.test, complete.cases, diffinv, pchisq, setNames)
 
 importFrom(crayon, make_style, black)
@@ -12,7 +11,7 @@ import(BiocGenerics)
 import(S4Vectors)
 import(IRanges)
 import(XVector)
-import(GenomeInfoDb)
+import(Seqinfo)
 
 
 ### ==========================================================================
@@ -71,7 +70,10 @@ export(
     BStringSetList, DNAStringSetList, RNAStringSetList, AAStringSetList,
 
     ## xscat.R:
-    xscat
+    xscat,
+
+    ## coloring.R:
+    update_DNA_palette, update_RNA_palette, update_AA_palette, update_B_palette
 )
 
 exportMethods(
@@ -295,16 +297,7 @@ exportMethods(
 ###   XStringPartialMatches-class.R
 ###   XStringQuality-class.R
 ###   QualityScaledXStringSet.R
-###   InDel-class.R
-###   AlignedXStringSet-class.R
-###   PairwiseAlignments-class.R
-###   PairwiseAlignmentsSingleSubject-class.R
-###   PairwiseAlignments-io.R
-###   align-utils.R
 ###   pmatchPattern.R
-###   pairwiseAlignment.R
-###   stringDist.R
-###   needwunsQS.R
 ###   MultipleAlignment.R
 
 exportClasses(
@@ -313,18 +306,13 @@ exportClasses(
     QualityScaledXStringSet,
     QualityScaledBStringSet, QualityScaledDNAStringSet,
     QualityScaledRNAStringSet, QualityScaledAAStringSet,
-    InDel,
-    AlignedXStringSet0, AlignedXStringSet, QualityAlignedXStringSet,
-    PairwiseAlignments,
-    PairwiseAlignmentsSingleSubject,
-    PairwiseAlignmentsSingleSubjectSummary,
     MultipleAlignment,
     DNAMultipleAlignment, RNAMultipleAlignment, AAMultipleAlignment
 )
 
 export(
     ## XStringPartialMatches-class.R:
-    subpatterns, pattern,
+    subpatterns,
 
     ## XStringQuality-class.R:
     PhredQuality, SolexaQuality, IlluminaQuality,
@@ -336,37 +324,8 @@ export(
     QualityScaledRNAStringSet, QualityScaledAAStringSet,
     readQualityScaledDNAStringSet, writeQualityScaledXStringSet,
 
-    ## InDel-class.R:
-    insertion, deletion,
-
-    ## AlignedXStringSet-class.R:
-    unaligned, aligned, indel, nindel,
-
-    ## PairwiseAlignments-class.R:
-    PairwiseAlignments, alignedPattern, alignedSubject, pid,
-
-    ## PairwiseAlignmentsSingleSubject-class.R:
-    PairwiseAlignmentsSingleSubject,
-
-    ## PairwiseAlignments-io.R:
-    writePairwiseAlignments,
-
-    ## align-utils.R:
-    nedit,
-    mismatchTable, mismatchSummary,
-    compareStrings,
-
     ## pmatchPattern.R:
     lcprefix, lcsuffix, pmatchPattern, lcsubstr,
-
-    ## pairwiseAlignment.R:
-    nucleotideSubstitutionMatrix,
-    errorSubstitutionMatrices,
-    qualitySubstitutionMatrices,
-    pairwiseAlignment,
-
-    ## stringDist.R:
-    stringDist,
 
     ## MultipleAlignment.R:
     DNAMultipleAlignment,
@@ -381,10 +340,7 @@ export(
     readAAMultipleAlignment,
     consensusViews,
     write.phylip,
-    detail,
-
-    ## Old stuff (Deprecated or Defunct):
-    needwunsQS
+    detail
 )
 
 exportMethods(
@@ -393,19 +349,11 @@ exportMethods(
     show, summary,
     start, end, width,
     Views,
-    subpatterns, pattern,
+    subpatterns,
     quality, encoding,
-    insertion, deletion,
     parallel_slot_names,
-    unaligned, aligned, indel, nindel,
     parallelVectorNames,
-    subject, type, alignedPattern, alignedSubject, score, pid,
-    PairwiseAlignments, PairwiseAlignmentsSingleSubject,
-    mismatch, nmatch, nmismatch, nedit,
-    mismatchTable, mismatchSummary, coverage,
-    compareStrings,
     lcprefix, lcsuffix, pmatchPattern, lcsubstr,
-    pairwiseAlignment, stringDist,
     nchar, names, "names<-", "[[", windows,
     consensusMatrix, consensusString,
     alphabetFrequency, as.list,
@@ -414,10 +362,7 @@ exportMethods(
     colmask, "colmask<-",
     maskGaps,
     maskednrow, maskedncol, maskeddim,
-    consensusViews,
-
-    ## Old stuff (Deprecated or Defunct):
-    needwunsQS
+    consensusViews
 )
 
 
@@ -431,4 +376,30 @@ export(
     longestConsecutive,
     matchprobes
 )
+
+
+### ==========================================================================
+### STUFF THAT HAS MOVED TO THE pwalign PACKAGE
+### --------------------------------------------------------------------------
+
+export(
+    writePairwiseAlignments,
+    nucleotideSubstitutionMatrix,
+    errorSubstitutionMatrices,
+    qualitySubstitutionMatrices,
+
+    insertion, deletion,
+    unaligned, aligned, indel, nindel,
+    PairwiseAlignments, pattern, alignedPattern, alignedSubject,
+    PairwiseAlignmentsSingleSubject,
+    nedit,
+    mismatchTable, mismatchSummary,
+    compareStrings,
+    pid,
+    pairwiseAlignment,
+    stringDist,
+    print.moved_to_pwalign_pkg
+)
+
+S3method(print, moved_to_pwalign_pkg)
 

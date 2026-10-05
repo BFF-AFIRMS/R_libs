@@ -31,7 +31,6 @@ cube3d                  Sample 3D mesh objects
 cylinder3d              Create cylindrical or "tube" plots
 decorate3d              Add decorations to a 3D plot
 drape3d                 Drape lines over a scene.
-elementId2Prefix        Use widget with old-style controls
 ellipse3d               Make an ellipsoid
 expect_known_scene      Helper for 'testthat' testing.
 extrude3d               Generate extrusion mesh
@@ -44,7 +43,8 @@ GramSchmidt             The Gram-Schmidt algorithm
 grid3d                  Add a grid to a 3D plot
 hover3d                 Display hover info in plot.
 identify3d              Identify points in plot
-in_pkgdown_example      Are we running in a 'pkgdown' example?
+in_pkgdown_example      Are we running in 'pkgdown' or a 'pkgdown'
+                        example?
 light3d                 Add light source
 lowlevel                RGL id values
 makeDependency          Process Javascript for HTML dependency
@@ -63,15 +63,15 @@ pch3d                   Plot symbols similar to base graphics
 persp3d                 Surface plots
 persp3d.deldir          Plot a Delaunay triangulation
 persp3d.function        Plot a function of two variables
-persp3d.triSht          Plot an interp or tripack Delaunay
-                        triangulation
+persp3d.triSht          Plot an interp Delaunay triangulation
 planes3d                Add planes
 play3d                  Play animation of RGL scene
 playwidget              Add a widget to play animations
 plot3d                  3D scatterplot
 plot3d.formula          Methods for formulas
 plot3d.lm               Method for plotting simple linear fit
-plotmath3d              Draw text using base graphics math plotting
+plotmath3d              Draw text using base graphics math plotting or
+                        LaTeX
 polygon3d               Draw a polygon in three dimensions
 primitives              Add primitive shape
 propertyControl         Controls to use with playwidget()
@@ -83,6 +83,7 @@ rgl.attrib              Get information about shapes
 rgl.attrib.info         Get information about attributes of objects
 rgl.bringtotop          Assign focus to an RGL window
 rgl.getAxisCallback     Get user-defined axis labelling callbacks.
+rgl.incrementID         Increment ID
 rgl.init                Initializing RGL
 rgl.pixels              Extract pixel information from window
 rgl.postscript          Export vector graphics
@@ -101,6 +102,7 @@ rglToLattice            Convert RGL userMatrix to lattice or base
 rglwidget               An htmlwidget to hold an RGL scene
 rglwidgetOutput         Functions for integration of RGL widgets into
                         Shiny app
+safe.dev.off            Close graphics device in a safe way.
 scene3d                 Saves the current scene to a variable, and
                         displays such variables
 sceneChange             Make large change to a scene from Shiny

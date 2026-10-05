@@ -25,6 +25,8 @@ gargle_api_key	gargle_api_key
 gargle_app	oauth_app_from_json
 gargle_client	gargle_client
 gargle_error_message	response_process
+gargle_last_content	gargle_last_response
+gargle_last_response	gargle_last_response
 gargle_map_cli	gargle_map_cli
 gargle_oauth_cache	gargle_options
 gargle_oauth_client	gargle_oauth_client_from_json

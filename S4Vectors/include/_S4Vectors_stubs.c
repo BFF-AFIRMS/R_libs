@@ -32,12 +32,12 @@ void stubname Targs \
  */
 
 DEFINE_NOVALUE_CCALLABLE_STUB(reset_ovflow_flag,
-	(),
+	(void),
 	()
 )
 
 DEFINE_CCALLABLE_STUB(int, get_ovflow_flag,
-	(),
+	(void),
 	()
 )
 
@@ -618,12 +618,31 @@ DEFINE_CCALLABLE_STUB(SEXP, extract_bytes_by_ranges,
 )
 
 /*
+ * Stubs for callables defined in map_ranges_to_runs.c
+ */
+
+DEFINE_CCALLABLE_STUB(const char *, ranges_mapper,
+	(const int *run_lengths, int nrun, const int *start, const int *width, int nranges, int *mapped_range_offset, int *mapped_range_span, int *mapped_range_Ltrim, int *mapped_range_Rtrim, int method),
+	(           run_lengths,     nrun,            start,            width,     nranges,      mapped_range_offset,      mapped_range_span,      mapped_range_Ltrim,      mapped_range_Rtrim,     method)
+)
+
+DEFINE_CCALLABLE_STUB(const char *, positions_mapper,
+	(const int *run_lengths, int nrun, const int *pos, int npos, int *mapped_pos, int method),
+	(           run_lengths,     nrun,            pos,     npos,      mapped_pos,     method)
+)
+
+/*
  * Stubs for callables defined in Hits_class.c
  */
 
 DEFINE_CCALLABLE_STUB(SEXP, new_Hits,
-	(const char *Class, int *from, const int *to, int nhit, int nLnode, int nRnode, int already_sorted),
-	(            Class,      from,            to,     nhit,     nLnode,     nRnode,     already_sorted)
+	(const char *classname, int *from, const int *to, int nhit, int nLnode, int nRnode, int already_sorted),
+	(            classname,      from,            to,     nhit,     nLnode,     nRnode,     already_sorted)
+)
+
+DEFINE_CCALLABLE_STUB(SEXP, new_SortedByQueryHits_from_IntAEAE,
+	(const IntAEAE *aeae, int nRnode, int transpose),
+	(               aeae,     nRnode,     transpose)
 )
 
 DEFINE_CCALLABLE_STUB(int, get_select_mode,
@@ -694,11 +713,11 @@ DEFINE_CCALLABLE_STUB(SEXP, new_SimpleList,
 )
 
 /*
- * Stubs for callables defined in DataFrame_class.c
+ * Stubs for callables defined in DFrame_class.c
  */
 
-DEFINE_CCALLABLE_STUB(SEXP, new_DataFrame,
-	(const char *classname, SEXP vars, SEXP rownames, SEXP nrows),
-	(            classname,      vars,      rownames,      nrows)
+DEFINE_CCALLABLE_STUB(SEXP, new_DFrame,
+	(const char *classname, SEXP listData, SEXP nrows, SEXP rownames),
+	(            classname,      listData,      nrows,      rownames)
 )
 

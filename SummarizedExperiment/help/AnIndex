@@ -167,6 +167,7 @@ rowRanges<-,RangedSummarizedExperiment,NULL-method	RangedSummarizedExperiment-cl
 rowRanges<-,SummarizedExperiment,GenomicRanges-method	RangedSummarizedExperiment-class
 rowRanges<-,SummarizedExperiment,GRangesList-method	RangedSummarizedExperiment-class
 rowRanges<-,SummarizedExperiment,NULL-method	RangedSummarizedExperiment-class
+saveRDS,SummarizedExperiment-method	SummarizedExperiment-class
 seqinfo,RangedSummarizedExperiment-method	RangedSummarizedExperiment-class
 seqinfo<-,RangedSummarizedExperiment-method	RangedSummarizedExperiment-class
 seqnames,RangedSummarizedExperiment-method	RangedSummarizedExperiment-class
@@ -191,8 +192,10 @@ strand,RangedSummarizedExperiment-method	RangedSummarizedExperiment-class
 strand<-,RangedSummarizedExperiment,ANY-method	RangedSummarizedExperiment-class
 subset,RangedSummarizedExperiment-method	RangedSummarizedExperiment-class
 subset,SummarizedExperiment-method	SummarizedExperiment-class
-SummarizedExperiment	RangedSummarizedExperiment-class
+SummarizedExperiment	SummarizedExperiment-class
 SummarizedExperiment-class	SummarizedExperiment-class
+terminators	intra-range-methods
+terminators,RangedSummarizedExperiment-method	intra-range-methods
 trim,RangedSummarizedExperiment-method	intra-range-methods
 updateObject,Assays-method	Assays-class
 updateObject,RangedSummarizedExperiment-method	RangedSummarizedExperiment-class

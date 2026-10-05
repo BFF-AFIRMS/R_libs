@@ -32,12 +32,15 @@ dist.p                  Pairwise Polymorphism P-Distances from DNA
                         Sequences
 distanceHadamard        Distance Hadamard
 dna2codon               Translate nucleic acid sequences into codons
+gap_as_state            Treat gaps as a state
 getClans                Clans, slices and clips
 getRoot                 Tree manipulation
 hadamard                Hadamard Matrices and Fast Hadamard
                         Multiplication
 identify.networx        Identify splits in a network
 image.phyDat            Plot of a Sequence Alignment
+latag2n.phyDat          Replace leading and trailing alignment gaps
+                        with an ambiguous state
 Laurasiatherian         Laurasiatherian data (AWCMEE)
 ldfactorial             Arithmetic Operators
 lento                   Lento plot
@@ -53,13 +56,16 @@ NJ                      Neighbor-Joining
 nni                     Tree rearrangements.
 phyDat                  Conversion among Sequence Formats
 plot.networx            plot phylogenetic networks
+plot.pml                Plot phylogeny of a pml object
+plotAnc                 Plot ancestral character on a tree
 plotBS                  Plotting trees with bootstrap values
 pml_bb                  Likelihood of a tree.
 pml.control             Auxiliary for Controlling Fitting
 pmlCluster              Stochastic Partitioning
 pmlMix                  Phylogenetic mixture model
 print.phyDat            Generic functions for class phyDat
-read.aa                 Read Amino Acid Sequences in a File
+read.nexus.partitions   Function to import partitioned data from nexus
+                        files
 read.nexus.splits       Function to import and export splits and
                         networks
 read.phyDat             Import and export sequence alignments
@@ -70,7 +76,10 @@ splitsNetwork           Phylogenetic Network
 superTree               Super Tree methods
 transferBootstrap       Transfer Bootstrap
 treedist                Distances between trees
-upgma                   UPGMA and WPGMA
+upgma                   UPGMA, WPGMA and sUPGMA
+write.ancestral         Export and convenience functions for ancestral
+                        reconstructions
+write.pml               Export pml objects
 writeDist               Writing and reading distances in phylip and
                         nexus format
 yeast                   Yeast alignment (Rokas et al.)

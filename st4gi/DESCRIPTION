@@ -18,12 +18,12 @@ RemoteType: github
 RemoteHost: api.github.com
 RemoteRepo: st4gi
 RemoteUsername: reyzaguirre
-RemoteRef: HEAD
-RemoteSha: 4f4694d94cf5bbce69da70d952a72925042ec74d
+RemoteRef: 0608f7ba
+RemoteSha: 0608f7bab7fce7001b7da626442c7673fb48b1c0
 GithubRepo: st4gi
 GithubUsername: reyzaguirre
-GithubRef: HEAD
-GithubSHA1: 4f4694d94cf5bbce69da70d952a72925042ec74d
+GithubRef: 0608f7ba
+GithubSHA1: 0608f7bab7fce7001b7da626442c7673fb48b1c0
 NeedsCompilation: no
-Packaged: 2023-07-07 13:19:13 UTC; root
-Built: R 4.3.0; ; 2023-07-07 13:19:13 UTC; unix
+Packaged: 2026-09-03 23:40:49 UTC; sgn
+Built: R 4.5.0; ; 2026-09-03 23:40:49 UTC; unix

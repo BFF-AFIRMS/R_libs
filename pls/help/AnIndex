@@ -1,3 +1,4 @@
+pls-package	pls
 as.data.frame.mvrVal	summary.mvr
 biplot.mvr	biplot.mvr
 coef.mvr	coef.mvr
@@ -10,6 +11,7 @@ crossval	crossval
 cvsegments	cvsegments
 delete.intercept	delete.intercept
 explvar	coef.mvr
+fac2seg	fac2seg
 fitted.mvr	coef.mvr
 gasoline	gasoline
 jack.test	jack.test
@@ -32,6 +34,10 @@ mvrCv	mvrCv
 mvrVal	mvrVal
 mvrValstats	mvrVal
 naExcludeMvr	naExcludeMvr
+nipals	mvr
+nipals.fit	nipals.fit
+nipalspc.fit	nipalspc.fit
+nipalspcr	mvr
 oliveoil	oliveoil
 oscorespls.fit	oscorespls.fit
 pcr	mvr

@@ -1,3 +1,69 @@
+# wk 0.9.5
+
+- Ensure package tests pass against forthcoming vctrs (#231).
+- Avoid `memcpy()` calls for zero size copies (@MichaelChirico, #227, #228).
+
+# wk 0.9.4
+
+- Ensure package tests pass against sf 1.0-18 (#224, #225).
+
+# wk 0.9.3
+
+- Ensure package compiles with `STRICT_R_HEADERS=1` (#222).
+
+# wk 0.9.2
+
+- Add `wk_crs()` and `wk_set_crs()` methods for `bbox` (#213)
+- Fix wk_trans inconsistent meta flags handling (#217)
+- Ensure package builds on arm64 for Windows (#220)
+
+# wk 0.9.1
+
+- Fix format strings/arguments for R-devel (#209).
+
+# wk 0.9.0
+
+## Breaking changes
+
+- The common well-known binary representation of POINT EMPTY (i.e.,
+  POINT (nan nan)) is now handled as POINT EMPTY allowing empty points
+  to roundtrip through `wkb()` vectors (#196, #204).
+- `xy(NA, NA)` is now read as a null feature instead of POINT EMPTY. This
+  preserves the invariant that null features can also be identified using
+  `is.na()` (#205).
+- `xy(NaN, NaN)` is now read as POINT EMPTY and `is.na(xy(NaN, NaN))`
+  now returns `FALSE`. This means that both EMPTY and null points can roundtrip
+  through `xy()` (#205).
+
+## Bugfixes and improvements
+
+- `wk_meta()` now contains a new column `is_empty`, which is `TRUE`
+  for any feature that contains at least one non-empty coordinate. This allows
+  more efficient detection of features with zero coordinates (#197, #199).
+- Updated PROJ data to use the latest pull of the database packaged with
+  PROJ 9.3.0 (#201).
+- The wk package now compiles once again on gcc 4.8 (#203, #206).
+- Fixed `sfc_writer()` to correctly attach the `classes` attribute to
+  sfc output with mixed geometry types (#195).
+- Function `sfc_writer()` now has an argument `promote_multi` to write any
+  input as the MULTI variant. This makes it more likely that an input vector
+  will be read as a single geometry type (#198).
+- The `wk_collection_filter()` now correctly increments the `part_id` when
+  calling the child handler (@brownag, #194).
+
+# wk 0.8.0
+
+* Added `wkb_to_hex()` (@anthonynorth, #183).
+* Implemented `vctrs::vec_proxy_equal()` for `wkb()` vctrs
+  (@anthonynorth, #183).
+* Fixed `sfc_writer()`, which had returned NULL for some inputs
+  (e.g., via `wk_collection()`) (@anthonynorth, #182, #186).
+* Added `wk_clockwise()` and `wk_counterclockwise()` to re-wind polygon rings
+  (@anthonynorth, #188).
+* New replacement-function mode for `wk_coords<-()` for in-place modification
+  of coordinates (@mdsumner, #187).
+* New function `wk_trans_explicit()` migrated from crs2crs (@mdsumner, #187).
+
 # wk 0.7.3
 
 * Fix tests for updated waldo package (#178).
@@ -110,7 +176,7 @@
   the the common pattern of transforming coordinates. These
   structs can be created by other packages; however, the
   `wk_trans_affine()` and `wk_trans_set()` transforms are
-  also built using this feature. These are run using the 
+  also built using this feature. These are run using the
   new `wk_transform()` function and power the new
   `wk_set_z()`, `wk_set_m()`, `wk_drop_z()`, `wk_drop_m()`,
   functions (#87, #88, #89).
@@ -121,13 +187,13 @@
 
 # wk 0.4.0
 
-* Removed `wksxp()` in favour of improved `sf::st_sfc()` support 
+* Removed `wksxp()` in favour of improved `sf::st_sfc()` support
   (#21).
-* Rewrite existing readers, writers, and handlers, using 
+* Rewrite existing readers, writers, and handlers, using
   a new C API (#13).
 * Use new C API in favour of header-only approach for all
   wk functions (#19, #22).
-* Use cpp11 to manage safe use of callables that may longjmp 
+* Use cpp11 to manage safe use of callables that may longjmp
   from C++.
 * Vector classes now propagate `attr(, "crs")`, and check
   that operations that involve more than one vector have
@@ -142,7 +208,7 @@
 * Added a 2D cartesian bounding box handler (`wk_bbox()`) (#42).
 * Refactored unit tests reflecting use of the new API and
   for improved test coverage (#44, #45, #46).
-* Added `wk_meta()`, `wk_vector_meta()`, and `wk_count()` to 
+* Added `wk_meta()`, `wk_vector_meta()`, and `wk_count()` to
   inspect properties of vectors (#53).
 * Modified all internal handlers such that they work with vectors
   of unknown length (#54).

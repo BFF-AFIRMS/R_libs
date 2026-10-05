@@ -12,12 +12,12 @@
 <div style="text-align: center;">
 <a href="../../../doc/html/packages.html"><img class="arrow" src="../../../doc/html/left.jpg" alt="[Up]" /></a>
 <a href="../../../doc/html/index.html"><img class="arrow" src="../../../doc/html/up.jpg" alt="[Top]" /></a>
-</div><h2>Documentation for package &lsquo;sf&rsquo; version 1.0-13</h2>
+</div><h2>Documentation for package &lsquo;sf&rsquo; version 1.1-2</h2>
 
-<ul><li><a href="../DESCRIPTION">DESCRIPTION file</a>.</li>
+<ul><li><a href="../DESCRIPTION" type="text/plain; charset=utf-8">DESCRIPTION file</a>.</li>
 <li><a href="../doc/index.html">User guides, package vignettes and other documentation.</a></li>
 <li><a href="../demo">Code demos</a>.  Use <a href="../../utils/help/demo">demo()</a> to run them.</li>
-<li><a href="../NEWS">Package NEWS</a>.</li>
+<li><a href="../NEWS.md">Package NEWS</a>.</li>
 </ul>
 
 <h2>Help Pages</h2>
@@ -56,11 +56,13 @@
 <tr><td style="width: 25%;"><a href="aggregate.sf.html">aggregate.sf</a></td>
 <td>aggregate an 'sf' object</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">anti_join.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">arrange.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="coerce-methods.html">as</a></td>
 <td>Methods to coerce simple features to Spatial* and 'Spatial*DataFrame' objects</td></tr>
+<tr><td style="width: 25%;"><a href="sgbp.html">as.data.frame.sgbp</a></td>
+<td>Methods for dealing with sparse geometry binary predicate lists</td></tr>
 <tr><td style="width: 25%;"><a href="st.html">as.matrix.sfg</a></td>
 <td>Create simple feature from a numeric vector, matrix or list</td></tr>
 <tr><td style="width: 25%;"><a href="sgbp.html">as.matrix.sgbp</a></td>
@@ -83,7 +85,13 @@
 <td>Create simple feature from a numeric vector, matrix or list</td></tr>
 <tr><td style="width: 25%;"><a href="bind.html">cbind.sf</a></td>
 <td>Bind rows (features) of sf objects</td></tr>
-<tr><td style="width: 25%;"><a href="coerce-methods.html">coerce-method</a></td>
+<tr><td style="width: 25%;"><a href="coerce-methods.html">coerce</a></td>
+<td>Methods to coerce simple features to Spatial* and 'Spatial*DataFrame' objects</td></tr>
+<tr><td style="width: 25%;"><a href="tidyverse.html">count.sf</a></td>
+<td>Tidyverse methods for sf objects</td></tr>
+<tr><td style="width: 25%;"><a href="coerce-methods.html">crs</a></td>
+<td>Methods to coerce simple features to Spatial* and 'Spatial*DataFrame' objects</td></tr>
+<tr><td style="width: 25%;"><a href="coerce-methods.html">CRS-method</a></td>
 <td>Methods to coerce simple features to Spatial* and 'Spatial*DataFrame' objects</td></tr>
 </table>
 
@@ -99,11 +107,9 @@
 <tr><td style="width: 25%;"><a href="sgbp.html">dim.sgbp</a></td>
 <td>Methods for dealing with sparse geometry binary predicate lists</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">distinct.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
-<tr><td style="width: 25%;"><a href="tidyverse.html">dplyr_reconstruct.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">drop_na.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 </table>
 
 <h2><a id="E">-- E --</a></h2>
@@ -117,52 +123,30 @@
 
 <table style="width: 100%;">
 <tr><td style="width: 25%;"><a href="tidyverse.html">filter.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="st_bbox.html">format.bbox</a></td>
 <td>Return bounding of a simple feature or simple feature set</td></tr>
 <tr><td style="width: 25%;"><a href="st_crs.html">format.crs</a></td>
 <td>Retrieve coordinate reference system from object</td></tr>
 <tr><td style="width: 25%;"><a href="st.html">format.sfg</a></td>
 <td>Create simple feature from a numeric vector, matrix or list</td></tr>
+<tr><td style="width: 25%;"><a href="st_bbox.html">FULL_bbox_</a></td>
+<td>Return bounding of a simple feature or simple feature set</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">full_join.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 </table>
 
 <h2><a id="G">-- G --</a></h2>
 
 <table style="width: 100%;">
 <tr><td style="width: 25%;"><a href="tidyverse.html">gather.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
-<tr><td style="width: 25%;"><a href="gdal.html">gdal</a></td>
-<td>functions to interact with gdal not meant to be called directly by users (but e.g. by stars::read_stars)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="gdal_addo.html">gdal_addo</a></td>
-<td>add or remove overviews to/from a raster image</td></tr>
-<tr><td style="width: 25%;"><a href="gdal.html">gdal_create</a></td>
-<td>functions to interact with gdal not meant to be called directly by users (but e.g. by stars::read_stars)</td></tr>
-<tr><td style="width: 25%;"><a href="gdal.html">gdal_crs</a></td>
-<td>functions to interact with gdal not meant to be called directly by users (but e.g. by stars::read_stars)</td></tr>
-<tr><td style="width: 25%;"><a href="gdal.html">gdal_extract</a></td>
-<td>functions to interact with gdal not meant to be called directly by users (but e.g. by stars::read_stars)</td></tr>
-<tr><td style="width: 25%;"><a href="gdal.html">gdal_inv_geotransform</a></td>
-<td>functions to interact with gdal not meant to be called directly by users (but e.g. by stars::read_stars)</td></tr>
-<tr><td style="width: 25%;"><a href="gdal.html">gdal_metadata</a></td>
-<td>functions to interact with gdal not meant to be called directly by users (but e.g. by stars::read_stars)</td></tr>
-<tr><td style="width: 25%;"><a href="gdal.html">gdal_polygonize</a></td>
-<td>functions to interact with gdal not meant to be called directly by users (but e.g. by stars::read_stars)</td></tr>
-<tr><td style="width: 25%;"><a href="gdal.html">gdal_rasterize</a></td>
-<td>functions to interact with gdal not meant to be called directly by users (but e.g. by stars::read_stars)</td></tr>
-<tr><td style="width: 25%;"><a href="gdal.html">gdal_read</a></td>
-<td>functions to interact with gdal not meant to be called directly by users (but e.g. by stars::read_stars)</td></tr>
-<tr><td style="width: 25%;"><a href="gdal.html">gdal_read_mdim</a></td>
-<td>functions to interact with gdal not meant to be called directly by users (but e.g. by stars::read_stars)</td></tr>
-<tr><td style="width: 25%;"><a href="gdal.html">gdal_subdatasets</a></td>
-<td>functions to interact with gdal not meant to be called directly by users (but e.g. by stars::read_stars)</td></tr>
+<td>Add or remove overviews to/from a raster image</td></tr>
+<tr><td style="width: 25%;"><a href="gdal_compressors.html">gdal_compressors</a></td>
+<td>List GDAL compressors and decompressors</td></tr>
 <tr><td style="width: 25%;"><a href="gdal_utils.html">gdal_utils</a></td>
 <td>Native interface to gdal utils</td></tr>
-<tr><td style="width: 25%;"><a href="gdal.html">gdal_write</a></td>
-<td>functions to interact with gdal not meant to be called directly by users (but e.g. by stars::read_stars)</td></tr>
-<tr><td style="width: 25%;"><a href="gdal.html">gdal_write_mdim</a></td>
-<td>functions to interact with gdal not meant to be called directly by users (but e.g. by stars::read_stars)</td></tr>
 <tr><td style="width: 25%;"><a href="geos_binary_ops.html">geos_binary_ops</a></td>
 <td>Geometric operations on pairs of simple feature geometry sets</td></tr>
 <tr><td style="width: 25%;"><a href="geos_binary_pred.html">geos_binary_pred</a></td>
@@ -178,7 +162,9 @@
 <tr><td style="width: 25%;"><a href="plot.html">get_key_pos</a></td>
 <td>plot sf object</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">group_by.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
+<tr><td style="width: 25%;"><a href="tidyverse.html">group_split.sf</a></td>
+<td>Tidyverse methods for sf objects</td></tr>
 </table>
 
 <h2><a id="H">-- H --</a></h2>
@@ -192,11 +178,9 @@
 
 <table style="width: 100%;">
 <tr><td style="width: 25%;"><a href="tidyverse.html">inner_join.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
-<tr><td style="width: 25%;"><a href="internal.html">internal</a></td>
-<td>Internal functions</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="interpolate_aw.html">interpolate_aw</a></td>
-<td>Areal-weighted interpolation of polygon data</td></tr>
+<td>Area-weighted interpolation or dasymetric mapping of polygon data</td></tr>
 <tr><td style="width: 25%;"><a href="st_bbox.html">is.na.bbox</a></td>
 <td>Return bounding of a simple feature or simple feature set</td></tr>
 <tr><td style="width: 25%;"><a href="st_crs.html">is.na.crs</a></td>
@@ -217,7 +201,7 @@
 
 <table style="width: 100%;">
 <tr><td style="width: 25%;"><a href="tidyverse.html">left_join.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 </table>
 
 <h2><a id="M">-- M --</a></h2>
@@ -226,7 +210,7 @@
 <tr><td style="width: 25%;"><a href="merge.sf.html">merge.sf</a></td>
 <td>merge method for sf and data.frame object</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">mutate.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 </table>
 
 <h2><a id="N">-- N --</a></h2>
@@ -245,7 +229,7 @@
 <tr><td style="width: 25%;"><a href="nc.html">nc</a></td>
 <td>North Carolina SIDS data</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">nest.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 </table>
 
 <h2><a id="O">-- O --</a></h2>
@@ -254,11 +238,13 @@
 <tr><td style="width: 25%;"><a href="tibble.html">obj_sum.sfc</a></td>
 <td>Summarize simple feature type for tibble</td></tr>
 <tr><td style="width: 25%;"><a href="Ops.html">Ops</a></td>
-<td>S3 Ops Group Generic Functions for simple feature geometries</td></tr>
+<td>Arithmetic operators for simple feature geometries</td></tr>
 <tr><td style="width: 25%;"><a href="Ops.html">Ops.sfc</a></td>
-<td>S3 Ops Group Generic Functions for simple feature geometries</td></tr>
+<td>Arithmetic operators for simple feature geometries</td></tr>
 <tr><td style="width: 25%;"><a href="Ops.html">Ops.sfg</a></td>
-<td>S3 Ops Group Generic Functions for simple feature geometries</td></tr>
+<td>Arithmetic operators for simple feature geometries</td></tr>
+<tr><td style="width: 25%;"><a href="sgbp.html">Ops.sgbp</a></td>
+<td>Methods for dealing with sparse geometry binary predicate lists</td></tr>
 </table>
 
 <h2><a id="P">-- P --</a></h2>
@@ -267,9 +253,9 @@
 <tr><td style="width: 25%;"><a href="tibble.html">pillar_shaft.sfc</a></td>
 <td>Summarize simple feature type for tibble</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">pivot_longer.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">pivot_wider.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="plot.html">plot</a></td>
 <td>plot sf object</td></tr>
 <tr><td style="width: 25%;"><a href="plot.html">plot.sf</a></td>
@@ -296,6 +282,10 @@
 <td>plot sf object</td></tr>
 <tr><td style="width: 25%;"><a href="plot.html">plot_sf</a></td>
 <td>plot sf object</td></tr>
+<tr><td style="width: 25%;"><a href="plot.html">points.sf</a></td>
+<td>plot sf object</td></tr>
+<tr><td style="width: 25%;"><a href="plot.html">points.sfc</a></td>
+<td>plot sf object</td></tr>
 <tr><td style="width: 25%;"><a href="prefix_map.html">prefix_map</a></td>
 <td>Map prefix to driver</td></tr>
 <tr><td style="width: 25%;"><a href="sf.html">print.sf</a></td>
@@ -318,11 +308,13 @@
 <tr><td style="width: 25%;"><a href="st_read.html">read_sf</a></td>
 <td>Read simple features or layers from file or database</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">rename.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
+<tr><td style="width: 25%;"><a href="tidyverse.html">rename_with.sf</a></td>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">right_join.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">rowwise.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 </table>
 
 <h2><a id="S">-- S --</a></h2>
@@ -331,25 +323,27 @@
 <tr><td style="width: 25%;"><a href="s2.html">s2</a></td>
 <td>functions for spherical geometry, using s2 package</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">sample_frac.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">sample_n.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">select.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">semi_join.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">separate.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">separate_rows.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="sf.html">sf</a></td>
 <td>Create sf object</td></tr>
-<tr><td style="width: 25%;"><a href="sf-defunct.html">sf-defunct</a></td>
-<td>Deprecated functions in 'sf'</td></tr>
+<tr><td style="width: 25%;"><a href="coerce-methods.html">sf-method</a></td>
+<td>Methods to coerce simple features to Spatial* and 'Spatial*DataFrame' objects</td></tr>
 <tr><td style="width: 25%;"><a href="plot.html">sf.colors</a></td>
 <td>plot sf object</td></tr>
 <tr><td style="width: 25%;"><a href="sfc.html">sfc</a></td>
 <td>Create simple feature geometry list column</td></tr>
+<tr><td style="width: 25%;"><a href="coerce-methods.html">sfc-method</a></td>
+<td>Methods to coerce simple features to Spatial* and 'Spatial*DataFrame' objects</td></tr>
 <tr><td style="width: 25%;"><a href="sfc.html">sfc_GEOMETRYCOLLECTION</a></td>
 <td>Create simple feature geometry list column</td></tr>
 <tr><td style="width: 25%;"><a href="sfc.html">sfc_LINESTRING</a></td>
@@ -383,13 +377,15 @@
 <tr><td style="width: 25%;"><a href="sgbp.html">sgbp</a></td>
 <td>Methods for dealing with sparse geometry binary predicate lists</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">slice.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
+<tr><td style="width: 25%;"><a href="coerce-methods.html">Spatial</a></td>
+<td>Methods to coerce simple features to Spatial* and 'Spatial*DataFrame' objects</td></tr>
+<tr><td style="width: 25%;"><a href="coerce-methods.html">Spatial-method</a></td>
+<td>Methods to coerce simple features to Spatial* and 'Spatial*DataFrame' objects</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">spread.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="st.html">st</a></td>
 <td>Create simple feature from a numeric vector, matrix or list</td></tr>
-<tr><td style="width: 25%;"><a href="stars.html">stars</a></td>
-<td>functions only exported to be used internally by stars</td></tr>
 <tr><td style="width: 25%;"><a href="st_agr.html">st_agr</a></td>
 <td>get or set relation_to_geometry attribute of an 'sf' object</td></tr>
 <tr><td style="width: 25%;"><a href="st_agr.html">st_agr&lt;-</a></td>
@@ -646,6 +642,8 @@
 <td>Geometric binary predicates on pairs of simple feature geometry sets</td></tr>
 <tr><td style="width: 25%;"><a href="geos_binary_pred.html">st_equals_exact</a></td>
 <td>Geometric binary predicates on pairs of simple feature geometry sets</td></tr>
+<tr><td style="width: 25%;"><a href="geos_unary.html">st_exterior_ring</a></td>
+<td>Geometric unary operations on simple feature geometry sets</td></tr>
 <tr><td style="width: 25%;"><a href="st_join.html">st_filter</a></td>
 <td>spatial join, spatial filter</td></tr>
 <tr><td style="width: 25%;"><a href="st_join.html">st_filter.sf</a></td>
@@ -669,9 +667,9 @@
 <tr><td style="width: 25%;"><a href="geos_unary.html">st_inscribed_circle</a></td>
 <td>Geometric unary operations on simple feature geometry sets</td></tr>
 <tr><td style="width: 25%;"><a href="interpolate_aw.html">st_interpolate_aw</a></td>
-<td>Areal-weighted interpolation of polygon data</td></tr>
+<td>Area-weighted interpolation or dasymetric mapping of polygon data</td></tr>
 <tr><td style="width: 25%;"><a href="interpolate_aw.html">st_interpolate_aw.sf</a></td>
-<td>Areal-weighted interpolation of polygon data</td></tr>
+<td>Area-weighted interpolation or dasymetric mapping of polygon data</td></tr>
 <tr><td style="width: 25%;"><a href="geos_binary_ops.html">st_intersection</a></td>
 <td>Geometric operations on pairs of simple feature geometry sets</td></tr>
 <tr><td style="width: 25%;"><a href="geos_binary_ops.html">st_intersection.sf</a></td>
@@ -684,6 +682,16 @@
 <td>test equality between the geometry type and a class or set of classes</td></tr>
 <tr><td style="width: 25%;"><a href="geos_query.html">st_is_empty</a></td>
 <td>Dimension, simplicity, validity or is_empty queries on simple feature geometries</td></tr>
+<tr><td style="width: 25%;"><a href="st_is_full.html">st_is_full</a></td>
+<td>predicate whether a geometry is equal to a POLYGON FULL</td></tr>
+<tr><td style="width: 25%;"><a href="st_is_full.html">st_is_full.bbox</a></td>
+<td>predicate whether a geometry is equal to a POLYGON FULL</td></tr>
+<tr><td style="width: 25%;"><a href="st_is_full.html">st_is_full.sf</a></td>
+<td>predicate whether a geometry is equal to a POLYGON FULL</td></tr>
+<tr><td style="width: 25%;"><a href="st_is_full.html">st_is_full.sfc</a></td>
+<td>predicate whether a geometry is equal to a POLYGON FULL</td></tr>
+<tr><td style="width: 25%;"><a href="st_is_full.html">st_is_full.sfg</a></td>
+<td>predicate whether a geometry is equal to a POLYGON FULL</td></tr>
 <tr><td style="width: 25%;"><a href="st_is_longlat.html">st_is_longlat</a></td>
 <td>Assert whether simple feature coordinates are longlat degrees</td></tr>
 <tr><td style="width: 25%;"><a href="geos_query.html">st_is_simple</a></td>
@@ -710,8 +718,14 @@
 <td>Compute geometric measurements</td></tr>
 <tr><td style="width: 25%;"><a href="st.html">st_linestring</a></td>
 <td>Create simple feature from a numeric vector, matrix or list</td></tr>
+<tr><td style="width: 25%;"><a href="st_line_project_point.html">st_line_interpolate</a></td>
+<td>Project point on linestring, interpolate along a linestring</td></tr>
 <tr><td style="width: 25%;"><a href="geos_unary.html">st_line_merge</a></td>
 <td>Geometric unary operations on simple feature geometry sets</td></tr>
+<tr><td style="width: 25%;"><a href="st_line_project_point.html">st_line_project</a></td>
+<td>Project point on linestring, interpolate along a linestring</td></tr>
+<tr><td style="width: 25%;"><a href="st_line_project_point.html">st_line_project_point</a></td>
+<td>Project point on linestring, interpolate along a linestring</td></tr>
 <tr><td style="width: 25%;"><a href="st_line_sample.html">st_line_sample</a></td>
 <td>Sample points on a linear geometry</td></tr>
 <tr><td style="width: 25%;"><a href="st_make_grid.html">st_make_grid</a></td>
@@ -722,6 +736,8 @@
 <td>Check validity or make an invalid geometry valid</td></tr>
 <tr><td style="width: 25%;"><a href="valid.html">st_make_valid.sfg</a></td>
 <td>Check validity or make an invalid geometry valid</td></tr>
+<tr><td style="width: 25%;"><a href="geos_unary.html">st_minimum_bounding_circle</a></td>
+<td>Geometric unary operations on simple feature geometry sets</td></tr>
 <tr><td style="width: 25%;"><a href="geos_unary.html">st_minimum_rotated_rectangle</a></td>
 <td>Geometric unary operations on simple feature geometry sets</td></tr>
 <tr><td style="width: 25%;"><a href="st.html">st_multilinestring</a></td>
@@ -784,6 +800,8 @@
 <td>Normalize simple features</td></tr>
 <tr><td style="width: 25%;"><a href="geos_binary_pred.html">st_overlaps</a></td>
 <td>Geometric binary predicates on pairs of simple feature geometry sets</td></tr>
+<tr><td style="width: 25%;"><a href="geos_measures.html">st_perimeter</a></td>
+<td>Compute geometric measurements</td></tr>
 <tr><td style="width: 25%;"><a href="st.html">st_point</a></td>
 <td>Create simple feature from a numeric vector, matrix or list</td></tr>
 <tr><td style="width: 25%;"><a href="geos_unary.html">st_point_on_surface</a></td>
@@ -802,15 +820,13 @@
 <td>Read simple features or layers from file or database</td></tr>
 <tr><td style="width: 25%;"><a href="st_read.html">st_read.DBIObject</a></td>
 <td>Read simple features or layers from file or database</td></tr>
-<tr><td style="width: 25%;"><a href="sf-defunct.html">st_read_db</a></td>
-<td>Deprecated functions in 'sf'</td></tr>
-<tr><td style="width: 25%;"><a href="sf-defunct.html">st_read_db,</a></td>
-<td>Deprecated functions in 'sf'</td></tr>
 <tr><td style="width: 25%;"><a href="st_relate.html">st_relate</a></td>
 <td>Compute DE9-IM relation between pairs of geometries, or match it to a given pattern</td></tr>
 <tr><td style="width: 25%;"><a href="geos_unary.html">st_reverse</a></td>
 <td>Geometric unary operations on simple feature geometry sets</td></tr>
 <tr><td style="width: 25%;"><a href="st_sample.html">st_sample</a></td>
+<td>sample points on or in (sets of) spatial features</td></tr>
+<tr><td style="width: 25%;"><a href="st_sample.html">st_sample.bbox</a></td>
 <td>sample points on or in (sets of) spatial features</td></tr>
 <tr><td style="width: 25%;"><a href="st_sample.html">st_sample.sf</a></td>
 <td>sample points on or in (sets of) spatial features</td></tr>
@@ -848,6 +864,8 @@
 <td>Geometric binary predicates on pairs of simple feature geometry sets</td></tr>
 <tr><td style="width: 25%;"><a href="st_transform.html">st_transform</a></td>
 <td>Transform or convert coordinates of simple feature</td></tr>
+<tr><td style="width: 25%;"><a href="st_transform.html">st_transform.bbox</a></td>
+<td>Transform or convert coordinates of simple feature</td></tr>
 <tr><td style="width: 25%;"><a href="st_transform.html">st_transform.sf</a></td>
 <td>Transform or convert coordinates of simple feature</td></tr>
 <tr><td style="width: 25%;"><a href="st_transform.html">st_transform.sfc</a></td>
@@ -882,8 +900,6 @@
 <td>Write simple features object to file or database</td></tr>
 <tr><td style="width: 25%;"><a href="st_write.html">st_write.sfc</a></td>
 <td>Write simple features object to file or database</td></tr>
-<tr><td style="width: 25%;"><a href="sf-defunct.html">st_write_db</a></td>
-<td>Deprecated functions in 'sf'</td></tr>
 <tr><td style="width: 25%;"><a href="st_zm.html">st_zm</a></td>
 <td>Drop or add Z and/or M dimensions from feature geometries</td></tr>
 <tr><td style="width: 25%;"><a href="st_z_range.html">st_z_range</a></td>
@@ -925,9 +941,9 @@
 <tr><td style="width: 25%;"><a href="st_z_range.html">st_z_range.TRIANGLE</a></td>
 <td>Return 'z' range of a simple feature or simple feature set</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">summarise</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">summarise.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="summary.sfc.html">summary.sfc</a></td>
 <td>Summarize simple feature column</td></tr>
 </table>
@@ -937,14 +953,18 @@
 <table style="width: 100%;">
 <tr><td style="width: 25%;"><a href="sgbp.html">t.sgbp</a></td>
 <td>Methods for dealing with sparse geometry binary predicate lists</td></tr>
+<tr><td style="width: 25%;"><a href="plot.html">text.sf</a></td>
+<td>plot sf object</td></tr>
+<tr><td style="width: 25%;"><a href="plot.html">text.sfc</a></td>
+<td>plot sf object</td></tr>
 <tr><td style="width: 25%;"><a href="tibble.html">tibble</a></td>
 <td>Summarize simple feature type for tibble</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">tidyverse</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="transform.sf.html">transform.sf</a></td>
 <td>transform method for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">transmute.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="tibble.html">type_sum.sfc</a></td>
 <td>Summarize simple feature type for tibble</td></tr>
 </table>
@@ -953,11 +973,11 @@
 
 <table style="width: 100%;">
 <tr><td style="width: 25%;"><a href="tidyverse.html">ungroup.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">unite.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 <tr><td style="width: 25%;"><a href="tidyverse.html">unnest.sf</a></td>
-<td>Tidyverse methods for sf objects (remove .sf suffix!)</td></tr>
+<td>Tidyverse methods for sf objects</td></tr>
 </table>
 
 <h2><a id="V">-- V --</a></h2>
@@ -965,20 +985,6 @@
 <table style="width: 100%;">
 <tr><td style="width: 25%;"><a href="valid.html">valid</a></td>
 <td>Check validity or make an invalid geometry valid</td></tr>
-<tr><td style="width: 25%;"><a href="vctrs.html">vctrs</a></td>
-<td>vctrs methods for sf objects</td></tr>
-<tr><td style="width: 25%;"><a href="vctrs.html">vec_cast.sfc</a></td>
-<td>vctrs methods for sf objects</td></tr>
-<tr><td style="width: 25%;"><a href="vctrs.html">vec_cast.sfc.default</a></td>
-<td>vctrs methods for sf objects</td></tr>
-<tr><td style="width: 25%;"><a href="vctrs.html">vec_cast.sfc.sfc</a></td>
-<td>vctrs methods for sf objects</td></tr>
-<tr><td style="width: 25%;"><a href="vctrs.html">vec_ptype2.sfc</a></td>
-<td>vctrs methods for sf objects</td></tr>
-<tr><td style="width: 25%;"><a href="vctrs.html">vec_ptype2.sfc.default</a></td>
-<td>vctrs methods for sf objects</td></tr>
-<tr><td style="width: 25%;"><a href="vctrs.html">vec_ptype2.sfc.sfc</a></td>
-<td>vctrs methods for sf objects</td></tr>
 </table>
 
 <h2><a id="W">-- W --</a></h2>
@@ -993,17 +999,9 @@
 <table style="width: 100%;">
 <tr><td style="width: 25%;"><a href="st_crs.html">$.crs</a></td>
 <td>Retrieve coordinate reference system from object</td></tr>
-<tr><td style="width: 25%;"><a href="stars.html">.degAxis</a></td>
-<td>functions only exported to be used internally by stars</td></tr>
-<tr><td style="width: 25%;"><a href="stars.html">.get_layout</a></td>
-<td>functions only exported to be used internally by stars</td></tr>
-<tr><td style="width: 25%;"><a href="stars.html">.image_scale</a></td>
-<td>functions only exported to be used internally by stars</td></tr>
-<tr><td style="width: 25%;"><a href="stars.html">.image_scale_factor</a></td>
-<td>functions only exported to be used internally by stars</td></tr>
-<tr><td style="width: 25%;"><a href="internal.html">.stop_geos</a></td>
-<td>Internal functions</td></tr>
 <tr><td style="width: 25%;"><a href="sf.html">[.sf</a></td>
 <td>Create sf object</td></tr>
+<tr><td style="width: 25%;"><a href="sfc.html">[.sfc</a></td>
+<td>Create simple feature geometry list column</td></tr>
 </table>
 </div></body></html>

@@ -1,3 +1,48 @@
+CHANGES IN VERSION 1.78.0
+-------------------------
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+    o The package now depends on the new Seqinfo package instead of
+      GenomeInfoDb.
+
+
+CHANGES IN VERSION 1.76.0
+-------------------------
+
+DEPRECATED AND DEFUNCT
+
+    o Formally deprecate BSgenome::forgeMasksFile, BSgenome::forgeSeqFiles,
+      BSgenome::forgeSeqlengthsRdaFile, BSgenome::forgeSeqlengthsRdsFile,
+      BSgenome::forgeBSgenomeDataPkg, and BSgenome::forgeMaskedBSgenomeDataPkg.
+      All these functions are now defined in the BSgenomeForge package.
+
+
+CHANGES IN VERSION 1.74.0
+-------------------------
+
+- No significant changes in this version.
+
+
+CHANGES IN VERSION 1.72.0
+-------------------------
+
+SIGNIFICANT USER-VISIBLE CHANGES
+
+    o The vignette documenting the seed-based forging process has moved
+      to the BSgenomeForge package. This vignette used to be called
+      the "BSgenomeForge vignette" but it has now be renamed
+      the "Advanced BSgenomeForge usage" vignette.
+
+    o All the tools related to the seed-based forging process and used by
+      the "Advanced BSgenomeForge usage" vignette are now in the BSgenomeForge
+      package.
+
+
+
+
+
+
 CHANGES IN VERSION 1.28.0
 -------------------------
 

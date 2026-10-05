@@ -1,5 +1,69 @@
+# rstudioapi 0.19.0
 
-# rstudioapi 0.14 (UNRELEASED)
+* `getDelegatedAzureToken()` gains an `as` argument. With `as = "AzureToken"`,
+  the token is returned as an R6 object compatible with the `AzureToken` class
+  from the `AzureAuth` package, so it can be passed directly to packages like
+  `AzureGraph` and `Microsoft365R`. (rstudio/rstudio#17619)
+
+* `getDelegatedAzureToken()` now returns the same token shape in all IDEs:
+  the relative `expires_in` field is converted to an absolute `expires_at`
+  timestamp, matching what RStudio sessions already returned.
+
+* `getMode()` no longer fails on very old versions of RStudio that lack the
+  internal `.rs.isDesktop()` helper. In that case, it now falls back to
+  `versionInfo()$mode`, which has been available since RStudio 0.97.124. (#326)
+
+* Added `showEditSuggestion()` for displaying edit suggestions in the RStudio
+  editor. The function takes a document range and suggested replacement text,
+  allowing RStudio to present a visual diff that users can accept or dismiss.
+
+# rstudioapi 0.18.0
+
+* `rstudioapi::documentNew()` now accepts arbitrary document types. (#316)
+
+* Added `getIdentityToken()` for retrieving the current user's identity token
+  on Posit Workbench, if possible.
+
+* Added OAuth integration functions for Posit Workbench:
+  - `getOAuthIntegrations()`: List all configured OAuth integrations.
+  - `getOAuthIntegration()`: Get metadata for a specific integration by GUID.
+  - `findOAuthIntegration()`: Search for integrations by name, display name,
+    GUID, or authentication status, with regex support.
+  - `getOAuthCredentials()`: Retrieve OAuth credentials for an integration.
+
+* `getDelegatedAzureToken()` now works in any IDE running within a Posit
+  Workbench session, not just RStudio.
+
+* `launcherSubmitJob()` gains the `resourceProfile` argument.
+
+# rstudioapi 0.17.1
+
+* Ensure a more appropriate error message is emitted for calls to
+  `rstudioapi::getVersion()` and `rstudioapi::getMode()` outside
+  of RStudio.
+
+
+# rstudioapi 0.17.0
+
+* Added `getMode()`, which can be used to differentiate between Desktop
+  and Server installations of RStudio. (#280)
+
+
+# rstudioapi 0.16.0
+
+* `restartSession()` gains the `clean` argument, for RStudio 2024.04
+  and newer.
+
+* Added `setGhostText()` for setting ghost text in the current editor.
+
+
+# rstudioapi 0.15.0
+
+* Added `getDelegatedAzureToken` for Posit Workbench users needing to expose 
+  OAuth2 tokens for Azure services that have already had permissions configured
+
+
+# rstudioapi 0.14
 
 * `documentPath()` now marks the encoding of file paths as UTF-8. (#257)
 

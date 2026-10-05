@@ -70,9 +70,9 @@ struct circular_buffer
     circular_buffer(void)
     : ptr(nullptr), nelem(0), first_pos(0), initialized(false)
     {
-        ptr = std::get_temporary_buffer < Value_t > (NMAX).first;
+        ptr = static_cast <Value_t*> (std::malloc (NMAX * sizeof(Value_t)));
         if (ptr == nullptr) throw std::bad_alloc();
-    };
+    }
     //
     //------------------------------------------------------------------------
     //  function : ~circular_buffer
@@ -83,8 +83,8 @@ struct circular_buffer
         if (initialized)
         {   for (size_t i = 0; i < NMAX; ++i) (ptr + i)->~Value_t();
             initialized = false;
-        };
-        std::return_temporary_buffer(ptr);
+        }
+        std::free(static_cast <void*> (ptr));
     }
     ;
     //
@@ -102,61 +102,61 @@ struct circular_buffer
             ::new (static_cast<void*>(ptr + i)) Value_t(std::move(ptr[i - 1]));
         val = std::move(ptr[NMAX - 1]);
         initialized = true;
-    };
+    }
     //
     //------------------------------------------------------------------------
     //  function : destroy_all
     /// @brief : destroy all the objects in the internal memory
     //-----------------------------------------------------------------------
-    void destroy_all(void) { destroy(ptr, ptr + NMAX); };
+    void destroy_all(void) { destroy(ptr, ptr + NMAX); }
     //
     //------------------------------------------------------------------------
     //  function : get_buffer
     /// @brief return the internal memory of the circular buffer
     /// @return pointer to the internal memory of the buffer
     //-----------------------------------------------------------------------
-    Value_t * get_buffer(void) { return ptr; };
+    Value_t * get_buffer(void) { return ptr; }
     //
     //------------------------------------------------------------------------
     //  function : empty
     /// @brief return if the buffer is empty
     /// @return true : empty
     //-----------------------------------------------------------------------
-    bool empty(void) const {return (nelem == 0); };
+    bool empty(void) const {return (nelem == 0); }
     //
     //------------------------------------------------------------------------
     //  function : full
     /// @brief return if the buffer is full
     /// @return true : full
     //-----------------------------------------------------------------------
-    bool full(void) const { return (nelem == NMAX); };
+    bool full(void) const { return (nelem == NMAX); }
     //
     //------------------------------------------------------------------------
     //  function : size
     /// @brief return the number of elements stored in the buffer
     /// @return number of elements stored
     //-----------------------------------------------------------------------
-    size_t size(void) const { return nelem;};
+    size_t size(void) const { return nelem;}
     //
     //------------------------------------------------------------------------
     //  function : capacity
     /// @brief : return the maximun capacity of the buffer
     /// @return number of elements
     //-----------------------------------------------------------------------
-    size_t capacity(void) const { return NMAX;};
+    size_t capacity(void) const { return NMAX;}
     //
     //------------------------------------------------------------------------
     //  function : free_size
     /// @brief return the free positions in the buffer
     /// @return number of elements
     //-----------------------------------------------------------------------
-    size_t free_size(void) const  { return (NMAX - nelem); };
+    size_t free_size(void) const  { return (NMAX - nelem); }
     //
     //------------------------------------------------------------------------
     //  function : clear
     /// @brief clear the buffer
     //-----------------------------------------------------------------------
-    void clear(void)  { nelem = first_pos = 0; };
+    void clear(void)  { nelem = first_pos = 0; }
     //
     //------------------------------------------------------------------------
     //  function : front
@@ -169,7 +169,7 @@ struct circular_buffer
         assert (nelem > 0);
 #endif
         return (ptr[first_pos]);
-    };
+    }
     //
     //------------------------------------------------------------------------
     //  function :front
@@ -182,7 +182,7 @@ struct circular_buffer
         assert ( nelem > 0 );
 #endif
         return (ptr[first_pos]);
-    };
+    }
     //
     //------------------------------------------------------------------------
     //  function : back
@@ -195,7 +195,7 @@ struct circular_buffer
         assert ( nelem > 0 );
 #endif
         return (ptr[(first_pos + nelem - 1) & MASK]);
-    };
+    }
     //
     //------------------------------------------------------------------------
     //  function : back
@@ -208,7 +208,7 @@ struct circular_buffer
         assert ( nelem > 0 );
 #endif
         return (ptr[(first_pos + nelem - 1) & MASK]);
-    };
+    }
     //
     //------------------------------------------------------------------------
     //  function : operator []
@@ -222,7 +222,7 @@ struct circular_buffer
         assert ( nelem > 0 );
 #endif
         return ptr[(first_pos + pos) & MASK];
-    };
+    }
     //
     //------------------------------------------------------------------------
     //  function : operator []
@@ -237,7 +237,7 @@ struct circular_buffer
         assert ( nelem > 0 );
 #endif
         return ptr[(first_pos + pos) & MASK];
-    };
+    }
     //
     //------------------------------------------------------------------------
     //  function : push_front
@@ -253,7 +253,7 @@ struct circular_buffer
         first_pos = ((first_pos + MASK) & MASK);
         ptr[first_pos] = val;
 
-    };
+    }
     //
     //------------------------------------------------------------------------
     //  function : push_front
@@ -268,7 +268,7 @@ struct circular_buffer
         ++nelem;
         first_pos = ((first_pos + MASK) & MASK);
         ptr[first_pos] = val;
-    };
+    }
     //
     //------------------------------------------------------------------------
     //  function : push_back
@@ -281,7 +281,7 @@ struct circular_buffer
         assert ( nelem != NMAX);
 #endif
         ptr[(first_pos + (nelem++)) & MASK] = val;
-    };
+    }
     //
     //------------------------------------------------------------------------
     //  function : push_back
@@ -294,7 +294,7 @@ struct circular_buffer
         assert ( nelem != NMAX);
 #endif
         ptr[(first_pos + (nelem++)) & MASK] = std::move(val);
-    };
+    }
     //
     //------------------------------------------------------------------------
     //  function : pop_front
@@ -307,7 +307,7 @@ struct circular_buffer
 #endif
         --nelem;
         (++first_pos) &= MASK;
-    };
+    }
     //
     //------------------------------------------------------------------------
     //  function : pop_back
@@ -319,7 +319,7 @@ struct circular_buffer
         assert ( nelem > 0 );
 #endif
         --nelem;
-    };
+    }
 
     template<class iter_t>
     void pop_copy_front(iter_t it_dest, size_t num);
@@ -379,9 +379,9 @@ void circular_buffer<Value_t, Power2>
     for (size_t i = 0; i < num; ++i)
     {
         *(it_dest++) = ptr[pos++ & MASK];
-    };
+    }
     first_pos &= MASK;
-};
+}
 //
 //------------------------------------------------------------------------
 //  function : pop_move_front
@@ -407,9 +407,9 @@ void circular_buffer<Value_t, Power2>
     for (size_t i = 0; i < num; ++i)
     {
         *(it_dest++) = std::move(ptr[pos++ & MASK]);
-    };
+    }
     first_pos &= MASK;
-};
+}
 //
 //------------------------------------------------------------------------
 //  function : pop_copy_back
@@ -433,8 +433,8 @@ void circular_buffer<Value_t, Power2>
     for (size_t i = 0; i < num; ++i)
     {
         *(it_dest++) = ptr[pos++ & MASK];
-    };
-};
+    }
+}
 //
 //------------------------------------------------------------------------
 //  function : pop_move_back
@@ -458,8 +458,8 @@ void circular_buffer<Value_t, Power2>
     for (size_t i = 0; i < num; ++i)
     {
         *(it_dest++) = std::move(ptr[pos++ & MASK]);
-    };
-};
+    }
+}
 //
 //------------------------------------------------------------------------
 //  function : push_copy_front
@@ -485,8 +485,8 @@ void circular_buffer<Value_t, Power2>
     for (size_t i = 0; i < num; ++i)
     {
         ptr[(pos++) & MASK] = *(it_src++);
-    };
-};
+    }
+}
 //
 //------------------------------------------------------------------------
 //  function : push_move_front
@@ -510,8 +510,8 @@ void circular_buffer<Value_t, Power2>
     for (size_t i = 0; i < num; ++i)
     {
         ptr[(pos++) & MASK] = std::move(*(it_src++));
-    };
-};
+    }
+}
 //
 //------------------------------------------------------------------------
 //  function : push_copy_back
@@ -535,8 +535,8 @@ void circular_buffer<Value_t, Power2>
     for (size_t i = 0; i < num; ++i)
     {
         ptr[(pos++) & MASK] = *(it_src++);
-    };
-};
+    }
+}
 //
 //------------------------------------------------------------------------
 //  function : push_move_back
@@ -560,13 +560,13 @@ void circular_buffer<Value_t, Power2>
     for (size_t i = 0; i < num; ++i)
     {
         ptr[(pos++) & MASK] = std::move(*(it_src++));
-    };
-};
+    }
+}
 
 //****************************************************************************
-};// End namespace util
-};// End namespace common
-};// End namespace sort
-};// End namespace boost
+} // End namespace util
+} // End namespace common
+} // End namespace sort
+} // End namespace boost
 //****************************************************************************
 #endif

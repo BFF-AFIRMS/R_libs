@@ -1,18 +1,29 @@
 Package: survey
 Title: Analysis of Complex Survey Samples
-Description: Summary statistics, two-sample tests, rank tests, generalised linear models, cumulative link models, Cox models, loglinear models, and general maximum pseudolikelihood estimation for multistage stratified, cluster-sampled, unequally weighted survey samples. Variances by Taylor series linearisation or replicate weights. Post-stratification, calibration, and raking. Two-phase subsampling designs. Graphics. PPS sampling without replacement. 
-Version: 4.2-1
-Author: Thomas Lumley
+Description: Summary statistics, two-sample tests, rank tests, generalised linear models, cumulative link models, Cox models, loglinear models, and general maximum pseudolikelihood estimation for multistage stratified, cluster-sampled, unequally weighted survey samples. Variances by Taylor series linearisation or replicate weights. Post-stratification, calibration, and raking. Two-phase and multiphase subsampling designs. Graphics. PPS sampling without replacement. Small-area estimation. Dual-frame designs.
+Version: 4.5
+Authors@R: c(person(given = "\"Thomas", family = "Lumley\"", role = "cre", email = "t.lumley@auckland.ac.nz"),
+		    person(given = "Peter", family = "Gao", role ="aut"),
+		    person(given = "Ben", family = "Schneider", role= "aut"),
+		    person(given = "Stas", family= "Kolenkikov", role="aut"))
 Maintainer: "Thomas Lumley" <t.lumley@auckland.ac.nz>
 License: GPL-2 | GPL-3
-Depends: R (>= 3.5.0), grid, methods, Matrix, survival
+Depends: R (>= 4.1.0), grid, methods, Matrix, survival
 Imports: stats, graphics, splines, lattice, minqa, numDeriv, mitools
-        (>= 2.4)
+        (>= 2.4), Rcpp (>= 0.12.8)
+LinkingTo: Rcpp, RcppArmadillo
+VignetteBuilder: R.rsp, knitr
 Suggests: foreign, MASS, KernSmooth, hexbin, RSQLite, quantreg,
-        parallel, CompQuadForm, DBI, AER
+        parallel, CompQuadForm, DBI, AER, SUMMER (>= 1.4.0), R.rsp,
+        knitr, testthat (>= 3.0.0)
 URL: http://r-survey.r-forge.r-project.org/survey/
-NeedsCompilation: no
-Packaged: 2023-05-02 22:56:29 UTC; tlum005
+Config/testthat/edition: 3
+NeedsCompilation: yes
+Packaged: 2026-02-23 20:47:59 UTC; tlum005
+Author: "Thomas Lumley" [cre],
+  Peter Gao [aut],
+  Ben Schneider [aut],
+  Stas Kolenkikov [aut]
 Repository: CRAN
-Date/Publication: 2023-05-03 08:10:02 UTC
-Built: R 4.3.0; ; 2023-07-07 03:31:26 UTC; unix
+Date/Publication: 2026-02-24 11:20:02 UTC
+Built: R 4.5.0; x86_64-pc-linux-gnu; 2026-09-03 23:28:51 UTC; unix

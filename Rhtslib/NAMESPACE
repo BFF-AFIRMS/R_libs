@@ -1,5 +1,5 @@
 useDynLib(Rhtslib, .registration=TRUE)
 
-import(zlibbioc)
+importFrom(tools, Rcmd)
 
 export(pkgconfig)

@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
 // 
-// Copyright 2008-2016 Conrad Sanderson (http://conradsanderson.id.au)
+// Copyright 2008-2016 Conrad Sanderson (https://conradsanderson.id.au)
 // Copyright 2008-2016 National ICT Australia (NICTA)
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// http://www.apache.org/licenses/LICENSE-2.0
+// https://www.apache.org/licenses/LICENSE-2.0
 // 
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,7 +23,7 @@
 
 template<typename T1, typename T2>
 arma_warn_unused
-arma_inline
+inline
 typename
 enable_if2
   <
@@ -36,7 +36,7 @@ pow
   const Base<typename T1::elem_type, T2>& Y
   )
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   return Glue<T1, T2, glue_powext>(X, Y.get_ref());
   }
@@ -44,7 +44,7 @@ pow
 
 
 template<typename parent, unsigned int mode, typename T2>
-arma_warn_unused
+[[deprecated("refactor your code to use pow() in conjunction with repmat()")]]
 inline
 Mat<typename parent::elem_type>
 pow
@@ -53,7 +53,7 @@ pow
   const Base<typename parent::elem_type,T2>& Y
   )
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   return glue_powext::apply(X,Y);
   }
@@ -62,7 +62,7 @@ pow
 
 template<typename T1, typename T2>
 arma_warn_unused
-arma_inline
+inline
 const GlueCube<T1, T2, glue_powext>
 pow
   (
@@ -70,7 +70,7 @@ pow
   const BaseCube<typename T1::elem_type, T2>& Y
   )
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   return GlueCube<T1, T2, glue_powext>(X.get_ref(), Y.get_ref());
   }
@@ -78,7 +78,7 @@ pow
 
 
 template<typename eT, typename T2>
-arma_warn_unused
+[[deprecated("refactor your code to use pow() in conjunction with repcube()")]]
 inline
 Cube<eT>
 pow
@@ -87,7 +87,7 @@ pow
   const Base<eT,T2>&            Y
   )
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   return glue_powext::apply(X,Y);
   }
@@ -100,7 +100,7 @@ pow
 
 template<typename T1, typename T2>
 arma_warn_unused
-arma_inline
+inline
 typename
 enable_if2
   <
@@ -113,7 +113,7 @@ pow
   const Base<typename T1::pod_type, T2>& Y
   )
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   return mtGlue<typename T1::elem_type, T1, T2, glue_powext_cx>(X, Y.get_ref());
   }
@@ -121,7 +121,7 @@ pow
 
 
 template<typename parent, unsigned int mode, typename T2>
-arma_warn_unused
+[[deprecated("refactor your code to use pow() in conjunction with repmat()")]]
 inline
 typename
 enable_if2
@@ -135,7 +135,7 @@ pow
   const Base<typename parent::pod_type,T2>& Y
   )
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   return glue_powext_cx::apply(X,Y);
   }
@@ -144,7 +144,7 @@ pow
 
 template<typename T1, typename T2>
 arma_warn_unused
-arma_inline
+inline
 const mtGlueCube<typename T1::elem_type, T1, T2, glue_powext_cx>
 pow
   (
@@ -152,7 +152,7 @@ pow
   const BaseCube<              typename T1::pod_type , T2>& Y
   )
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   return mtGlueCube<typename T1::elem_type, T1, T2, glue_powext_cx>(X.get_ref(), Y.get_ref());
   }
@@ -160,7 +160,7 @@ pow
 
 
 template<typename T, typename T2>
-arma_warn_unused
+[[deprecated("refactor your code to use pow() in conjunction with repcube()")]]
 inline
 Cube< std::complex<T> >
 pow
@@ -169,7 +169,7 @@ pow
   const Base<T,T2>&                            Y
   )
   {
-  arma_extra_debug_sigprint();
+  arma_debug_sigprint();
   
   return glue_powext_cx::apply(X,Y);
   }

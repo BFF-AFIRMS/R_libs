@@ -1,7 +1,7 @@
 ## ----installation, eval=FALSE-------------------------------------------------
-#  if (!requireNamespace("BiocManager", quietly = TRUE))
-#      install.packages("BiocManager")
-#  BiocManager::install("BiocIO")
+# if (!requireNamespace("BiocManager", quietly = TRUE))
+#     install.packages("BiocManager")
+# BiocManager::install("BiocIO")
 
 ## ----library------------------------------------------------------------------
 library("BiocIO")
@@ -11,22 +11,22 @@ getGeneric("import")
 getGeneric("export")
 
 ## ----warningExample, eval=FALSE-----------------------------------------------
-#  file <- tempfile(fileext = ".loom")
-#  LoomFile(file)
-#  
-#  ### LoomFile object
-#  ### resource: file.loom
-#  ### Warning messages:
-#  ### 1: This class is extending the deprecated RTLFile class from
-#  ###     rtracklayer. Use BiocFile from BiocIO in place of RTLFile.
-#  ### 2: Use BiocIO::resource()
+# file <- tempfile(fileext = ".loom")
+# LoomFile(file)
+# 
+# ### LoomFile object
+# ### resource: file.loom
+# ### Warning messages:
+# ### 1: This class is extending the deprecated RTLFile class from
+# ###     rtracklayer. Use BiocFile from BiocIO in place of RTLFile.
+# ### 2: Use BiocIO::resource()
 
 ## ----replaceExample, eval=FALSE-----------------------------------------------
-#  ## Old
-#  setClass('LoomFile', contains='RTLFile')
-#  
-#  ## New
-#  setClass('LoomFile', contains='BiocFile')
+# ## Old
+# setClass('LoomFile', contains='RTLFile')
+# 
+# ## New
+# setClass('LoomFile', contains='BiocFile')
 
 ## ----defineCSVFile------------------------------------------------------------
 .CSVFile <- setClass("CSVFile", contains = "BiocFile")

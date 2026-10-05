@@ -29,7 +29,7 @@ plot(nc["AREA"], key.pos = 1, axes = TRUE, key.width = lcm(1.3), key.length = 1.
 
 ## -----------------------------------------------------------------------------
 nc$f = cut(nc$AREA, 10)
-plot(nc["f"], axes = TRUE, key.pos = 4, pal = sf.colors(10), key.width = lcm(4.5))
+plot(nc["f"], axes = TRUE, key.pos = 4, pal = sf.colors(10), key.width = lcm(5))
 
 ## -----------------------------------------------------------------------------
 plot(nc["AREA"], breaks = c(0,.05,.1,.15,.2,.25))
@@ -77,26 +77,26 @@ ggplot() +
 ## -----------------------------------------------------------------------------
 library(dplyr)
 library(tidyr)
-nc2 <- nc %>% select(SID74, SID79, geom) %>% gather(VAR, SID, -geom)
+nc2 <- nc |> select(SID74, SID79, geom) |> gather(VAR, SID, -geom)
 ggplot() + 
   geom_sf(data = nc2, aes(fill = SID)) + 
   facet_wrap(~VAR, ncol = 1) +
   scale_y_continuous(breaks = 34:36)
 
-## ---- eval = FALSE------------------------------------------------------------
-#  library(mapview)
-#  mapviewOptions(fgb = FALSE) # needed when creating web pages
-#  mapview(nc["BIR74"], col.regions = sf.colors(10), fgb = FALSE)
+## ----eval = FALSE-------------------------------------------------------------
+# library(mapview)
+# mapviewOptions(fgb = FALSE) # needed when creating web pages
+# mapview(nc["BIR74"], col.regions = sf.colors(10), fgb = FALSE)
 
 ## ----eval=require("tmap", quietly = TRUE)-------------------------------------
 library(tmap)
 qtm(nc)
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  tmap_mode("view")
-#  tm_shape(nc) + tm_fill("BIR74", palette = sf.colors(5))
+# tmap_mode("view")
+# tm_shape(nc) + tm_fill("BIR74", palette = sf.colors(5))
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  ttm()
-#  tmap_last()
+# ttm()
+# tmap_last()
 

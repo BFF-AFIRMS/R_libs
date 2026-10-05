@@ -1,3 +1,7 @@
+Changes since version 0.6.1:
+----------------------------
+* Documentation fixes
+
 Changes since version 0.6.0:
 ----------------------------
 * Fixed internal bug when extracting formals from fitters.

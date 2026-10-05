@@ -1,4 +1,81 @@
-# Version 1.11.0 [2023-50-20]
+# Version 1.20.2 [2026-02-19]
+
+## Miscellaneous
+
+ * This is a maintenance update with internal updates only.
+
+
+# Version 1.20.1 [2025-12-08]
+
+## Bug Fixes
+
+ * `future_apply(..., future.globals = list(...))` would produce
+   'Error in if (chunk_size > maxSize) { : missing value where
+   TRUE/FALSE needed'.
+ 
+
+# Version 1.20.0 [2025-06-06]
+
+## Significant changes
+
+ * All **future.apply** functions will now cancel any remaining
+   non-resolved futures if one of the futures produces an error, or a
+   user interrupt (Ctrl-C) is detected. If the backend where the
+   futures are running supports it, the canceled futures are also
+   interrupted, which results in compute resources being freed up
+   sooner and the **future.apply** function returning sooner.
+
+## New Features
+
+ * Added `future_Filter()`, which is parallel version of
+   `base::Filter()`.
+
+ * Added `future_kernapply()`, which is parallel version of
+   `stats::kernapply()`.
+
+ * Now **future.apply** lets **future** take care of the generation of
+   parallel RNG seed. Consolidating random number generation to the
+   core package will allow us to add central support for custom
+   parallel RNG methods beyond the built-in L'Ecuyer-CMRG method.
+
+## Deprecated and Defunct
+
+ * Specifying the function `FUN` for `future_by()` as a character
+   string is defunct. It should be specified as a function, e.g. `FUN
+   = sqrt` and ``FUN = `[[` ``, which is what `base::by()`
+   requires. Use of a string has been deprecated since
+   **future.apply** 1.10.0 (2022-11-04).
+
+
+# Version 1.11.3 [2024-10-27]
+
+## Bug Fixes
+
+ * Use of `future.seed = TRUE` could result in an error
+   `!any(seed_next != seed) is not TRUE` in rare cases.
+
+
+# Version 1.11.2 [2024-03-27]
+
+## Miscellaneous
+
+ * Relaxed one unit test that triggered an error on 32-bit
+   architectures.
+
+
+# Version 1.11.1 [2023-12-19]
+
+## Bug Fixes
+
+ * Option `future.globals.maxSize` was never passed down to parallel
+   workers.
+   
+ * The assertion of argument `INDEX` of `future_tapply()` would fail
+   with another error in R (< 3.6.0), if `INDEX` was incorrect in the
+   first place.
+
+
+# Version 1.11.0 [2023-05-20]
 
 ## Significant Changes
 
@@ -57,9 +134,7 @@
  * Fix some HTML5 issues in help pages.
  
 
-# Version 1.9.0 [2022-04-24]
-
-## Signficant Changes
+## Significant Changes
 
  * `future_mapply()` and `future_Map()` was updated to match the new
    behavior of `mapply()` and `Map()` in R (>= 4.2.0), which follows
@@ -120,7 +195,7 @@
 
 # Version 1.6.0 [2020-06-30]
 
-## Signficant Changes
+## Significant Changes
 
  * `future_apply()` gained argument `simplify`, which is added to
    R-devel (to become R 4.1.0).
@@ -208,7 +283,7 @@
 
 # Version 1.1.0 [2019-01-16]
 
-## Signficant Changes
+## Significant Changes
 
  * Added argument `future.stdout` and `future.conditions` for
    controlling whether standard output and conditions (e.g. messages
@@ -253,7 +328,7 @@
 
 # Version 1.0.0 [2018-06-19]
 
-## Signficant Changes
+## Significant Changes
 
  * License changed from LGPL (>= 2.1) to GPL (>= 2) to make sure it is
    compatible with the source code adopted from R base's `apply()`,

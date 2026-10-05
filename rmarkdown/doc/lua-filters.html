@@ -48,6 +48,7 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -387,7 +388,7 @@ any restriction about the version of pandoc.</p>
 <p>A <code>\newpage</code> or <code>\pagebreak</code> command in a
 rmarkdown document with output as HTML will be converted by default in
 this html code with inline style using CSS rule <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/page-break-after"><code>page-break-after</code></a></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="kw">&lt;div</span> <span class="er">style</span><span class="ot">=</span><span class="st">&quot;page-break-after: always;&quot;</span><span class="kw">&gt;&lt;/div&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> style</span><span class="op">=</span><span class="st">&quot;page-break-after: always;&quot;</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span></code></pre></div>
 <p>This will always insert a pagebreak after this div.</p>
 <p>To get more flexibility, you can use a HTML class and some custom CSS
 instead of an inline style. You need to add a metadata field
@@ -421,7 +422,7 @@ example</p>
 <span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a></span>
 <span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a>Some other text</span></code></pre></div>
 <p><code>\newpage</code> will be converted here to</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;page-break&quot;</span><span class="kw">&gt;&lt;/div&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">&quot;page-break&quot;</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span></code></pre></div>
 <p>and the style will be applied to this class from the CSS included in
 the chunk.</p>
 <p>This customisation can also be achieved by setting the environnement
@@ -431,8 +432,7 @@ example)</p>
 <p>Let’s note that in this example we use <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/break-after"><code>break-after</code></a>
 property instead of <code>page-break-after</code> as it is recommended
 now to use the former which is the replacement. The latter is kept
-around for <a href="https://caniuse.com/#search=page-break">compatibility reason with
-browsers</a>.</p>
+around for compatibility reason with browsers.</p>
 </div>
 <div id="word" class="section level3">
 <h3>Using with Word documents</h3>
@@ -537,7 +537,7 @@ adding a special attribute.</p>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="vs">We show some \emph{verbatim} text here.</span></span>
 <span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">verbatim</span>}</span></code></pre></div>
 <p>This feature we call <em>Custom blocks</em> is documented in details
-in the <a href="https://bookdown.org/yihui/rmarkdown-cookbook/custom-blocks.html">R
+in the <a href="https://pkg.yihui.org/rmarkdown-cookbook/custom-blocks.html">R
 Markdown Cookbook</a></p>
 </div>
 <div id="lua-filter" class="section level2">
@@ -548,8 +548,8 @@ in markdown to be compatible with several output documents is one of
 them. You can find some more informations about Lua filters in <a href="https://pandoc.org/lua-filters.html">pandoc’s documentation</a>
 and also some examples in <a href="https://github.com/pandoc/lua-filters">a collection of Lua filters
 for pandoc</a>. These examples, and any other Lua filters, can be use in
-your Rmarkdown document directly by adding <a href="https://bookdown.org/yihui/rmarkdown/html-document.html#pandoc-arguments">a
-pandoc argument</a> in yaml header</p>
+your Rmarkdown document directly by adding <a href="https://pkg.yihui.org/rmarkdown-book/html-document.html">a pandoc
+argument</a> in yaml header</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>---</span>
 <span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>output:</span>
 <span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  html_document:</span>
@@ -580,7 +580,8 @@ add it as a pandoc option if the output format.</p>
 <span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>}</span>
 <span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a></span>
 <span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="fu">basename</span>(<span class="fu">custom_format</span>()<span class="sc">$</span>pandoc<span class="sc">$</span>lua_filters)</span>
-<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="co">#&gt; [1] &quot;new.lua&quot;       &quot;pagebreak.lua&quot; &quot;latex-div.lua&quot;</span></span></code></pre></div>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="co">#&gt; [1] &quot;new.lua&quot;           &quot;pagebreak.lua&quot;     &quot;latex-div.lua&quot;    </span></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="co">#&gt; [4] &quot;table-classes.lua&quot;</span></span></code></pre></div>
 <p>Or by creating a new format :</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>custom_format <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">toc =</span> <span class="cn">TRUE</span>, ...) {</span>
 <span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>  rmarkdown<span class="sc">::</span><span class="fu">output_format</span>(</span>
@@ -592,7 +593,8 @@ add it as a pandoc option if the output format.</p>
 <span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>}</span>
 <span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a></span>
 <span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="fu">basename</span>(<span class="fu">custom_format</span>()<span class="sc">$</span>pandoc<span class="sc">$</span>lua_filters)</span>
-<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a><span class="co">#&gt; [1] &quot;pagebreak.lua&quot; &quot;latex-div.lua&quot; &quot;new.lua&quot;</span></span></code></pre></div>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a><span class="co">#&gt; [1] &quot;pagebreak.lua&quot;     &quot;latex-div.lua&quot;     &quot;table-classes.lua&quot;</span></span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a><span class="co">#&gt; [4] &quot;new.lua&quot;</span></span></code></pre></div>
 <p>As this is an advanced feature, if you want to go further, we
 encourage you to look at the examples of formats in packages such as
 <strong>rmarkdown</strong>, <strong>bookdown</strong> or

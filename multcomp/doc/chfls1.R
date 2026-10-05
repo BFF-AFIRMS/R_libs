@@ -142,7 +142,7 @@ orgAtmp <- orgA[, c("orgasm", "AincomeSD", "AheightSD", "RAdurationSD",
                  "RageSD", "edudiffSD", "wealthdiffSD", "Redu", "Rhealth",
                  "Rhappy", "Region")]
 cc <- complete.cases(orgAtmp)
-summary(cc)
+# summary(cc)
 orgAcc <- subset(orgA, cc)
 
 step_AIC <- stepAIC(polr(orgasm ~ AincomeSD + AheightSD + RAdurationSD + RageSD + edudiffSD 
@@ -217,3 +217,15 @@ print(comp_eduPrint, table.placement = "h!", include.rownames = FALSE, sanitize.
 
 
 
+###################################################
+### code chunk number 9: bib
+###################################################
+thisdir <- getwd()
+bibfile <- system.file("REFERENCES.bib", package = "multcomp")
+### bibfile may contain spaces LaTeX is unable to deal with on MacOS it seems
+if (file.copy(bibfile, to = thisdir, overwrite = TRUE)) {
+    bibfile <- "REFERENCES.bib"
+} else {
+    ### hope for the best
+    bibfile <- file.path("..", "inst", "REFERENCES.bib")
+}

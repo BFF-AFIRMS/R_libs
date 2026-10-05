@@ -22,6 +22,7 @@
 #include <boost/url/segments_ref.hpp>
 #include <boost/url/url_view_base.hpp>
 #include <cstdint>
+#include <initializer_list>
 #include <memory>
 #include <string>
 #include <utility>
@@ -29,14 +30,13 @@
 namespace boost {
 namespace urls {
 
-#ifndef BOOST_URL_DOCS
 namespace detail {
 struct any_params_iter;
 struct any_segments_iter;
 struct params_iter_impl;
 struct segments_iter_impl;
+struct pattern;
 }
-#endif
 
 /** Common functionality for containers
 
@@ -58,7 +58,7 @@ struct segments_iter_impl;
         @li @ref parse_uri
         @li @ref parse_uri_reference
 */
-class BOOST_SYMBOL_VISIBLE
+class BOOST_URL_DECL
     url_base
     : public url_view_base
 {
@@ -71,32 +71,33 @@ class BOOST_SYMBOL_VISIBLE
     friend class segments_ref;
     friend class segments_encoded_ref;
     friend class params_encoded_ref;
+    friend struct detail::pattern;
 
     struct op_t
     {
         ~op_t();
         op_t(url_base&,
-            string_view* = nullptr,
-            string_view* = nullptr) noexcept;
+            core::string_view* = nullptr,
+            core::string_view* = nullptr) noexcept;
         void move(char*, char const*,
             std::size_t) noexcept;
 
         url_base& u;
-        string_view* s0 = nullptr;
-        string_view* s1 = nullptr;
+        core::string_view* s0 = nullptr;
+        core::string_view* s1 = nullptr;
         char* old = nullptr;
     };
 
     virtual ~url_base() noexcept = default;
     url_base() noexcept = default;
     url_base(detail::url_impl const&) noexcept;
-    explicit url_base(string_view);
-    BOOST_URL_DECL void reserve_impl(std::size_t n);
-    BOOST_URL_DECL void copy(url_view_base const&);
-    BOOST_URL_DECL virtual void clear_impl() noexcept = 0;
-    BOOST_URL_DECL virtual void reserve_impl(
+    explicit url_base(core::string_view);
+    void reserve_impl(std::size_t n);
+    void copy(url_view_base const&);
+    virtual void clear_impl() noexcept = 0;
+    virtual void reserve_impl(
         std::size_t, op_t&) = 0;
-    BOOST_URL_DECL virtual void cleanup(op_t&) = 0;
+    virtual void cleanup(op_t&) = 0;
 
 public:
     //--------------------------------------------
@@ -110,6 +111,8 @@ public:
         This function returns a pointer to a null
         terminated string representing the url,
         which may contain percent escapes.
+
+        @return A pointer to a null-terminated string containing the URL.
 
         @par Example
         @code
@@ -132,6 +135,8 @@ public:
 
         This does not include the null terminator,
         which is always present.
+
+        @return `*this`
 
         @par Complexity
         Constant.
@@ -224,6 +229,8 @@ public:
 
         @param s The scheme to set.
 
+        @return `*this`
+
         @par BNF
         @code
         scheme        = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )
@@ -236,9 +243,8 @@ public:
         @see
             @ref remove_scheme.
     */
-    BOOST_URL_DECL
     url_base&
-    set_scheme(string_view s);
+    set_scheme(core::string_view s);
 
     /** Set the scheme
 
@@ -266,18 +272,14 @@ public:
         The scheme is invalid.
 
         @param id The scheme to set.
+        @return `*this`
 
         @par Specification
         @li <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.1">
             3.1. Scheme (rfc3986)</a>
     */
-    BOOST_URL_DECL
     url_base&
-#ifndef BOOST_URL_DOCS
     set_scheme_id(urls::scheme id);
-#else
-    set_scheme_id(scheme id);
-#endif
 
     /** Remove the scheme
 
@@ -300,6 +302,8 @@ public:
         @par Exception Safety
         Throws nothing.
 
+        @return `*this`
+
         @par BNF
         @code
         URI           = scheme ":" hier-part [ "?" query ] [ "#" fragment ]
@@ -312,7 +316,6 @@ public:
         @see
             @ref set_scheme.
     */
-    BOOST_URL_DECL
     url_base&
     remove_scheme();
 
@@ -342,6 +345,7 @@ public:
         The string contains an invalid percent-encoding.
 
         @param s The authority string to set.
+        @return `*this`
 
         @par BNF
         @code
@@ -358,7 +362,6 @@ public:
         @see
             @ref remove_authority.
     */
-    BOOST_URL_DECL
     url_base&
     set_encoded_authority(
         pct_string_view s);
@@ -385,6 +388,8 @@ public:
         @par Exception Safety
         Throws nothing.
 
+        @return `*this`
+
         @par BNF
         @code
         authority     = [ userinfo "@" ] host [ ":" port ]
@@ -401,7 +406,6 @@ public:
         @see
             @ref set_encoded_authority.
     */
-    BOOST_URL_DECL
     url_base&
     remove_authority();
 
@@ -451,6 +455,7 @@ public:
         Calls to allocate may throw.
 
         @param s The string to set.
+        @return `*this`
 
         @par BNF
         @code
@@ -468,10 +473,9 @@ public:
             @ref remove_userinfo,
             @ref set_encoded_userinfo.
     */
-    BOOST_URL_DECL
     url_base&
     set_userinfo(
-        string_view s);
+        core::string_view s);
 
     /** Set the userinfo.
 
@@ -518,6 +522,7 @@ public:
         `s` contains an invalid percent-encoding.
 
         @param s The string to set.
+        @return `*this`
 
         @par BNF
         @code
@@ -535,7 +540,6 @@ public:
             @ref remove_userinfo,
             @ref set_userinfo.
     */
-    BOOST_URL_DECL
     url_base&
     set_encoded_userinfo(
         pct_string_view s);
@@ -561,6 +565,8 @@ public:
         @par Exception Safety
         Throws nothing.
 
+        @return `*this`
+
         @par BNF
         @code
         userinfo      = [ [ user ] [ ':' password ] ]
@@ -577,7 +583,6 @@ public:
             @ref set_encoded_userinfo,
             @ref set_userinfo.
     */
-    BOOST_URL_DECL
     url_base&
     remove_userinfo() noexcept;
 
@@ -608,6 +613,7 @@ public:
         Calls to allocate may throw.
 
         @param s The string to set.
+        @return `*this`
 
         @par BNF
         @code
@@ -627,10 +633,9 @@ public:
             @ref set_encoded_user,
             @ref set_password.
     */
-    BOOST_URL_DECL
     url_base&
     set_user(
-        string_view s);
+        core::string_view s);
 
     /** Set the user
 
@@ -663,6 +668,10 @@ public:
 
         @param s The string to set.
 
+        @return `*this`
+
+        @return `*this`
+
         @par BNF
         @code
         userinfo      = [ [ user ] [ ':' password ] ]
@@ -681,7 +690,6 @@ public:
             @ref set_password,
             @ref set_user.
     */
-    BOOST_URL_DECL
     url_base&
     set_encoded_user(
         pct_string_view s);
@@ -716,6 +724,8 @@ public:
         @param s The string to set. This string may
         contain any characters, including nulls.
 
+        @return `*this`
+
         @par BNF
         @code
         userinfo      = [ [ user ] [ ':' password ] ]
@@ -734,10 +744,9 @@ public:
             @ref set_encoded_user,
             @ref set_user.
     */
-    BOOST_URL_DECL
     url_base&
     set_password(
-        string_view s);
+        core::string_view s);
 
     /** Set the password.
 
@@ -773,6 +782,7 @@ public:
 
         @param s The string to set. This string may
         contain any characters, including nulls.
+        @return `*this`
 
         @par BNF
         @code
@@ -792,7 +802,6 @@ public:
             @ref set_encoded_user,
             @ref set_user.
     */
-    BOOST_URL_DECL
     url_base&
     set_encoded_password(
         pct_string_view s);
@@ -834,6 +843,8 @@ public:
         password      = *( unreserved / pct-encoded / sub-delims / ":" )
         @endcode
 
+        @return `*this`
+
         @par Specification
         @li <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.2.1">
             3.2.1. User Information (rfc3986)</a>
@@ -844,7 +855,6 @@ public:
             @ref set_password,
             @ref set_user.
     */
-    BOOST_URL_DECL
     url_base&
     remove_password() noexcept;
 
@@ -899,8 +909,6 @@ public:
         Strong guarantee.
         Calls to allocate may throw.
 
-        @param s The string to set.
-
         @par BNF
         @code
         host        = IP-literal / IPv4address / reg-name
@@ -909,6 +917,9 @@ public:
 
         reg-name    = *( unreserved / pct-encoded / "-" / ".")
         @endcode
+
+        @param s The string to set.
+        @return `*this`
 
         @par Specification
         @li <a href="https://en.wikipedia.org/wiki/IPv4"
@@ -928,10 +939,9 @@ public:
             @ref set_host_ipvfuture,
             @ref set_host_name.
     */
-    BOOST_URL_DECL
     url_base&
     set_host(
-        string_view s);
+        core::string_view s);
 
     /** Set the host
 
@@ -986,6 +996,8 @@ public:
 
         @param s The string to set.
 
+        @return `*this`
+
         @par BNF
         @code
         host        = IP-literal / IPv4address / reg-name
@@ -1013,7 +1025,6 @@ public:
             @ref set_host_ipvfuture,
             @ref set_host_name.
     */
-    BOOST_URL_DECL
     url_base&
     set_encoded_host(pct_string_view s);
 
@@ -1060,8 +1071,6 @@ public:
         Strong guarantee.
         Calls to allocate may throw.
 
-        @param s The string to set.
-
         @par BNF
         @code
         IPv4address = dec-octet "." dec-octet "." dec-octet "." dec-octet
@@ -1093,6 +1102,9 @@ public:
         reg-name    = *( unreserved / pct-encoded / "-" / ".")
         @endcode
 
+        @param s The string to set.
+        @return `*this`
+
         @par Specification
         @li <a href="https://en.wikipedia.org/wiki/IPv4"
             >IPv4 (Wikipedia)</a>
@@ -1112,9 +1124,8 @@ public:
             @ref set_host_ipvfuture,
             @ref set_host_name.
     */
-    BOOST_URL_DECL
     url_base&
-    set_host_address(string_view s);
+    set_host_address(core::string_view s);
 
     /** Set the host to an address
 
@@ -1165,8 +1176,6 @@ public:
         @throw system_error
         `s` contains an invalid percent-encoding.
 
-        @param s The string to set.
-
         @par BNF
         @code
         IPv4address = dec-octet "." dec-octet "." dec-octet "." dec-octet
@@ -1198,6 +1207,9 @@ public:
         reg-name    = *( unreserved / pct-encoded / "-" / ".")
         @endcode
 
+        @param s The string to set.
+        @return `*this`
+
         @par Specification
         @li <a href="https://en.wikipedia.org/wiki/IPv4"
             >IPv4 (Wikipedia)</a>
@@ -1216,7 +1228,6 @@ public:
             @ref set_host_ipvfuture,
             @ref set_host_name.
     */
-    BOOST_URL_DECL
     url_base&
     set_encoded_host_address(
         pct_string_view s);
@@ -1245,6 +1256,7 @@ public:
         Calls to allocate may throw.
 
         @param addr The address to set.
+        @return `*this`
 
         @par BNF
         @code
@@ -1273,7 +1285,6 @@ public:
             @ref set_host_ipvfuture,
             @ref set_host_name.
     */
-    BOOST_URL_DECL
     url_base&
     set_host_ipv4(
         ipv4_address const& addr);
@@ -1302,6 +1313,8 @@ public:
         Calls to allocate may throw.
 
         @param addr The address to set.
+
+        @return `*this`
 
         @par BNF
         @code
@@ -1338,10 +1351,66 @@ public:
             @ref set_host_ipvfuture,
             @ref set_host_name.
     */
-    BOOST_URL_DECL
     url_base&
     set_host_ipv6(
         ipv6_address const& addr);
+
+    /** Set the zone ID for an IPv6 address.
+
+        This function sets the zone ID for the host if the host is an IPv6 address.
+        Reserved characters in the string are percent-escaped in the result.
+
+        @par Example
+        @code
+        assert( u.set_host_ipv6( ipv6_address( "fe80::1" ) ).set_zone_id( "eth0" ).buffer() == "https://[fe80::1%25eth0]" );
+        @endcode
+
+        @par Complexity
+        Linear in `this->size()`.
+
+        @par Exception Safety
+        Strong guarantee. Calls to allocate may throw.
+
+        @param s The zone ID to set.
+        @return `*this`
+
+        @par Specification
+        @li <a href="https://datatracker.ietf.org/doc/html/rfc6874">RFC 6874</a>
+
+    */
+    url_base&
+    set_zone_id(core::string_view s);
+
+    /** Set the zone ID for an IPv6 address (percent-encoded).
+
+        This function sets the zone ID for the host if the host is an IPv6 address.
+        Escapes in the string are preserved, and reserved characters in the string
+        are percent-escaped in the result.
+
+        @par Example
+        @code
+        assert( u.set_host_ipv6( ipv6_address( "fe80::1" ) ).set_encoded_zone_id( "eth0" ).buffer() == "https://[fe80::1%25eth0]" );
+        @endcode
+
+        @par Complexity
+        Linear in `this->size()`.
+
+        @par Exception Safety
+        Strong guarantee. Calls to allocate may throw.
+        Exceptions thrown on invalid input.
+
+        @throw system_error
+        `s` contains an invalid percent-encoding.
+
+        @param s The zone ID to set.
+        @return `*this`
+
+        @par Specification
+        @li <a href="https://datatracker.ietf.org/doc/html/rfc6874">RFC 6874</a>
+
+    */
+    url_base&
+    set_encoded_zone_id(pct_string_view s);
 
     /** Set the host to an address
 
@@ -1372,6 +1441,8 @@ public:
 
         @param s The string to set.
 
+        @return `*this`
+
         @par BNF
         @code
         IPvFuture     = "v" 1*HEXDIG "." 1*( unreserved / sub-delims / ":" )
@@ -1391,10 +1462,9 @@ public:
             @ref set_host_ipv6,
             @ref set_host_name.
     */
-    BOOST_URL_DECL
     url_base&
     set_host_ipvfuture(
-        string_view s);
+        core::string_view s);
 
     /** Set the host to a name
 
@@ -1419,6 +1489,7 @@ public:
         Calls to allocate may throw.
 
         @param s The string to set.
+        @return `*this`
 
         @par BNF
         @code
@@ -1439,10 +1510,9 @@ public:
             @ref set_host_ipv6,
             @ref set_host_ipvfuture.
     */
-    BOOST_URL_DECL
     url_base&
     set_host_name(
-        string_view s);
+        core::string_view s);
 
     /** Set the host to a name
 
@@ -1473,6 +1543,7 @@ public:
         `s` contains an invalid percent-encoding.
 
         @param s The string to set.
+        @return `*this`
 
         @par BNF
         @code
@@ -1493,7 +1564,6 @@ public:
             @ref set_host_ipvfuture,
             @ref set_host_name.
     */
-    BOOST_URL_DECL
     url_base&
     set_encoded_host_name(
         pct_string_view s);
@@ -1523,6 +1593,8 @@ public:
 
         @param n The port number to set.
 
+        @return `*this`
+
         @par BNF
         @code
         authority     = [ userinfo "@" ] host [ ":" port ]
@@ -1538,7 +1610,6 @@ public:
             @ref remove_port,
             @ref set_port.
     */
-    BOOST_URL_DECL
     url_base&
     set_port_number(std::uint16_t n);
 
@@ -1568,6 +1639,7 @@ public:
         `s` does not contain a valid port.
 
         @param s The port string to set.
+        @return `*this`
 
         @par BNF
         @code
@@ -1582,14 +1654,15 @@ public:
             @ref remove_port,
             @ref set_port.
     */
-    BOOST_URL_DECL
     url_base&
-    set_port(string_view s);
+    set_port(core::string_view s);
 
     /** Remove the port
 
         If a port exists, it is removed. The rest
         of the authority is unchanged.
+
+        @return `*this`
 
         @par Example
         @code
@@ -1621,7 +1694,6 @@ public:
         @see
             @ref set_port.
     */
-    BOOST_URL_DECL
     url_base&
     remove_port() noexcept;
 
@@ -1654,6 +1726,8 @@ public:
         this->is_path_absolute() == true && this->encoded_path().front() == '/'
         @endcode
 
+        @param absolute If `true`, the path is made absolute.
+
         @return true on success.
 
         @par Complexity
@@ -1684,7 +1758,6 @@ public:
             @ref set_encoded_path,
             @ref set_path.
     */
-    BOOST_URL_DECL
     bool
     set_path_absolute(bool absolute);
 
@@ -1697,8 +1770,16 @@ public:
 
         @note
         The library may adjust the final result
-        to ensure that no other parts of the url
-        is semantically affected.
+        to ensure that no other parts of the URL
+        are semantically affected.
+
+        @note
+        This function does not encode '/' chars, which
+        are unreserved for paths but reserved for
+        path segments. If a path segment should include
+        encoded '/'s to differentiate it from path separators,
+        the functions @ref set_encoded_path or @ref segments
+        should be used instead.
 
         @par Example
         @code
@@ -1717,6 +1798,7 @@ public:
         Calls to allocate may throw.
 
         @param s The string to set.
+        @return `*this`
 
         @par BNF
         @code
@@ -1743,10 +1825,9 @@ public:
             @ref set_encoded_path,
             @ref set_path_absolute.
     */
-    BOOST_URL_DECL
     url_base&
     set_path(
-        string_view s);
+        core::string_view s);
 
     /** Set the path.
 
@@ -1784,6 +1865,8 @@ public:
 
         @param s The string to set.
 
+        @return `*this`
+
         @par BNF
         @code
         path          = path-abempty    ; begins with "/" or is empty
@@ -1809,7 +1892,6 @@ public:
             @ref set_path,
             @ref set_path_absolute.
     */
-    BOOST_URL_DECL
     url_base&
     set_encoded_path(
         pct_string_view s);
@@ -1826,6 +1908,8 @@ public:
         The container is modifiable; changes
         to the container are reflected in the
         underlying URL.
+
+        @return `*this`
 
         @par Example
         @code
@@ -1865,9 +1949,15 @@ public:
             @ref set_path,
             @ref set_path_absolute.
     */
-    BOOST_URL_DECL
     urls::segments_ref
     segments() noexcept;
+
+    /// @copydoc url_view_base::segments
+    segments_view
+    segments() const noexcept
+    {
+        return url_view_base::segments();
+    }
 
     /** Return the path as a container of segments
 
@@ -1881,6 +1971,8 @@ public:
         The container is modifiable; changes
         to the container are reflected in the
         underlying URL.
+
+        @return `*this`
 
         @par Example
         @code
@@ -1920,9 +2012,15 @@ public:
             @ref set_path,
             @ref set_path_absolute.
     */
-    BOOST_URL_DECL
     segments_encoded_ref
     encoded_segments() noexcept;
+
+    /// @copydoc url_view_base::encoded_segments
+    segments_encoded_view
+    encoded_segments() const noexcept
+    {
+        return url_view_base::encoded_segments();
+    }
 
     //--------------------------------------------
     //
@@ -1954,6 +2052,7 @@ public:
         Calls to allocate may throw.
 
         @param s The string to set.
+        @return `*this`
 
         @par BNF
         @code
@@ -1964,7 +2063,7 @@ public:
         @endcode
 
         @par Specification
-        @li <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.4
+        @li <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.4"
             >3.4.  Query (rfc3986)</a>
         @li <a href="https://en.wikipedia.org/wiki/Query_string"
             >Query string (Wikipedia)</a>
@@ -1975,10 +2074,9 @@ public:
             @ref remove_query,
             @ref set_encoded_query.
     */
-    BOOST_URL_DECL
     url_base&
     set_query(
-        string_view s);
+        core::string_view s);
 
     /** Set the query
 
@@ -2007,6 +2105,7 @@ public:
         Exceptions thrown on invalid input.
 
         @param s The string to set.
+        @return `*this`
 
         @throws system_error
         `s` contains an invalid percent-encoding.
@@ -2020,7 +2119,7 @@ public:
         @endcode
 
         @par Specification
-        @li <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.4
+        @li <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.4"
             >3.4.  Query (rfc3986)</a>
         @li <a href="https://en.wikipedia.org/wiki/Query_string"
             >Query string (Wikipedia)</a>
@@ -2031,7 +2130,6 @@ public:
             @ref remove_query,
             @ref set_query.
     */
-    BOOST_URL_DECL
     url_base&
     set_encoded_query(
         pct_string_view s);
@@ -2048,6 +2146,8 @@ public:
         The container is modifiable; changes
         to the container are reflected in the
         underlying URL.
+
+        @return `*this`
 
         @par Example
         @code
@@ -2069,7 +2169,7 @@ public:
         @endcode
 
         @par Specification
-        @li <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.4
+        @li <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.4"
             >3.4.  Query (rfc3986)</a>
         @li <a href="https://en.wikipedia.org/wiki/Query_string"
             >Query string (Wikipedia)</a>
@@ -2080,9 +2180,15 @@ public:
             @ref set_encoded_query,
             @ref set_query.
     */
-    BOOST_URL_DECL
     params_ref
     params() noexcept;
+
+    /// @copydoc url_view_base::params
+    params_view
+    params() const noexcept
+    {
+        return url_view_base::params();
+    }
 
     /** Return the query as a container of parameters
 
@@ -2114,6 +2220,8 @@ public:
         this parameter is omitted, the `space_as_plus`
         is used.
 
+        @return A range of references to the parameters.
+
         @par BNF
         @code
         query           = *( pchar / "/" / "?" )
@@ -2123,7 +2231,7 @@ public:
         @endcode
 
         @par Specification
-        @li <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.4
+        @li <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.4"
             >3.4.  Query (rfc3986)</a>
         @li <a href="https://en.wikipedia.org/wiki/Query_string"
             >Query string (Wikipedia)</a>
@@ -2134,9 +2242,15 @@ public:
             @ref set_encoded_query,
             @ref set_query.
     */
-    BOOST_URL_DECL
     params_ref
     params(encoding_opts opt) noexcept;
+
+    /// @copydoc url_view_base::encoded_params
+    params_encoded_view
+    encoded_params() const noexcept
+    {
+        return url_view_base::encoded_params();
+    }
 
     /** Return the query as a container of parameters
 
@@ -2150,6 +2264,8 @@ public:
         The container is modifiable; changes
         to the container are reflected in the
         underlying URL.
+
+        @return `*this`
 
         @par Example
         @code
@@ -2171,7 +2287,7 @@ public:
         @endcode
 
         @par Specification
-        @li <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.4
+        @li <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.4"
             >3.4.  Query (rfc3986)</a>
         @li <a href="https://en.wikipedia.org/wiki/Query_string"
             >Query string (Wikipedia)</a>
@@ -2182,15 +2298,135 @@ public:
             @ref set_encoded_query,
             @ref set_query.
     */
-    BOOST_URL_DECL
     params_encoded_ref
     encoded_params() noexcept;
+
+    /** Set the query params
+
+        This sets the query params to the list
+        of param_view, which can be empty.
+
+        An empty list of params is distinct from
+        having no params.
+
+        Reserved characters in the string are
+        percent-escaped in the result.
+
+        @par Example
+        @code
+        assert( url( "http://example.com" ).set_params( {"id", "42"} ).query() == "id=42" );
+        @endcode
+
+        @par Postconditions
+        @code
+        this->has_query() == true
+        @endcode
+
+        @par Exception Safety
+        Strong guarantee.
+        Calls to allocate may throw.
+
+        @par Complexity
+        Linear.
+
+        @param ps The params to set.
+        @param opts The options for encoding.
+        @return `*this`
+
+        @par BNF
+        @code
+        query           = *( pchar / "/" / "?" )
+
+        query-param     = key [ "=" value ]
+        query-params    = [ query-param ] *( "&" query-param )
+        @endcode
+
+        @par Specification
+        @li <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.4
+            >3.4.  Query (rfc3986)</a>
+        @li <a href="https://en.wikipedia.org/wiki/Query_string"
+            >Query string (Wikipedia)</a>
+
+        @see
+            @ref encoded_params,
+            @ref remove_query,
+            @ref set_encoded_query,
+            @ref set_query.
+    */
+    url_base&
+    set_params(
+        std::initializer_list<param_view> ps,
+        encoding_opts opts = {}) noexcept;
+
+    /** Set the query params
+
+        This sets the query params to the elements
+        in the list, which may contain
+        percent-escapes and can be empty.
+
+        An empty list of params is distinct from
+        having no query.
+
+        Escapes in the string are preserved,
+        and reserved characters in the string
+        are percent-escaped in the result.
+
+        @par Example
+        @code
+        assert( url( "http://example.com" ).set_encoded_params( {"id", "42"} ).encoded_query() == "id=42" );
+        @endcode
+
+        @par Postconditions
+        @code
+        this->has_query() == true
+        @endcode
+
+        @par Complexity
+        Linear.
+
+        @par Exception Safety
+        Strong guarantee.
+        Calls to allocate may throw.
+        Exceptions thrown on invalid input.
+
+        @param ps The params to set.
+
+        @return `*this`
+
+        @throws system_error
+        some element in `ps` contains an invalid percent-encoding.
+
+        @par BNF
+        @code
+        query           = *( pchar / "/" / "?" )
+
+        query-param     = key [ "=" value ]
+        query-params    = [ query-param ] *( "&" query-param )
+        @endcode
+
+        @par Specification
+        @li <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.4"
+            >3.4. Query (rfc3986)</a>
+        @li <a href="https://en.wikipedia.org/wiki/Query_string"
+            >Query string (Wikipedia)</a>
+
+        @see
+            @ref set_params,
+            @ref params,
+            @ref remove_query,
+            @ref set_encoded_query,
+            @ref set_query.
+    */
+    url_base&
+    set_encoded_params( std::initializer_list< param_pct_view > ps ) noexcept;
 
     /** Remove the query
 
         If a query is present, it is removed.
         An empty query is distinct from having
         no query.
+
+        @return `*this`
 
         @par Example
         @code
@@ -2214,7 +2450,7 @@ public:
         @endcode
 
         @par Specification
-        @li <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.4
+        @li <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-3.4"
             >3.4.  Query (rfc3986)</a>
         @li <a href="https://en.wikipedia.org/wiki/Query_string"
             >Query string (Wikipedia)</a>
@@ -2225,7 +2461,6 @@ public:
             @ref set_encoded_query,
             @ref set_query.
     */
-    BOOST_URL_DECL
     url_base&
     remove_query() noexcept;
 
@@ -2240,6 +2475,8 @@ public:
         This function removes the fragment.
         An empty fragment is distinct from
         having no fragment.
+
+        @return `*this`
 
         @par Example
         @code
@@ -2271,7 +2508,6 @@ public:
             @ref set_encoded_fragment,
             @ref set_fragment.
     */
-    BOOST_URL_DECL
     url_base&
     remove_fragment() noexcept;
 
@@ -2303,6 +2539,8 @@ public:
 
         @param s The string to set.
 
+        @return `*this`
+
         @par BNF
         @code
         fragment    = *( pchar / "/" / "?" )
@@ -2316,10 +2554,9 @@ public:
             @ref remove_fragment,
             @ref set_encoded_fragment.
     */
-    BOOST_URL_DECL
     url_base&
     set_fragment(
-        string_view s);
+        core::string_view s);
 
     /** Set the fragment.
 
@@ -2331,6 +2568,8 @@ public:
         Escapes in the string are preserved,
         and reserved characters in the string
         are percent-escaped in the result.
+
+        @return `*this`
 
         @par Example
         @code
@@ -2355,6 +2594,8 @@ public:
 
         @param s The string to set.
 
+        @return `*this`
+
         @par BNF
         @code
         fragment    = *( pchar / "/" / "?" )
@@ -2368,7 +2609,6 @@ public:
             @ref remove_fragment,
             @ref set_fragment.
     */
-    BOOST_URL_DECL
     url_base&
     set_encoded_fragment(
         pct_string_view s);
@@ -2383,6 +2623,8 @@ public:
 
         This function removes the origin, which
         consists of the scheme and authority.
+
+        @return `*this`
 
         @par Example
         @code
@@ -2400,7 +2642,6 @@ public:
         @par Exception Safety
         Throws nothing.
     */
-    BOOST_URL_DECL
     url_base&
     remove_origin();
 
@@ -2415,6 +2656,8 @@ public:
         Applies Syntax-based normalization to
         all components of the URL.
 
+        @return `*this`
+
         @par Exception Safety
         Strong guarantee.
         Calls to allocate may throw.
@@ -2424,7 +2667,6 @@ public:
             >6.2.2 Syntax-Based Normalization (rfc3986)</a>
 
     */
-    BOOST_URL_DECL
     url_base&
     normalize();
 
@@ -2435,6 +2677,8 @@ public:
 
         The scheme is normalized to lowercase.
 
+        @return `*this`
+
         @par Exception Safety
         Strong guarantee.
         Calls to allocate may throw.
@@ -2444,7 +2688,6 @@ public:
             >6.2.2 Syntax-Based Normalization (rfc3986)</a>
 
     */
-    BOOST_URL_DECL
     url_base&
     normalize_scheme();
 
@@ -2458,6 +2701,8 @@ public:
         octets that correspond to unreserved
         characters are decoded.
 
+        @return `*this`
+
         @par Exception Safety
         Strong guarantee.
         Calls to allocate may throw.
@@ -2467,7 +2712,6 @@ public:
             >6.2.2 Syntax-Based Normalization (rfc3986)</a>
 
     */
-    BOOST_URL_DECL
     url_base&
     normalize_authority();
 
@@ -2482,6 +2726,8 @@ public:
         characters are decoded. Redundant
         path-segments are removed.
 
+        @return `*this`
+
         @par Exception Safety
         Strong guarantee.
         Calls to allocate may throw.
@@ -2491,7 +2737,6 @@ public:
             >6.2.2 Syntax-Based Normalization (rfc3986)</a>
 
     */
-    BOOST_URL_DECL
     url_base&
     normalize_path();
 
@@ -2505,6 +2750,8 @@ public:
         octets that correspond to unreserved
         characters are decoded.
 
+        @return `*this`
+
         @par Exception Safety
         Strong guarantee.
         Calls to allocate may throw.
@@ -2514,7 +2761,6 @@ public:
             >6.2.2 Syntax-Based Normalization (rfc3986)</a>
 
     */
-    BOOST_URL_DECL
     url_base&
     normalize_query();
 
@@ -2528,6 +2774,8 @@ public:
         octets that correspond to unreserved
         characters are decoded.
 
+        @return `*this`
+
         @par Exception Safety
         Strong guarantee.
         Calls to allocate may throw.
@@ -2537,7 +2785,6 @@ public:
             >6.2.2 Syntax-Based Normalization (rfc3986)</a>
 
     */
-    BOOST_URL_DECL
     url_base&
     normalize_fragment();
 
@@ -2587,8 +2834,15 @@ public:
         resolution into this URL in place.
 
         If an error occurs, the contents of
-        this URL are unspecified and a @ref result
-        with an @ref error_code is returned.
+        this URL are unspecified and a `boost::system::result`
+        with an `system::error_code` is returned.
+
+        @note Abnormal hrefs where the number of ".."
+        segments exceeds the number of segments in
+        the base path are handled by including the
+        unmatched ".." segments in the result, as described
+        in <a href="https://www.rfc-editor.org/errata/eid4547"
+        >Errata 4547</a>.
 
         @par Example
         @code
@@ -2618,7 +2872,7 @@ public:
         Basic guarantee.
         Calls to allocate may throw.
 
-        @return An empty @ref result upon success,
+        @return An empty `boost::system::result` upon success,
         otherwise an error code if `!base.has_scheme()`.
 
         @param ref The URL reference to resolve.
@@ -2631,13 +2885,12 @@ public:
             @ref url,
             @ref url_view.
     */
-    BOOST_URL_DECL
-    result<void>
+    system::result<void>
     resolve(
         url_view_base const& ref);
 
     friend
-    result<void>
+    system::result<void>
     resolve(
         url_view_base const& base,
         url_view_base const& ref,
@@ -2657,17 +2910,27 @@ private:
     char* shrink_impl(int, std::size_t, op_t&);
     char* shrink_impl(int, int, std::size_t, op_t&);
 
-    void  set_scheme_impl(string_view, urls::scheme);
+    void  set_scheme_impl(core::string_view, urls::scheme);
     char* set_user_impl(std::size_t n, op_t& op);
     char* set_password_impl(std::size_t n, op_t& op);
     char* set_userinfo_impl(std::size_t n, op_t& op);
     char* set_host_impl(std::size_t n, op_t& op);
     char* set_port_impl(std::size_t n, op_t& op);
+    char* set_path_impl(std::size_t n, op_t& op);
 
-    string_view
+    void
+    set_host_ipv6_and_zone_id(
+        ipv6_address const& addr,
+        core::string_view zone_id);
+
+    void
+    set_host_ipv6_and_encoded_zone_id(
+        ipv6_address const& addr,
+        pct_string_view zone_id);
+
+    core::string_view
     first_segment() const noexcept;
 
-    BOOST_URL_DECL
     detail::segments_iter_impl
     edit_segments(
         detail::segments_iter_impl const&,
@@ -2675,7 +2938,6 @@ private:
         detail::any_segments_iter&& it0,
         int absolute = -1);
 
-    BOOST_URL_DECL
     auto
     edit_params(
         detail::params_iter_impl const&,
@@ -2683,15 +2945,27 @@ private:
         detail::any_params_iter&&) ->
             detail::params_iter_impl;
 
-    BOOST_URL_DECL
-    result<void>
-    resolve_impl(
-        url_view_base const& base,
-        url_view_base const& ref);
+    // Decode any unnecessary percent-escapes
+    // and ensures hexadecimals are uppercase.
+    // The encoding of ignored characters is
+    // preserved.
+    template
+        <class AllowedCharSet,
+         class IgnoredCharSet>
+    void
+    normalize_octets_impl(
+        int,
+        AllowedCharSet const& allowed,
+        IgnoredCharSet const& ignored,
+        op_t&) noexcept;
 
     template<class CharSet>
-    void normalize_octets_impl(int,
-        CharSet const& allowed, op_t&) noexcept;
+    void
+    normalize_octets_impl(
+        int,
+        CharSet const& allowed,
+        op_t&) noexcept;
+
     void decoded_to_lower_impl(int id) noexcept;
     void to_lower_impl(int id) noexcept;
 };
@@ -2737,10 +3011,17 @@ private:
     If an error occurs, the contents of
     `dest` is unspecified and `ec` is set.
 
+    @note Abnormal hrefs where the number of ".."
+    segments exceeds the number of segments in
+    the base path are handled by including the
+    unmatched ".." segments in the result, as described
+    in <a href="https://www.rfc-editor.org/errata/eid4547"
+    >Errata 4547</a>.
+
     @par Example
     @code
     url dest;
-    error_code ec;
+    system::error_code ec;
 
     resolve("/one/two/three", "four", dest, ec);
     assert( dest.str() == "/one/two/four" );
@@ -2764,7 +3045,7 @@ private:
     Basic guarantee.
     Calls to allocate may throw.
 
-    @return An empty @ref result upon success,
+    @return An empty `boost::system::result` upon success,
     otherwise an error code if `!base.has_scheme()`.
 
     @param base The base URL to resolve against.
@@ -2783,7 +3064,7 @@ private:
         @ref url_view.
 */
 inline
-result<void>
+system::result<void>
 resolve(
     url_view_base const& base,
     url_view_base const& ref,

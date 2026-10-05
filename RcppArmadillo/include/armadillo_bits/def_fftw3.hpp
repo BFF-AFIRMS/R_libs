@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
 // 
-// Copyright 2008-2016 Conrad Sanderson (http://conradsanderson.id.au)
+// Copyright 2008-2016 Conrad Sanderson (https://conradsanderson.id.au)
 // Copyright 2008-2016 National ICT Australia (NICTA)
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// http://www.apache.org/licenses/LICENSE-2.0
+// https://www.apache.org/licenses/LICENSE-2.0
 // 
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,31 +16,38 @@
 // ------------------------------------------------------------------------
 
 
-#if defined(ARMA_USE_FFTW3)
+#if defined(ARMA_USE_FFTW3) && !defined(FFTW3_H)
+
+
+// prefix for single precision: fftwf_
+// prefix for double precision: fftw_
+
+
+typedef void fftwf_complex;
+typedef void  fftw_complex;
+
+typedef void_ptr fftwf_plan;
+typedef void_ptr  fftw_plan;
 
 
 extern "C"
   {
-  // function prefix for single precision: fftwf_
-  // function prefix for double precision: fftw_
-  
-  
   // single precision (float)
   
-  void_ptr fftwf_plan_dft_1d(int N, void* input, void* output, int fftw3_sign, unsigned int fftw3_flags);
+  fftwf_plan fftwf_plan_dft_1d(int N, fftwf_complex* input, fftwf_complex* output, int fftw3_sign, unsigned int fftw3_flags);
   
-  void      fftwf_execute(void_ptr plan);
-  void fftwf_destroy_plan(void_ptr plan);
+  void      fftwf_execute(fftwf_plan plan);
+  void fftwf_destroy_plan(fftwf_plan plan);
   
   void fftwf_cleanup();
   
   
   // double precision (double)
   
-  void_ptr fftw_plan_dft_1d(int N, void* input, void* output, int fftw3_sign, unsigned int fftw3_flags);
+  fftw_plan fftw_plan_dft_1d(int N, fftw_complex* input, fftw_complex* output, int fftw3_sign, unsigned int fftw3_flags);
   
-  void      fftw_execute(void_ptr plan);
-  void fftw_destroy_plan(void_ptr plan);
+  void      fftw_execute(fftw_plan plan);
+  void fftw_destroy_plan(fftw_plan plan);
   
   void fftw_cleanup();
   }

@@ -15,10 +15,10 @@
 #define __BOOST_SORT_PARALLEL_DETAIL_MOVE_BLOCKS_HPP
 
 #include <atomic>
-#include <boost/sort/block_indirect_sort/blk_detail/backbone.hpp>
 #include <future>
 #include <iostream>
 #include <iterator>
+#include <boost/sort/block_indirect_sort/blk_detail/backbone.hpp>
 
 namespace boost
 {
@@ -85,7 +85,7 @@ struct move_blocks
         bscu::atomic_add(counter, 1);
         function_t f1 = [this, sequence, &counter, &error]( ) -> void
         {
-            if (not error)
+            if (! error)
             {
                 try
                 {
@@ -94,7 +94,7 @@ struct move_blocks
                 catch (std::bad_alloc &)
                 {
                     error = true;
-                };
+                }
             }
             bscu::atomic_sub (counter, 1);
         };
@@ -120,7 +120,7 @@ struct move_blocks
         bscu::atomic_add(counter, 1);
         function_t f1 = [this, sequence, &counter, &error]( ) -> void
         {
-            if (not error)
+            if (! error)
             {
                 try
                 {
@@ -129,13 +129,13 @@ struct move_blocks
                 catch (std::bad_alloc &)
                 {
                     error = true;
-                };
+                }
             }
             bscu::atomic_sub (counter, 1);
         };
         bk.works.emplace_back(f1);
     }
-    ;
+
 //---------------------------------------------------------------------------
 }; // end of struct move_blocks
 //---------------------------------------------------------------------------
@@ -168,10 +168,10 @@ move_blocks<Block_size, Group_size, Iter_t, Compare>
     while (pos_index_ini < bk.index.size())
     {
         while (pos_index_ini < bk.index.size()
-                        and bk.index[pos_index_ini].pos() == pos_index_ini)
+                        && bk.index[pos_index_ini].pos() == pos_index_ini)
         {
             ++pos_index_ini;
-        };
+        }
 
         if (pos_index_ini == bk.index.size()) break;
 
@@ -186,7 +186,7 @@ move_blocks<Block_size, Group_size, Iter_t, Compare>
 
             bk.index[pos_index_dest].set_pos(pos_index_dest);
             pos_index_dest = pos_index_src;
-        };
+        }
 
         bk.index[pos_index_dest].set_pos(pos_index_dest);
         vsequence.push_back(sequence);
@@ -198,11 +198,11 @@ move_blocks<Block_size, Group_size, Iter_t, Compare>
         else
         {
             function_move_long_sequence(vsequence.back(), counter, bk.error);
-        };
-    };
+        }
+    }
     bk.exec(counter);
 }
-;
+
 //
 //-------------------------------------------------------------------------
 //  function : move_sequence
@@ -227,9 +227,9 @@ void move_blocks<Block_size, Group_size, Iter_t, Compare>
         range_it range1(range2);
         range2 = bk.get_range(pos_range2);
         move_forward(range1, range2);
-    };
+    }
     move_forward(range2, rbuf);
-};
+}
 //
 //-------------------------------------------------------------------------
 //  function : move_long_sequence
@@ -263,7 +263,7 @@ void move_blocks<Block_size, Group_size, Iter_t, Compare>
         sequence.assign(it_pos, it_pos + size_part);
         index_seq.emplace_back(*(it_pos + size_part - 1));
         function_move_sequence(sequence, son_counter, bk.error);
-    };
+    }
 
     sequence.assign(it_pos, init_sequence.end());
     index_seq.emplace_back(init_sequence.back());
@@ -276,9 +276,9 @@ void move_blocks<Block_size, Group_size, Iter_t, Compare>
 
 //
 //****************************************************************************
-}; //    End namespace blk_detail
-}; //    End namespace sort
-}; //    End namespace boost
+} //    End namespace blk_detail
+} //    End namespace sort
+} //    End namespace boost
 //****************************************************************************
 //
 #endif

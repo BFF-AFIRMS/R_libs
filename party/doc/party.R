@@ -237,7 +237,21 @@ plot(mtree)
 
 
 ###################################################
-### code chunk number 35: spider-ctree (eval = FALSE)
+### code chunk number 35: bib
+###################################################
+thisdir <- getwd()
+bibfile <- system.file("REFERENCES.bib", package = "party")
+### bibfile may contain spaces LaTeX is unable to deal with on MacOS it seems
+if (file.copy(bibfile, to = thisdir, overwrite = TRUE)) {
+    bibfile <- "REFERENCES.bib"
+} else {
+    ### hope for the best
+    bibfile <- file.path("..", "inst", "REFERENCES.bib")
+}
+
+
+###################################################
+### code chunk number 36: spider-ctree (eval = FALSE)
 ###################################################
 ## data("spider", package = "mvpart")   
 ## sptree <- ctree(arct.lute + pard.lugu + zora.spin + pard.nigr + pard.pull +
@@ -258,8 +272,6 @@ plot(mtree)
 
 
 ###################################################
-### code chunk number 36: spider-plot (eval = FALSE)
+### code chunk number 37: spider-plot (eval = FALSE)
 ###################################################
 ## plot(sptree, terminal_panel = node_terminal)
-
-

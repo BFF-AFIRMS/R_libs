@@ -17,9 +17,9 @@
  * (see safe_arithm.c)
  */
 
-void reset_ovflow_flag();
+void reset_ovflow_flag(void);
 
-int get_ovflow_flag();
+int get_ovflow_flag(void);
 
 int safe_int_add(
 	int x,
@@ -632,18 +632,50 @@ SEXP extract_bytes_by_ranges(
 );
 
 /*
+ * map_ranges_to_runs.c
+ */
+
+const char *ranges_mapper(
+	const int *run_lengths,
+	int nrun,
+	const int *start,
+	const int *width,
+	int nranges,
+	int *mapped_range_offset,
+	int *mapped_range_span,
+	int *mapped_range_Ltrim,
+	int *mapped_range_Rtrim,
+	int method
+);
+
+const char *positions_mapper(
+	const int *run_lengths,
+	int nrun,
+	const int *pos,
+	int npos,
+	int *mapped_pos,
+	int method
+);
+
+/*
  * Low-level manipulation of Hits objects.
  * (see Hits_class.c)
  */
 
 SEXP new_Hits(
-	const char *Class,
+	const char *classname,
 	int *from,
 	const int *to,
 	int nhit,
 	int nLnode,
 	int nRnode,
 	int already_sorted
+);
+
+SEXP new_SortedByQueryHits_from_IntAEAE(
+	const IntAEAE *aeae,
+	int nRnode,
+	int transpose
 );
 
 int get_select_mode(SEXP select);
@@ -717,9 +749,14 @@ void set_List_elementType(SEXP x, const char *type);
 SEXP new_SimpleList(const char *classname, SEXP listData);
 
 /*
- * Low-level manipulation of DataFrame objects.
- * (see DataFrame_class.c)
+ * Low-level manipulation of DFrame objects.
+ * (see DFrame_class.c)
  */
 
-SEXP new_DataFrame(const char *classname, SEXP vars, SEXP rownames, SEXP nrows);
+SEXP new_DFrame(
+	const char *classname,
+	SEXP listData,
+	SEXP nrows,
+	SEXP rownames
+);
 
